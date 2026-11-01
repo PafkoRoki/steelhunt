@@ -25,11 +25,11 @@
   },
   "cannondale": {
     "src": "logos/cannondale.svg",
-    "title": "Cannondale Logo.svg",
-    "page": "https://commons.wikimedia.org/wiki/File:Cannondale_Logo.svg",
-    "license": "Public domain",
-    "author": "Cannondale Japan",
-    "source": "Wikimedia Commons"
+    "title": "cannondale.svg (z cannondale.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "marin": {
     "src": "logos/marin.svg",
@@ -377,11 +377,11 @@
   },
   "bianchi": {
     "src": "logos/bianchi.svg",
-    "title": "Bianchi logo.svg",
-    "page": "https://commons.wikimedia.org/wiki/File:Bianchi_logo.svg",
-    "license": "Public domain",
-    "author": "Bianchi",
-    "source": "Wikimedia Commons"
+    "title": "bianchi.svg (z bianchi.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "puch": {
     "src": "logos/puch.svg",
