@@ -19,9 +19,9 @@ const NAV = [
   { to: '/settings', label: 'Ustawienia', icon: Settings },
 ];
 
-/** Brand mark: a tube passing through a plain lug sleeve, flat single-colour glyph (same drawing as public/favicon.svg). */
-export function LogoMark({ size = 20 }: { size?: number }) {
-  return <img src="logo-mark.svg" alt="" width={size * (58 / 22)} height={size} className="shrink-0" />;
+/** Brand mark: two steel couplers (one standing, one lying), flat single-colour glyph (same drawing as public/favicon.svg). */
+export function LogoMark({ size = 30 }: { size?: number }) {
+  return <img src="logo-mark.svg" alt="" width={size * (49 / 56)} height={size} className="shrink-0" />;
 }
 
 export function Logo() {
