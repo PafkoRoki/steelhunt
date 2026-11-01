@@ -65,11 +65,11 @@
   },
   "giant": {
     "src": "logos/giant.svg",
-    "title": "Giant bycicles logo 2.svg",
-    "page": "https://commons.wikimedia.org/wiki/File:Giant_bycicles_logo_2.svg",
-    "license": "Public domain",
-    "author": "Unknown authorUnknown author",
-    "source": "Wikimedia Commons"
+    "title": "giant.svg (z giant.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "scott": {
     "src": "logos/scott.svg",
@@ -90,6 +90,14 @@
   "schwinn": {
     "src": "logos/schwinn.svg",
     "title": "schwinn.svg (emblemat z schwinn.cdr + napis z schwinn.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "diamondback": {
+    "src": "logos/diamondback.png",
+    "title": "diamondback.png",
     "page": null,
     "license": null,
     "author": null,
@@ -305,11 +313,11 @@
   },
   "batavus": {
     "src": "logos/batavus.svg",
-    "title": "Batavus logo.svg",
-    "page": "https://commons.wikimedia.org/wiki/File:Batavus_logo.svg",
-    "license": "Public domain",
-    "author": "Accell Nederland B.V.",
-    "source": "Wikimedia Commons"
+    "title": "batavus.svg (z batavus.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "checker-pig": {
     "src": "logos/checker-pig.png",
