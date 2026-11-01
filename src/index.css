@@ -72,7 +72,7 @@
 /* Leaflet dark-tone tuning */
 .leaflet-container {
   background: #101112;
-  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .steel-tiles {
   filter: grayscale(0.85) invert(0.92) hue-rotate(180deg) brightness(0.82) contrast(0.92);

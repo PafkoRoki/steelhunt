@@ -20,20 +20,7 @@ const NAV = [
 
 export function Logo() {
   return (
-    <div className="flex items-center gap-2.5">
-      <svg viewBox="0 0 64 64" className="h-8 w-8" aria-hidden>
-        <rect width="64" height="64" rx="14" fill="#1d2a1f" />
-        <g fill="none" stroke="#7fa283" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="17" cy="40" r="10" />
-          <circle cx="47" cy="40" r="10" />
-          <path d="M17 40 L27 22 L41 22 L47 40 M27 22 L33 40 L41 22 M33 40 L17 40" />
-        </g>
-      </svg>
-      <div className="leading-none">
-        <div className="font-display text-xl font-bold tracking-[0.12em] text-ink-100">STEELHUNT</div>
-        <div className="mt-0.5 text-[10px] uppercase tracking-[0.2em] text-moss-400/80">vintage steel · Poznań</div>
-      </div>
-    </div>
+    <div className="text-xl font-bold leading-none tracking-[0.08em] text-ink-100">STEELHUNT</div>
   );
 }
 

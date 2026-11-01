@@ -363,7 +363,8 @@ function toRecords(cands: Candidate[], previous: AutoRecord[], known: Set<string
   // Re-check them against the current filters (filters improve over time).
   for (const r of previous) {
     if (records.has(r.url) || Date.parse(r.lastSeen) < cutoff || known.has(r.url.split('?')[0])) continue;
-    const a = analyzeListings([normalizeImportRecord(r)], DEFAULT_SETTINGS, db)[0];
+    // Re-detect the item type from the text (the stored one may come from older, weaker rules).
+    const a = analyzeListings([normalizeImportRecord({ ...r, itemType: undefined })], DEFAULT_SETTINGS, db)[0];
     if (keep(a, `${r.title} ${r.description}`)) records.set(r.url, r);
   }
   return { records: [...records.values()], added };

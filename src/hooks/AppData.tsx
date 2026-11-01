@@ -117,8 +117,8 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
   const listings = useMemo(() => {
     const nowIso = new Date(now).toISOString();
     const merged = mergeListings([], [...live.listings, ...imports, ...samples], nowIso).merged;
-    // Road bikes are out of scope: dropped before anything is shown.
-    return analyzeListings(merged, settings, db, now).filter((l) => !isRoadBike(l));
+    // Out of scope, dropped before anything is shown: road bikes and single parts (tyres, bar ends, saddles…).
+    return analyzeListings(merged, settings, db, now).filter((l) => !isRoadBike(l) && l.analysis.itemType !== 'components');
   }, [live.listings, imports, samples, settings, db, now]);
 
   /** Listings matching the user's focus (retro MTB only, by default). */

@@ -54,8 +54,8 @@ const FORK_RE = /\b(widel\w*|fork\w*|amortyzator\w*|\w*gabel\w*)\b/;
 const FRAME_RE = /\b(ram[aeyi]\w*|frame\w*|rury\w*|tubing|tubeset|\w*rahmen\w*|rohre?\w*)\b/;
 const MAIN_TUBES_RE = /(main\s*tubes?|rury\s*glown\w*|glown\w*\s*rury|3\s*main|trzy\s*(?:glowne\s*)?rury|main\s*triangle|glowny\s*trojkat|hauptrohre?)/;
 const PART_WORDS =
-  /\b(kierownic\w*|mostek|siodel\w*|siodlo|sztyca|manetk\w*|klamk\w*|przerzutk\w*|korb\w*|kaset\w*|piast\w*|obrecz\w*|opon\w*|pedal\w*|widelec|amortyzator\w*|hamulc\w*|stery|lenker|vorbau|sattel\w*|gabel|starrgabel|federgabel|schaltwerk|schalthebel|kurbel\w*|nabe\w*|bremse\w*|felge\w*|reifen|laufrad\w*|laufradsatz|steuersatz|fork|stem|handlebar|saddle|derailleur|crankset|chainsuck)\b/;
-const BIKE_WORDS = /\b(rower|rowery|roweru|fahrrad|fahrrader|mountainbike\w*|bike|\brad\b|komplet\w*|rama|ramy|rahmen\w*|frameset|frame)\b/;
+  /\b(rogi|rozki|bar\s*ends?|barends?|hornchen|\w*gabel|detk\w*|schlauch\w*|lancuch\w*|kette|kierownic\w*|mostek|siodel\w*|siodlo|sztyca|manetk\w*|klamk\w*|przerzutk\w*|korb\w*|kaset\w*|piast\w*|obrecz\w*|opon\w*|pedal\w*|widelec|amortyzator\w*|hamulc\w*|stery|lenker|vorbau|sattel\w*|gabel|starrgabel|federgabel|schaltwerk|schalthebel|kurbel\w*|nabe\w*|bremse\w*|felge\w*|reifen|laufrad\w*|laufradsatz|steuersatz|fork|stem|handlebar|saddle|derailleur|crankset|chainsuck)\b/;
+const BIKE_WORDS = /\b(rower|rowery|roweru|fahrrad|fahrrader|mountainbike\w*|bike|\brad\b|rama|ramy|rahmen\w*|frameset|frame)\b/;
 const FRAME_AND_FORK_RE = /(ram[aeyi]\w*\s*(?:i|oraz|and|\+|&|z)\s*widel\w*|widel\w*\s*(?:i|oraz|and|\+|&)\s*ram[aeyi]\w*|frame\s*(?:and|&|\+)\s*fork|rahmen\s*(?:und|\+|&|mit)\s*\w*gabel\w*|gabel\w*\s*(?:und|\+|&)\s*rahmen)/;
 const DECAL_RE = /(naklejk\w*|decal\w*|sticker\w*|aufkleber\w*|emblemat\w*|oryginaln\w*\s*oznaczen\w*)/;
 const BUTTED_RE = /(double[\s-]*butted|triple[\s-]*butted|\bbutted\b|cieniowan\w*|konifiziert\w*|\bd\.?b\.?\b(?=.{0,10}(?:cr|rur|tub))|\btb\b(?=.{0,10}(?:cr|rur|tub)))/;
@@ -318,7 +318,7 @@ const FEATURE_RULES: [string, RegExp][] = [
 const RED_FLAG_RULES: [string, RegExp][] = [
   ['Rower dziecięcy / junior', /(dzieci\w*|dzieciec\w*|dzieck\w*|junior|mlodziezow\w*|nastolat\w*|\bbmx\b|kinder\w*|jugendrad)/],
   ['Rower elektryczny', /(elektryczn\w*|e[\s-]?bike|wspomaganie|pedelec)/],
-  ['Tani full suspension (zwykle niska jakość)', /(podwojn\w*\s*amortyzac|pelne\s*zawieszenie|full\s*(?:suspension|sus)|amortyzator\w*\s*tyln|vollgefedert|\bfully\b)/],
+  ['Tani full suspension (zwykle niska jakość)', /(podwojn\w*\s*amortyzac|pelne\s*zawieszenie|full\s*(?:suspension|sus)|amortyzator\w*\s*tyln|vollgefedert|\bfully\b|super\s*v\s*\d|dualfederung|\bfs\b)/],
   ['Rower z marketu (BSO)', /(supermarket\w*|z\s*marketu|tesco|carrefour|auchan|biedronk\w*|lidl)/],
   ['Fatbike / niestandard', /fat\s*bike/],
 ];
