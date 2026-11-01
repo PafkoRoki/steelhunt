@@ -343,14 +343,6 @@
     "author": null,
     "source": "dodane ręcznie przez właściciela strony"
   },
-  "etto": {
-    "src": "logos/etto.png",
-    "title": "etto.png",
-    "page": null,
-    "license": null,
-    "author": null,
-    "source": "dodane ręcznie przez właściciela strony"
-  },
   "storck": {
     "src": "logos/storck.png",
     "title": "Storck Bicycle Logo.gif",
@@ -415,22 +407,6 @@
     "author": null,
     "source": "dodane ręcznie przez właściciela strony"
   },
-  "romet": {
-    "src": "logos/romet.png",
-    "title": "romet.png",
-    "page": null,
-    "license": null,
-    "author": null,
-    "source": "dodane ręcznie przez właściciela strony"
-  },
-  "kross": {
-    "src": "logos/kross.svg",
-    "title": "kross.svg (z kross.eps)",
-    "page": null,
-    "license": null,
-    "author": null,
-    "source": "dodane ręcznie przez właściciela strony"
-  },
   "klein": {
     "src": "logos/klein.svg",
     "title": "klein.svg",
@@ -451,14 +427,6 @@
   "focus": {
     "src": "logos/focus.svg",
     "title": "focus.svg (z focus.eps)",
-    "page": null,
-    "license": null,
-    "author": null,
-    "source": "dodane ręcznie przez właściciela strony"
-  },
-  "kalkhoff": {
-    "src": "logos/kalkhoff.svg",
-    "title": "kalkhoff.svg",
     "page": null,
     "license": null,
     "author": null,
