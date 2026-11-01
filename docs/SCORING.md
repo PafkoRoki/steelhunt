@@ -78,6 +78,6 @@ inspired by Team Fortress 2's metal grades — the drawings are original:
 | Tier | Rule |
 |---|---|
 | **Hunted** (purple ingots) | a bargain (`isBargain`) with Deal Score ≥ 70 on a bike whose estimated value is ≥ 1500 PLN — the unicorns |
-| **Refined** (silver ingots, also the site logo) | a bargain (`isBargain`) |
-| **Reclaimed** (iron plates) | no red flags and Deal Score ≥ 45 |
-| **Scrap** (rusty junk) | everything else (low Deal Score or red flags) |
+| **Refined** (silver bracket, piston and gears; also the site logo) | a bargain (`isBargain`) |
+| **Reclaimed** (iron plates, nuts and screws) | no red flags and Deal Score ≥ 45 |
+| **Scrap** (rusty pipe, angle irons, bolts) | everything else (low Deal Score or red flags) |

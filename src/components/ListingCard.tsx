@@ -21,7 +21,7 @@ export function ListingCard({ item, compact = false }: { item: AnalyzedListing; 
       <Link to={`/listing/${encodeURIComponent(l.id)}`} className="relative block aspect-[16/10] overflow-hidden bg-ink-950">
         <ListingImage item={item} className="transition duration-500 group-hover:scale-[1.03]" />
         <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
-          <OriginBadge origin={l.origin} />
+          {isDemo && <OriginBadge origin={l.origin} />}
           <MetalBadge analysis={a} />
           {a.redFlags.length > 0 && <span className="rounded-md bg-rust-500/90 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase text-ink-950">Uwaga</span>}
         </div>

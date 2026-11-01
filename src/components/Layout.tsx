@@ -19,9 +19,9 @@ const NAV = [
   { to: '/settings', label: 'Ustawienia', icon: Settings },
 ];
 
-/** Brand mark: refined metal (silver ingots), the top-but-one value tier (same drawing as public/favicon.svg). */
-export function LogoMark({ size = 22 }: { size?: number }) {
-  return <img src="logo-mark.svg" alt="" width={size * (60 / 35)} height={size} className="shrink-0" />;
+/** Brand mark: refined metal (silver bracket, piston and gears), the second-best value tier (same drawing as public/favicon.svg). */
+export function LogoMark({ size = 34 }: { size?: number }) {
+  return <img src="logo-mark.svg" alt="" width={size * (108 / 98)} height={size} className="shrink-0" />;
 }
 
 export function Logo() {

@@ -15,7 +15,7 @@ export function MetalTierBadge({ tier, size = 'sm' }: { tier: MetalTier; size?: 
       className={`inline-flex items-center gap-1 rounded-md bg-ink-950/80 font-mono font-bold uppercase tracking-wider backdrop-blur ${lg ? 'px-2 py-1 text-xs' : 'px-1.5 py-0.5 text-[10px]'}`}
       style={{ color: t.color }}
     >
-      <img src={t.icon} alt="" width={lg ? 28 : 18} height={lg ? 28 : 18} className="-my-1" />
+      <img src={t.icon} alt="" width={lg ? 34 : 24} height={lg ? 34 : 24} className="-my-1" />
       {t.label}
     </span>
   );
