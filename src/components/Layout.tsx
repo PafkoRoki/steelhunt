@@ -19,9 +19,9 @@ const NAV = [
   { to: '/settings', label: 'Ustawienia', icon: Settings },
 ];
 
-/** Brand mark: vectorized photo of two steel couplers (one standing, one lying) (same drawing as public/favicon.svg). */
+/** Brand mark: two steel couplers (one standing, one lying), simple flat 2D illustration (same drawing as public/favicon.svg). */
 export function LogoMark({ size = 34 }: { size?: number }) {
-  return <img src="logo-mark.svg" alt="" width={size * (870 / 862)} height={size} className="shrink-0" />;
+  return <img src="logo-mark.svg" alt="" width={size * (920 / 920)} height={size} className="shrink-0" />;
 }
 
 export function Logo() {
