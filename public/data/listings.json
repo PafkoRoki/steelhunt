@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T01:46:45.454Z",
+  "generatedAt": "2026-11-01T01:58:05.146Z",
   "listings": [
     {
       "id": "olx:1aNma0",
@@ -10,14 +10,18 @@
       "description": "Rower górski starszej konstrukcji, podzespoły Deore i Deore XT, napęd 3x8, V-brake. Opony gładkie. Marka i materiał ramy niepodane.",
       "price": 699,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/21zrxryeacpl2-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/ugqhzj808h7q3-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/r5cl5uc8yckx-PL/image;s=1000x0"
+      ],
       "locationName": "Kiekrz",
       "latitude": 52.462,
       "longitude": 16.783,
       "geoPrecision": "city",
       "postedAt": "2026-10-27T12:00:00Z",
       "discoveredAt": "2026-11-01T01:36:19.004Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -40,14 +44,18 @@
       "description": "Scott Summit, rama 20 cali, bez amortyzacji, koła 26 Mavic, osprzęt STX. Po przeglądzie, sprawny. Materiał ramy niepodany. Sklep rowerowy, możliwa wysyłka kurierska.",
       "price": 500,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/a2u7fjnwaukd2-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/binl9m8v2vpk3-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/ukfzo99tkthz1-PL/image;s=1000x0"
+      ],
       "locationName": "Nowy Tomyśl",
       "latitude": 52.319,
       "longitude": 16.128,
       "geoPrecision": "city",
       "postedAt": "2026-10-28T12:00:00Z",
       "discoveredAt": "2026-11-01T01:36:19.005Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -71,14 +79,18 @@
       "description": "Trek 920, MTB z lat 90., koła 26, bez amortyzacji (sztywny widelec). Rama stal chromowo-molibdenowa. Shimano 3x8, V-brake. Po gruntownym remoncie. Drobne otarcia lakieru.",
       "price": 2490,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/90djydzu85dg-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/8r8v2c4i2q1a-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/ozn0d2vf2hji-PL/image;s=1000x0"
+      ],
       "locationName": "Puszczykowo",
       "latitude": 52.286,
       "longitude": 16.855,
       "geoPrecision": "city",
       "postedAt": "2026-10-31T12:00:00Z",
       "discoveredAt": "2026-11-01T01:36:19.006Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -101,14 +113,18 @@
       "description": "Univega Rover 304 z lat 1996–1997, koła 26, opony Kenda Khan. Rama stalowa chromowo-molibdenowa 4130. Sztywny widelec (bez amortyzacji), V-brake.",
       "price": 100,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/nftzz600gyyd3-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/tppb5c545z8c1-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/y88o4uuudi621-PL/image;s=1000x0"
+      ],
       "locationName": "Nowa Wieś Wielka",
       "latitude": 52.984,
       "longitude": 18.087,
       "geoPrecision": "city",
       "postedAt": "2026-10-09T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.445Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -131,14 +147,17 @@
       "description": "Klasyczny retro MTB Scott Biaxial, rama stalowa Chromoly Cr-Mo, rozmiar M (17–18 cali), koła 26. Przedni amortyzator, V-brake.",
       "price": 300,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/r6n9649m54qr2-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/h274t5mv1i9-PL/image;s=1000x0"
+      ],
       "locationName": "Luboń",
       "latitude": 52.347,
       "longitude": 16.878,
       "geoPrecision": "city",
       "postedAt": "2026-10-06T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.447Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -161,14 +180,18 @@
       "description": "Giant Escaper, rama stalowa Cr-Mo Triple Butted, rozmiar XL (ok. 57 cm). Koła 26, pełny osprzęt Shimano Deore LX 3x7, V-brake, przedni amortyzator, bagażnik. Cena do negocjacji, sprzedaż z powodu przeprowadzki.",
       "price": 425,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/i93jx40xshm5-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/ehw88o0wou1m-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/92tawlm4wpgg-PL/image;s=1000x0"
+      ],
       "locationName": "Jasin",
       "latitude": 52.392,
       "longitude": 17.104,
       "geoPrecision": "city",
       "postedAt": "2026-10-08T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.449Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -191,14 +214,18 @@
       "description": "Retro MTB Giant Escaper na pełnej grupie Shimano Deore LX (M550). Rama stalowa, koła 26, przedni amortyzator. Rury ramy niepodane.",
       "price": 620,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/go0it0fezs5u-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/yw1s5p0fnf9d-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/o1deckv8c9ir3-PL/image;s=1000x0"
+      ],
       "locationName": "Mosina",
       "latitude": 52.245,
       "longitude": 16.847,
       "geoPrecision": "city",
       "postedAt": "2026-10-06T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.450Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -220,14 +247,18 @@
       "description": "Retro MTB Corratec, rama chromowo-molibdenowa Cr-Mo, koła 26, rozmiar 17–18 cali. Amortyzator RockShox, osprzęt Shimano, V-brake. Cena do negocjacji.",
       "price": 499,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/6984stgp16jb2-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/ppc67gf486ka2-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/ct43ml28dkgb-PL/image;s=1000x0"
+      ],
       "locationName": "Ostrów Wielkopolski",
       "latitude": 51.655,
       "longitude": 17.807,
       "geoPrecision": "city",
       "postedAt": "2026-10-10T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.450Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -250,14 +281,18 @@
       "description": "Odnowiony retro MTB Corratec, rama stalowa, koła 26. Brak szczegółów osprzętu i rur w ogłoszeniu.",
       "price": 1400,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/8g64xa6neh4d1-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/rpikhh1bq7472-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/1bfuogbgfzwp1-PL/image;s=1000x0"
+      ],
       "locationName": "Poznań, Stare Miasto",
       "latitude": 52.4064,
       "longitude": 16.9252,
       "geoPrecision": "city",
       "postedAt": "2026-10-20T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.450Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -280,14 +315,18 @@
       "description": "Trek Mountain Track 830 z 1996, rama stalowa Full Cro-Moly, sztywny stalowy widelec Cro-Moly, koła 26, hamulce cantilever, napęd Shimano Altus. Malowanie fade niebiesko-fioletowe. Sprawny, manetka do regulacji, ślady użytkowania. Cena do negocjacji. (W tytule ogłoszenia: Mountain Track 800.)",
       "price": 699,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/2aknekdtgcju3-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/yjireazlb5ss2-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/rxknp02znwnx1-PL/image;s=1000x0"
+      ],
       "locationName": "Krzyszkowo",
       "latitude": null,
       "longitude": null,
       "geoPrecision": "none",
       "postedAt": "2026-10-28T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.450Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -310,14 +349,18 @@
       "description": "Trek Mountain Track 820, odnowiony: nowe zębatki, hamulce, manetki, koła i opony, V-brake. Przechowywany w domu. Materiał ramy niepodany (seria Mountain Track z lat 90. była stalowa). Szybka sprzedaż — za mały rozmiar.",
       "price": 350,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/0cuy0vhbi3nk-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/0ru2deqlif1w-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/j9xhu526uvdv1-PL/image;s=1000x0"
+      ],
       "locationName": "Poznań, Wilda",
       "latitude": 52.4064,
       "longitude": 16.9252,
       "geoPrecision": "city",
       "postedAt": "2026-10-20T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.451Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -340,14 +383,18 @@
       "description": "Rower zbudowany na ramie Trek Singletrack 970, rozmiar 20 cali. Rama z rurek Cr-Mo łączonych mufami, nowy lakier (niebieski ze srebrnym). Koła 26, obręcze Gali, V-brake, sztywny widelec. Przerobiony na commuter.",
       "price": 899,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/m1tsi1b0c5vb3-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/vbku4inr57q91-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/w45pleq89wsc-PL/image;s=1000x0"
+      ],
       "locationName": "Siekierki Wielkie",
       "latitude": 52.333,
       "longitude": 17.183,
       "geoPrecision": "city",
       "postedAt": "2026-10-19T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.451Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -370,14 +417,18 @@
       "description": "Specialized Hardrock, rama stalowa (rury niepodane), rozmiar 17–18 cali, przedni amortyzator. Napęd 3x7 Shimano Altus/Acera, hamulce i dźwignie Deore, nowe linki, wolnobieg, łańcuch i opony Mitas 26x2.10. Cena do negocjacji.",
       "price": 650,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/ivfzrzlf9y5l-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/hu63h3xi52g32-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/n33s5oktze4f2-PL/image;s=1000x0"
+      ],
       "locationName": "Drzonków",
       "latitude": 51.889,
       "longitude": 15.456,
       "geoPrecision": "city",
       "postedAt": "2026-10-15T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.451Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -400,14 +451,17 @@
       "description": "Specialized Rockhopper retro, rama aluminiowa, widelec stalowy sztywny. Koła 26, kierownica w stylu Surly, napęd 1x8, hamulce szczękowe. Przygotowany pod bikepacking. Cena do negocjacji.",
       "price": 1150,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/c94vly7eu4bc2-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/ntwqzxiz43lf3-PL/image;s=1000x0"
+      ],
       "locationName": "Poznań, Łazarz",
       "latitude": 52.4064,
       "longitude": 16.9252,
       "geoPrecision": "city",
       "postedAt": "2026-10-03T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -430,14 +484,18 @@
       "description": "Diamondback Topanga, rama stalowa, sztywny widelec (bez amortyzacji), koła 26, rozmiar 17–18. Osprzęt i V-brake Shimano Alivio 3x8, nowe opony Mitas Cobra, łańcuch, linki. Cena do negocjacji.",
       "price": 650,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/85as88i4fwnp-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/iweldzkrja4k2-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/d09l5573t0j71-PL/image;s=1000x0"
+      ],
       "locationName": "Drzonków",
       "latitude": 51.889,
       "longitude": 15.456,
       "geoPrecision": "city",
       "postedAt": "2026-10-09T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -460,14 +518,18 @@
       "description": "Diamondback Wildwood, rama stalowa, sztywny widelec, koła 26, rozmiar 19–20. Shimano Altus 3x7, V-brake, nowy suport, łańcuch i linki. Cena do negocjacji.",
       "price": 650,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/rve9wjr689n22-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/407xupzx2mtj3-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/o21yefzwfzn22-PL/image;s=1000x0"
+      ],
       "locationName": "Drzonków",
       "latitude": 51.889,
       "longitude": 15.456,
       "geoPrecision": "city",
       "postedAt": "2026-10-15T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -490,14 +552,18 @@
       "description": "Giant GSR 300 z lat 90., rama stalowa z fabrycznymi mocowaniami błotników i bagażnika. Koła 26, sztywny widelec, napęd 1x8 Shimano Alivio, V-brake. Odnowiony, bardzo dobry stan. Cena do negocjacji.",
       "price": 959,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/ez5x5d17eyae1-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/wiz3xytcn9a3-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/wowpwk0ftkj22-PL/image;s=1000x0"
+      ],
       "locationName": "Poznań, Dębiec",
       "latitude": 52.4064,
       "longitude": 16.9252,
       "geoPrecision": "city",
       "postedAt": "2026-10-31T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -520,14 +586,18 @@
       "description": "Giant Granite, rama stalowa 23,5 cala (dla wzrostu 190 cm+), koła 26, w pełni sprawny, w zeszłym sezonie wymienione zębatki, kaseta i linki. Bagażnik tylny. Cena do negocjacji.",
       "price": 950,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/3hexn3dal0ly-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/m0srgoce1g2w1-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/2bq5j7z1ju062-PL/image;s=1000x0"
+      ],
       "locationName": "Poznań, Jeżyce",
       "latitude": 52.4064,
       "longitude": 16.9252,
       "geoPrecision": "city",
       "postedAt": "2026-10-11T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -550,14 +620,18 @@
       "description": "Mongoose ATB z 1984, koła 26, świeżo złożony: nowe linki, kaseta, łańcuch, klamki Dia-Compe SS6, chwyty WTB, rzadki mostek Sakae Ringyo MTS-100. Materiał ramy niepodany.",
       "price": 2000,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/13pr7crqftly1-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/xezuye3fulpj1-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/a2bfpq18jofi3-PL/image;s=1000x0"
+      ],
       "locationName": "Poznań, Jeżyce",
       "latitude": 52.4064,
       "longitude": 16.9252,
       "geoPrecision": "city",
       "postedAt": "2026-10-17T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -580,14 +654,18 @@
       "description": "Polski Jaguar Classic FX 400 (Wolsztyn), rama stalowa i widelec w bardzo dobrym stanie. Prawie wszystko wymienione: koła, opony, łańcuch, kaseta, korba, suport, hamulce; napęd 1x9 Microshift, koła 26.",
       "price": 1000,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/5o7ygx3yh9nm3-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/t9yaf5x9pxqa1-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/zh7gxyakxg26-PL/image;s=1000x0"
+      ],
       "locationName": "Zielona Góra",
       "latitude": 51.9356,
       "longitude": 15.5062,
       "geoPrecision": "city",
       "postedAt": "2026-10-13T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -610,14 +688,18 @@
       "description": "Scott Sportswoman z lat 90. (prawdopodobnie 1992), rama 16 cali, bez amortyzacji, obręcze Araya CV-7 26, osprzęt Shimano Exage 3x7. Po przeglądzie w serwisie. Materiał ramy niepodany. Sklep rowerowy.",
       "price": 490,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/0yq71k0rdh8v2-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/r43bsx6hg3hz2-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/x8av6v1jc3fr2-PL/image;s=1000x0"
+      ],
       "locationName": "Świebodzin",
       "latitude": 52.2475,
       "longitude": 15.5336,
       "geoPrecision": "city",
       "postedAt": "2026-10-10T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -640,14 +722,17 @@
       "description": "Retro rower górski w większości wyremontowany, rama stalowa, koła 26, bez amortyzacji, V-brake. Rura podsiodłowa 49 cm. Marka niepodana. Cena do negocjacji.",
       "price": 390,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/6hc30zho6gho-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/na6kszbj9wf21-PL/image;s=1000x0"
+      ],
       "locationName": "Poznań, Grunwald",
       "latitude": 52.4064,
       "longitude": 16.9252,
       "geoPrecision": "city",
       "postedAt": "2026-10-21T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.453Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -670,14 +755,18 @@
       "description": "Klein Pulse Comp, rama aluminiowa produkcji USA, koła 26. Manetki i klamki Shimano Deore XT, hamulce szczękowe, amortyzator RockShox. Kierownica Race Face do naprawy. Cena do negocjacji.",
       "price": 800,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/hwinohbuqoh81-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/9wxl3kh7mm34-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/46m5w84je53b-PL/image;s=1000x0"
+      ],
       "locationName": "Puszczykowo",
       "latitude": 52.286,
       "longitude": 16.855,
       "geoPrecision": "city",
       "postedAt": "2026-10-03T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.453Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -700,14 +789,18 @@
       "description": "Cilo Navajo World Champion, rama aluminiowa 21 cali, koła 26, osprzęt Deore LX, przedni amortyzator. Bardzo dobry stan wizualny i techniczny. Sklep rowerowy.",
       "price": 990,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/n0lmagkeruhk1-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/ilszimo5tn4t2-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/bbv54umnvhdy-PL/image;s=1000x0"
+      ],
       "locationName": "Zbąszyń",
       "latitude": 52.25,
       "longitude": 15.919,
       "geoPrecision": "city",
       "postedAt": "2026-10-10T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.453Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
@@ -731,14 +824,18 @@
       "description": "Giant Hurricane z 1991, rama aluminiowa, koła 26, stan kolekcjonerski, z koszykiem. Hamulce chwilowo zdjęte (w zestawie).",
       "price": 1400,
       "currency": "PLN",
-      "images": [],
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/t7gy23qeixau3-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/adpzsxst2cyr3-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/t3o0hmcq30ts1-PL/image;s=1000x0"
+      ],
       "locationName": "Cicha Góra",
       "latitude": null,
       "longitude": null,
       "geoPrecision": "none",
       "postedAt": "2026-10-27T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.453Z",
-      "lastSeenAt": "2026-11-01T01:46:45.454Z",
+      "lastSeenAt": "2026-11-01T01:58:05.146Z",
       "status": "active",
       "priceHistory": [
         {
