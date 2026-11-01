@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { BrandLogo, BrandLogoCredit } from '../components/BrandLogo';
 import { Download, Plus, Trash2 } from 'lucide-react';
 import { useAppData } from '../hooks/AppData';
 import { PageHeader } from '../components/ui';
@@ -73,13 +74,16 @@ export default function BikeDatabasePage() {
               onClick={() => setSelected(m.id)}
               className={`flex w-full items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-left transition ${selected === m.id ? 'bg-moss-500/10 ring-1 ring-inset ring-moss-500/25' : 'hover:bg-white/[0.03]'}`}
             >
-              <div>
+              <div className="flex min-w-0 items-center gap-3">
+                <BrandLogo id={m.id} placeholder />
+                <div>
                 <div className="font-medium text-ink-100">
                   {m.name} {userIds.has(m.id) && <span className="ml-1 text-[10px] uppercase text-brass-400">własny</span>}
                 </div>
                 <div className="text-[11px] text-ink-500">
                   {COUNTRY[m.country]} · {db.models.filter((x) => x.manufacturerId === m.id).length} modeli
                   {m.undervaluedInPoland && <span className="text-moss-400"> · niedoceniana w PL</span>}
+                </div>
                 </div>
               </div>
               <div className="text-right">
@@ -97,7 +101,8 @@ export default function BikeDatabasePage() {
             <>
               <div className="flex items-start justify-between">
                 <div>
-                  <h2 className="font-display text-3xl uppercase tracking-wide">{sel.name}</h2>
+                  <BrandLogo id={sel.id} size="lg" />
+                  <h2 className="mt-2 font-display text-3xl uppercase tracking-wide">{sel.name}</h2>
                   <p className="text-xs text-ink-500">
                     {COUNTRY[sel.country]} · reputacja stali (heurystyka): {sel.steelReputation}/100 · aliasy: {sel.aliases.join(', ')}
                   </p>
@@ -110,6 +115,7 @@ export default function BikeDatabasePage() {
               </div>
               {sel.notes && <p className="mt-3 rounded-xl bg-ink-950/50 p-3 text-sm text-ink-300">{sel.notes}</p>}
               <Sources urls={sel.sources} />
+              <BrandLogoCredit id={sel.id} />
               <div className="mt-4 space-y-2">
                 {models.length === 0 && <p className="text-sm text-ink-500">Brak modeli w bazie — ogłoszenia tej marki mogą trafić do Unknown Gems.</p>}
                 {models.map((m) => (
