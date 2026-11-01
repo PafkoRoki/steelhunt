@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><g stroke="#34302c" stroke-width="0.9" stroke-linejoin="round"><polygon points="48,40 58.4,32.2 58.4,27.7 48,35.5" fill="#514c46"/>
+      <polygon points="6,35.5 48,35.5 58.4,27.7 16.4,27.7" fill="#9a948d"/>
+      <polygon points="6,40 48,40 48,35.5 6,35.5" fill="#6c665f"/><ellipse cx="13.32" cy="33.16" rx="1.9" ry="1.2" fill="#2e2a27"/><ellipse cx="17.48" cy="30.04" rx="1.9" ry="1.2" fill="#2e2a27"/><ellipse cx="46.92" cy="33.16" rx="1.9" ry="1.2" fill="#2e2a27"/><ellipse cx="51.08" cy="30.04" rx="1.9" ry="1.2" fill="#2e2a27"/><polygon points="46,47 56.4,39.2 56.4,34.7 46,42.5" fill="#514c46"/>
+      <polygon points="4,42.5 46,42.5 56.4,34.7 14.4,34.7" fill="#9a948d"/>
+      <polygon points="4,47 46,47 46,42.5 4,42.5" fill="#6c665f"/><ellipse cx="11.32" cy="40.16" rx="1.9" ry="1.2" fill="#2e2a27"/><ellipse cx="15.48" cy="37.04" rx="1.9" ry="1.2" fill="#2e2a27"/><ellipse cx="44.92" cy="40.16" rx="1.9" ry="1.2" fill="#2e2a27"/><ellipse cx="49.08" cy="37.04" rx="1.9" ry="1.2" fill="#2e2a27"/><polygon points="35,43 39.5,38 48.5,38 53,43 53,51 48.5,56 39.5,56 35,51" fill="#6c665f"/><polygon points="35,43 39.5,38 48.5,38 53,43 48.5,47.5 39.5,47.5" fill="#9a948d"/><ellipse cx="44" cy="43" rx="4.2" ry="2.8" fill="#2e2a27"/><polygon points="53,43 53,51 48.5,56 48.5,47.5" fill="#514c46"/><rect x="14" y="51" width="11" height="4.5" rx="1.2" fill="#6c665f" transform="rotate(-12 19 53)"/>
+        <ellipse cx="13.5" cy="54.2" rx="2.6" ry="3.4" fill="#9a948d" transform="rotate(-12 19 53)"/></g>
+</svg>

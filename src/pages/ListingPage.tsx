@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Bookmark, BookmarkCheck, ExternalLink, Flag, Gem, Info, Search, ShieldAlert } from 'lucide-react';
 import { useAppData } from '../hooks/AppData';
 import { ConfidenceBadge, EmptyState, GemBadge, MarketplaceTag, OriginBadge, ScoreBar, ScoreRing, WarningNote } from '../components/ui';
+import { MetalBadge } from '../components/MetalBadge';
 import { ListingImage } from '../components/ListingImage';
 import { formatDateTime, formatKm, formatPct, formatPrice, formatRange, timeAgo } from '../utils/format';
 import { CATEGORY_LABEL, CONDITION_LABEL, CONSTRUCTION_LABEL, ITEM_TYPE_LABEL, MATERIAL_LABEL, PRICE_CONF_LABEL, SCOPE_LABEL } from '../utils/labels';
@@ -124,7 +125,10 @@ export default function ListingPage() {
                 <div className="stat-num text-4xl font-semibold text-ink-100">{formatPrice(l.price, l.currency)}</div>
                 <div className="text-xs text-ink-500">cena ofertowa{l.currency.toUpperCase() !== 'PLN' && a.pricePln != null ? ` · ≈ ${formatPrice(a.pricePln)}` : ''}</div>
               </div>
-              <ScoreRing value={a.dealScore} size={76} label="Deal Score" stroke={6} />
+              <div className="flex flex-col items-center gap-2">
+                <ScoreRing value={a.dealScore} size={76} label="Deal Score" stroke={6} />
+                <MetalBadge analysis={a} size="lg" />
+              </div>
             </div>
             <div className="mt-5 flex gap-2">
               <a href={l.sourceUrl} target="_blank" rel="noopener noreferrer" className="btn-primary flex-1">

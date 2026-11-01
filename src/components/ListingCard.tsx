@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { AlertTriangle, Bookmark, BookmarkCheck, Clock, ExternalLink, MapPin, Search } from 'lucide-react';
 import type { AnalyzedListing } from '../types/listing';
 import { ConfidenceBadge, GemBadge, MarketplaceTag, OriginBadge, ScoreRing } from './ui';
+import { MetalBadge } from './MetalBadge';
 import { ListingImage } from './ListingImage';
 import { formatKm, formatPct, formatPrice, formatRange, timeAgo } from '../utils/format';
 import { CATEGORY_LABEL, MATERIAL_LABEL } from '../utils/labels';
@@ -21,7 +22,7 @@ export function ListingCard({ item, compact = false }: { item: AnalyzedListing; 
         <ListingImage item={item} className="transition duration-500 group-hover:scale-[1.03]" />
         <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
           <OriginBadge origin={l.origin} />
-          {a.isBargain && <span className="rounded-md bg-moss-500 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-ink-950">Okazja</span>}
+          <MetalBadge analysis={a} />
           {a.redFlags.length > 0 && <span className="rounded-md bg-rust-500/90 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase text-ink-950">Uwaga</span>}
         </div>
         <div className="absolute right-3 top-3 rounded-full bg-ink-950/75 p-1 backdrop-blur">

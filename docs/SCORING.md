@@ -69,3 +69,15 @@ Potential savings = mid − price. Net opportunity = mid − price − restorati
 Only for listings whose model was **not** recognized and without red flags. Signals (≥ 2 needed):
 named/semi-named tubing ≥ 70 (counts double), butted Cr-Mo, lugged or fillet-brazed construction,
 tier 4–5 components, brand often undervalued in Poland, old steel bike ≤ 500 zł, > 30% below estimate.
+
+## Metal tiers (value icons)
+
+Each listing gets a metal grade (icons in `public/tiers/`, logic in `src/features/scoring/metalTier.ts`),
+inspired by Team Fortress 2's metal grades — the drawings are original:
+
+| Tier | Rule |
+|---|---|
+| **Hunted** (purple ingots) | a bargain (`isBargain`) with Deal Score ≥ 70 on a bike whose estimated value is ≥ 1500 PLN — the unicorns |
+| **Refined** (silver ingots, also the site logo) | a bargain (`isBargain`) |
+| **Reclaimed** (iron plates) | no red flags and Deal Score ≥ 45 |
+| **Scrap** (rusty junk) | everything else (low Deal Score or red flags) |

@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useAppData } from '../hooks/AppData';
 import { ListingsBrowser } from '../features/listings/ListingsBrowser';
 import { PageHeader } from '../components/ui';
+import { MetalLegend } from '../components/MetalBadge';
 
 export default function DealsPage() {
   const { inRadius, settings } = useAppData();
@@ -17,6 +18,11 @@ export default function DealsPage() {
             : `Wszystkie ogłoszenia w promieniu, posortowane wg Deal Score. Okazja = cena ≥ ${settings.dealThresholdPct}% poniżej szacowanej wartości, przy przyzwoitej ramie i bez czerwonych flag.`
         }
       />
+      {!gems && (
+        <div className="mb-4">
+          <MetalLegend />
+        </div>
+      )}
       <ListingsBrowser key={gems ? 'gems' : 'all'} items={inRadius} initialFilters={gems ? { onlyGems: true } : undefined} />
     </>
   );

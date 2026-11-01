@@ -1,27 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="170 280 920 920">
-  <defs>
-    <!-- gap around the lying coupler where it overlaps the standing one -->
-    <mask id="gap" maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="1400">
-      <rect width="1200" height="1400" fill="#fff"/>
-      <path d="M465.4 833 L949.2 688.5 A142 90.88 73.4 0 1 1030.4 960.6 L546.6 1105 Z" fill="#000" stroke="#000" stroke-width="22" stroke-linejoin="round"/>
-      <ellipse cx="506" cy="969" rx="142" ry="90.9" transform="rotate(73.4 506 969)" fill="#000" stroke="#000" stroke-width="22"/>
-    </mask>
-  </defs>
-  
-  <g mask="url(#gap)">
-    <path d="M190 340 V1140 A150 40 0 0 0 490 1140 V1010 Q420 920 490 830 V340 Z" fill="#d9dcdd"/>
-    <path d="M385 340 V1178 A150 40 0 0 0 490 1140 V1010 Q420 920 490 830 V340 Z" fill="#aab0b3"/>
-    <path d="M445 340 V1164 A150 40 0 0 0 490 1140 V1010 Q420 920 490 830 V340 Z" fill="#7c8488"/>
-    <ellipse cx="340" cy="340" rx="150" ry="40" fill="#eef0f0"/>
-    <ellipse cx="340" cy="342" rx="124" ry="31" fill="#2f3436"/>
-  </g>
-  <!-- lying coupler: three flat bands for the round body, back end, window, open front end -->
-  <ellipse cx="989.8" cy="824.6" rx="142" ry="90.9" transform="rotate(73.4 989.8 824.6)" fill="#7c8488" />
-  <path d="M465.4 833 L949.2 688.5 L975.6 777 L491.8 921.4 Z" fill="#d9dcdd"/>
-  <path d="M491.8 921.4 L975.6 777 L1008.1 885.8 L524.3 1030.2 Z" fill="#aab0b3"/>
-  <path d="M524.3 1030.2 L1008.1 885.8 L1030.4 960.6 L546.6 1105 Z" fill="#7c8488"/>
-  <ellipse cx="906.1" cy="799.5" rx="62" ry="40" transform="rotate(73.4 906.1 799.5)" fill="#2f3436" />
-  <ellipse cx="506" cy="969" rx="142" ry="90.9" transform="rotate(73.4 506 969)" fill="#eef0f0" />
-  <ellipse cx="506" cy="969" rx="116" ry="74.2" transform="rotate(73.4 506 969)" fill="#aab0b3" />
-  <ellipse cx="515.6" cy="966.1" rx="102" ry="65.3" transform="rotate(73.4 515.6 966.1)" fill="#2f3436" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="3 21 60 35"><g stroke="#5b6267" stroke-width="0.9" stroke-linejoin="round">
+    <polygon points="28,54 36,47.5 31.2,39.7 25,45" fill="#868e93"/>
+    <polygon points="7,45 25,45 31.2,39.7 13.2,39.7" fill="#f1f3f4"/>
+    <polygon points="4,54 28,54 25,45 7,45" fill="#b9bfc3"/>
+    <polygon points="11.32,45 14.2,45 20.4,39.7 17.52,39.7" fill="#ffffff" opacity=".85" stroke="none"/>
+    <polygon points="54,54 62,47.5 57.2,39.7 51,45" fill="#868e93"/>
+    <polygon points="33,45 51,45 57.2,39.7 39.2,39.7" fill="#f1f3f4"/>
+    <polygon points="30,54 54,54 51,45 33,45" fill="#b9bfc3"/>
+    <polygon points="37.32,45 40.2,45 46.4,39.7 43.52,39.7" fill="#ffffff" opacity=".85" stroke="none"/>
+    <polygon points="41,45 49,38.5 44.2,30.7 38,36" fill="#868e93"/>
+    <polygon points="20,36 38,36 44.2,30.7 26.2,30.7" fill="#f1f3f4"/>
+    <polygon points="17,45 41,45 38,36 20,36" fill="#b9bfc3"/>
+    <polygon points="24.32,36 27.2,36 33.4,30.7 30.52,30.7" fill="#ffffff" opacity=".85" stroke="none"/></g>
 </svg>
