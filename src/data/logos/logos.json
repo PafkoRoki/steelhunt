@@ -463,6 +463,23 @@
     "author": null,
     "source": "dodane ręcznie przez właściciela strony"
   },
+  "muddy-fox": {
+    "src": "logos/muddy-fox.svg",
+    "title": "muddy-fox.svg (z muddy-fox.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony",
+    "bg": "dark"
+  },
+  "schauff": {
+    "src": "logos/schauff.svg",
+    "title": "schauff.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
   "ferraroli": {
     "src": "logos/ferraroli.png",
     "title": "ferraroli.png (oryginalny obrazek od właściciela, wycięte tło)",
@@ -470,5 +487,30 @@
     "license": null,
     "author": null,
     "source": "dodane ręcznie przez właściciela strony"
+  },
+  "pace": {
+    "src": "logos/pace.png",
+    "title": "pace.png (wycięte tło)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "sunn": {
+    "src": "logos/sunn.svg",
+    "title": "sunn.svg (z sunn.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "kirk": {
+    "src": "logos/kirk.png",
+    "title": "kirk-precision.png",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony",
+    "bg": "dark"
   }
 }
