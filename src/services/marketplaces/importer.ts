@@ -52,7 +52,7 @@ export function normalizeImportRecord(input: unknown, origin: DataOrigin = 'impo
     title: r.title.trim(),
     description: (r.description ?? '').trim(),
     price: r.price ?? null,
-    currency: r.currency ?? (mk.id === 'kleinanzeigen' ? 'EUR' : 'PLN'),
+    currency: r.currency ?? (mk.id === 'kleinanzeigen' || mk.id === 'ebay' ? 'EUR' : 'PLN'),
     images,
     locationName: r.location?.trim() || null,
     latitude: r.latitude ?? place?.lat ?? null,

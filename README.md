@@ -105,6 +105,16 @@ Harmonogram i zapytania zmienisz w `.github/workflows/ingest.yml` (cron) i `conf
    - `ALLEGRO_CLIENT_SECRET`
 3. Allegro może ograniczać dostęp do wyszukiwania ofert (`/offers/listing`) dla niezweryfikowanych aplikacji. Jeśli tak się stanie, błąd pojawi się w zakładce **Historia** — konektor nie próbuje niczego obchodzić.
 
+### Klucze eBay (opcjonalnie)
+
+eBay jest czytany wyłącznie przez oficjalne **Browse API** (regulamin eBay zabrania czytania stron automatem).
+
+1. Załóż darmowe konto deweloperskie na <https://developer.ebay.com/> i utwórz aplikację (**Application Keys → Production keyset**). Aby klucze produkcyjne działały, eBay wymaga skonfigurowania zgłoszeń o usunięciu konta (*Marketplace account deletion*) albo zadeklarowania zwolnienia z nich (aplikacja nie przechowuje danych użytkowników eBay).
+2. W repozytorium dodaj sekrety: `EBAY_CLIENT_ID` (App ID) i `EBAY_CLIENT_SECRET` (Cert ID).
+3. Przy każdym uruchomieniu workflow „Ingest listings” krok eBay szuka ofert z Niemiec: z wysyłką do Polski albo z kodów pocztowych wschodnich Niemiec (do odbioru). Aukcje są pomijane. Wynik trafia do `data/imports/auto-ebay.json`. Bez sekretów krok jest pomijany.
+
+Frazy i kody pocztowe ustawisz w `config/scout.json` → `ebay`.
+
 Klucze **nigdy** nie trafiają do kodu frontendu (nie używaj prefiksu `VITE_`).
 
 ---

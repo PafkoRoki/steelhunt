@@ -85,5 +85,24 @@
       "trek",
       "gt"
     ]
+  },
+  "ebay": {
+    "$comment": "Official Browse API only (eBay's User Agreement forbids scraping). Needs EBAY_CLIENT_ID / EBAY_CLIENT_SECRET; runs in GitHub Actions (npm run scout -- --only=ebay). Postcodes default to kleinanzeigen.postcodePrefixes.",
+    "enabled": true,
+    "marketplaceId": "EBAY_DE",
+    "categoryIds": "",
+    "limit": 100,
+    "queries": [
+      "retro mtb",
+      "vintage mtb",
+      "mtb 90er",
+      "mountainbike 90er",
+      "mtb stahlrahmen",
+      "tange mtb",
+      "deore xt mtb",
+      "gt karakoram",
+      "specialized stumpjumper",
+      "koga miyata mtb"
+    ]
   }
 }

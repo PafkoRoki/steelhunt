@@ -12,6 +12,7 @@ Statuses below are mirrored in the app (Dashboard → “Źródła danych”).
 | **Allegro Lokalnie** | scout | Search pages `/oferty/rowery-i-akcesoria/rowery-16420/q/<q>` + ad pages (only `/oferty/wystaw/` is disallowed) | **Rate-limits automated clients (HTTP 429)**: few queries, 8 s pauses, and the run skips the portal as soon as it answers 429. The portal's own city filter ignores distance, so the scout searches nationwide and keeps towns within 200 km of Poznań; unknown towns are dropped. |
 | **Sprzedajemy.pl** | scout | `/poznan?inp_text=<q>&inp_distance=150` + ad pages | robots.txt disallows only contact/admin paths. Uses the portal's own Poznań + 150 km filter. |
 | **Allegro** | `api` | Official REST API, OAuth2 client credentials, `GET /offers/listing` | Needs `ALLEGRO_CLIENT_ID` / `ALLEGRO_CLIENT_SECRET` secrets. `/offer/` and `/z-drugiej-reki` are disallowed in robots.txt, so there is no page reading — API only. |
+| **eBay.de** | `api` | Official Browse API: `item_summary/search` + `item/{id}`, application token (client credentials), marketplace `EBAY_DE` | eBay's User Agreement forbids robots/scrapers, so API only. Needs `EBAY_CLIENT_ID` / `EBAY_CLIENT_SECRET` secrets; runs in GitHub Actions (`scout.ts --only=ebay`). Two passes per query: `itemLocationCountry:DE,deliveryCountry:PL` (ships to Poland) and `itemLocationCountry:DE` limited to the eastern-German postcode regions (pickup). Auctions excluded (current bid ≠ final price). Seller text is used for analysis only; the published record is a fact summary, title, price, link and up to 3 image links. |
 | **Facebook Marketplace** | `manual` | URL import only | Requires login; no API for search. |
 
 ## Portals checked (November 2026) and not automated
@@ -19,7 +20,6 @@ Statuses below are mirrored in the app (Dashboard → “Źródła danych”).
 | Portal | Why not (yet) | What you can do |
 |---|---|---|
 | **Bikemarkt (bikemarkt.mtb-news.de)** | Allowed by robots.txt, but search results are loaded by JavaScript, so a plain request gets no listings. Good source of German classic MTB (Klassiker). | Open the search manually; paste good finds via “Dodaj ogłoszenie”. Worth revisiting if a feed appears. |
-| **eBay.de** | robots.txt disallows search-result paths with filters; the right route is the official Browse API (needs a free developer key). | Possible future integration via API (key in GitHub Secrets). |
 | **Vinted** | Allowed paths exist, but the site's own robots.txt text forbids automated agents simulating customer activity, and bikes are rare there. | Manual import only. |
 | **Gratka.pl** | No bicycle category any more (404); mostly real estate and cars. | — |
 | **Gumtree.pl** | Not reachable (domain no longer serves the site). | — |
@@ -45,6 +45,5 @@ listing and records price changes instead of duplicating it.
 
 ## Investigation backlog
 
-- eBay Browse API (free developer key) for eBay.de classic MTB.
 - Bikemarkt: check for an RSS/JSON feed of saved searches.
 - RSS/e-mail alert parsing from user-owned saved searches, if permitted by the portals' terms.

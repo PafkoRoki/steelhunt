@@ -1,6 +1,6 @@
 # Scout — automatic search (local)
 
-`npm run scout` searches OLX.pl, Allegro Lokalnie, Sprzedajemy.pl and Kleinanzeigen.de for **retro MTB** and writes
+`npm run scout` searches OLX.pl, Allegro Lokalnie, Sprzedajemy.pl, Kleinanzeigen.de and (official API, only when `EBAY_CLIENT_ID` / `EBAY_CLIENT_SECRET` are set — normally in GitHub Actions via `--only=ebay`) eBay.de for **retro MTB** and writes
 `data/imports/auto-olx.json`, `auto-allegro-lokalnie.json`, `auto-sprzedajemy.json` and `auto-kleinanzeigen.json`. The normal ingestion
 (`npm run ingest` / the "Ingest listings" workflow) then publishes them.
 

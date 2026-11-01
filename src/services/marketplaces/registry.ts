@@ -74,6 +74,16 @@ export const MARKETPLACES: MarketplaceInfo[] = [
     parseExternalId: (u) => u.pathname.match(/\/(\d{6,})-\d+-\d+/)?.[1] ?? null,
   },
   {
+    id: 'ebay',
+    name: 'eBay.de',
+    homepage: 'https://www.ebay.de',
+    status: 'api',
+    note: 'Oficjalne Browse API (klucze EBAY_CLIENT_ID / EBAY_CLIENT_SECRET w sekretach GitHub Actions). Regulamin eBay zabrania czytania stron automatem, więc tylko API. Oferty z Niemiec z wysyłką do Polski albo z kodów pocztowych wschodnich Niemiec; bez aukcji. Ceny w EUR przeliczane na PLN.',
+    hosts: ['ebay.de', 'www.ebay.de', 'ebay.pl', 'www.ebay.pl', 'ebay.com', 'www.ebay.com'],
+    searchUrl: (q) => `https://www.ebay.de/sch/i.html?_nkw=${enc(q)}`,
+    parseExternalId: (u) => u.pathname.match(/\/itm\/(?:[^/]+\/)?(\d{9,})/)?.[1] ?? null,
+  },
+  {
     id: 'other',
     name: 'Inne źródło',
     homepage: '',

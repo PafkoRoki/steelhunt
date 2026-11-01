@@ -29,6 +29,9 @@ import type { AnalyzedListing } from '../src/types/listing';
 const ROOT = resolve(import.meta.dirname, '..');
 const IMPORTS = resolve(ROOT, 'data/imports');
 const DRY = process.argv.includes('--dry');
+/** `--only=ebay,olx` runs just those portals (CI runs `--only=ebay`, the API source that needs secrets). */
+const ONLY = process.argv.find((a) => a.startsWith('--only='))?.slice(7).split(',') ?? null;
+const run = (name: string) => !ONLY || ONLY.includes(name);
 const UA = 'steelhunt-scout/0.1 (personal use; low rate; +https://github.com/PafkoRoki/steelhunt)';
 const pexec = promisify(execFile);
 
@@ -40,6 +43,7 @@ interface ScoutConfig {
   kleinanzeigen: { enabled: boolean; postcodePrefixes: string[]; queries: string[] };
   allegroLokalnie?: { enabled: boolean; radiusKm: number; delayMs?: number; queries: string[] };
   sprzedajemy?: { enabled: boolean; radiusKm: number; delayMs?: number; queries: string[] };
+  ebay?: { enabled: boolean; marketplaceId: string; categoryIds?: string; limit?: number; postcodePrefixes?: string[]; queries: string[] };
 }
 
 /** Raw candidate as read from a portal (kept in memory only). */
@@ -393,6 +397,169 @@ async function scoutCards(
   return out;
 }
 
+// ---------------------------------------------------------------- eBay (official Browse API only)
+
+// eBay's User Agreement forbids robots/scrapers on its pages, so eBay is read ONLY through the official
+// Browse API (https://developer.ebay.com/api-docs/buy/browse/overview.html) with an application token
+// (OAuth client credentials). Keys: EBAY_CLIENT_ID / EBAY_CLIENT_SECRET — GitHub Actions secrets or the
+// local environment, never in the repo or the frontend.
+
+interface EbaySummary {
+  itemId: string;
+  legacyItemId?: string;
+  title: string;
+  price?: { value: string; currency: string };
+  buyingOptions?: string[];
+  image?: { imageUrl: string };
+  additionalImages?: { imageUrl: string }[];
+  itemWebUrl?: string;
+  itemLocation?: { city?: string; postalCode?: string; country?: string };
+  itemCreationDate?: string;
+  condition?: string;
+}
+
+interface EbayItem extends EbaySummary {
+  shortDescription?: string;
+  description?: string;
+  localizedAspects?: { name: string; value: string }[];
+}
+
+let ebayToken: string | null = null;
+
+async function ebayAuth(): Promise<string> {
+  if (ebayToken) return ebayToken;
+  const id = process.env.EBAY_CLIENT_ID;
+  const secret = process.env.EBAY_CLIENT_SECRET;
+  const res = await fetch('https://api.ebay.com/identity/v1/oauth2/token', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Basic ' + Buffer.from(`${id}:${secret}`).toString('base64'),
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: 'grant_type=client_credentials&scope=' + encodeURIComponent('https://api.ebay.com/oauth/api_scope'),
+  });
+  if (!res.ok) throw new Error(`eBay auth HTTP ${res.status}`);
+  ebayToken = ((await res.json()) as { access_token: string }).access_token;
+  return ebayToken;
+}
+
+async function ebayGet<T>(path: string, marketplaceId: string): Promise<T> {
+  const res = await fetch(`https://api.ebay.com/buy/browse/v1${path}`, {
+    headers: { Authorization: `Bearer ${await ebayAuth()}`, 'X-EBAY-C-MARKETPLACE-ID': marketplaceId, 'Accept-Language': 'de-DE' },
+  });
+  if (!res.ok) throw new Error(`eBay HTTP ${res.status} ${path.split('?')[0]}`);
+  return (await res.json()) as T;
+}
+
+/** Stable, tracking-free listing URL. */
+function ebayUrl(s: EbaySummary): string {
+  const legacy = s.legacyItemId ?? s.itemId.split('|')[1];
+  return legacy ? `https://www.ebay.de/itm/${legacy}` : (s.itemWebUrl ?? '').split('?')[0];
+}
+
+/** Masked postcode ("01***") → 2-digit region, used for the eastern-Germany pickup filter and map position. */
+function ebayPlace(loc: EbaySummary['itemLocation']): { location: string; plz: string | null; lat?: number; lng?: number } {
+  const plz = loc?.postalCode?.match(/^\d{2}/)?.[0] ?? null;
+  const country = loc?.country && loc.country !== 'DE' ? ` (${loc.country})` : '';
+  const city = loc?.city?.trim();
+  const p = resolveLocation(city ? `${loc?.postalCode ?? ''} ${city}` : plz ? `${plz}000` : null);
+  const label = city ? `${plz ? plz + '… ' : ''}${city}${country}` : plz ? `Niemcy, kod ${plz}…` : `eBay${country}`;
+  return { location: label, plz, lat: p?.lat, lng: p?.lng };
+}
+
+async function scoutEbay(known: Set<string>, previous: Map<string, AutoRecord>): Promise<Candidate[]> {
+  const conf = cfg.ebay!;
+  if (!process.env.EBAY_CLIENT_ID || !process.env.EBAY_CLIENT_SECRET) {
+    log.push('eBay: pomijam — brak EBAY_CLIENT_ID / EBAY_CLIENT_SECRET (sekrety GitHub Actions)');
+    return [];
+  }
+  const prefixes = conf.postcodePrefixes ?? cfg.kleinanzeigen.postcodePrefixes;
+  // Auctions are left out: the current bid is not a final price and would distort the deal score.
+  const base = `itemLocationCountry:DE,buyingOptions:{FIXED_PRICE|BEST_OFFER}`;
+  const cat = conf.categoryIds ? `&category_ids=${conf.categoryIds}` : '';
+  const stubs = new Map<string, { s: EbaySummary; shipsToPl: boolean }>();
+
+  for (const q of conf.queries) {
+    // Pass 1: ships to Poland (anywhere in Germany). Pass 2: pickup range (eastern-German postcodes).
+    for (const [filter, shipsToPl] of [[`${base},deliveryCountry:PL`, true], [base, false]] as const) {
+      try {
+        const res = await ebayGet<{ itemSummaries?: EbaySummary[]; total?: number }>(
+          `/item_summary/search?q=${encodeURIComponent(q)}${cat}&filter=${encodeURIComponent(filter)}&limit=${conf.limit ?? 100}`,
+          conf.marketplaceId,
+        );
+        let kept = 0;
+        for (const s of res.itemSummaries ?? []) {
+          const url = ebayUrl(s);
+          if (!url) continue;
+          const plz = ebayPlace(s.itemLocation).plz;
+          if (!shipsToPl && !(plz && prefixes.includes(plz))) continue;
+          const had = stubs.get(url);
+          if (had) {
+            had.shipsToPl ||= shipsToPl;
+            continue;
+          }
+          stubs.set(url, { s, shipsToPl });
+          kept++;
+        }
+        log.push(`eBay „${q}” (${shipsToPl ? 'wysyłka do PL' : 'odbiór, wschodnie Niemcy'}): ${res.itemSummaries?.length ?? 0} z ${res.total ?? 0}, nowych: ${kept}`);
+      } catch (e) {
+        log.push(`eBay „${q}”: BŁĄD ${(e as Error).message} — pomijam eBay do następnego uruchomienia`);
+        return [];
+      }
+    }
+  }
+
+  const db = buildDatabase();
+  const priceOf = (s: EbaySummary) => (s.price ? Math.round(Number(s.price.value)) : null);
+  const pre = [...stubs.entries()].filter(([url, { s }]) => {
+    const probe = normalizeImportRecord({ url, title: s.title || 'x x x', description: '', price: priceOf(s), currency: 'EUR', location: ebayPlace(s.itemLocation).location });
+    return keep(analyzeListings([probe], DEFAULT_SETTINGS, db)[0], s.title, true);
+  });
+
+  const out: Candidate[] = [];
+  let details = 0;
+  for (const [url, { s, shipsToPl }] of pre) {
+    const place = ebayPlace(s.itemLocation);
+    const imgs = [s.image?.imageUrl, ...(s.additionalImages ?? []).map((i) => i.imageUrl)].filter((x): x is string => !!x).slice(0, 3);
+    const cand: Candidate = {
+      url,
+      title: s.title,
+      description: '',
+      price: priceOf(s),
+      currency: 'EUR',
+      location: place.location,
+      ...(place.lat != null && place.lng != null ? { latitude: place.lat, longitude: place.lng } : {}),
+      postedAt: s.itemCreationDate ?? null,
+      images: imgs,
+      shipping: shipsToPl || undefined,
+      negotiable: s.buyingOptions?.includes('BEST_OFFER'),
+    };
+    const prev = previous.get(url);
+    if (prev || known.has(url) || details >= cfg.maxDetailFetches) {
+      if (prev) out.push({ ...cand, description: prev.description, postedAt: prev.postedAt ?? cand.postedAt, images: prev.images.length ? prev.images : imgs });
+      continue;
+    }
+    try {
+      details++;
+      // Item details: seller text + item specifics (Rahmenmaterial, Baujahr…) — used for analysis only.
+      const it = await ebayGet<EbayItem>(`/item/${encodeURIComponent(s.itemId)}`, conf.marketplaceId);
+      const aspects = (it.localizedAspects ?? []).map((a) => `${a.name}: ${a.value}`).join('. ');
+      const full = ebayPlace(it.itemLocation ?? s.itemLocation);
+      out.push({
+        ...cand,
+        description: [aspects, it.shortDescription, decode(it.description ?? '')].filter(Boolean).join('\n'),
+        location: full.location,
+        ...(full.lat != null && full.lng != null ? { latitude: full.lat, longitude: full.lng } : {}),
+        images: [it.image?.imageUrl, ...(it.additionalImages ?? []).map((i) => i.imageUrl)].filter((x): x is string => !!x).slice(0, 3),
+      });
+    } catch (e) {
+      log.push(`eBay szczegóły: BŁĄD ${(e as Error).message} — kończę pobieranie szczegółów`);
+      break;
+    }
+  }
+  return out;
+}
+
 // ---------------------------------------------------------------- filtering & fact summary
 
 const MODERN = /(27[,.]5|\b29\s*(?:"|''|zoll|er|cali)|\b29er\b|hydraul|tarczow|scheibenbremse|\bdisc\b|e[\s-]?bike|pedelec|carbon|karbon|boost|1x1[12]\b|tubeless)/i;
@@ -521,31 +688,38 @@ async function main() {
   const known = manualUrls();
   const results: { name: string; records: AutoRecord[]; added: number }[] = [];
 
-  if (cfg.olx.enabled) {
+  if (cfg.olx.enabled && run('olx')) {
     const prev = readAuto('auto-olx.json');
     const cands = await scoutOlx();
     results.push({ name: 'auto-olx.json', ...toRecords(cands, prev, known, nowIso) });
   }
-  if (cfg.kleinanzeigen.enabled) {
+  if (cfg.kleinanzeigen.enabled && run('kleinanzeigen')) {
     const prev = readAuto('auto-kleinanzeigen.json');
     const cands = await scoutKleinanzeigen(known, new Map(prev.map((r) => [r.url, r])));
     results.push({ name: 'auto-kleinanzeigen.json', ...toRecords(cands, prev, known, nowIso) });
   }
 
   const al = cfg.allegroLokalnie;
-  if (al?.enabled) {
+  if (al?.enabled && run('allegro-lokalnie')) {
     const prev = readAuto('auto-allegro-lokalnie.json');
     const url = (q: string) => `https://allegrolokalnie.pl/oferty/rowery-i-akcesoria/rowery-16420/q/${encodeURIComponent(q)}`;
     const cands = await scoutCards('Allegro Lokalnie', al, true, url, parseAllegroLokalnie, allegroLokalnieDetail, known, new Map(prev.map((r) => [r.url, r])));
     results.push({ name: 'auto-allegro-lokalnie.json', ...toRecords(cands, prev, known, nowIso) });
   }
   const sp = cfg.sprzedajemy;
-  if (sp?.enabled) {
+  if (sp?.enabled && run('sprzedajemy')) {
     const prev = readAuto('auto-sprzedajemy.json');
     // The portal's own Poznań + distance filter (150 km is one of its options).
     const url = (q: string) => `https://sprzedajemy.pl/poznan?inp_text=${encodeURIComponent(q).replace(/%20/g, '+')}&inp_distance=150`;
     const cands = await scoutCards('Sprzedajemy', sp, false, url, parseSprzedajemy, sprzedajemyDetail, known, new Map(prev.map((r) => [r.url, r])));
     results.push({ name: 'auto-sprzedajemy.json', ...toRecords(cands, prev, known, nowIso) });
+  }
+  const eb = cfg.ebay;
+  if (eb?.enabled && run('ebay')) {
+    const prev = readAuto('auto-ebay.json');
+    const cands = await scoutEbay(known, new Map(prev.map((r) => [r.url, r])));
+    // Without keys the source is skipped and the existing file is left untouched.
+    if (process.env.EBAY_CLIENT_ID) results.push({ name: 'auto-ebay.json', ...toRecords(cands, prev, known, nowIso) });
   }
 
   console.log(log.join('\n'));

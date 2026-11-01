@@ -15,6 +15,7 @@ export type MarketplaceId =
   | 'facebook'
   | 'gumtree'
   | 'kleinanzeigen'
+  | 'ebay'
   | 'manual'
   | 'other';
 
