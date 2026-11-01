@@ -21,7 +21,7 @@ const NAV = [
 
 /** Brand mark: vectorized photo of two steel couplers (one standing, one lying) (same drawing as public/favicon.svg). */
 export function LogoMark({ size = 34 }: { size?: number }) {
-  return <img src="logo-mark.svg" alt="" width={size * (892 / 862)} height={size} className="shrink-0" />;
+  return <img src="logo-mark.svg" alt="" width={size * (870 / 862)} height={size} className="shrink-0" />;
 }
 
 export function Logo() {
