@@ -7,9 +7,10 @@
       <ellipse cx="13" cy="32" rx="4.6" ry="7.5" fill="#fff"/>
       <ellipse cx="13" cy="32" rx="4.6" ry="7.5" fill="none" stroke="#000" stroke-width="1.6"/>
       <ellipse cx="13" cy="32" rx="2.5" ry="4.9" fill="#000"/>
-      <!-- lug sleeve with a spearpoint, separated from the tube by a gap -->
-      <path d="M32 22 H46 A4.4 10 0 0 1 46 42 H32 Q27 38 21 32 Q27 26 32 22 Z" fill="none" stroke="#000" stroke-width="2.6" stroke-linejoin="round"/>
-      <path d="M32 22 H46 A4.4 10 0 0 1 46 42 H32 Q27 38 21 32 Q27 26 32 22 Z" fill="#fff"/>
+      <!-- plain lug sleeve, separated from the tube by a gap; its near end drawn as a ring edge -->
+      <path d="M29 22 H46 A4.4 10 0 0 1 46 42 H29 A4.4 10 0 0 1 29 22 Z" fill="none" stroke="#000" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M29 22 H46 A4.4 10 0 0 1 46 42 H29 A4.4 10 0 0 1 29 22 Z" fill="#fff"/>
+      <ellipse cx="29" cy="32" rx="4.4" ry="10" fill="none" stroke="#000" stroke-width="1.4"/>
     </mask>
   </defs>
   <rect width="64" height="64" rx="14" fill="#141516"/>
