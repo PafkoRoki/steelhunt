@@ -1,4 +1,575 @@
 {
-  "generatedAt": "2026-11-01T01:22:37.313Z",
-  "listings": []
+  "generatedAt": "2026-11-01T01:45:31.580Z",
+  "listings": [
+    {
+      "id": "olx:1cPFpk",
+      "externalId": "1cPFpk",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/rower-retro-stevens-710-93-CID767-ID1cPFpk.html",
+      "title": "Rower Retro Stevens 710 '93",
+      "description": "Stevens 710 z 1993. Rama i widelec cr-mo Tange. Pełna grupa Deore DX, koła 28, obręcze Araya, stery i mostek Ritchey. Odnowiony, sprawny, stan bardzo dobry. Odbiór w Kaliszu (w treści podano 900 zł).",
+      "price": 850,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Kalisz",
+      "latitude": 51.761,
+      "longitude": 18.091,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-18T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:18.996Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:18.996Z",
+          "price": 850
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:12caWw",
+      "externalId": "12caWw",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/szosa-rower-rama-pi-jho-reynolds-531-grawery-vintage-CID767-ID12caWw.html",
+      "title": "Szosa rama PI-JHO Reynolds 531 grawery vintage",
+      "description": "Rama szosowa stalowa PI-JHO na rurach Reynolds 531, z grawerami. W komplecie stery Shimano 600, manetki, wkład; haki Campagnolo. Mały wgniot na ramie, lakier w dobrym stanie. Wymiary 59 x 55 cm. Sprzedawca firmowy.",
+      "price": 650,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Głogów",
+      "latitude": 51.663,
+      "longitude": 16.085,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-28T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.000Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.000Z",
+          "price": 650
+        }
+      ],
+      "declared": {
+        "condition": "fair",
+        "itemType": "frame"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:1cVVVr",
+      "externalId": "1cVVVr",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/peugeot-szosa-kolarka-retro-duzy-rozmiar-CID767-ID1cVVVr.html",
+      "title": "Peugeot szosa kolarka retro duży rozmiar",
+      "description": "Stara szosa Peugeot na rurach Reynolds, oryginalny osprzęt Simplex. Rama stalowa, rura podsiodłowa 64 cm (dla wysokich). Brak dętek i pedałów, poza tym gotowa do jazdy.",
+      "price": 1200,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Poznań, Łazarz",
+      "latitude": 52.4064,
+      "longitude": 16.9252,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-26T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.002Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.002Z",
+          "price": 1200
+        }
+      ],
+      "declared": {
+        "condition": "fair",
+        "itemType": "complete"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:1bcgHB",
+      "externalId": "1bcgHB",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/rower-szosowy-diamant-reynolds-531-56-cm-single-speed-kolarzovka-vintage-fixed-ostre-kolo-CID767-ID1bcgHB.html",
+      "title": "Rower szosowy Diamant Reynolds 531 56 cm single speed vintage",
+      "description": "Szosa Diamant z lat 80. Rama Reynolds 531, chromowany widelec, rama prosta bez uszkodzeń, naturalne ślady użytkowania lakieru. Rura podsiodłowa 56 cm c-c. Single speed (52/16), opony 700x28c, lekkie obręcze (prawdopodobnie Mavic), sztyca Miche, pedały Maillard. Sprawny.",
+      "price": 1200,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Poznań, Antoninek",
+      "latitude": 52.4064,
+      "longitude": 16.9252,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-23T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.002Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.002Z",
+          "price": 1200
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:18bvIA",
+      "externalId": "18bvIA",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/szosa-basso-gap-columbus-sl-campagnolo-record-shamal-CID767-ID18bvIA.html",
+      "title": "Szosa Basso Gap Columbus SL Campagnolo Record Shamal",
+      "description": "Basso Gap, rama Columbus SL, osprzęt Campagnolo Record, koła Campagnolo Shamal. Bardzo ładny stan lakieru, drobne braki (przy sztycy, jedna śrubka korby). Rama 57 x 56 cm. Sprzedaż tylko w całości, odbiór osobisty. Sprzedawca firmowy.",
+      "price": 1900,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Głogów",
+      "latitude": 51.663,
+      "longitude": 16.085,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-26T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.003Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.003Z",
+          "price": 1900
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:1cVtS5",
+      "externalId": "1cVtS5",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/niemiecki-rower-szosowy-columbus-klasyk-vintage-osprzet-shimano-stan-idealny-CID767-ID1cVtS5.html",
+      "title": "Niemiecki rower szosowy Columbus, klasyk vintage, osprzęt Shimano",
+      "description": "Szosa z lat 80. opisana jako niemiecka marka „Columbus” — nazwa może dotyczyć marki roweru, a nie rur. Rama stalowa, osprzęt Shimano z manetkami na ramie, kierownica i mostek ITM Mondial, hamulce Weinmann 570, piasty Maillard. Gotowa do jazdy.",
+      "price": 800,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Nowy Tomyśl",
+      "latitude": 52.319,
+      "longitude": 16.128,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-24T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.003Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.003Z",
+          "price": 800
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:15zKSA",
+      "externalId": "15zKSA",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/klasyka-rower-szosa-fausto-coppi-CID767-ID15zKSA.html",
+      "title": "Klasyka rower szosa Fausto Coppi",
+      "description": "Szosa Fausto Coppi, rama stal Columbus, rozmiar ok. 56. Osprzęt Campagnolo Mirage. Po pełnym serwisie, w zestawie siodło Brooks. Lokalizacja w ogłoszeniu podana jako „Pelikan” — nie rozpoznano miejscowości.",
+      "price": 1300,
+      "currency": "PLN",
+      "images": [],
+      "locationName": null,
+      "latitude": null,
+      "longitude": null,
+      "geoPrecision": "none",
+      "postedAt": "2026-10-19T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.003Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.003Z",
+          "price": 1300
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:19pDlL",
+      "externalId": "19pDlL",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/rama-orlowski-columbus-tsx-59cm-szosowa-CID767-ID19pDlL.html",
+      "title": "Rama Orłowski Columbus TSX 59 cm szosowa",
+      "description": "Rama Orłowskiego na rurach Columbus TSX z widelcem, zwarta geometria, wewnętrzne prowadzenie linki hamulca. Przedni hak prawdopodobnie amatorsko prostowany. W zestawie stery Shimano 600. Wymiary 59 x 59 c-c. Możliwa wysyłka kurierem.",
+      "price": 900,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Poznań, Chartowo",
+      "latitude": 52.4064,
+      "longitude": 16.9252,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-18T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.004Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.004Z",
+          "price": 900
+        }
+      ],
+      "declared": {
+        "condition": "fair",
+        "itemType": "frameset"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:1cODH3",
+      "externalId": "1cODH3",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/wloska-szosowa-rama-stalowa-basso-CID767-ID1cODH3.html",
+      "title": "Włoska szosowa rama stalowa Basso",
+      "description": "Retro szosowa rama stalowa Basso na rurkach Columbus. Duży rozmiar: rura podsiodłowa 62 cm c-c. Widoczne ślady użytkowania. Cena do negocjacji.",
+      "price": 99,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Wyrzysk",
+      "latitude": 53.153,
+      "longitude": 17.268,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-17T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.004Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.004Z",
+          "price": 99
+        }
+      ],
+      "declared": {
+        "condition": "fair",
+        "itemType": "frame"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:1aNma0",
+      "externalId": "1aNma0",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/rower-gorski-mtb-vintage-ideal-CID767-ID1aNma0.html",
+      "title": "Rower górski MTB vintage",
+      "description": "Rower górski starszej konstrukcji, podzespoły Deore i Deore XT, napęd 3x8, V-brake. Opony gładkie do wymiany na terenowe. Marka i materiał ramy niepodane. Odbiór Kiekrz lub Poznań Piątkowo.",
+      "price": 699,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Kiekrz",
+      "latitude": 52.462,
+      "longitude": 16.783,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-27T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.004Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.004Z",
+          "price": 699
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:1cqh2B",
+      "externalId": "1cqh2B",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/rower-gorski-retro-vintage-scott-summit-kola-26-stx-mavic-r20-okazja-CID767-ID1cqh2B.html",
+      "title": "Rower górski retro vintage Scott Summit koła 26 STX Mavic",
+      "description": "Scott Summit, rama 20 cali, bez amortyzacji, koła 26 Mavic, osprzęt STX. Po przeglądzie, sprawny, normalne ślady użytkowania. Materiał ramy niepodany. Sklep rowerowy, możliwa wysyłka kurierska.",
+      "price": 500,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Nowy Tomyśl",
+      "latitude": 52.319,
+      "longitude": 16.128,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-28T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.005Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.005Z",
+          "price": 500
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete",
+        "shippingAvailable": true
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:16zHNs",
+      "externalId": "16zHNs",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/rower-szosowy-retro-vintage-kolarzowka-raleigh-CID767-ID16zHNs.html",
+      "title": "Rower szosowy retro vintage kolarzówka Raleigh",
+      "description": "Kolarzówka Raleigh, rama stalowa, nietypowa kolorystyka, manetki na ramie, podzespoły Shimano. Hamulce sprawne, ale rower wymaga nakładów, żeby doprowadzić go do porządku.",
+      "price": 750,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Słupca",
+      "latitude": 52.287,
+      "longitude": 17.872,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-26T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.005Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.005Z",
+          "price": 750
+        }
+      ],
+      "declared": {
+        "condition": "fair",
+        "itemType": "complete"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:1cXVWK",
+      "externalId": "1cXVWK",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/kolarzowka-retro-CID767-ID1cXVWK.html",
+      "title": "Kolarzówka retro",
+      "description": "Kolarzówka retro, brak szczegółów w ogłoszeniu (marka, rama, osprzęt nieopisane).",
+      "price": 600,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Gniezno",
+      "latitude": 52.535,
+      "longitude": 17.583,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-26T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.005Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.005Z",
+          "price": 600
+        }
+      ],
+      "declared": {
+        "itemType": "complete"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:1bfITy",
+      "externalId": "1bfITy",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/kolarzowka-szosa-vintage-CID767-ID1bfITy.html",
+      "title": "Kolarzówka szosa vintage",
+      "description": "Kolarzówka po renowacji, bardzo dobry stan, sporo nowych części (łańcuch, łożyska, przerzutka, linki, hamulce, manetki, kierownica, mostek, siodło, pedały). Marka i materiał ramy niepodane.",
+      "price": 850,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Wolsztyn",
+      "latitude": 52.116,
+      "longitude": 16.115,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-26T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.005Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.005Z",
+          "price": 850
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:1cxzVV",
+      "externalId": "1cxzVV",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/kolarzowka-schneider-klasyk-CID767-ID1cxzVV.html",
+      "title": "Kolarzówka Schneider klasyk",
+      "description": "Klasyczna kolarzówka Schneider, rama stalowa, koła 28. Do remontu (stan: uszkodzone).",
+      "price": 119,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Leszno",
+      "latitude": 51.8406,
+      "longitude": 16.5749,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-29T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.006Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.006Z",
+          "price": 119
+        }
+      ],
+      "declared": {
+        "condition": "poor",
+        "itemType": "complete"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:1d341n",
+      "externalId": "1d341n",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/rower-trek-920-meski-vintage-1994-1998-odnowiony-CID767-ID1d341n.html",
+      "title": "Rower Trek 920 męski vintage 1994/1998 (odnowiony)",
+      "description": "Trek 920, MTB z lat 90., koła 26, bez amortyzacji (sztywny widelec). Rama stal chromowo-molibdenowa. Shimano 3x8, V-brake. Po gruntownym remoncie (nowy suport, pedały, klamki, linki, piasta tylna i kaseta). Drobne otarcia lakieru.",
+      "price": 2490,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Puszczykowo",
+      "latitude": 52.286,
+      "longitude": 16.855,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-31T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.006Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.006Z",
+          "price": 2490
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:1cZH9U",
+      "externalId": "1cZH9U",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/colnago-sport-klasyczna-stalowa-szosowka-CID767-ID1cZH9U.html",
+      "title": "Colnago Sport – klasyczna stalowa szosówka",
+      "description": "Colnago Sport, klasyczna stalowa rama, czerwony lakier, chromowane elementy, manetki na ramie, osprzęt z epoki. Cena do negocjacji.",
+      "price": 1850,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Kórnik",
+      "latitude": 52.247,
+      "longitude": 17.088,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-27T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.006Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.006Z",
+          "price": 1850
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:177cK4",
+      "externalId": "177cK4",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/rower-bianchi-retro-vintage-CID767-ID177cK4.html",
+      "title": "Rower Bianchi retro/vintage",
+      "description": "Szosa Bianchi, rama odmalowana, nowe siodło i owijka. Kaseta 6-rzędowa, tylna przerzutka wymieniona na Shimano Claris. Rozmiar M/50. Materiał ramy niepodany. Cena do negocjacji.",
+      "price": 1490,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Zielona Góra",
+      "latitude": 51.9356,
+      "longitude": 15.5062,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-29T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.006Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.006Z",
+          "price": 1490
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete"
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:1bjlnE",
+      "externalId": "1bjlnE",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/rower-szosowy-retro-vintage-CID767-ID1bjlnE.html",
+      "title": "Rower szosowy retro vintage",
+      "description": "Rower szosowy retro, rama stalowa, V-brake, po przeglądzie, gotowy do jazdy. Marka niepodana.",
+      "price": 690,
+      "currency": "PLN",
+      "images": [],
+      "locationName": "Jarocin",
+      "latitude": 51.972,
+      "longitude": 17.502,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-29T12:00:00Z",
+      "discoveredAt": "2026-11-01T01:36:19.006Z",
+      "lastSeenAt": "2026-11-01T01:45:31.580Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-01T01:36:19.006Z",
+          "price": 690
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete"
+      },
+      "origin": "import"
+    }
+  ]
 }
