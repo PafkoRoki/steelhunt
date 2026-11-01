@@ -2,8 +2,8 @@
  * Photo review helper for the local scout (run by the owner's scheduled Claude task, never in CI).
  *
  *   npm run photos -- todo [--limit=10]   Pick listings whose photos were not checked yet, download up to
- *                                         3 photos each into .photo-cache/ (git-ignored) and write
- *                                         .photo-cache/todo.json for the reviewer.
+ *                                         3 photos each into tmp/photo-cache/ (git-ignored) and write
+ *                                         tmp/photo-cache/todo.json for the reviewer.
  *   npm run photos -- save <file.json>    Validate the reviewer's readings and merge them into
  *                                         data/photo-notes.json (picked up by the ingestion).
  *
@@ -19,7 +19,7 @@ import { z } from 'zod';
 const ROOT = resolve(import.meta.dirname, '..');
 const IMPORTS = resolve(ROOT, 'data/imports');
 const NOTES = resolve(ROOT, 'data/photo-notes.json');
-const CACHE = resolve(ROOT, '.photo-cache');
+const CACHE = resolve(ROOT, 'tmp', 'photo-cache');
 const UA = 'steelhunt-scout/0.1 (personal use; low rate; +https://github.com/PafkoRoki/steelhunt)';
 const pexec = promisify(execFile);
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -105,7 +105,7 @@ async function todo(limit: number) {
     out.push({ n: i + 1, url: r.url, title: r.title, price: r.price != null ? `${r.price} ${r.currency ?? 'PLN'}` : '?', photos });
   }
   writeFileSync(resolve(CACHE, 'todo.json'), JSON.stringify(out, null, 2), 'utf8');
-  console.log(`Do sprawdzenia: ${out.length} ogłoszeń (oczekuje łącznie: ${pending.length}). Lista: .photo-cache/todo.json`);
+  console.log(`Do sprawdzenia: ${out.length} ogłoszeń (oczekuje łącznie: ${pending.length}). Lista: tmp/photo-cache/todo.json`);
   for (const o of out) console.log(`  ${o.n}. ${o.title.slice(0, 60)} — ${o.photos.length} zdj.`);
 }
 

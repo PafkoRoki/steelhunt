@@ -562,7 +562,7 @@ async function scoutEbay(known: Set<string>, previous: Map<string, AutoRecord>):
 
 // ---------------------------------------------------------------- filtering & fact summary
 
-const MODERN = /(27[,.]5|\b29\s*(?:"|''|zoll|er|cali)|\b29er\b|hydraul|tarczow|scheibenbremse|\bdisc\b|e[\s-]?bike|pedelec|carbon|karbon|boost|1x1[12]\b|tubeless)/i;
+const MODERN = /(27[,.]5|\b29\s*(?:["“”″]|''|zoll|er|cali)|\b29er\b|hydraul|tarczow|scheibenbremse|\bdisc\b|e[\s-]?bike|pedelec|carbon|karbon|boost|1x1[12]\b|tubeless)/i;
 
 /** `titleOnly`: pre-filter on a search card — the retro signal may only be in the description. */
 function keep(a: AnalyzedListing, rawText: string, titleOnly = false): boolean {
