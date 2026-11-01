@@ -11,6 +11,8 @@ interface LogoMeta {
   source: string;
   /** Scale for files with wide empty margins. */
   zoom?: number;
+  /** 'dark' for white logos that need a dark chip. */
+  bg?: 'dark';
 }
 
 const LOGOS = logos as Record<string, LogoMeta>;
@@ -31,7 +33,7 @@ export function BrandLogo({ id, size = 'sm', placeholder = false }: { id: string
   // Keeps list rows aligned when a brand has no free logo.
   if (!logo) return placeholder ? <span className={`inline-flex shrink-0 rounded-lg border border-dashed border-white/[0.08] ${box}`} aria-hidden /> : null;
   return (
-    <span className={`inline-flex shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white/90 ${box}`}>
+    <span className={`inline-flex shrink-0 items-center justify-center overflow-hidden rounded-lg ${logo.bg === 'dark' ? 'bg-ink-950 ring-1 ring-white/10' : 'bg-white/90'} ${box}`}>
       <img
         src={logo.src}
         alt={`Logo ${logo.title}`}

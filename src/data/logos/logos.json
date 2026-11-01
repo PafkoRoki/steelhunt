@@ -39,23 +39,6 @@
     "author": "Marin Bikes",
     "source": "Wikimedia Commons"
   },
-  "kona": {
-    "src": "logos/kona.svg",
-    "title": "kona.svg (z kona.cdr)",
-    "page": null,
-    "license": null,
-    "author": null,
-    "source": "dodane ręcznie przez właściciela strony"
-  },
-  "univega": {
-    "src": "logos/univega.png",
-    "title": "univega.png",
-    "page": null,
-    "license": null,
-    "author": null,
-    "source": "dodane ręcznie przez właściciela strony",
-    "zoom": 3.2
-  },
   "giant": {
     "src": "logos/giant.svg",
     "title": "Giant bycicles logo 2.svg",
@@ -73,20 +56,28 @@
     "source": "Wikimedia Commons"
   },
   "schwinn": {
-    "src": "logos/schwinn.png",
-    "title": "Schwinn logo.png",
-    "page": "https://commons.wikimedia.org/wiki/File:Schwinn_logo.png",
-    "license": "Public domain",
-    "author": "Schwinn",
-    "source": "Wikimedia Commons"
+    "src": "logos/schwinn.svg",
+    "title": "schwinn.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
-  "diamondback": {
-    "src": "logos/diamondback.png",
-    "title": "Diamondbacklogo.png",
-    "page": "https://commons.wikimedia.org/wiki/File:Diamondbacklogo.png",
-    "license": "Public domain",
-    "author": "Pabsth",
-    "source": "Wikimedia Commons"
+  "salsa": {
+    "src": "logos/salsa.png",
+    "title": "salsa.png",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "fat-chance": {
+    "src": "logos/fat-chance.png",
+    "title": "fat-chance.png",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "bontrager": {
     "src": "logos/bontrager.svg",
@@ -95,14 +86,6 @@
     "license": null,
     "author": null,
     "source": "dodane ręcznie przez właściciela strony"
-  },
-  "jamis": {
-    "src": "logos/jamis.png",
-    "title": "Jamis Bikes Logo.png",
-    "page": "https://commons.wikimedia.org/wiki/File:Jamis_Bikes_Logo.png",
-    "license": "CC BY-SA 4.0",
-    "author": "Jamis Bikes",
-    "source": "Wikimedia Commons"
   },
   "panasonic": {
     "src": "logos/panasonic.svg",
@@ -120,9 +103,9 @@
     "author": "Miyata Cycle Co., Ltd.",
     "source": "Wikimedia Commons"
   },
-  "wheeler": {
-    "src": "logos/wheeler.png",
-    "title": "wheeler.png",
+  "nishiki": {
+    "src": "logos/nishiki.svg",
+    "title": "nishiki.svg",
     "page": null,
     "license": null,
     "author": null,
@@ -144,13 +127,22 @@
     "author": null,
     "source": "dodane ręcznie przez właściciela strony"
   },
+  "musing": {
+    "src": "logos/musing.jpg",
+    "title": "musing.jpg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony",
+    "zoom": 1.5
+  },
   "stevens": {
-    "src": "logos/stevens.png",
-    "title": "Stevens bikes logo.gif",
-    "page": "https://commons.wikimedia.org/wiki/File:Stevens_bikes_logo.gif",
-    "license": "Public domain",
-    "author": "Unknown authorUnknown author",
-    "source": "Wikimedia Commons"
+    "src": "logos/stevens.svg",
+    "title": "stevens.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "simplon": {
     "src": "logos/simplon.svg",
@@ -159,6 +151,14 @@
     "license": "logo bez wolnej licencji (plik lokalny de.wikipedia)",
     "author": "Simplon Fahrrad GmbH",
     "source": "de.wikipedia"
+  },
+  "ktm": {
+    "src": "logos/ktm.svg",
+    "title": "ktm.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "winora": {
     "src": "logos/winora.svg",
@@ -192,6 +192,14 @@
     "author": "Unknown authorUnknown author",
     "source": "Wikimedia Commons"
   },
+  "dawes": {
+    "src": "logos/dawes.svg",
+    "title": "dawes.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
   "koga-miyata": {
     "src": "logos/koga-miyata.svg",
     "title": "Koga logo.svg",
@@ -208,6 +216,22 @@
     "author": "Accell Nederland B.V.",
     "source": "Wikimedia Commons"
   },
+  "checker-pig": {
+    "src": "logos/checker-pig.png",
+    "title": "checker-pig.png",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "etto": {
+    "src": "logos/etto.png",
+    "title": "etto.png",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
   "storck": {
     "src": "logos/storck.png",
     "title": "Storck Bicycle Logo.gif",
@@ -216,13 +240,29 @@
     "author": "RSander-Strock",
     "source": "Wikimedia Commons"
   },
+  "orange": {
+    "src": "logos/orange.svg",
+    "title": "orange.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "saracen": {
+    "src": "logos/saracen.webp",
+    "title": "saracen.webp",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
   "ridgeback": {
-    "src": "logos/ridgeback.png",
-    "title": "Ridgeback Logo OneCol Light.png",
-    "page": "https://commons.wikimedia.org/wiki/File:Ridgeback_Logo_OneCol_Light.png",
-    "license": "CC0",
-    "author": "M1d358s90n",
-    "source": "Wikimedia Commons"
+    "src": "logos/ridgeback.svg",
+    "title": "ridgeback.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "bianchi": {
     "src": "logos/bianchi.svg",
@@ -249,12 +289,12 @@
     "source": "Wikimedia Commons"
   },
   "votec": {
-    "src": "logos/votec.png",
-    "title": "Votec Mountainbikes - Logo.jpeg",
-    "page": "https://commons.wikimedia.org/wiki/File:Votec_Mountainbikes_-_Logo.jpeg",
-    "license": "CC BY-SA 3.0",
-    "author": "Monocut",
-    "source": "Wikimedia Commons"
+    "src": "logos/votec.svg",
+    "title": "votec.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "romet": {
     "src": "logos/romet.png",
@@ -280,14 +320,6 @@
     "author": null,
     "source": "dodane ręcznie przez właściciela strony",
     "zoom": 3
-  },
-  "focus": {
-    "src": "logos/focus.png",
-    "title": "FOCUS Bikes Logo wordmark blk.png",
-    "page": "https://commons.wikimedia.org/wiki/File:FOCUS_Bikes_Logo_wordmark_blk.png",
-    "license": "CC BY 4.0",
-    "author": "FocusMK",
-    "source": "Wikimedia Commons"
   },
   "kalkhoff": {
     "src": "logos/kalkhoff.svg",
