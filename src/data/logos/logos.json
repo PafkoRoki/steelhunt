@@ -401,11 +401,11 @@
   },
   "gazelle": {
     "src": "logos/gazelle.svg",
-    "title": "Gazelle Bikes wordmark.svg",
-    "page": "https://commons.wikimedia.org/wiki/File:Gazelle_Bikes_wordmark.svg",
-    "license": "Public domain",
-    "author": "Koninklijke Gazelle N.V.",
-    "source": "Wikimedia Commons"
+    "title": "gazelle.svg (z gazelle.cdr)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "votec": {
     "src": "logos/votec.svg",
@@ -429,8 +429,7 @@
     "page": null,
     "license": null,
     "author": null,
-    "source": "dodane ręcznie przez właściciela strony",
-    "zoom": 3
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "focus": {
     "src": "logos/focus.svg",
