@@ -17,7 +17,7 @@ rowerów, ram i komponentów **tańszych niż ich realna wartość** — także 
 | Pulpit: aktywne, nowe, okazje, średnia cena, okazja dnia, blisko Poznania, Unknown Gems | ✅ |
 | Cztery niezależne oceny: **Deal**, **Jakość ramy**, **Potencjał XBiking**, **Lokalizacja** | ✅ |
 | Rozpoznawanie rur (Tange, Reynolds, Columbus, Ishiwata, True Temper, Dedacciai, Vitus, Oria, Kaisei, Cr-Mo/4130/Hi-Ten) z **zakresem** (cała rama / rury główne / tylko widelec) i **poziomem pewności** | ✅ |
-| Baza 58 producentów i 52 modeli (USA, Japonia, Niemcy, Holandia, Francja, UK…), edytowalna bez zmian w kodzie | ✅ |
+| Baza 61 producentów i 318 modeli retro MTB (z linkami do źródeł) (USA, Japonia, Niemcy, Holandia, Francja, UK…), edytowalna bez zmian w kodzie | ✅ |
 | Wycena: zakres wartości, oszczędność, koszt renowacji, koszt dojazdu, potencjał netto — zawsze z opisem niepewności | ✅ |
 | **Unknown Gem** — ciekawe rowery spoza bazy modeli | ✅ |
 | Filtry (cena, odległość, producent, model, rury, jakość ramy, koła, kategoria, stan, Deal Score, nowe, gemy, typ, portal) i 6 sposobów sortowania | ✅ |
