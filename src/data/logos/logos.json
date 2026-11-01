@@ -39,6 +39,30 @@
     "author": "Marin Bikes",
     "source": "Wikimedia Commons"
   },
+  "kona": {
+    "src": "logos/kona.svg",
+    "title": "kona.svg (z kona.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "bridgestone": {
+    "src": "logos/bridgestone.svg",
+    "title": "bridgestone.svg (z bridgestone.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "univega": {
+    "src": "logos/univega.svg",
+    "title": "univega.svg (z univega.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
   "giant": {
     "src": "logos/giant.svg",
     "title": "Giant bycicles logo 2.svg",
@@ -55,9 +79,33 @@
     "author": "SCOTT Sports SA",
     "source": "Wikimedia Commons"
   },
+  "rocky-mountain": {
+    "src": "logos/rocky-mountain.svg",
+    "title": "rocky-mountain.svg (z rocky-mountain.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
   "schwinn": {
     "src": "logos/schwinn.svg",
     "title": "schwinn.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "gary-fisher": {
+    "src": "logos/gary-fisher.svg",
+    "title": "gary-fisher.svg (z gary-fisher.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "mongoose": {
+    "src": "logos/mongoose.svg",
+    "title": "mongoose.svg (z mongoose.eps)",
     "page": null,
     "license": null,
     "author": null,
@@ -79,9 +127,33 @@
     "author": null,
     "source": "dodane ręcznie przez właściciela strony"
   },
+  "ritchey": {
+    "src": "logos/ritchey.svg",
+    "title": "ritchey.svg (z ritchey.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
   "bontrager": {
     "src": "logos/bontrager.svg",
     "title": "bontrager.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "jamis": {
+    "src": "logos/jamis.svg",
+    "title": "jamis.svg (z jamis.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "fuji": {
+    "src": "logos/fuji.svg",
+    "title": "fuji.svg (z fuji.eps)",
     "page": null,
     "license": null,
     "author": null,
@@ -106,6 +178,22 @@
   "nishiki": {
     "src": "logos/nishiki.svg",
     "title": "nishiki.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "centurion": {
+    "src": "logos/centurion.svg",
+    "title": "centurion.svg (z centurion.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "wheeler": {
+    "src": "logos/wheeler.svg",
+    "title": "wheeler.svg (z wheeler.eps)",
     "page": null,
     "license": null,
     "author": null,
@@ -304,6 +392,14 @@
     "author": null,
     "source": "dodane ręcznie przez właściciela strony"
   },
+  "kross": {
+    "src": "logos/kross.svg",
+    "title": "kross.svg (z kross.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
   "klein": {
     "src": "logos/klein.svg",
     "title": "Klein Logo.svg",
@@ -320,6 +416,14 @@
     "author": null,
     "source": "dodane ręcznie przez właściciela strony",
     "zoom": 3
+  },
+  "focus": {
+    "src": "logos/focus.svg",
+    "title": "focus.svg (z focus.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "kalkhoff": {
     "src": "logos/kalkhoff.svg",
