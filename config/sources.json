@@ -20,6 +20,6 @@
   "markRemovedAfterDays": 14,
   "sources": {
     "manual-feed": { "enabled": true, "dir": "data/imports" },
-    "allegro": { "enabled": true, "categoryId": "" }
+    "allegro": { "enabled": false, "categoryId": "" }
   }
 }

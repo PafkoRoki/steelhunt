@@ -60,7 +60,7 @@
     ]
   },
   "allegroLokalnie": {
-    "enabled": true,
+    "enabled": false,
     "radiusKm": 200,
     "delayMs": 8000,
     "$comment": "Portal limits request rate (HTTP 429) - few queries, long pauses; on 429 the run skips it.",
@@ -88,7 +88,7 @@
   },
   "ebay": {
     "$comment": "Official Browse API only (eBay's User Agreement forbids scraping). Needs EBAY_CLIENT_ID / EBAY_CLIENT_SECRET; runs in GitHub Actions (npm run scout -- --only=ebay). Postcodes default to kleinanzeigen.postcodePrefixes.",
-    "enabled": true,
+    "enabled": false,
     "marketplaceId": "EBAY_DE",
     "categoryIds": "",
     "limit": 100,
