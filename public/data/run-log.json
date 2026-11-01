@@ -1,7 +1,35 @@
 {
-  "lastRunAt": "2026-11-01T03:54:49.163Z",
-  "lastSuccessAt": "2026-11-01T03:54:49.163Z",
+  "lastRunAt": "2026-11-01T04:20:29.554Z",
+  "lastSuccessAt": "2026-11-01T04:20:29.554Z",
   "runs": [
+    {
+      "startedAt": "2026-11-01T04:20:29.457Z",
+      "finishedAt": "2026-11-01T04:20:29.554Z",
+      "ok": true,
+      "found": 78,
+      "added": 3,
+      "updated": 75,
+      "duplicates": 75,
+      "analyzed": 78,
+      "priceChanges": [],
+      "sources": [
+        {
+          "source": "manual",
+          "ok": true,
+          "skipped": false,
+          "found": 78,
+          "durationMs": 11
+        },
+        {
+          "source": "allegro",
+          "ok": false,
+          "skipped": true,
+          "found": 0,
+          "error": "Brak ALLEGRO_CLIENT_ID / ALLEGRO_CLIENT_SECRET w sekretach",
+          "durationMs": 0
+        }
+      ]
+    },
     {
       "startedAt": "2026-11-01T03:54:49.113Z",
       "finishedAt": "2026-11-01T03:54:49.163Z",
