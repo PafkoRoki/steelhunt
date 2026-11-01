@@ -30,9 +30,9 @@ rowerów, ram i komponentów **tańszych niż ich realna wartość** — także 
 
 ### Tryb demo
 
-Domyślnie włączony jest **tryb demo**: 28 fikcyjnych, realistycznych ogłoszeń, które pokazują działanie analizy.
+**Tryb demo** jest domyślnie wyłączony. Po włączeniu pokazuje 28 fikcyjnych, realistycznych ogłoszeń, które ilustrują działanie analizy.
 Każde ma plakietkę **DEMO**, a jego przycisk prowadzi do *wyszukiwarki* portalu — nigdy do wymyślonej oferty.
-Wyłączysz go w **Ustawienia → Dane → Tryb demo**.
+Włączysz go w **Ustawienia → Dane → Tryb demo**.
 
 ### Skąd biorą się prawdziwe dane
 

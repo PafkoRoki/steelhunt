@@ -54,7 +54,12 @@ const Ctx = createContext<AppDataValue | null>(null);
 const EMPTY_LIVE: LiveDataFile = { generatedAt: null, listings: [] };
 
 export function AppDataProvider({ children }: { children: ReactNode }) {
-  const [settings, setSettings] = useState<AppSettings>(() => ({ ...DEFAULT_SETTINGS, ...loadJson<Partial<AppSettings>>('settings', {}) }));
+  const [settings, setSettings] = useState<AppSettings>(() => {
+    const stored = loadJson<Partial<AppSettings>>('settings', {});
+    // v2: demo mode is off by default — older saved settings had it on implicitly.
+    if ((stored.settingsVersion ?? 1) < 2) stored.demoMode = false;
+    return { ...DEFAULT_SETTINGS, ...stored, settingsVersion: DEFAULT_SETTINGS.settingsVersion };
+  });
   const [userDb, setUserDb] = useState<UserDatabaseAdditions>(() => loadJson('userDb', { manufacturers: [], models: [] }));
   const [imports, setImports] = useState<SourceListing[]>(() => loadJson('imports', []));
   const [importHistory, setImportHistory] = useState<ImportEvent[]>(() => loadJson('importHistory', []));

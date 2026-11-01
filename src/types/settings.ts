@@ -28,6 +28,8 @@ export interface AppSettings {
   /** Flat courier cost for bikes when the seller ships, PLN. */
   courierCost: number;
   demoMode: boolean;
+  /** Bumped when defaults change in a way stored settings must follow. */
+  settingsVersion: number;
   newListingHours: number;
   /** tubingId -> custom score */
   frameScoreOverrides: Record<string, number>;
