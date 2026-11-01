@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#141516"/><g fill="none" stroke="#7fa283" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="40" r="10"/><circle cx="47" cy="40" r="10"/><path d="M17 40 L27 22 L41 22 L47 40 M27 22 L33 40 L41 22 M33 40 L17 40"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#141516"/>
+  <!-- tubes (steel) -->
+  <rect x="5" y="28" width="40" height="8" rx="1.5" fill="#b4b8b5"/>
+  <rect x="42" y="6" width="10" height="52" rx="1.5" fill="#b4b8b5"/>
+  <!-- lug (brass): sleeve on the head tube + long spearpoint along the top tube -->
+  <path d="M39.5 17 H54.5 V47 H39.5 V37.5 H35 L21 32 L35 26.5 H39.5 Z" fill="#c9a24a"/>
+</svg>
