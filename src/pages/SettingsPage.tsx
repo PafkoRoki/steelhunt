@@ -140,7 +140,7 @@ export default function SettingsPage() {
           <label className="mb-4 flex items-center justify-between gap-3 text-sm text-ink-200">
             <span>
               Tylko retro MTB
-              <span className="block text-[11px] text-ink-500">Pokazuje wyłącznie rowery MTB/ATB oraz ramy i części do MTB. Szosy, rowery miejskie i turystyczne są ukryte.</span>
+              <span className="block text-[11px] text-ink-500">Pokazuje wyłącznie rowery MTB/ATB oraz ramy i części do MTB. Rowery miejskie i turystyczne są ukryte. Szosy nie są pokazywane nigdy.</span>
             </span>
             <input type="checkbox" className="h-5 w-5 accent-moss-500" checked={settings.mtbOnly} onChange={(e) => updateSettings({ mtbOnly: e.target.checked })} />
           </label>

@@ -13,7 +13,7 @@ import { analyzeListings } from '../services/analysis/pipeline';
 import { loadSampleListings } from '../data/sample-listings/loadSamples';
 import { mergeListings } from '../services/deduplication/dedupe';
 import { loadJson, saveJson } from '../utils/storage';
-import { isMtbLike } from '../features/listings/focus';
+import { isMtbLike, isRoadBike } from '../features/listings/focus';
 
 export interface ImportEvent {
   at: string;
@@ -115,7 +115,8 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
   const listings = useMemo(() => {
     const nowIso = new Date(now).toISOString();
     const merged = mergeListings([], [...live.listings, ...imports, ...samples], nowIso).merged;
-    return analyzeListings(merged, settings, db, now);
+    // Road bikes are out of scope: dropped before anything is shown.
+    return analyzeListings(merged, settings, db, now).filter((l) => !isRoadBike(l));
   }, [live.listings, imports, samples, settings, db, now]);
 
   /** Listings matching the user's focus (retro MTB only, by default). */

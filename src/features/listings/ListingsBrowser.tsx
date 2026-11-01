@@ -94,7 +94,7 @@ export function ListingsBrowser({
 
       <ChipGroup label="Typ" values={Object.keys(ITEM_TYPE_LABEL) as ItemType[]} selected={filters.itemTypes} labelOf={(v) => ITEM_TYPE_LABEL[v]} onToggle={(v) => toggle('itemTypes', v)} />
       <ChipGroup label="Materiał" values={Object.keys(MATERIAL_LABEL) as FrameMaterial[]} selected={filters.materials} labelOf={(v) => MATERIAL_LABEL[v]} onToggle={(v) => toggle('materials', v)} />
-      <ChipGroup label="Kategoria" values={(Object.keys(CATEGORY_LABEL) as BicycleCategory[]).filter((c) => c !== 'unknown')} selected={filters.categories} labelOf={(v) => CATEGORY_LABEL[v]} onToggle={(v) => toggle('categories', v)} />
+      <ChipGroup label="Kategoria" values={(Object.keys(CATEGORY_LABEL) as BicycleCategory[]).filter((c) => !['unknown', 'vintage-road', 'randonneur'].includes(c))} selected={filters.categories} labelOf={(v) => CATEGORY_LABEL[v]} onToggle={(v) => toggle('categories', v)} />
       <ChipGroup label="Stan" values={Object.keys(CONDITION_LABEL) as ListingCondition[]} selected={filters.conditions} labelOf={(v) => CONDITION_LABEL[v]} onToggle={(v) => toggle('conditions', v)} />
       <ChipGroup label="Portal" values={options.marketplaces} selected={filters.marketplaces} labelOf={(v) => marketplaceName(v)} onToggle={(v) => toggle('marketplaces', v)} />
 

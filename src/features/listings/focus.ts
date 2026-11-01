@@ -15,3 +15,14 @@ export function isMtbLike({ listing, analysis: a }: AnalyzedListing): boolean {
   }
   return a.wheelSize === '26"' || MTB_WORDS.test(text);
 }
+
+const ROAD_CATEGORIES = new Set(['vintage-road', 'randonneur']);
+const ROAD_WORDS = /(szos|kolarz|kolark|\broad\b|baranek|drop\s*bar|\b700\s*c\b)/;
+
+/** Road bikes are out of scope for STEELHUNT entirely — they are never shown. */
+export function isRoadBike({ listing, analysis: a }: AnalyzedListing): boolean {
+  if (ROAD_CATEGORIES.has(a.bicycleCategory)) return true;
+  if (MTB_CATEGORIES.has(a.bicycleCategory)) return false;
+  const text = normalizeText(`${listing.title} ${listing.description}`);
+  return ROAD_WORDS.test(text) && !MTB_WORDS.test(text);
+}
