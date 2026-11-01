@@ -116,11 +116,12 @@ Bez zmian w kodzie:
 - **Producenci:** `src/data/manufacturers/manufacturers.json`
 - **Modele + heurystyczne zakresy cen:** `src/data/models/models.json`
 - **Rury ramowe + wzorce rozpoznawania + oceny:** `src/data/tubing/tubing.json`
-- **Komponenty:** `src/data/components/components.json`
+- **Osprzęt Shimano MTB (generacje, kody serii, lata produkcji):** `src/data/groupsets/shimano.json`
+- **Inne komponenty:** `src/data/components/components.json`
 - **Miejscowości (do liczenia odległości):** `src/services/geolocation/places.ts`
 
 Dodatkowo w aplikacji: **Baza rowerów → + Producent / + Model** (zapis w przeglądarce, eksport do JSON)
-oraz **Baza rur** — edycja ocen jakości z natychmiastowym przeliczeniem.
+oraz **Baza rur** — edycja ocen jakości z natychmiastowym przeliczeniem. Zakładka **Osprzęt Shimano** pokazuje oś czasu grup 1983–2005; kod serii z ogłoszenia (np. RD-M732) wskazuje przybliżony rocznik roweru.
 
 ---
 

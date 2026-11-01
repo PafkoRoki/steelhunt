@@ -1,4 +1,4 @@
-import { CheckCircle2, CircleDashed, Hand, PlugZap } from 'lucide-react';
+import { CheckCircle2, CircleDashed, Hand, PlugZap, Radar } from 'lucide-react';
 import { MARKETPLACES } from '../../services/marketplaces/registry';
 import { useAppData } from '../../hooks/AppData';
 import { formatDateTime } from '../../utils/format';
@@ -20,15 +20,15 @@ export function SourceStatus() {
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {MARKETPLACES.filter((m) => m.id !== 'other').map((m) => {
           const log = lastRun?.sources.find((s) => s.source === m.id);
-          const Icon = m.status === 'api' ? PlugZap : m.status === 'manual' ? Hand : CircleDashed;
+          const Icon = m.status === 'api' ? PlugZap : m.status === 'scout' ? Radar : m.status === 'manual' ? Hand : CircleDashed;
           return (
             <div key={m.id} className="rounded-xl border border-white/[0.05] bg-ink-950/40 p-3">
               <div className="flex items-center justify-between">
                 <span className="flex items-center gap-2 text-sm font-medium text-ink-100">
-                  <Icon size={15} className={m.status === 'api' ? 'text-moss-400' : 'text-ink-500'} />
+                  <Icon size={15} className={m.status === 'api' || m.status === 'scout' ? 'text-moss-400' : 'text-ink-500'} />
                   {m.name}
                 </span>
-                <span className="text-[11px] uppercase tracking-wider text-ink-500">{m.status === 'api' ? 'API' : m.status === 'manual' ? 'ręcznie' : 'planowane'}</span>
+                <span className="text-[11px] uppercase tracking-wider text-ink-500">{m.status === 'api' ? 'API' : m.status === 'scout' ? 'automat lokalny' : m.status === 'manual' ? 'ręcznie' : 'planowane'}</span>
               </div>
               <p className="mt-1.5 text-[11px] leading-relaxed text-ink-400">{m.note}</p>
               {log && (

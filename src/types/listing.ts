@@ -139,6 +139,8 @@ export interface ListingAnalysis {
   modelId: string | null;
   model: string | null;
   productionYear: string | null;
+  /** Era implied by the Shimano groupset generation named in the listing (e.g. "ok. 1989–1990"). */
+  groupsetEra?: string | null;
   bicycleCategory: BicycleCategory;
   itemType: ItemType;
   frameMaterial: FrameMaterial;

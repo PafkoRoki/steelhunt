@@ -1,9 +1,4 @@
 [
-  {"id": "deore-xt", "name": "Shimano Deore XT", "patterns": ["deore\\s*xt", "\\bxt\\s*m7\\d\\d", "\\bm73[0-9]\\b"], "tier": 5, "notes": "Grupy M730/M732/M735 szczególnie pożądane."},
-  {"id": "deore-lx", "name": "Shimano Deore LX", "patterns": ["deore\\s*lx"], "tier": 4},
-  {"id": "deore-dx", "name": "Shimano Deore DX", "patterns": ["deore\\s*dx"], "tier": 4},
-  {"id": "deore", "name": "Shimano Deore", "patterns": ["\\bdeore\\b(?!\\s*(?:xt|lx|dx))"], "tier": 3},
-  {"id": "exage", "name": "Shimano Exage", "patterns": ["\\bexage\\b"], "tier": 2},
   {"id": "biopace", "name": "Shimano Biopace", "patterns": ["biopace"], "tier": 2, "notes": "Owalne zębatki — ciekawostka epoki."},
   {"id": "suntour-xc-pro", "name": "SunTour XC Pro", "patterns": ["xc\\s*pro"], "tier": 5},
   {"id": "suntour-xcd", "name": "SunTour XCD", "patterns": ["\\bxcd\\b"], "tier": 4},

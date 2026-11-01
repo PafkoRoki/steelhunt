@@ -24,7 +24,23 @@
   },
   "kleinanzeigen": {
     "enabled": true,
-    "postcodePrefixes": ["01", "02", "03", "04", "06", "10", "12", "13", "14", "15", "16", "17", "18", "19", "39"],
+    "postcodePrefixes": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "06",
+      "10",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "39"
+    ],
     "queries": [
       "retro mtb",
       "vintage mtb",
@@ -41,6 +57,33 @@
       "kona mtb",
       "univega alpina",
       "bridgestone mb"
+    ]
+  },
+  "allegroLokalnie": {
+    "enabled": true,
+    "radiusKm": 200,
+    "delayMs": 8000,
+    "$comment": "Portal limits request rate (HTTP 429) - few queries, long pauses; on 429 the run skips it.",
+    "queries": [
+      "retro mtb",
+      "rower gorski vintage",
+      "deore xt",
+      "stary rower gorski",
+      "cr-mo"
+    ]
+  },
+  "sprzedajemy": {
+    "enabled": true,
+    "radiusKm": 200,
+    "queries": [
+      "retro mtb",
+      "rower gorski retro",
+      "rower gorski vintage",
+      "stary rower gorski",
+      "deore xt",
+      "specialized",
+      "trek",
+      "gt"
     ]
   }
 }

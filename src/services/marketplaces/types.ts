@@ -6,7 +6,7 @@ import type { MarketplaceId, SourceListing } from '../../types/listing';
  *  - `manual`    : no permitted automatic access — use URL / JSON / CSV import.
  *  - `planned`   : under investigation.
  */
-export type IntegrationStatus = 'api' | 'manual' | 'planned';
+export type IntegrationStatus = 'api' | 'manual' | 'planned' | 'scout';
 
 export interface MarketplaceInfo {
   id: MarketplaceId;

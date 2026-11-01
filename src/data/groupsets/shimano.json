@@ -1,0 +1,82 @@
+{
+  "sources": {
+    "wl": "https://en.wikipedia.org/wiki/List_of_Shimano_groupsets",
+    "wxt": "https://en.wikipedia.org/wiki/Shimano_Deore_XT",
+    "mombat": "https://mombatbicycles.com/Shimano.htm",
+    "shimano100": "https://www.shimano.com/en/100th/history/products/31.html"
+  },
+  "families": [
+    { "id": "xtr", "name": "XTR", "tier": 5, "rank": 1, "patterns": ["\\bxtr\\b"], "notes": "Najwyższa grupa MTB Shimano od 1992 r." },
+    { "id": "deore-xt", "name": "Deore XT", "tier": 5, "rank": 2, "patterns": ["deore\\s*xt", "shimano\\s*xt\\b", "\\bxt\\s*(?:rd|fd|fc|st|br)?[-\\s]?m7\\d\\d"], "notes": "Pierwsza grupa MTB Shimano (1983). Do 1992 r. szczyt oferty, potem drugi poziom pod XTR." },
+    { "id": "deore-dx", "name": "Deore DX", "tier": 4, "rank": 3, "patterns": ["deore\\s*dx"], "notes": "Wczesne lata 90., pozycja między XT a LX." },
+    { "id": "deore-lx", "name": "Deore LX", "tier": 4, "rank": 4, "patterns": ["deore\\s*lx"], "notes": "Średnio-wysoka grupa od 1990 r." },
+    { "id": "deore", "name": "Deore", "tier": 3, "rank": 5, "patterns": ["\\bdeore\\b(?!\\s*(?:xt|lx|dx))"], "notes": "Nazwa używana w kilku epokach: Deore MT60/MT62 (1987–1989) i Deore M510 (od 2000)." },
+    { "id": "mountain-lx", "name": "Mountain LX", "tier": 3, "rank": 6, "patterns": ["mountain\\s*lx"] },
+    { "id": "stx-rc", "name": "STX-RC", "tier": 3, "rank": 7, "patterns": ["stx[\\s-]*rc"] },
+    { "id": "stx", "name": "STX / STX-SE", "tier": 3, "rank": 8, "patterns": ["\\bstx\\b(?![\\s-]*rc)"] },
+    { "id": "exage", "name": "Exage (MTB)", "tier": 2, "rank": 9, "patterns": ["\\bexage\\b", "\\b[345]00\\s*lx\\b"], "notes": "Pod tą nazwą były też grupy szosowe (500EX/400EX/300EX) — nie dotyczą MTB." },
+    { "id": "alivio", "name": "Alivio", "tier": 2, "rank": 10, "patterns": ["\\balivio\\b"] },
+    { "id": "acera", "name": "Acera / Acera-X", "tier": 1, "rank": 11, "patterns": ["\\bacera\\b"] },
+    { "id": "altus", "name": "Altus", "tier": 1, "rank": 12, "patterns": ["\\baltus\\b"] },
+    { "id": "gs", "name": "200GS / 100GS / 70GS", "tier": 1, "rank": 13, "patterns": ["\\b(?:200|100|70)\\s*gs\\b"] },
+    { "id": "tourney", "name": "Tourney", "tier": 1, "rank": 14, "patterns": ["\\btourney\\b"], "notes": "Najniższy poziom oferty." }
+  ],
+  "groupsets": [
+    { "id": "xt-m700", "family": "deore-xt", "series": "M700", "codes": ["M700"], "yearFrom": 1983, "yearTo": 1986, "speeds": 6, "tech": ["manetki Uni-Shift (tarcie)", "Biopace", "hamulce cantilever BR-MC70"], "notes": "Pierwsza grupa MTB Shimano, tzw. „Deer Head” (jeleń na częściach).", "verification": "documented", "sources": ["wl", "wxt", "mombat"] },
+    { "id": "xt-m730", "family": "deore-xt", "series": "M730", "codes": ["M730", "M731"], "yearFrom": 1987, "yearTo": 1988, "yearNote": "Strona historii Shimano podaje 1986.", "speeds": 6, "tech": ["indeksowanie SIS", "kółka Centeron", "Biopace II", "hamulec U-brake BR-M731"], "notes": "Bardzo poszukiwana wśród kolekcjonerów.", "verification": "documented", "sources": ["wl", "wxt", "mombat", "shimano100"] },
+    { "id": "xt-m732", "family": "deore-xt", "series": "M732", "codes": ["M732", "M733"], "yearFrom": 1989, "yearTo": 1990, "speeds": 7, "tech": ["SIS", "kaseta Hyperglide", "klamki SLR", "Biopace HP"], "notes": "„Deore XT II”. Często uważana za najładniejszą XT epoki.", "verification": "documented", "sources": ["wl", "wxt", "mombat"] },
+    { "id": "xt-m735", "family": "deore-xt", "series": "M735", "codes": ["M735", "M736"], "yearFrom": 1990, "yearTo": 1993, "yearNote": "Źródła się różnią: Wikipedia (lista) 1990, artykuł o XT 1992.", "speeds": 7, "tech": ["manetki Rapidfire (pod kierownicą)", "Hyperglide"], "verification": "commonly-reported", "sources": ["wl", "wxt", "mombat"] },
+    { "id": "xt-m737", "family": "deore-xt", "series": "M737", "codes": ["M737", "M738"], "yearFrom": 1994, "yearTo": 1995, "yearNote": "Źródła się różnią: 1993 lub 1994.", "speeds": 8, "tech": ["8 rzędów", "Rapidfire Plus"], "verification": "commonly-reported", "sources": ["wl", "wxt"] },
+    { "id": "xt-m739", "family": "deore-xt", "series": "M739", "codes": ["M739"], "yearFrom": 1996, "yearTo": 1998, "yearNote": "Źródła się różnią: 1995 lub 1996.", "speeds": 8, "tech": ["8 rzędów", "pierwsze V-brake w XT"], "verification": "commonly-reported", "sources": ["wl", "wxt"] },
+    { "id": "xt-m750", "family": "deore-xt", "series": "M750", "codes": ["M750", "M751", "M752"], "yearFrom": 1999, "yearTo": 2002, "yearNote": "Pierwsze zestawy sprzedawano już w 1998.", "speeds": 9, "tech": ["9 rzędów", "V-brake"], "verification": "documented", "sources": ["wl", "wxt"] },
+    { "id": "xt-m760", "family": "deore-xt", "series": "M760", "codes": ["M760", "M761", "M765"], "yearFrom": 2003, "yearTo": 2007, "speeds": 9, "tech": ["9 rzędów", "Dual Control", "hamulce tarczowe"], "notes": "Już poza epoką klasycznego retro MTB.", "verification": "documented", "sources": ["wl", "wxt"] },
+
+    { "id": "xtr-m900", "family": "xtr", "series": "M900", "codes": ["M900", "M901"], "yearFrom": 1992, "yearTo": 1994, "speeds": 8, "tech": ["Rapidfire Plus / Servo Wave", "kaseta XTR Spider", "korba o niskim profilu FC-M900", "zębatki Hyperdrive", "kute cantilevery"], "notes": "Pierwsza XTR.", "verification": "documented", "sources": ["wl", "mombat"] },
+    { "id": "xtr-m910", "family": "xtr", "series": "M910", "codes": ["M910"], "yearFrom": 1995, "speeds": 8, "notes": "Wiersz w źródle bez nazwy grupy — przypisanie do XTR niepotwierdzone.", "verification": "unverified", "sources": ["wl"] },
+    { "id": "xtr-m950", "family": "xtr", "series": "M950", "codes": ["M950"], "yearFrom": 1996, "yearTo": 1998, "speeds": 8, "tech": ["V-brake (od ok. 1997)"], "verification": "commonly-reported", "sources": ["wl"] },
+    { "id": "xtr-m951", "family": "xtr", "series": "M951", "codes": ["M951"], "yearFrom": 1998, "speeds": 8, "verification": "unverified", "sources": ["wl"] },
+    { "id": "xtr-m952", "family": "xtr", "series": "M952", "codes": ["M952", "M953"], "yearFrom": 1999, "yearTo": 2002, "speeds": 9, "tech": ["9 rzędów"], "verification": "commonly-reported", "sources": ["wl"] },
+    { "id": "xtr-m960", "family": "xtr", "series": "M960", "codes": ["M960", "M965", "M966"], "yearFrom": 2003, "yearTo": 2006, "speeds": 9, "tech": ["Dual Control", "hamulce tarczowe"], "notes": "Już poza epoką klasycznego retro MTB.", "verification": "commonly-reported", "sources": ["wl"] },
+
+    { "id": "deore-mt60", "family": "deore", "series": "MT60", "codes": ["MT60", "MT61"], "yearFrom": 1987, "yearTo": 1988, "yearNote": "Katalog z 1988 r. u MOMBAT; Wikipedia 1987.", "speeds": 6, "tech": ["SIS", "Biopace (żółta naklejka)", "cantilever BR-MT60", "U-brake BR-MT61 (Shark Tooth)"], "verification": "documented", "sources": ["wl", "mombat"] },
+    { "id": "deore-mt62", "family": "deore", "series": "MT62", "codes": ["MT62", "MT63"], "yearFrom": 1989, "yearTo": 1990, "speeds": 7, "tech": ["SIS", "Hyperglide", "klamki SLR", "U-brake BR-MT63 z Power Plate", "Biopace HP"], "notes": "„Deore II”.", "verification": "documented", "sources": ["wl", "mombat"] },
+    { "id": "deore-m510", "family": "deore", "series": "M510", "codes": ["M510"], "yearFrom": 2000, "yearTo": 2002, "speeds": 9, "notes": "Zastąpiła STX i STX-RC.", "verification": "documented", "sources": ["wl"] },
+
+    { "id": "dx-m650", "family": "deore-dx", "series": "M650", "codes": ["M650", "M651", "MT650"], "yearFrom": 1990, "yearTo": 1993, "speeds": 7, "tech": ["Rapidfire (ST-M070/071)", "Hyperglide", "Super Glide", "niskoprofilowe cantilevery"], "notes": "Data końca produkcji niepewna. Późniejsza wersja miała Rapidfire Plus (ST-M075).", "verification": "commonly-reported", "sources": ["wl", "mombat"] },
+
+    { "id": "lx-m550", "family": "deore-lx", "series": "M550", "codes": ["M550", "M551"], "yearFrom": 1990, "yearTo": 1992, "speeds": 7, "verification": "commonly-reported", "sources": ["wl"] },
+    { "id": "lx-m560", "family": "deore-lx", "series": "M560", "codes": ["M560", "M561"], "yearFrom": 1993, "yearTo": 1994, "speeds": 7, "verification": "documented", "sources": ["wl"] },
+    { "id": "lx-m565", "family": "deore-lx", "series": "M565", "codes": ["M565"], "yearFrom": 1995, "speeds": 8, "verification": "documented", "sources": ["wl"] },
+    { "id": "lx-m567", "family": "deore-lx", "series": "M567", "codes": ["M567"], "yearFrom": 1996, "speeds": 8, "verification": "documented", "sources": ["wl"] },
+    { "id": "lx-m569", "family": "deore-lx", "series": "M569", "codes": ["M569"], "yearFrom": 1997, "yearTo": 1998, "speeds": 8, "tech": ["V-brake"], "verification": "documented", "sources": ["wl"] },
+    { "id": "lx-m570", "family": "deore-lx", "series": "M570", "codes": ["M570", "M571"], "yearFrom": 1999, "yearTo": 2003, "speeds": 9, "verification": "documented", "sources": ["wl"] },
+    { "id": "lx-m580", "family": "deore-lx", "series": "M580", "codes": ["M580", "M585"], "yearFrom": 2004, "speeds": 9, "notes": "Już poza epoką klasycznego retro MTB.", "verification": "documented", "sources": ["wl"] },
+
+    { "id": "mountain-lx-m500", "family": "mountain-lx", "series": "M500", "codes": ["M500"], "yearFrom": 1989, "speeds": 7, "verification": "documented", "sources": ["wl"] },
+
+    { "id": "stx-mc30", "family": "stx", "series": "MC30 / MC31", "codes": ["MC30", "MC31"], "yearFrom": 1994, "speeds": 7, "notes": "STX i STX-SE.", "verification": "documented", "sources": ["wl"] },
+    { "id": "stxrc-mc32", "family": "stx-rc", "series": "MC32 / MC33", "codes": ["MC32", "MC33"], "yearFrom": 1995, "speeds": 7, "verification": "documented", "sources": ["wl"] },
+    { "id": "stxrc-mc34", "family": "stx-rc", "series": "MC34 / MC36", "codes": ["MC34", "MC36"], "yearFrom": 1996, "speeds": 7, "verification": "documented", "sources": ["wl"] },
+    { "id": "stxrc-mc37", "family": "stx-rc", "series": "MC37 / MC38", "codes": ["MC37", "MC38"], "yearFrom": 1997, "yearTo": 1999, "speeds": "7/8", "verification": "documented", "sources": ["wl"] },
+
+    { "id": "exage-m450", "family": "exage", "series": "M450 (Exage Mountain)", "codes": ["M450"], "yearFrom": 1989, "speeds": 6, "verification": "documented", "sources": ["wl"] },
+    { "id": "exage-m350", "family": "exage", "series": "M350 (Exage Trail)", "codes": ["M350"], "yearFrom": 1989, "speeds": 6, "verification": "documented", "sources": ["wl"] },
+    { "id": "exage-m250", "family": "exage", "series": "M250 (Exage Country)", "codes": ["M250"], "yearFrom": 1989, "speeds": 6, "verification": "documented", "sources": ["wl"] },
+    { "id": "exage-lx", "family": "exage", "series": "500LX / 400LX / 300LX", "codes": [], "yearFrom": 1990, "speeds": 7, "verification": "documented", "sources": ["wl"] },
+    { "id": "exage-m520", "family": "exage", "series": "M520 (Exage ES)", "codes": ["M520"], "yearFrom": 1993, "speeds": 7, "verification": "documented", "sources": ["wl"] },
+    { "id": "exage-m320", "family": "exage", "series": "M320 (Exage LT)", "codes": ["M320"], "yearFrom": 1993, "speeds": 7, "verification": "documented", "sources": ["wl"] },
+
+    { "id": "alivio-mc10", "family": "alivio", "series": "MC10 / MC11", "codes": ["MC10", "MC11"], "yearFrom": 1994, "speeds": 7, "verification": "documented", "sources": ["wl"] },
+    { "id": "alivio-mc12", "family": "alivio", "series": "MC12 / MC14 / MC16", "codes": ["MC12", "MC14", "MC16"], "yearFrom": 1995, "yearTo": 1998, "speeds": 7, "notes": "Wiersze w źródle bez nazwy grupy — przypisanie do Alivio niepotwierdzone.", "verification": "unverified", "sources": ["wl"] },
+    { "id": "alivio-mc18", "family": "alivio", "series": "MC18 / MC20", "codes": ["MC18", "MC20"], "yearFrom": 1999, "speeds": 8, "notes": "Wiersze w źródle bez nazwy grupy — przypisanie do Alivio niepotwierdzone.", "verification": "unverified", "sources": ["wl"] },
+
+    { "id": "acerax-m290", "family": "acera", "series": "M290 / M291 (Acera-X)", "codes": ["M290", "M291"], "yearFrom": 1995, "yearTo": 1998, "speeds": 7, "verification": "documented", "sources": ["wl"] },
+    { "id": "acera-m330", "family": "acera", "series": "M330 / M340", "codes": ["M330", "M340"], "yearFrom": 1999, "speeds": 8, "notes": "Wiersze w źródle bez nazwy grupy — przypisanie do Acera niepotwierdzone.", "verification": "unverified", "sources": ["wl"] },
+
+    { "id": "altus-a10", "family": "altus", "series": "A10 / A20 / C10 / C20", "codes": [], "contextCodes": ["A10", "A20", "C10", "C20"], "yearFrom": 1993, "speeds": "6/7", "notes": "Przypisanie do Altus wynika tylko z oznaczeń — niepotwierdzone.", "verification": "unverified", "sources": ["wl"] },
+    { "id": "altus-c50", "family": "altus", "series": "C50 / C90", "codes": [], "contextCodes": ["C50", "C90"], "yearFrom": 1994, "speeds": "6/7", "notes": "Przypisanie do Altus wynika tylko z oznaczeń — niepotwierdzone.", "verification": "unverified", "sources": ["wl"] },
+
+    { "id": "gs-200", "family": "gs", "series": "200GS / 100GS / 70GS", "codes": [], "yearFrom": 1990, "yearTo": 1992, "speeds": 7, "notes": "Budżetowe grupy z lat 1990–1992.", "verification": "documented", "sources": ["wl"] },
+    { "id": "tourney-ct92", "family": "tourney", "series": "CT92 / CT95", "codes": [], "contextCodes": ["CT92", "CT95"], "yearFrom": 1997, "speeds": "7/8", "notes": "Przypisanie do Tourney niepotwierdzone.", "verification": "unverified", "sources": ["wl"] }
+  ]
+}

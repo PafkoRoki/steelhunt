@@ -1,7 +1,7 @@
 # Scout — automatic search (local)
 
-`npm run scout` searches OLX.pl and Kleinanzeigen.de for **retro MTB** and writes
-`data/imports/auto-olx.json` and `data/imports/auto-kleinanzeigen.json`. The normal ingestion
+`npm run scout` searches OLX.pl, Allegro Lokalnie, Sprzedajemy.pl and Kleinanzeigen.de for **retro MTB** and writes
+`data/imports/auto-olx.json`, `auto-allegro-lokalnie.json`, `auto-sprzedajemy.json` and `auto-kleinanzeigen.json`. The normal ingestion
 (`npm run ingest` / the "Ingest listings" workflow) then publishes them.
 
 ## How it accesses the portals
@@ -10,10 +10,12 @@
 |---|---|---|
 | OLX.pl | `https://www.olx.pl/api/v1/offers/` (category 767 Rowery, Poznań ± radius) | Explicitly `Allow`ed in olx.pl/robots.txt |
 | Kleinanzeigen.de | Search pages `/s-fahrraeder/<query>/k0c217` + ad pages `/s-anzeige/...` | Not disallowed in kleinanzeigen.de/robots.txt |
+| Allegro Lokalnie | Search pages `/oferty/rowery-i-akcesoria/rowery-16420/q/<query>` + ad pages `/oferta/...` | Only `/oferty/wystaw/` is disallowed. The portal rate-limits (HTTP 429): extra 8 s pause, 5 queries, skipped for the run on the first error |
+| Sprzedajemy.pl | `/poznan?inp_text=<query>&inp_distance=150` + ad pages | Search and offer pages not disallowed |
 
 - Honest User-Agent `steelhunt-scout/0.1 (...)`, a fixed delay between requests (`config/scout.json → delayMs`),
   at most ~30 requests per run, a cap on ad-page fetches. No login, no CAPTCHA solving, no proxies, no browser
-  impersonation. If a portal starts refusing requests, the run logs the error — it does not try to get around it.
+  impersonation. If a portal starts refusing requests (e.g. HTTP 429), the run logs it and stops querying that portal until the next run — it does not try to get around it.
 - **Runs only on the owner's computer** (scheduled Claude task), never in GitHub Actions.
 - Portal terms of use may restrict automated access; this is a low-volume personal tool. The owner decides whether to run it.
 
@@ -27,6 +29,8 @@ used for analysis in memory only and is never written to the repository.
 
 Kept: retro MTB/ATB, MTB frames. Dropped: road bikes, kids'/teen bikes, e-bikes, full suspension, single parts,
 modern bikes (27.5"/29", disc/hydraulic brakes, carbon, production year ≥ 2005), listings without any retro signal.
+A Shimano generation code up to 2002 (e.g. RD-M732) counts as a retro signal.
+Allegro Lokalnie: towns within 200 km of Poznań (unknown towns dropped). Sprzedajemy: the portal's own 150 km filter.
 Kleinanzeigen: only postcode regions within driving range of Poznań (eastern Germany, see `postcodePrefixes`).
 EUR prices are converted with the exchange rate from Settings (default 4.25).
 

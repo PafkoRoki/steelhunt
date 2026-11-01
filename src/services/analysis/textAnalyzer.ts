@@ -19,6 +19,7 @@ import type {
 import type { BikeModel, Manufacturer, TubingSpec } from '../../types/database';
 import { tubingSpecificity, type BikeDatabase } from '../database/db';
 import { aliasRegex, normalizeText } from '../../utils/text';
+import { eraFromGroupsets, matchGroupsets, type GroupsetMatch } from '../groupsets/match';
 
 export interface TextFacts {
   manufacturer: Manufacturer | null;
@@ -35,6 +36,9 @@ export interface TextFacts {
   itemType: ItemType;
   condition: ListingCondition;
   year: string | null;
+  /** Era implied by identified Shimano generations, e.g. "ok. 1989–1990". */
+  groupsetEra: string | null;
+  groupsets: GroupsetMatch[];
   features: string[];
   components: { name: string; tier: number }[];
   redFlags: string[];
@@ -54,7 +58,7 @@ const FORK_RE = /\b(widel\w*|fork\w*|amortyzator\w*|\w*gabel\w*)\b/;
 const FRAME_RE = /\b(ram[aeyi]\w*|frame\w*|rury\w*|tubing|tubeset|\w*rahmen\w*|rohre?\w*)\b/;
 const MAIN_TUBES_RE = /(main\s*tubes?|rury\s*glown\w*|glown\w*\s*rury|3\s*main|trzy\s*(?:glowne\s*)?rury|main\s*triangle|glowny\s*trojkat|hauptrohre?)/;
 const PART_WORDS =
-  /\b(rogi|rozki|bar\s*ends?|barends?|hornchen|\w*gabel|detk\w*|schlauch\w*|lancuch\w*|kette|kierownic\w*|mostek|siodel\w*|siodlo|sztyca|manetk\w*|klamk\w*|przerzutk\w*|korb\w*|kaset\w*|piast\w*|obrecz\w*|opon\w*|pedal\w*|widelec|amortyzator\w*|hamulc\w*|stery|lenker|vorbau|sattel\w*|gabel|starrgabel|federgabel|schaltwerk|schalthebel|kurbel\w*|nabe\w*|bremse\w*|felge\w*|reifen|laufrad\w*|laufradsatz|steuersatz|fork|stem|handlebar|saddle|derailleur|crankset|chainsuck)\b/;
+  /\b(rogi|rozki|hak\w*|dump\w*|damper\w*|pivot\w*|piwot\w*|kolo|kola|bar\s*ends?|barends?|hornchen|\w*gabel|detk\w*|schlauch\w*|lancuch\w*|kette|kierownic\w*|mostek|siodel\w*|siodlo|sztyca|manetk\w*|klamk\w*|przerzutk\w*|korb\w*|kaset\w*|piast\w*|obrecz\w*|opon\w*|pedal\w*|widelec|amortyzator\w*|hamulc\w*|stery|lenker|vorbau|sattel\w*|gabel|starrgabel|federgabel|schaltwerk|schalthebel|kurbel\w*|nabe\w*|bremse\w*|felge\w*|reifen|laufrad\w*|laufradsatz|steuersatz|fork|stem|handlebar|saddle|derailleur|crankset|chainsuck)\b/;
 const BIKE_WORDS = /\b(rower|rowery|roweru|fahrrad|fahrrader|mountainbike\w*|bike|\brad\b|rama|ramy|rahmen\w*|frameset|frame)\b/;
 const FRAME_AND_FORK_RE = /(ram[aeyi]\w*\s*(?:i|oraz|and|\+|&|z)\s*widel\w*|widel\w*\s*(?:i|oraz|and|\+|&)\s*ram[aeyi]\w*|frame\s*(?:and|&|\+)\s*fork|rahmen\s*(?:und|\+|&|mit)\s*\w*gabel\w*|gabel\w*\s*(?:und|\+|&)\s*rahmen)/;
 const DECAL_RE = /(naklejk\w*|decal\w*|sticker\w*|aufkleber\w*|emblemat\w*|oryginaln\w*\s*oznaczen\w*)/;
@@ -417,16 +421,20 @@ export function analyzeText(listing: SourceListing, db: BikeDatabase): TextFacts
   const construction = detectConstruction(text) !== 'unknown' ? detectConstruction(text) : model?.construction ?? 'unknown';
   const itemType = detectItemType(title, text, listing.declared?.itemType);
   const year = detectYear(text);
-  const category = detectCategory(text, itemType, model, year);
+  const groupsets = matchGroupsets(text);
+  const groupsetEra = eraFromGroupsets(groupsets);
+  // A dated Shimano generation (e.g. M732) also tells the era when the seller gives no year.
+  const category = detectCategory(text, itemType, model, year ?? groupsetEra?.match(/\d{4}/)?.[0] ?? null);
   const condition = detectCondition(text, listing.declared?.condition);
   const wheelSize = detectWheelSize(text, listing.declared?.wheelSize);
 
   const features = FEATURE_RULES.filter(([, re]) => re.test(text)).map(([f]) => f);
   if (construction === 'lugged') features.push('Rama mufowana');
 
-  const components = db.components
-    .filter((c) => c.patterns.some((p) => new RegExp(p, 'i').test(text)))
-    .map((c) => ({ name: c.name, tier: c.tier }));
+  const components = [
+    ...groupsets.map((g) => ({ name: g.years && g.spec ? `${g.label} (${g.years})` : g.label, tier: g.tier })),
+    ...db.components.filter((c) => c.patterns.some((p) => new RegExp(p, 'i').test(text))).map((c) => ({ name: c.name, tier: c.tier })),
+  ];
 
   const redFlags = RED_FLAG_RULES.filter(([, re]) => re.test(text)).map(([f]) => f);
   const negotiationSignals = NEGOTIATION_RULES.filter(([, re]) => re.test(text)).map(([f]) => f);
@@ -446,6 +454,8 @@ export function analyzeText(listing: SourceListing, db: BikeDatabase): TextFacts
     itemType,
     condition,
     year,
+    groupsetEra,
+    groupsets,
     features,
     components,
     redFlags,

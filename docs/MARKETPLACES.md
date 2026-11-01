@@ -1,17 +1,33 @@
 # Marketplace access — what is possible and what is not
 
-STEELHUNT does not scrape, bypass CAPTCHAs, log in on the user's behalf, or circumvent rate limits or
-anti-bot systems. Every source is integrated only through an official API, an authorized feed, or data
-the user enters/commits manually. Statuses below are mirrored in the app (Dashboard → “Źródła danych”).
+STEELHUNT does not bypass CAPTCHAs, log in on the user's behalf, or circumvent rate limits or anti-bot
+systems. Sources are read through an official API, public pages that the portal's robots.txt allows
+(only by the **local scout**, low volume, see [SCOUT.md](SCOUT.md)), or data the user enters/commits manually.
+Statuses below are mirrored in the app (Dashboard → “Źródła danych”).
 
 | Source | Status | Method | Notes |
 |---|---|---|---|
-| **Allegro** | `api` | Official REST API, OAuth2 client credentials, `GET /offers/listing` | Needs `ALLEGRO_CLIENT_ID` / `ALLEGRO_CLIENT_SECRET` secrets. Allegro may require application verification for listing search; a 401/403 is logged in History, never worked around. Search results contain title, price, images and (sometimes) seller city, but no description — analysis then relies on the title. |
-| **Allegro Lokalnie** | `manual` | URL/JSON/CSV import | No public search API known. |
-| **OLX.pl** | `manual` | URL/JSON/CSV import | OLX's partner API is for managing *your own* adverts, not for searching others. Automated retrieval of search results is not implemented. |
-| **Sprzedajemy.pl** | `manual` | URL/JSON/CSV import | No public API known. |
-| **Facebook Marketplace** | `manual` | URL import only | Requires login; no API for search. Only user-pasted links. |
-| **Gumtree / others** | `manual` | URL import (`other`) | Add a registry entry when a permitted method exists. |
+| **OLX.pl** | scout | `/api/v1/offers/` (Allowed in robots.txt), Poznań ± radius | Also URL/JSON/CSV import. |
+| **Kleinanzeigen.de** | scout | Search pages `/s-fahrraeder/<q>/k0c217` + ad pages | Eastern-Germany postcode regions only. EUR → PLN. |
+| **Allegro Lokalnie** | scout | Search pages `/oferty/rowery-i-akcesoria/rowery-16420/q/<q>` + ad pages (only `/oferty/wystaw/` is disallowed) | **Rate-limits automated clients (HTTP 429)**: few queries, 8 s pauses, and the run skips the portal as soon as it answers 429. The portal's own city filter ignores distance, so the scout searches nationwide and keeps towns within 200 km of Poznań; unknown towns are dropped. |
+| **Sprzedajemy.pl** | scout | `/poznan?inp_text=<q>&inp_distance=150` + ad pages | robots.txt disallows only contact/admin paths. Uses the portal's own Poznań + 150 km filter. |
+| **Allegro** | `api` | Official REST API, OAuth2 client credentials, `GET /offers/listing` | Needs `ALLEGRO_CLIENT_ID` / `ALLEGRO_CLIENT_SECRET` secrets. `/offer/` and `/z-drugiej-reki` are disallowed in robots.txt, so there is no page reading — API only. |
+| **Facebook Marketplace** | `manual` | URL import only | Requires login; no API for search. |
+
+## Portals checked (November 2026) and not automated
+
+| Portal | Why not (yet) | What you can do |
+|---|---|---|
+| **Bikemarkt (bikemarkt.mtb-news.de)** | Allowed by robots.txt, but search results are loaded by JavaScript, so a plain request gets no listings. Good source of German classic MTB (Klassiker). | Open the search manually; paste good finds via “Dodaj ogłoszenie”. Worth revisiting if a feed appears. |
+| **eBay.de** | robots.txt disallows search-result paths with filters; the right route is the official Browse API (needs a free developer key). | Possible future integration via API (key in GitHub Secrets). |
+| **Vinted** | Allowed paths exist, but the site's own robots.txt text forbids automated agents simulating customer activity, and bikes are rare there. | Manual import only. |
+| **Gratka.pl** | No bicycle category any more (404); mostly real estate and cars. | — |
+| **Gumtree.pl** | Not reachable (domain no longer serves the site). | — |
+| **Sbazar.cz** | robots.txt disallows everything (`Disallow: /`). | — |
+| **Bazoš.cz / .sk** | robots.txt disallows search (`/search.php`, `hledat=`). Only browsing category pages would be allowed. Czech Republic is ~250–350 km from Poznań. | Manual import. A category-page reader is possible later. |
+| **markt.de, Quoka.de** | Allowed by robots.txt, but few classic MTB listings. | Could be added if Kleinanzeigen is not enough. |
+| **retrobike.co.uk (For Sale forum)** | Returns 403 to automated clients; also mostly UK (shipping). | Manual. |
+| **Tutti.ch / Anibis.ch / Willhaben.at / Marktplaats.nl** | 403 to automated clients, or too far from Poznań. | — |
 
 ## Manual import formats
 
@@ -29,6 +45,6 @@ listing and records price changes instead of duplicating it.
 
 ## Investigation backlog
 
-- Check whether OLX offers a sanctioned data feed/partnership for search results.
-- Check Allegro Lokalnie API availability under Allegro's developer program.
-- RSS/e-mail alert parsing from user-owned saved searches (user forwards alerts → feed), if permitted by the portals' terms.
+- eBay Browse API (free developer key) for eBay.de classic MTB.
+- Bikemarkt: check for an RSS/JSON feed of saved searches.
+- RSS/e-mail alert parsing from user-owned saved searches, if permitted by the portals' terms.

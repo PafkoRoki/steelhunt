@@ -1,7 +1,8 @@
 /**
  * STEELHUNT scout — LOCAL ONLY (run on the owner's computer, e.g. by a scheduled Claude task).
  *
- * Reads public search-result pages of OLX.pl and Kleinanzeigen.de at a low request rate, runs every
+ * Reads public search-result pages of OLX.pl, Allegro Lokalnie, Sprzedajemy.pl and Kleinanzeigen.de
+ * at a low request rate (only paths robots.txt allows), runs every
  * candidate through the STEELHUNT analyzer and keeps only retro MTB (no road bikes, kids' bikes,
  * e-bikes, parts or modern bikes). Results are written to data/imports/auto-*.json, which the normal
  * ingestion publishes.
@@ -22,6 +23,7 @@ import { buildDatabase } from '../src/services/database/db';
 import { DEFAULT_SETTINGS } from '../src/features/scoring/config';
 import { isMtbLike, isRoadBike } from '../src/features/listings/focus';
 import { tubingLabel } from '../src/services/analysis/textAnalyzer';
+import { haversineKm, resolveLocation } from '../src/services/geolocation/geo';
 import type { AnalyzedListing } from '../src/types/listing';
 
 const ROOT = resolve(import.meta.dirname, '..');
@@ -36,6 +38,8 @@ interface ScoutConfig {
   maxDetailFetches: number;
   olx: { enabled: boolean; radiusKm: number; queries: string[] };
   kleinanzeigen: { enabled: boolean; postcodePrefixes: string[]; queries: string[] };
+  allegroLokalnie?: { enabled: boolean; radiusKm: number; delayMs?: number; queries: string[] };
+  sprzedajemy?: { enabled: boolean; radiusKm: number; delayMs?: number; queries: string[] };
 }
 
 /** Raw candidate as read from a portal (kept in memory only). */
@@ -251,11 +255,150 @@ async function scoutKleinanzeigen(known: Set<string>, previous: Map<string, Auto
   return out;
 }
 
+// ---------------------------------------------------------------- Polish card portals (Allegro Lokalnie, Sprzedajemy)
+
+/** Search-result card shared by the HTML portals. */
+interface CardStub {
+  url: string;
+  title: string;
+  price: number | null;
+  location: string;
+  image?: string;
+  negotiable?: boolean;
+}
+
+const POZNAN = { lat: 52.4064, lng: 16.9252 };
+
+/** Distance from Poznań by the town gazetteer; null when the town is unknown (kept, flagged in the app). */
+function kmFromPoznan(location: string): number | null {
+  const p = resolveLocation(location);
+  return p ? haversineKm(POZNAN.lat, POZNAN.lng, p.lat, p.lng) : null;
+}
+
+function plPrice(s: string | undefined): number | null {
+  if (!s || !/\d/.test(s)) return null;
+  const n = Number(s.replace(/&nbsp;|\s/g, '').replace(',', '.').replace(/[^\d.]/g, ''));
+  return Number.isFinite(n) ? Math.round(n) : null;
+}
+
+// Allegro Lokalnie: /oferty/... search pages are allowed by robots.txt (only /oferty/wystaw/ is disallowed).
+function parseAllegroLokalnie(html: string): CardStub[] {
+  const out: CardStub[] = [];
+  for (const block of html.split(/<a\b(?=[^>]*class="mlc-card mlc-itembox")/).slice(1)) {
+    const card = block.split('</article>')[0];
+    const href = card.match(/href="(\/oferta\/[^"?#]+)/)?.[1];
+    if (!href) continue;
+    out.push({
+      url: `https://allegrolokalnie.pl${href}`,
+      title: decode(card.match(/mlc-itembox__title"[^>]*>([\s\S]*?)<\/h3>/)?.[1] ?? ''),
+      price: plPrice(card.match(/ml-offer-price__dollars">([^<]+)</)?.[1]),
+      location: decode(card.match(/<address[^>]*>([^<]*)<\/address>/)?.[1] ?? ''),
+      image: card.match(/<img src="([^"]+)"/)?.[1]?.replace('/s180x180/', '/original/'),
+      negotiable: /do negocjacji/.test(card),
+    });
+  }
+  return out;
+}
+
+async function allegroLokalnieDetail(s: CardStub): Promise<Partial<Candidate>> {
+  const html = await get(s.url);
+  const desc = decode(html.match(/mlc-offer__description">([\s\S]*?)<\/div>/)?.[1] ?? '');
+  const imgs = [...new Set([...html.matchAll(/https:\/\/a\.allegroimg\.com\/original\/[0-9a-f]+\/[0-9a-f]+/g)].map((m) => m[0]))].slice(0, 3);
+  return { description: desc, images: imgs.length ? imgs : s.image ? [s.image] : [] };
+}
+
+// Sprzedajemy: /szukaj and offer pages are allowed by robots.txt.
+function parseSprzedajemy(html: string): CardStub[] {
+  const out: CardStub[] = [];
+  for (const block of html.split('<article').slice(1)) {
+    const card = block.split('</article>')[0].replace(/<script[\s\S]*?<\/script>/g, ' ');
+    const href = card.match(/href="(\/[^"]+-nr\d+)"/)?.[1];
+    if (!href) continue;
+    out.push({
+      url: `https://sprzedajemy.pl${href}`,
+      title: decode(card.match(/<h2 class="title[^"]*">([\s\S]*?)<\/h2>/)?.[1] ?? ''),
+      price: plPrice(card.match(/<span class="price[^"]*">([^<]+)</)?.[1]),
+      location: decode(card.match(/<strong class="city">([^<]*)<\/strong>/)?.[1] ?? ''),
+      image: card.match(/<img src="([^"]+)"/)?.[1]?.replace('/350x250c/', '/1000x901c/'),
+    });
+  }
+  return out;
+}
+
+async function sprzedajemyDetail(s: CardStub): Promise<Partial<Candidate>> {
+  const html = await get(s.url);
+  const desc = decode(html.match(/class="offerDescription">([\s\S]*?)<\/div>/)?.[1] ?? '');
+  const imgs = [...new Set([...html.matchAll(/https:\/\/thumbs\.img-sprzedajemy\.pl\/1000x901c\/[^"\s)]+/g)].map((m) => m[0]))].slice(0, 3);
+  return { description: desc, images: imgs.length ? imgs : s.image ? [s.image] : [] };
+}
+
+async function scoutCards(
+  name: string,
+  conf: { radiusKm: number; queries: string[]; delayMs?: number },
+  /** Drop cards whose town the gazetteer doesn't know (for nationwide searches). */
+  dropUnknown: boolean,
+  searchUrl: (q: string) => string,
+  parse: (html: string) => CardStub[],
+  detail: (s: CardStub) => Promise<Partial<Candidate>>,
+  known: Set<string>,
+  previous: Map<string, AutoRecord>,
+): Promise<Candidate[]> {
+  const stubs = new Map<string, CardStub>();
+  for (const q of conf.queries) {
+    try {
+      await sleep(conf.delayMs ?? 0); // extra, per-portal pause on top of the global delay
+      const found = parse(await get(searchUrl(q)));
+      let kept = 0;
+      for (const s of found) {
+        const km = kmFromPoznan(s.location);
+        if (stubs.has(s.url) || (km == null ? dropUnknown : km > conf.radiusKm)) continue;
+        stubs.set(s.url, s);
+        kept++;
+      }
+      log.push(`${name} „${q}”: ${found.length} (w promieniu ${conf.radiusKm} km: ${kept})`);
+    } catch (e) {
+      // An error here is usually the portal limiting requests (HTTP 429). Respect it: stop this portal
+      // for this run instead of retrying.
+      log.push(`${name} „${q}”: BŁĄD ${(e as Error).message} — pomijam portal do następnego uruchomienia`);
+      break;
+    }
+  }
+
+  // Cheap pre-filter on the card title before spending detail requests.
+  const db = buildDatabase();
+  const pre = [...stubs.values()].filter((s) => {
+    const probe = normalizeImportRecord({ url: s.url, title: s.title || 'x x x', description: '', price: s.price, currency: 'PLN', location: s.location });
+    return keep(analyzeListings([probe], DEFAULT_SETTINGS, db)[0], s.title, true);
+  });
+
+  const out: Candidate[] = [];
+  let details = 0;
+  for (const s of pre) {
+    const prev = previous.get(s.url);
+    const base: Candidate = { url: s.url, title: s.title, description: '', price: s.price, currency: 'PLN', location: s.location || null, postedAt: null, images: s.image ? [s.image] : [], negotiable: s.negotiable };
+    if (prev || known.has(s.url) || details >= cfg.maxDetailFetches) {
+      // Already known: refresh price/location from the card, keep stored facts.
+      if (prev) out.push({ ...base, description: prev.description, postedAt: prev.postedAt, images: prev.images });
+      continue;
+    }
+    try {
+      details++;
+      await sleep(conf.delayMs ?? 0);
+      out.push({ ...base, ...(await detail(s)) });
+    } catch (e) {
+      log.push(`${name} szczegóły: BŁĄD ${(e as Error).message} — kończę pobieranie szczegółów`);
+      break;
+    }
+  }
+  return out;
+}
+
 // ---------------------------------------------------------------- filtering & fact summary
 
 const MODERN = /(27[,.]5|\b29\s*(?:"|''|zoll|er|cali)|\b29er\b|hydraul|tarczow|scheibenbremse|\bdisc\b|e[\s-]?bike|pedelec|carbon|karbon|boost|1x1[12]\b|tubeless)/i;
 
-function keep(a: AnalyzedListing, rawText: string): boolean {
+/** `titleOnly`: pre-filter on a search card — the retro signal may only be in the description. */
+function keep(a: AnalyzedListing, rawText: string, titleOnly = false): boolean {
   const an = a.analysis;
   if (isRoadBike(a) || !isMtbLike(a)) return false;
   if (an.redFlags.length) return false;
@@ -265,7 +408,10 @@ function keep(a: AnalyzedListing, rawText: string): boolean {
   if (y && y >= 2005) return false;
   // Needs at least one "retro" signal — otherwise it's just a used MTB.
   const retro = /(retro|vintage|oldschool|old\s*school|klasyk|kult|\b(?:19[89]\d)\b|lata\s*[89]0|\b[89]0(?:er|s)\b|starrgabel|sztywn\w*\s*widel|cr-?mo|chrom|stahl|stalow|tange|reynolds|columbus|ishiwata|true\s*temper|mufow|muffen|cantilever|biopace|deore\s*(?:xt|lx|dx)|suntour)/i;
-  return retro.test(rawText) || an.modelId != null;
+  // Shimano generations up to 2002 (M7xx XT, M9xx XTR, MT6x Deore, M5xx LX…) are a retro signal too.
+  const era = an.groupsetEra?.match(/\d{4}/g)?.map(Number);
+  if (era && Math.max(...era) <= 2002) return true;
+  return titleOnly || retro.test(rawText) || an.modelId != null;
 }
 
 const NEGO: Record<string, string> = {
@@ -384,6 +530,22 @@ async function main() {
     const prev = readAuto('auto-kleinanzeigen.json');
     const cands = await scoutKleinanzeigen(known, new Map(prev.map((r) => [r.url, r])));
     results.push({ name: 'auto-kleinanzeigen.json', ...toRecords(cands, prev, known, nowIso) });
+  }
+
+  const al = cfg.allegroLokalnie;
+  if (al?.enabled) {
+    const prev = readAuto('auto-allegro-lokalnie.json');
+    const url = (q: string) => `https://allegrolokalnie.pl/oferty/rowery-i-akcesoria/rowery-16420/q/${encodeURIComponent(q)}`;
+    const cands = await scoutCards('Allegro Lokalnie', al, true, url, parseAllegroLokalnie, allegroLokalnieDetail, known, new Map(prev.map((r) => [r.url, r])));
+    results.push({ name: 'auto-allegro-lokalnie.json', ...toRecords(cands, prev, known, nowIso) });
+  }
+  const sp = cfg.sprzedajemy;
+  if (sp?.enabled) {
+    const prev = readAuto('auto-sprzedajemy.json');
+    // The portal's own Poznań + distance filter (150 km is one of its options).
+    const url = (q: string) => `https://sprzedajemy.pl/poznan?inp_text=${encodeURIComponent(q).replace(/%20/g, '+')}&inp_distance=150`;
+    const cands = await scoutCards('Sprzedajemy', sp, false, url, parseSprzedajemy, sprzedajemyDetail, known, new Map(prev.map((r) => [r.url, r])));
+    results.push({ name: 'auto-sprzedajemy.json', ...toRecords(cands, prev, known, nowIso) });
   }
 
   console.log(log.join('\n'));

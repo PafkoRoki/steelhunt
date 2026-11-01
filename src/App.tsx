@@ -8,6 +8,7 @@ import NewListingsPage from './pages/NewListingsPage';
 import WatchlistPage from './pages/WatchlistPage';
 import BikeDatabasePage from './pages/BikeDatabasePage';
 import TubingDatabasePage from './pages/TubingDatabasePage';
+import GroupsetsPage from './pages/GroupsetsPage';
 import HistoryPage from './pages/HistoryPage';
 import SettingsPage from './pages/SettingsPage';
 import ListingPage from './pages/ListingPage';
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/watchlist" element={<WatchlistPage />} />
           <Route path="/bikes" element={<BikeDatabasePage />} />
           <Route path="/tubing" element={<TubingDatabasePage />} />
+          <Route path="/groupsets" element={<GroupsetsPage />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/listing/:id" element={<ListingPage />} />

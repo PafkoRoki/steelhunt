@@ -126,6 +126,7 @@ function analyzeOne(
     modelId: facts.model?.id ?? null,
     model: facts.model?.name ?? null,
     productionYear: facts.year,
+    groupsetEra: facts.groupsetEra,
     bicycleCategory: facts.category,
     itemType: facts.itemType,
     frameMaterial: facts.frameMaterial,

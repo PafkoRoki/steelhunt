@@ -182,7 +182,7 @@ export default function ListingPage() {
               <Meta k="Konstrukcja" v={CONSTRUCTION_LABEL[a.frameConstruction]} />
               <Meta k="Koła" v={a.wheelSize ?? '—'} />
               <Meta k="Stan" v={CONDITION_LABEL[a.condition]} />
-              <Meta k="Rocznik" v={a.productionYear ?? '—'} />
+              <Meta k="Rocznik" v={a.productionYear ?? (a.groupsetEra ? `${a.groupsetEra} (wg osprzętu)` : '—')} />
               <Meta k="Producent / model" v={a.manufacturer ? `${a.manufacturer}${a.model ? ' ' + a.model : ''}` : 'nierozpoznany'} />
             </dl>
             {a.tubing.evidence.length > 0 && (

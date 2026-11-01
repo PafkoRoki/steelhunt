@@ -83,3 +83,39 @@ export interface UserDatabaseAdditions {
   manufacturers: Manufacturer[];
   models: BikeModel[];
 }
+
+/** A Shimano MTB groupset family (XT, LX, …) — used when a listing names the group but not the series. */
+export interface GroupsetFamily {
+  id: string;
+  name: string;
+  tier: number; // 1..5 desirability
+  rank: number; // position in the line-up, 1 = top
+  patterns: string[];
+  notes?: string;
+}
+
+/** One generation of a groupset (e.g. Deore XT M730). Years from public sources; disputes noted in yearNote. */
+export interface GroupsetSpec {
+  id: string;
+  family: string;
+  series: string;
+  /** Model codes matched in listing text (e.g. "M730" also matches "RD-M730"). */
+  codes: string[];
+  /** Ambiguous short codes (C50, CT92) — only matched when the family name is also present. */
+  contextCodes?: string[];
+  yearFrom: number;
+  /** Estimated end year (usually the year before the next generation). */
+  yearTo?: number;
+  yearNote?: string;
+  speeds: number | string;
+  tech?: string[];
+  notes?: string;
+  verification: 'documented' | 'commonly-reported' | 'unverified';
+  sources: string[];
+}
+
+export interface GroupsetDatabase {
+  sources: Record<string, string>;
+  families: GroupsetFamily[];
+  groupsets: GroupsetSpec[];
+}
