@@ -32,7 +32,7 @@ export default function DashboardPage() {
           <p className="section-title">Pulpit łowcy</p>
           <h1 className="page-title mt-1">{settings.mtbOnly ? 'Niedocenione retro MTB' : 'Niedocenione stalowe ramy'}</h1>
           <p className="mt-1 max-w-2xl text-sm text-ink-400">
-            Szukamy {settings.mtbOnly ? 'retro MTB' : 'rowerów'} tańszych niż ich realna wartość — w promieniu {settings.radiusKm === 0 ? 'całej Polski' : `${settings.radiusKm} km`} od {settings.origin.name}.
+            Szukamy {settings.mtbOnly ? 'retro MTB' : 'rowerów'} tańszych niż ich realna wartość — w promieniu {settings.radiusKm === 0 ? 'bez limitu odległości' : `${settings.radiusKm} km`} od {settings.origin.name}.
           </p>
         </div>
         <div className="flex items-center gap-2 text-xs text-ink-500">

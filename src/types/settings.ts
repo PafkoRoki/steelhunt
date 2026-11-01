@@ -12,8 +12,8 @@ export interface DealWeights {
   negotiation: number;
 }
 
-/** 0 = entire Poland */
-export type RadiusOption = 30 | 50 | 100 | 150 | 250 | 0;
+/** 0 = no limit */
+export type RadiusOption = 30 | 50 | 100 | 150 | 250 | 400 | 0;
 
 export interface AppSettings {
   origin: { name: string; lat: number; lng: number };

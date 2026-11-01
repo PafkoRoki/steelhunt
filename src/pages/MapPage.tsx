@@ -58,7 +58,7 @@ export default function MapPage() {
       />
       <div className="card overflow-hidden p-0">
         <div className="h-[calc(100vh-15rem)] min-h-[420px] w-full">
-          <MapContainer center={[settings.origin.lat, settings.origin.lng]} zoom={radius && radius <= 50 ? 10 : radius && radius <= 150 ? 8 : 7} className="h-full w-full" scrollWheelZoom>
+          <MapContainer center={[settings.origin.lat, settings.origin.lng]} zoom={radius && radius <= 50 ? 10 : radius && radius <= 150 ? 8 : radius && radius <= 250 ? 7 : 6} className="h-full w-full" scrollWheelZoom>
             <TileLayer
               className="steel-tiles"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'

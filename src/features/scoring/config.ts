@@ -3,7 +3,7 @@ import type { AppSettings } from '../../types/settings';
 /** Initial configuration defaults — every value is editable in Settings. */
 export const DEFAULT_SETTINGS: AppSettings = {
   origin: { name: 'Poznań', lat: 52.4064, lng: 16.9252 },
-  radiusKm: 150,
+  radiusKm: 400,
   distanceBands: [
     { maxKm: 30, score: 100 },
     { maxKm: 60, score: 90 },
@@ -20,7 +20,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   eurToPln: 4.25,
   demoMode: false,
   mtbOnly: true,
-  settingsVersion: 3,
+  settingsVersion: 4,
   newListingHours: 48,
   frameScoreOverrides: {},
 };
@@ -31,5 +31,6 @@ export const RADIUS_OPTIONS: { value: AppSettings['radiusKm']; label: string }[]
   { value: 100, label: '100 km' },
   { value: 150, label: '150 km' },
   { value: 250, label: '250 km' },
-  { value: 0, label: 'Cała Polska' },
+  { value: 400, label: '400 km (z Niemcami)' },
+  { value: 0, label: 'Bez limitu' },
 ];

@@ -63,6 +63,8 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
     if ((stored.settingsVersion ?? 1) < 2) stored.demoMode = false;
     // v3: retro-MTB focus on by default.
     if ((stored.settingsVersion ?? 1) < 3) stored.mtbOnly = true;
+    // v4: Kleinanzeigen (eastern Germany) — widen the old 150 km default.
+    if ((stored.settingsVersion ?? 1) < 4 && (stored.radiusKm ?? 150) === 150) stored.radiusKm = 400;
     return { ...DEFAULT_SETTINGS, ...stored, settingsVersion: DEFAULT_SETTINGS.settingsVersion };
   });
   const [userDb, setUserDb] = useState<UserDatabaseAdditions>(() => loadJson('userDb', { manufacturers: [], models: [] }));
