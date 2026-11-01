@@ -28,6 +28,8 @@ export interface AppSettings {
   /** Flat courier cost for bikes when the seller ships, PLN. */
   courierCost: number;
   demoMode: boolean;
+  /** Show only retro MTB / ATB bikes, MTB frames and MTB components. */
+  mtbOnly: boolean;
   /** Bumped when defaults change in a way stored settings must follow. */
   settingsVersion: number;
   newListingHours: number;

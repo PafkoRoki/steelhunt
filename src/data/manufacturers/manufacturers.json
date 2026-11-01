@@ -69,5 +69,9 @@
   {"id": "viner", "name": "Viner", "aliases": ["viner"], "country": "italy", "steelReputation": 80, "undervaluedInPoland": true},
   {"id": "rossin", "name": "Rossin", "aliases": ["rossin"], "country": "italy", "steelReputation": 85, "undervaluedInPoland": false},
   {"id": "fausto-coppi", "name": "Fausto Coppi", "aliases": ["fausto coppi"], "country": "italy", "steelReputation": 72, "undervaluedInPoland": true, "notes": "Marka licencyjna — jakość zależy od roweru; liczy się naklejka rur."},
-  {"id": "somec", "name": "Somec", "aliases": ["somec"], "country": "italy", "steelReputation": 85, "undervaluedInPoland": false}
+  {"id": "somec", "name": "Somec", "aliases": ["somec"], "country": "italy", "steelReputation": 85, "undervaluedInPoland": false},
+  {"id": "klein", "name": "Klein", "aliases": ["klein"], "country": "usa", "steelReputation": 40, "notes": "Kultowe ramy aluminiowe z USA — wartość kolekcjonerska, ale to nie stal."},
+  {"id": "cilo", "name": "Cilo", "aliases": ["cilo"], "country": "switzerland", "steelReputation": 65, "undervaluedInPoland": true, "notes": "Szwajcarska marka; MTB z lat 90. bywają aluminiowe — sprawdź materiał."},
+  {"id": "jaguar", "name": "Jaguar", "aliases": ["jaguar"], "country": "poland", "steelReputation": 45, "notes": "Polska marka (Wolsztyn) z lat 90. Rury rzadko opisane — weryfikuj."},
+  {"id": "focus", "name": "Focus", "aliases": ["focus"], "country": "germany", "steelReputation": 40}
 ]

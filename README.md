@@ -25,6 +25,7 @@ rowerów, ram i komponentów **tańszych niż ich realna wartość** — także 
 | Import ręczny: link + dane, JSON, CSV — z walidacją i wykrywaniem duplikatów | ✅ |
 | Obserwowane, historia zmian cen, historia importów i wyszukiwań | ✅ |
 | Wszystkie wagi i progi konfigurowalne w Ustawieniach | ✅ |
+| Tryb **„Tylko retro MTB”** (domyślnie włączony) — ukrywa szosy, rowery miejskie i turystyczne | ✅ |
 | Zaplanowane wyszukiwanie co 6 h (GitHub Actions) | ✅ (źródła: import repo + Allegro API po podaniu kluczy) |
 | Analiza AI zdjęć / naklejek | 🔜 Faza 4 (interfejs przygotowany, aplikacja działa bez AI) |
 

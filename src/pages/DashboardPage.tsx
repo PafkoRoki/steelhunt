@@ -30,9 +30,9 @@ export default function DashboardPage() {
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="section-title">Pulpit łowcy</p>
-          <h1 className="page-title mt-1">Niedocenione stalowe ramy</h1>
+          <h1 className="page-title mt-1">{settings.mtbOnly ? 'Niedocenione retro MTB' : 'Niedocenione stalowe ramy'}</h1>
           <p className="mt-1 max-w-2xl text-sm text-ink-400">
-            Szukamy rowerów tańszych niż ich realna wartość — w promieniu {settings.radiusKm === 0 ? 'całej Polski' : `${settings.radiusKm} km`} od {settings.origin.name}.
+            Szukamy {settings.mtbOnly ? 'retro MTB' : 'rowerów'} tańszych niż ich realna wartość — w promieniu {settings.radiusKm === 0 ? 'całej Polski' : `${settings.radiusKm} km`} od {settings.origin.name}.
           </p>
         </div>
         <div className="flex items-center gap-2 text-xs text-ink-500">

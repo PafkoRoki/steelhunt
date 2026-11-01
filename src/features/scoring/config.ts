@@ -18,7 +18,8 @@ export const DEFAULT_SETTINGS: AppSettings = {
   roadFactor: 1.25,
   courierCost: 140,
   demoMode: false,
-  settingsVersion: 2,
+  mtbOnly: true,
+  settingsVersion: 3,
   newListingHours: 48,
   frameScoreOverrides: {},
 };

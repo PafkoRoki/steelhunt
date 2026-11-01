@@ -82,7 +82,11 @@ async function main() {
   if (rowErrors.length) console.warn(`Import row errors:\n  ${rowErrors.join('\n  ')}`);
 
   const nowIso = new Date().toISOString();
-  const merged = mergeListings(existing.listings, incoming, nowIso);
+  // data/imports is authoritative: an entry deleted from the files is deleted from the site.
+  const manualOk = sourceLogs.some((s) => s.source === 'manual' && s.ok);
+  const importedIds = new Set(incoming.filter((l) => l.origin === 'import').map((l) => l.id));
+  const base = manualOk ? existing.listings.filter((l) => l.origin !== 'import' || importedIds.has(l.id)) : existing.listings;
+  const merged = mergeListings(base, incoming, nowIso);
 
   // Listings not seen for N days → status "removed" (kept for history, hidden by default).
   const cutoff = Date.now() - cfg.markRemovedAfterDays * 86400_000;

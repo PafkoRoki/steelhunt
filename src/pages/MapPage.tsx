@@ -14,7 +14,7 @@ import type { RadiusOption } from '../types/settings';
  * (the popup states the precision).
  */
 export default function MapPage() {
-  const { listings, settings, updateSettings } = useAppData();
+  const { focused: listings, settings, updateSettings } = useAppData();
   const [minDeal, setMinDeal] = useState(0);
   const radius = settings.radiusKm;
 

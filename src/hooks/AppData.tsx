@@ -13,6 +13,7 @@ import { analyzeListings } from '../services/analysis/pipeline';
 import { loadSampleListings } from '../data/sample-listings/loadSamples';
 import { mergeListings } from '../services/deduplication/dedupe';
 import { loadJson, saveJson } from '../utils/storage';
+import { isMtbLike } from '../features/listings/focus';
 
 export interface ImportEvent {
   at: string;
@@ -33,6 +34,8 @@ interface AppDataValue {
   addModel: (m: BikeModel) => void;
   removeUserEntry: (kind: 'manufacturers' | 'models', id: string) => void;
   listings: AnalyzedListing[];
+  /** Listings after the focus filter (retro MTB only when enabled). */
+  focused: AnalyzedListing[];
   /** Listings within the selected radius (unknown-distance ones included, flagged). */
   inRadius: AnalyzedListing[];
   byId: Map<string, AnalyzedListing>;
@@ -58,6 +61,8 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
     const stored = loadJson<Partial<AppSettings>>('settings', {});
     // v2: demo mode is off by default — older saved settings had it on implicitly.
     if ((stored.settingsVersion ?? 1) < 2) stored.demoMode = false;
+    // v3: retro-MTB focus on by default.
+    if ((stored.settingsVersion ?? 1) < 3) stored.mtbOnly = true;
     return { ...DEFAULT_SETTINGS, ...stored, settingsVersion: DEFAULT_SETTINGS.settingsVersion };
   });
   const [userDb, setUserDb] = useState<UserDatabaseAdditions>(() => loadJson('userDb', { manufacturers: [], models: [] }));
@@ -113,9 +118,12 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
     return analyzeListings(merged, settings, db, now);
   }, [live.listings, imports, samples, settings, db, now]);
 
+  /** Listings matching the user's focus (retro MTB only, by default). */
+  const focused = useMemo(() => (settings.mtbOnly ? listings.filter(isMtbLike) : listings), [listings, settings.mtbOnly]);
+
   const inRadius = useMemo(
-    () => (settings.radiusKm === 0 ? listings : listings.filter((l) => l.analysis.distanceKm == null || l.analysis.distanceKm <= settings.radiusKm)),
-    [listings, settings.radiusKm],
+    () => (settings.radiusKm === 0 ? focused : focused.filter((l) => l.analysis.distanceKm == null || l.analysis.distanceKm <= settings.radiusKm)),
+    [focused, settings.radiusKm],
   );
 
   const byId = useMemo(() => new Map(listings.map((l) => [l.listing.id, l])), [listings]);
@@ -145,6 +153,7 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
     addModel: (m) => setUserDb((u) => ({ ...u, models: [...u.models.filter((x) => x.id !== m.id), m] })),
     removeUserEntry: (kind, id) => setUserDb((u) => ({ ...u, [kind]: (u[kind] as { id: string }[]).filter((x) => x.id !== id) })),
     listings,
+    focused,
     inRadius,
     byId,
     live,

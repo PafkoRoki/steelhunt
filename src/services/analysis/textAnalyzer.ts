@@ -381,7 +381,12 @@ export function analyzeText(listing: SourceListing, db: BikeDatabase): TextFacts
       evidence,
       warnings: tw,
     };
-  } else if (model?.typicalTubing && db.tubingById.get(model.typicalTubing)) {
+  } else if (
+    model?.typicalTubing &&
+    db.tubingById.get(model.typicalTubing) &&
+    // The listing says the frame is NOT steel (e.g. a later aluminium Rockhopper) → don't assume the model's steel tubing.
+    !['aluminium', 'carbon', 'titanium'].includes(detectMaterial(text, null))
+  ) {
     tubingSpec = db.tubingById.get(model.typicalTubing)!;
     tubing = {
       tubingId: tubingSpec.id,
