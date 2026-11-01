@@ -53,6 +53,7 @@ const DISTINCTIVE_MODEL_ALIASES = new Set([
 const FORK_RE = /\b(widel\w*|fork\w*|amortyzator\w*)\b/;
 const FRAME_RE = /\b(ram[aeyi]\w*|frame\w*|rury\w*|tubing|tubeset)\b/;
 const MAIN_TUBES_RE = /(main\s*tubes?|rury\s*glown\w*|glown\w*\s*rury|3\s*main|trzy\s*(?:glowne\s*)?rury|main\s*triangle|glowny\s*trojkat)/;
+const FRAME_AND_FORK_RE = /(ram[aeyi]\w*\s*(?:i|oraz|and|\+|&|z)\s*widel\w*|widel\w*\s*(?:i|oraz|and|\+|&)\s*ram[aeyi]\w*|frame\s*(?:and|&|\+)\s*fork)/;
 const DECAL_RE = /(naklejk\w*|decal\w*|sticker\w*|emblemat\w*|oryginaln\w*\s*oznaczen\w*)/;
 const BUTTED_RE = /(double[\s-]*butted|triple[\s-]*butted|\bbutted\b|cieniowan\w*|\bd\.?b\.?\b(?=.{0,10}(?:cr|rur|tub))|\btb\b(?=.{0,10}(?:cr|rur|tub)))/;
 
@@ -115,6 +116,8 @@ function scopeFor(text: string, index: number, length: number): { scope: TubingS
   const wide = text.slice(Math.max(0, index - 60), index + length + 60);
   const decal = DECAL_RE.test(wide);
   if (MAIN_TUBES_RE.test(wide)) return { scope: 'main-tubes', decal };
+  // "rama i widelec cr-mo" / "frame and fork" → the claim covers the frame too.
+  if (FRAME_AND_FORK_RE.test(wide)) return { scope: 'full-frame', decal };
   // Which noun is closest to the tubing mention — "widelec Cr-Mo, rama stalowa" → fork.
   // Clause boundaries (, . ;) count as extra distance so the mention binds to its own clause.
   const forkD = nearestDistance(text, index, length, FORK_RE);
