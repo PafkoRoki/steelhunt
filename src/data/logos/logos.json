@@ -233,11 +233,11 @@
   },
   "simplon": {
     "src": "logos/simplon.svg",
-    "title": "Simplon.svg",
-    "page": "https://de.wikipedia.org/wiki/Datei:Simplon.svg",
-    "license": "logo bez wolnej licencji (plik lokalny de.wikipedia)",
-    "author": "Simplon Fahrrad GmbH",
-    "source": "de.wikipedia"
+    "title": "simplon.svg (z arkusza naklejek simplon.cdr)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "ktm": {
     "src": "logos/ktm.svg",
@@ -377,11 +377,11 @@
   },
   "puch": {
     "src": "logos/puch.svg",
-    "title": "Puch logo.svg",
-    "page": "https://commons.wikimedia.org/wiki/File:Puch_logo.svg",
-    "license": "Public domain",
-    "author": "Unknown authorUnknown author",
-    "source": "Wikimedia Commons"
+    "title": "puch.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "gazelle": {
     "src": "logos/gazelle.svg",
@@ -442,11 +442,11 @@
   },
   "kalkhoff": {
     "src": "logos/kalkhoff.svg",
-    "title": "Kalkhoff Bikes logo.svg",
-    "page": "https://commons.wikimedia.org/wiki/File:Kalkhoff_Bikes_logo.svg",
-    "license": "Public domain",
-    "author": "Unknown authorUnknown author",
-    "source": "Wikimedia Commons"
+    "title": "kalkhoff.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "kettler": {
     "src": "logos/kettler.png",
@@ -458,10 +458,10 @@
   },
   "merida": {
     "src": "logos/merida.svg",
-    "title": "Merida (Unternehmen) logo.svg",
-    "page": "https://commons.wikimedia.org/wiki/File:Merida_(Unternehmen)_logo.svg",
-    "license": "Public domain",
-    "author": "Unknown authorUnknown author",
-    "source": "Wikimedia Commons"
+    "title": "merida.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   }
 }
