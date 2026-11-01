@@ -1,0 +1,47 @@
+name: Ingest listings
+
+# Scheduled search: every 6 hours (+ manual "Run workflow" button).
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ingest
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Run ingestion (each source isolated; failures are logged, not fatal)
+        run: npm run ingest
+        env:
+          # Configure in Settings → Secrets and variables → Actions. Never exposed to the frontend.
+          ALLEGRO_CLIENT_ID: ${{ secrets.ALLEGRO_CLIENT_ID }}
+          ALLEGRO_CLIENT_SECRET: ${{ secrets.ALLEGRO_CLIENT_SECRET }}
+
+      - name: Commit updated data
+        run: |
+          git config user.name "steelhunt-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data
+          if git diff --staged --quiet; then
+            echo "No data changes."
+          else
+            git commit -m "data: ingest $(date -u +'%Y-%m-%dT%H:%MZ')"
+            git push
+          fi

@@ -1,0 +1,13 @@
+[
+  {
+    "url": "https://www.olx.pl/d/oferta/TU-WKLEJ-PRAWDZIWY-LINK-ID000000.html",
+    "title": "Tytuł z ogłoszenia",
+    "price": 450,
+    "location": "Gniezno",
+    "description": "Opis przepisany z ogłoszenia (np. rama Tange, sztywny widelec, koła 26)",
+    "condition": "good",
+    "itemType": "complete",
+    "shipping": false,
+    "images": []
+  }
+]

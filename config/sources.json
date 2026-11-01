@@ -1,0 +1,25 @@
+{
+  "$comment": "Configuration for scripts/ingest.ts (GitHub Actions). Secrets come from environment variables, never from this file.",
+  "queries": [
+    "rower stalowy vintage",
+    "stary rower górski",
+    "rama tange",
+    "rama reynolds",
+    "rama columbus",
+    "cr-mo rower",
+    "gt karakoram",
+    "specialized stumpjumper",
+    "specialized rockhopper",
+    "trek 950",
+    "kona lava dome",
+    "koga miyata",
+    "rower mufowany",
+    "rower turystyczny stalowy"
+  ],
+  "maxResultsPerQuery": 60,
+  "markRemovedAfterDays": 14,
+  "sources": {
+    "manual-feed": { "enabled": true, "dir": "data/imports" },
+    "allegro": { "enabled": true, "categoryId": "" }
+  }
+}
