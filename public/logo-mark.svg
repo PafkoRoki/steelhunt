@@ -1,15 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="5 8 54 48">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="7 20 50 24">
   <defs>
-    <linearGradient id="steel" gradientUnits="userSpaceOnUse" x1="28.5" y1="25.94" x2="35.5" y2="38.06"><stop offset="0" stop-color="#eef0ec"/><stop offset=".4" stop-color="#b4b8b5"/><stop offset="1" stop-color="#555a5b"/></linearGradient>
-    <linearGradient id="brass" gradientUnits="userSpaceOnUse" x1="27.85" y1="24.81" x2="36.15" y2="39.19"><stop offset="0" stop-color="#f3dea4"/><stop offset=".4" stop-color="#c9a24a"/><stop offset="1" stop-color="#76561a"/></linearGradient>
+    <mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
+      <!-- tube: straight body with a rounded far end -->
+      <path d="M13 24.5 H52 A4 7.5 0 0 1 52 39.5 H13 Z" fill="#fff"/>
+      <!-- open near end: rim, gap, hole -->
+      <ellipse cx="13" cy="32" rx="4.6" ry="7.5" fill="#fff"/>
+      <ellipse cx="13" cy="32" rx="4.6" ry="7.5" fill="none" stroke="#000" stroke-width="1.6"/>
+      <ellipse cx="13" cy="32" rx="2.5" ry="4.9" fill="#000"/>
+      <!-- lug sleeve with a spearpoint, separated from the tube by a gap -->
+      <path d="M32 22 H46 A4.4 10 0 0 1 46 42 H32 Q27 38 21 32 Q27 26 32 22 Z" fill="none" stroke="#000" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M32 22 H46 A4.4 10 0 0 1 46 42 H32 Q27 38 21 32 Q27 26 32 22 Z" fill="#fff"/>
+    </mask>
   </defs>
   
-  <!-- steel tube: rounded back end, body, open front end -->
-  <ellipse cx="53.65" cy="19.5" rx="7" ry="4.06" transform="rotate(60 53.65 19.5)" fill="url(#steel)"/>
-  <path d="M50.15,13.44 L6.85,38.44 L13.85,50.56 L57.15,25.56 Z" fill="url(#steel)"/>
-  <ellipse cx="10.35" cy="44.5" rx="7" ry="4.06" transform="rotate(60 10.35 44.5)" fill="#dfe1dd"/>
-  <ellipse cx="10.35" cy="44.5" rx="5.2" ry="3.02" transform="rotate(60 10.35 44.5)" fill="#232526"/>
-  <!-- brass lug sleeve with a spearpoint -->
-  <ellipse cx="43.26" cy="25.5" rx="8.3" ry="4.81" transform="rotate(60 43.26 25.5)" fill="url(#brass)"/>
-  <path d="M39.11,18.31 L27.85,24.81 Q23.71,35.63 18.03,41.8 Q25.46,38.66 36.15,39.19 L47.41,32.69 Z" fill="url(#brass)" stroke="#5c4212" stroke-width=".6" stroke-linejoin="round"/>
+  <rect x="0" y="0" width="64" height="64" fill="#ecede9" mask="url(#cut)"/>
 </svg>
