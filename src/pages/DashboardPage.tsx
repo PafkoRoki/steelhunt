@@ -29,10 +29,10 @@ export default function DashboardPage() {
     <div className="space-y-8">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="section-title">Pulpit łowcy</p>
-          <h1 className="page-title mt-1">{settings.mtbOnly ? 'Niedocenione retro MTB' : 'Niedocenione stalowe ramy'}</h1>
+          <p className="section-title">Przegląd rynku</p>
+          <h1 className="page-title mt-1">{settings.mtbOnly ? 'Retro MTB — wycena ofert' : 'Ramy stalowe — wycena ofert'}</h1>
           <p className="mt-1 max-w-2xl text-sm text-ink-400">
-            Szukamy {settings.mtbOnly ? 'retro MTB' : 'rowerów'} tańszych niż ich realna wartość — w promieniu {settings.radiusKm === 0 ? 'bez limitu odległości' : `${settings.radiusKm} km`} od {settings.origin.name}.
+            Cena ofertowa porównana z szacowaną wartością rynkową (model, rocznik, rury ramy, osprzęt, stan). Zasięg: {settings.radiusKm === 0 ? 'bez limitu' : `${settings.radiusKm} km`} (punkt startowy: {settings.origin.name}) · próg okazji: ≥ {settings.dealThresholdPct}% poniżej wyceny.
           </p>
         </div>
         <div className="flex items-center gap-2 text-xs text-ink-500">
@@ -67,7 +67,7 @@ export default function DashboardPage() {
         title="Unknown Gems"
         to="/deals?gems=1"
         count={gems.length}
-        intro="Ciekawe rowery spoza bazy modeli — sygnały jakości (rury, mufy, komponenty) przy nierozpoznanej marce lub modelu. To tropy, nie pewniki."
+        intro="Model nierozpoznany w bazie, ale tekst zawiera sygnały jakości: rury (Tange, Columbus, Reynolds), mufy, osprzęt sprzed 2002. Wycena orientacyjna — niska pewność."
       >
         {gems.slice(0, 3).map((l) => (
           <ListingCard key={l.listing.id} item={l} />
