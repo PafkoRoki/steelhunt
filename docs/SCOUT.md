@@ -35,3 +35,18 @@ Kleinanzeigen: only postcode regions within driving range of Poznań (eastern Ge
 EUR prices are converted with the exchange rate from Settings (default 4.25).
 
 Listings stay published for `keepDays` (14) after they were last seen in the results.
+
+## Photo review (frame decals, component markings)
+
+The scheduled scout task (Claude on the owner's computer) also looks at the listing photos:
+
+1. `npm run photos -- todo --limit=10` picks listings whose photos were not checked yet, downloads up to 3
+   photos each into `.photo-cache/` (git-ignored, low rate, same User-Agent) and writes `.photo-cache/todo.json`.
+2. Claude views the photos and writes what is printed on the bike: frame brand/model decals, tubing decals
+   (Tange, Columbus, Reynolds, Ishiwata…), component markings (Deore XT, RD-M735…). Each reading has
+   `confidence`: `legible` (fully readable) or `probable` (partly readable). Nothing is guessed: unreadable
+   decals are left out.
+3. `npm run photos -- save <file.json>` validates the readings and merges them into `data/photo-notes.json`.
+
+The ingestion attaches the notes to listings. **Only `legible` readings feed the analysis** (evidence
+labelled “zdjęcie”); `probable` ones are shown on the listing page only.

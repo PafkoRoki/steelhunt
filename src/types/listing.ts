@@ -65,8 +65,29 @@ export interface SourceListing {
     illustrationColor?: string;
   };
   origin: DataOrigin;
+  /** Readings of frame decals / component markings from the listing photos (data/photo-notes.json). */
+  photo?: PhotoNotes;
   /** Id of the listing this one probably duplicates (cross-portal), if detected. */
   duplicateOf?: string | null;
+}
+
+/** One marking read from a photo. `legible`: fully readable → used in analysis. `probable`: shown only. */
+export interface PhotoReading {
+  /** Where on the bike, e.g. "rura podsiodłowa", "przerzutka tylna", "widelec". */
+  where: string;
+  /** What is written there, as read. */
+  text: string;
+  confidence: 'legible' | 'probable';
+  /** 1-based photo index. */
+  image?: number;
+}
+
+export interface PhotoNotes {
+  checkedAt: string;
+  /** How many photos were looked at. */
+  images: number;
+  readings: PhotoReading[];
+  summary?: string;
 }
 
 export type ConfidenceLevel = 'verified' | 'strong' | 'probable' | 'unverified' | 'unknown';

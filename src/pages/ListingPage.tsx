@@ -190,10 +190,28 @@ export default function ListingPage() {
                 <div className="text-xs font-medium text-ink-400">Dowody</div>
                 {a.tubing.evidence.map((e, i) => (
                   <div key={i} className="rounded-lg bg-ink-950/50 px-2.5 py-1.5 text-[11px] text-ink-300">
-                    <b>{e.label}</b> <span className="text-ink-500">({e.source === 'model-db' ? 'baza modeli' : e.source === 'title' ? 'tytuł' : 'opis'})</span>
+                    <b>{e.label}</b> <span className="text-ink-500">({e.source === 'model-db' ? 'baza modeli' : e.source === 'title' ? 'tytuł' : e.source === 'image-ai' ? 'zdjęcie' : 'opis'})</span>
                     {e.snippet && <div className="mt-0.5 font-mono text-ink-500">„…{e.snippet}…”</div>}
                   </div>
                 ))}
+              </div>
+            )}
+            {l.photo && (
+              <div className="mt-4 space-y-1.5">
+                <div className="text-xs font-medium text-ink-400">
+                  Odczyt ze zdjęć <span className="font-normal text-ink-500">({l.photo.images} zdj., {formatDateTime(l.photo.checkedAt)})</span>
+                </div>
+                {l.photo.readings.length === 0 && <div className="text-[11px] text-ink-500">Brak czytelnych oznaczeń na zdjęciach.</div>}
+                {l.photo.readings.map((r, i) => (
+                  <div key={i} className="rounded-lg bg-ink-950/50 px-2.5 py-1.5 text-[11px] text-ink-300">
+                    <span className="text-ink-500">{r.where}:</span> <b>{r.text}</b>{' '}
+                    <span className={r.confidence === 'legible' ? 'text-moss-300' : 'text-brass-300'}>
+                      ({r.confidence === 'legible' ? 'czytelne' : 'prawdopodobne'}{r.image ? `, zdj. ${r.image}` : ''})
+                    </span>
+                  </div>
+                ))}
+                {l.photo.summary && <p className="text-[11px] text-ink-400">{l.photo.summary}</p>}
+                <p className="text-[10px] text-ink-500">Odczyt automatyczny (Claude). Do analizy wchodzą tylko odczyty „czytelne”.</p>
               </div>
             )}
             {spec?.notes && <p className="mt-3 text-[11px] text-ink-400">ℹ {spec.notes}</p>}

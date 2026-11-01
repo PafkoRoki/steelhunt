@@ -339,14 +339,25 @@ const NEGOTIATION_RULES: [string, RegExp][] = [
 
 export function analyzeText(listing: SourceListing, db: BikeDatabase): TextFacts {
   const title = normalizeText(listing.title);
-  const desc = normalizeText(listing.description);
+  const descOnly = normalizeText(listing.description);
+  // Legible photo readings (decals, component markings) are analyzed like text; evidence found there is
+  // labelled "image-ai". Probable readings are shown in the UI only.
+  const photoText = normalizeText(
+    (listing.photo?.readings ?? [])
+      .filter((r) => r.confidence === 'legible')
+      .map((r) => `${r.where}: ${r.text}`)
+      .join(' . '),
+  );
+  const desc = photoText ? `${descOnly} . ${photoText}` : descOnly;
   const text = `${title} . ${desc}`;
+  const photoFrom = photoText ? text.length - photoText.length : Infinity;
   const warnings: string[] = [];
 
   // Manufacturer
   const mf = findManufacturer(title, desc, db);
   let manufacturer = mf?.m ?? null;
-  let manufacturerEvidence: Evidence | null = mf ? { label: mf.m.name, source: mf.where, snippet: mf.alias } : null;
+  const mfSource = mf?.where === 'description' && photoText.includes(mf.alias) && !descOnly.includes(mf.alias) ? 'image-ai' : mf?.where;
+  let manufacturerEvidence: Evidence | null = mf ? { label: mf.m.name, source: mfSource!, snippet: mf.alias } : null;
   if (manufacturer && mf?.where === 'description') {
     // Brand only in description near a component word → likely a component brand, not the frame.
     const compRe = new RegExp(`${mf.alias}\\s*(?:\\S+\\s*){0,2}(?:kierownic|mostek|sztyc|opon|kol[ao]|siodl|pedal|stem|bar|tire)`);
@@ -376,8 +387,10 @@ export function analyzeText(listing: SourceListing, db: BikeDatabase): TextFacts
 
   if (frameHit) {
     tubingSpec = frameHit.spec;
+    const fromPhoto = frameHit.index >= photoFrom;
+    if (fromPhoto) frameHit.decal = true; // read from the decal itself
     const evidence: Evidence[] = [
-      { label: tubingLabel(frameHit.spec), source: frameHit.index < title.length ? 'title' : 'description', snippet: frameHit.snippet },
+      { label: tubingLabel(frameHit.spec), source: fromPhoto ? 'image-ai' : frameHit.index < title.length ? 'title' : 'description', snippet: frameHit.snippet },
     ];
     const tw: string[] = [];
     if (frameHit.scope === 'main-tubes') tw.push('Specyfikacja dotyczy tylko rur głównych (main tubes) — tylny trójkąt / widelec mogą być z innej stali.');
@@ -413,7 +426,7 @@ export function analyzeText(listing: SourceListing, db: BikeDatabase): TextFacts
     tubing = { tubingId: null, manufacturer: null, series: null, scope: 'unknown', confidence: 'unknown', evidence: [], warnings: [] };
   }
   if (forkHit) {
-    tubing.evidence.push({ label: `Widelec: ${tubingLabel(forkHit.spec)}`, source: 'description', snippet: forkHit.snippet });
+    tubing.evidence.push({ label: `Widelec: ${tubingLabel(forkHit.spec)}`, source: forkHit.index >= photoFrom ? 'image-ai' : 'description', snippet: forkHit.snippet });
     tubing.warnings.push(`„${tubingLabel(forkHit.spec)}” dotyczy widelca — nie świadczy o rurach ramy.`);
   }
 

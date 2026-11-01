@@ -10,7 +10,7 @@
  */
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
-import type { SourceListing } from '../src/types/listing';
+import type { PhotoNotes, SourceListing } from '../src/types/listing';
 import type { LiveDataFile, RunLog, RunLogEntry, SourceRunLog } from '../src/types/run';
 import type { MarketplaceConnector } from '../src/services/marketplaces/types';
 import { mergeListings } from '../src/services/deduplication/dedupe';
@@ -23,6 +23,7 @@ import { createManualFeedConnector } from './connectors/manualFeed';
 const ROOT = resolve(import.meta.dirname, '..');
 const LISTINGS = resolve(ROOT, 'public/data/listings.json');
 const RUNLOG = resolve(ROOT, 'public/data/run-log.json');
+const PHOTO_NOTES = resolve(ROOT, 'data/photo-notes.json');
 
 interface SourcesConfig {
   queries: string[];
@@ -87,6 +88,14 @@ async function main() {
   const importedIds = new Set(incoming.filter((l) => l.origin === 'import').map((l) => l.id));
   const base = manualOk ? existing.listings.filter((l) => l.origin !== 'import' || importedIds.has(l.id)) : existing.listings;
   const merged = mergeListings(base, incoming, nowIso);
+
+  // Photo readings (decals, component markings) from the local photo review — see scripts/photos.ts.
+  const photoNotes = new Map(readJson<(PhotoNotes & { url: string })[]>(PHOTO_NOTES, []).map(({ url, ...n }) => [url.split('?')[0], n]));
+  for (const l of merged.merged) {
+    const n = photoNotes.get(l.sourceUrl.split('?')[0]);
+    if (n) l.photo = n;
+    else delete l.photo;
+  }
 
   // Listings not seen for N days → status "removed" (kept for history, hidden by default).
   const cutoff = Date.now() - cfg.markRemovedAfterDays * 86400_000;
