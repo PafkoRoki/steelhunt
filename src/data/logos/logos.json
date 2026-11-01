@@ -127,6 +127,14 @@
     "author": null,
     "source": "dodane ręcznie przez właściciela strony"
   },
+  "surly": {
+    "src": "logos/surly.svg",
+    "title": "surly.svg (z surly.eps, wersja pełna)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
   "fat-chance": {
     "src": "logos/fat-chance.png",
     "title": "fat-chance.png",
@@ -360,8 +368,8 @@
     "source": "dodane ręcznie przez właściciela strony"
   },
   "saracen": {
-    "src": "logos/saracen.webp",
-    "title": "saracen.webp",
+    "src": "logos/saracen.svg",
+    "title": "saracen.svg (z saracen.ai)",
     "page": null,
     "license": null,
     "author": null,
