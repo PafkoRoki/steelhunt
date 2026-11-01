@@ -1,32 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 2 52 60">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="5 8 54 48">
   <defs>
-    <linearGradient id="steelV" x1="0" x2="1" y1="0" y2="0">
-      <stop offset="0" stop-color="#7d8282"/><stop offset=".35" stop-color="#e2e4e0"/><stop offset="1" stop-color="#5b5f60"/>
-    </linearGradient>
-    <linearGradient id="brassV" x1="0" x2="1" y1="0" y2="0">
-      <stop offset="0" stop-color="#9a7428"/><stop offset=".35" stop-color="#f0d899"/><stop offset="1" stop-color="#7d5c1d"/>
-    </linearGradient>
-    <linearGradient id="steelT" gradientUnits="userSpaceOnUse" x1="38.9" y1="21.36" x2="43.1" y2="28.64">
-      <stop offset="0" stop-color="#e2e4e0"/><stop offset=".45" stop-color="#b4b8b5"/><stop offset="1" stop-color="#5b5f60"/>
-    </linearGradient>
-    <linearGradient id="brassT" gradientUnits="userSpaceOnUse" x1="38.05" y1="19.89" x2="43.95" y2="30.11">
-      <stop offset="0" stop-color="#f0d899"/><stop offset=".45" stop-color="#c9a24a"/><stop offset="1" stop-color="#7d5c1d"/>
-    </linearGradient>
+    <linearGradient id="steel" gradientUnits="userSpaceOnUse" x1="28.5" y1="25.94" x2="35.5" y2="38.06"><stop offset="0" stop-color="#eef0ec"/><stop offset=".4" stop-color="#b4b8b5"/><stop offset="1" stop-color="#555a5b"/></linearGradient>
+    <linearGradient id="brass" gradientUnits="userSpaceOnUse" x1="27.85" y1="24.81" x2="36.15" y2="39.19"><stop offset="0" stop-color="#f3dea4"/><stop offset=".4" stop-color="#c9a24a"/><stop offset="1" stop-color="#76561a"/></linearGradient>
   </defs>
   
-  <!-- head tube, lower part -->
-  <path d="M35,35 V58 A6,3.48 0 0 0 47,58 V35 Z" fill="url(#steelV)"/>
-  <!-- lug sleeve on the head tube -->
-  <path d="M33,15 V37 A8,4.64 0 0 0 49,37 V15 Z" fill="url(#brassV)"/>
-  <ellipse cx="41" cy="15" rx="8" ry="4.64" transform="rotate(0 41 15)" fill="#e6cf95" />
-  <!-- head tube, upper part rising out of the lug -->
-  <path d="M35,7 V15 A6,3.48 0 0 0 47,15 V7 Z" fill="url(#steelV)"/>
-  <ellipse cx="41" cy="7" rx="6" ry="3.48" transform="rotate(0 41 7)" fill="#d6d8d4" />
-  <ellipse cx="41" cy="7" rx="4.4" ry="2.55" transform="rotate(0 41 7)" fill="#2a2c2d" />
-  <!-- top tube -->
-  <path d="M38.9,21.36 L7.72,39.36 L11.92,46.64 L43.1,28.64 Z" fill="url(#steelT)"/>
-  <ellipse cx="9.82" cy="43" rx="4.2" ry="2.44" transform="rotate(60 9.82 43)" fill="#d6d8d4" />
-  <ellipse cx="9.82" cy="43" rx="3" ry="1.74" transform="rotate(60 9.82 43)" fill="#2a2c2d" />
-  <!-- lug socket with spearpoint along the top tube -->
-  <path d="M38.05,19.89 L25.06,27.39 L18.48,38 L30.96,37.61 L43.95,30.11 Z" fill="url(#brassT)"/>
+  <!-- steel tube: rounded back end, body, open front end -->
+  <ellipse cx="53.65" cy="19.5" rx="7" ry="4.06" transform="rotate(60 53.65 19.5)" fill="url(#steel)"/>
+  <path d="M50.15,13.44 L6.85,38.44 L13.85,50.56 L57.15,25.56 Z" fill="url(#steel)"/>
+  <ellipse cx="10.35" cy="44.5" rx="7" ry="4.06" transform="rotate(60 10.35 44.5)" fill="#dfe1dd"/>
+  <ellipse cx="10.35" cy="44.5" rx="5.2" ry="3.02" transform="rotate(60 10.35 44.5)" fill="#232526"/>
+  <!-- brass lug sleeve with a spearpoint -->
+  <ellipse cx="43.26" cy="25.5" rx="8.3" ry="4.81" transform="rotate(60 43.26 25.5)" fill="url(#brass)"/>
+  <path d="M39.11,18.31 L27.85,24.81 Q23.71,35.63 18.03,41.8 Q25.46,38.66 36.15,39.19 L47.41,32.69 Z" fill="url(#brass)" stroke="#5c4212" stroke-width=".6" stroke-linejoin="round"/>
 </svg>

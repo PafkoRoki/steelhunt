@@ -19,9 +19,9 @@ const NAV = [
   { to: '/settings', label: 'Ustawienia', icon: Settings },
 ];
 
-/** Brand mark: a steel top tube entering a brass head-tube lug, in isometric view (same drawing as public/favicon.svg). */
+/** Brand mark: one steel tube with a brass lug sleeve, in isometric view (same drawing as public/favicon.svg). */
 export function LogoMark({ size = 30 }: { size?: number }) {
-  return <img src="logo-mark.svg" alt="" width={size * (52 / 60)} height={size} className="shrink-0" />;
+  return <img src="logo-mark.svg" alt="" width={size * (54 / 48)} height={size} className="shrink-0" />;
 }
 
 export function Logo() {
