@@ -21,9 +21,18 @@ export function analyzeListings(
 ): AnalyzedListing[] {
   const facts = listings.map((l) => analyzeText(l, db));
   const comps = buildComparableIndex(
-    listings.map((l, i) => ({ id: l.id, modelId: facts[i].model?.id ?? null, price: l.price, itemType: facts[i].itemType })),
+    listings.map((l, i) => ({ id: l.id, modelId: facts[i].model?.id ?? null, price: toPln(l, settings), itemType: facts[i].itemType })),
   );
   return listings.map((listing, i) => ({ listing, analysis: analyzeOne(listing, facts[i], settings, db, comps, now) }));
+}
+
+/** Asking price in PLN. EUR uses the configured rate; unknown currencies yield null (not compared). */
+export function toPln(l: SourceListing, settings: AppSettings): number | null {
+  if (l.price == null) return null;
+  const cur = (l.currency || 'PLN').toUpperCase();
+  if (cur === 'PLN' || cur === 'ZL' || cur === 'ZŁ') return l.price;
+  if (cur === 'EUR' || cur === '€') return Math.round(l.price * settings.eurToPln);
+  return null;
 }
 
 function analyzeOne(
@@ -54,6 +63,9 @@ function analyzeOne(
     warnings.push('Brak rozpoznawalnej lokalizacji — odległość nieznana.');
   }
   if (listing.geoPrecision === 'city') warnings.push('Lokalizacja przybliżona do centrum miejscowości.');
+  if (listing.geoPrecision === 'region') warnings.push('Lokalizacja przybliżona do regionu kodu pocztowego (Niemcy).');
+  const pricePln = toPln(listing, settings);
+  if (listing.currency && listing.currency.toUpperCase() === 'EUR') warnings.push(`Cena w EUR przeliczona po kursie ${settings.eurToPln} zł (zmienisz w Ustawieniach).`);
 
   const frame = scoreFrameQuality(facts, db, settings);
   const xb = scoreXbiking(facts);
@@ -71,10 +83,10 @@ function analyzeOne(
   }
 
   const restorationCost = facts.itemType === 'complete' ? RESTORATION_COST[facts.condition] : 0;
-  const hasPrice = listing.price != null && listing.price > 0 && price.confidence !== 'none';
-  const potentialSavings = hasPrice ? round(price.mid - listing.price!, 10) : null;
-  const netOpportunity = hasPrice ? round(price.mid - listing.price! - restorationCost - (transportCost ?? 0), 10) : null;
-  const discountPct = hasPrice && price.mid > 0 ? (price.mid - listing.price!) / price.mid : null;
+  const hasPrice = pricePln != null && pricePln > 0 && price.confidence !== 'none';
+  const potentialSavings = hasPrice ? round(price.mid - pricePln!, 10) : null;
+  const netOpportunity = hasPrice ? round(price.mid - pricePln! - restorationCost - (transportCost ?? 0), 10) : null;
+  const discountPct = hasPrice && price.mid > 0 ? (price.mid - pricePln!) / price.mid : null;
 
   if (discountPct != null && discountPct > 0.75) {
     warnings.push('Cena podejrzanie niska względem szacunku — sprawdź, czy to kompletny rower, a nie część, oraz czy oferta jest wiarygodna.');
@@ -85,7 +97,7 @@ function analyzeOne(
     settings,
   );
 
-  const gem = detectUnknownGem(listing, facts, frame.score, discountPct);
+  const gem = detectUnknownGem(listing, facts, frame.score, discountPct, pricePln);
 
   const isBargain =
     discountPct != null &&
@@ -123,6 +135,7 @@ function analyzeOne(
     condition: facts.condition,
     features: facts.features,
     components: facts.components,
+    pricePln,
     distanceKm,
     drivingDistanceKm,
     price,

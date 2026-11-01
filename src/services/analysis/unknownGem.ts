@@ -11,6 +11,7 @@ export function detectUnknownGem(
   facts: TextFacts,
   frameScore: number,
   discount: number | null,
+  pricePln: number | null = listing.price,
 ): { isGem: boolean; reasons: string[]; signals: number } {
   const reasons: string[] = [];
   if (facts.model) return { isGem: false, reasons, signals: 0 }; // recognized → regular pipeline
@@ -47,7 +48,7 @@ export function detectUnknownGem(
     reasons.push(`${facts.manufacturer.name} — marka często niedoceniana w polskich ogłoszeniach.`);
   }
   const oldMtb = /vintage-mtb|touring|vintage-road|frameset/.test(facts.category);
-  if (oldMtb && listing.price != null && listing.price <= 500 && facts.frameMaterial !== 'steel-hiten' && facts.frameMaterial !== 'aluminium') {
+  if (oldMtb && pricePln != null && pricePln <= 500 && facts.frameMaterial !== 'steel-hiten' && facts.frameMaterial !== 'aluminium') {
     signals += 1;
     reasons.push('Stary rower w niskiej cenie — warto dopytać o naklejki rur.');
   }

@@ -73,8 +73,8 @@ export function applyFilters(items: AnalyzedListing[], f: FilterState, opts: { n
       const hay = normalizeText(`${l.title} ${l.description} ${a.manufacturer ?? ''} ${a.model ?? ''} ${l.locationName ?? ''}`);
       if (!q.split(' ').every((t) => hay.includes(t))) return false;
     }
-    if (f.priceMin != null && (l.price ?? 0) < f.priceMin) return false;
-    if (f.priceMax != null && (l.price ?? Infinity) > f.priceMax) return false;
+    if (f.priceMin != null && (a.pricePln ?? 0) < f.priceMin) return false;
+    if (f.priceMax != null && (a.pricePln ?? Infinity) > f.priceMax) return false;
     if (f.maxDistance != null && (a.distanceKm == null || a.distanceKm > f.maxDistance)) return false;
     if (f.manufacturer && a.manufacturerId !== f.manufacturer) return false;
     if (f.model && a.modelId !== f.model) return false;
@@ -104,7 +104,7 @@ export function sortListings(items: AnalyzedListing[], key: SortKey): AnalyzedLi
     case 'deal':
       return s.sort((a, b) => b.analysis.dealScore - a.analysis.dealScore);
     case 'price':
-      return s.sort((a, b) => (a.listing.price ?? 1e9) - (b.listing.price ?? 1e9));
+      return s.sort((a, b) => (a.analysis.pricePln ?? 1e9) - (b.analysis.pricePln ?? 1e9));
     case 'frame':
       return s.sort((a, b) => b.analysis.frameQualityScore - a.analysis.frameQualityScore || b.analysis.dealScore - a.analysis.dealScore);
     case 'distance':

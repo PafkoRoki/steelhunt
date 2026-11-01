@@ -122,7 +122,7 @@ export default function ListingPage() {
             <div className="mt-4 flex items-end justify-between gap-4">
               <div>
                 <div className="stat-num text-4xl font-semibold text-ink-100">{formatPrice(l.price, l.currency)}</div>
-                <div className="text-xs text-ink-500">cena ofertowa</div>
+                <div className="text-xs text-ink-500">cena ofertowa{l.currency.toUpperCase() !== 'PLN' && a.pricePln != null ? ` · ≈ ${formatPrice(a.pricePln)}` : ''}</div>
               </div>
               <ScoreRing value={a.dealScore} size={76} label="Deal Score" stroke={6} />
             </div>

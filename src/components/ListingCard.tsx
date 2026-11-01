@@ -53,6 +53,7 @@ export function ListingCard({ item, compact = false }: { item: AnalyzedListing; 
           </div>
           <div className="text-right">
             <div className="stat-num whitespace-nowrap text-lg font-semibold text-ink-100">{formatPrice(l.price, l.currency)}</div>
+            {l.currency.toUpperCase() !== 'PLN' && a.pricePln != null && <div className="stat-num whitespace-nowrap text-[11px] text-ink-400">≈ {formatPrice(a.pricePln)}</div>}
             {a.price.confidence !== 'none' && (
               <div className="stat-num whitespace-nowrap text-[11px] text-ink-500">
                 rynek ~{formatRange(a.price.min, a.price.max)}

@@ -128,10 +128,11 @@ export default function SettingsPage() {
         </Card>
 
         <Card title="Koszty dojazdu">
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <Num label="Koszt / km (zł)" step={0.05} value={settings.fuelCostPerKm} onChange={(v) => updateSettings({ fuelCostPerKm: v })} />
             <Num label="Współczynnik drogowy" step={0.05} value={settings.roadFactor} onChange={(v) => updateSettings({ roadFactor: v })} />
             <Num label="Kurier (zł)" step={10} value={settings.courierCost} onChange={(v) => updateSettings({ courierCost: v })} />
+            <Num label="Kurs EUR → PLN" step={0.01} value={settings.eurToPln} onChange={(v) => updateSettings({ eurToPln: v > 0 ? v : 4.25 })} />
           </div>
           <p className="mt-3 text-[11px] text-ink-500">Dojazd liczony w obie strony: odległość w linii prostej × współczynnik drogowy × 2 × koszt/km. Gdy sprzedawca wysyła — tańsza opcja.</p>
         </Card>

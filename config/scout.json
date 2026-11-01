@@ -1,0 +1,46 @@
+{
+  "$comment": "Local scout (scripts/scout.ts). Runs on the owner's computer only — never in CI. Low request rate on purpose.",
+  "delayMs": 2500,
+  "keepDays": 14,
+  "maxDetailFetches": 40,
+  "olx": {
+    "enabled": true,
+    "radiusKm": 150,
+    "queries": [
+      "retro mtb",
+      "rower gorski retro",
+      "rower gorski vintage",
+      "stary rower gorski",
+      "mtb cr-mo",
+      "rower gorski tange",
+      "gt karakoram",
+      "specialized rockhopper",
+      "specialized stumpjumper",
+      "trek 950",
+      "kona",
+      "univega",
+      "diamondback"
+    ]
+  },
+  "kleinanzeigen": {
+    "enabled": true,
+    "postcodePrefixes": ["01", "02", "03", "04", "06", "10", "12", "13", "14", "15", "16", "17", "18", "19", "39"],
+    "queries": [
+      "retro mtb",
+      "vintage mtb",
+      "mtb 90er",
+      "mountainbike 90er",
+      "mtb stahlrahmen",
+      "mtb cr-mo",
+      "tange mtb",
+      "mtb starrgabel",
+      "gt karakoram",
+      "specialized rockhopper",
+      "stumpjumper",
+      "trek 950",
+      "kona mtb",
+      "univega alpina",
+      "bridgestone mb"
+    ]
+  }
+}

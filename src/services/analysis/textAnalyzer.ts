@@ -50,12 +50,15 @@ const DISTINCTIVE_MODEL_ALIASES = new Set([
   'multitrack 750', 'accordo',
 ]);
 
-const FORK_RE = /\b(widel\w*|fork\w*|amortyzator\w*)\b/;
-const FRAME_RE = /\b(ram[aeyi]\w*|frame\w*|rury\w*|tubing|tubeset)\b/;
-const MAIN_TUBES_RE = /(main\s*tubes?|rury\s*glown\w*|glown\w*\s*rury|3\s*main|trzy\s*(?:glowne\s*)?rury|main\s*triangle|glowny\s*trojkat)/;
-const FRAME_AND_FORK_RE = /(ram[aeyi]\w*\s*(?:i|oraz|and|\+|&|z)\s*widel\w*|widel\w*\s*(?:i|oraz|and|\+|&)\s*ram[aeyi]\w*|frame\s*(?:and|&|\+)\s*fork)/;
-const DECAL_RE = /(naklejk\w*|decal\w*|sticker\w*|emblemat\w*|oryginaln\w*\s*oznaczen\w*)/;
-const BUTTED_RE = /(double[\s-]*butted|triple[\s-]*butted|\bbutted\b|cieniowan\w*|\bd\.?b\.?\b(?=.{0,10}(?:cr|rur|tub))|\btb\b(?=.{0,10}(?:cr|rur|tub)))/;
+const FORK_RE = /\b(widel\w*|fork\w*|amortyzator\w*|\w*gabel\w*)\b/;
+const FRAME_RE = /\b(ram[aeyi]\w*|frame\w*|rury\w*|tubing|tubeset|\w*rahmen\w*|rohre?\w*)\b/;
+const MAIN_TUBES_RE = /(main\s*tubes?|rury\s*glown\w*|glown\w*\s*rury|3\s*main|trzy\s*(?:glowne\s*)?rury|main\s*triangle|glowny\s*trojkat|hauptrohre?)/;
+const PART_WORDS =
+  /\b(kierownic\w*|mostek|siodel\w*|siodlo|sztyca|manetk\w*|klamk\w*|przerzutk\w*|korb\w*|kaset\w*|piast\w*|obrecz\w*|opon\w*|pedal\w*|widelec|amortyzator\w*|hamulc\w*|stery|lenker|vorbau|sattel\w*|gabel|starrgabel|federgabel|schaltwerk|schalthebel|kurbel\w*|nabe\w*|bremse\w*|felge\w*|reifen|laufrad\w*|laufradsatz|steuersatz|fork|stem|handlebar|saddle|derailleur|crankset|chainsuck)\b/;
+const BIKE_WORDS = /\b(rower|rowery|roweru|fahrrad|fahrrader|mountainbike\w*|bike|\brad\b|komplet\w*|rama|ramy|rahmen\w*|frameset|frame)\b/;
+const FRAME_AND_FORK_RE = /(ram[aeyi]\w*\s*(?:i|oraz|and|\+|&|z)\s*widel\w*|widel\w*\s*(?:i|oraz|and|\+|&)\s*ram[aeyi]\w*|frame\s*(?:and|&|\+)\s*fork|rahmen\s*(?:und|\+|&|mit)\s*\w*gabel\w*|gabel\w*\s*(?:und|\+|&)\s*rahmen)/;
+const DECAL_RE = /(naklejk\w*|decal\w*|sticker\w*|aufkleber\w*|emblemat\w*|oryginaln\w*\s*oznaczen\w*)/;
+const BUTTED_RE = /(double[\s-]*butted|triple[\s-]*butted|\bbutted\b|cieniowan\w*|konifiziert\w*|\bd\.?b\.?\b(?=.{0,10}(?:cr|rur|tub))|\btb\b(?=.{0,10}(?:cr|rur|tub)))/;
 
 // ---------- manufacturer & model ----------
 
@@ -208,7 +211,7 @@ function tubingConfidence(hit: TubingHit): ConfidenceLevel {
 // ---------- misc extractors ----------
 
 function detectMaterial(text: string, tubing: TubingSpec | null): FrameMaterial {
-  const alu = /((?:ram[aeyi]|frame)\s*(?:\S+\s*){0,2}(?:alu\b|alumin\w*|7005|6061)|(?:alu|alumin\w*)\s*(?:\S+\s*){0,1}(?:ram[aeyi]|frame))/;
+  const alu = /((?:ram[aeyi]|frame|rahmen)\s*(?:\S+\s*){0,2}(?:alu\b|alumin\w*|7005|6061)|(?:alu|alumin\w*)\s*(?:\S+\s*){0,1}(?:ram[aeyi]|frame|rahmen)|alurahmen|aluminiumrahmen)/;
   const carbon = /((?:ram[aeyi]|frame)\s*(?:\S+\s*){0,2}(?:carbon\w*|karbon\w*)|(?:carbon\w*|karbon\w*)\s*(?:ram[aeyi]|frame))/;
   const ti = /(tytan\w*|titanium)\s*(?:ram|frame)|(?:ram[aeyi]|frame)\s*(?:\S+\s*){0,2}(tytan\w*|titanium)/;
   if (tubing) {
@@ -221,21 +224,21 @@ function detectMaterial(text: string, tubing: TubingSpec | null): FrameMaterial 
   if (ti.test(text)) return 'titanium';
   if (carbon.test(text)) return 'carbon';
   if (alu.test(text)) return 'aluminium';
-  if (/(stalow\w*\s*ram|ram[aeyi]\s*(?:\S+\s*){0,1}stalow|steel\s*frame|\bstal\b|stalowy)/.test(text)) return 'steel-unknown';
+  if (/(stalow\w*\s*ram|ram[aeyi]\s*(?:\S+\s*){0,1}stalow|steel\s*frame|\bstal\b|stalowy|stahl\w*)/.test(text)) return 'steel-unknown';
   return 'unknown';
 }
 
 function detectConstruction(text: string): FrameConstruction {
-  if (/(mufow\w*|\bmuf[ay]\b|lugged|\blugs\b|lugi)/.test(text)) return 'lugged';
-  if (/(fillet|lutowan\w*\s*mosi|brazed)/.test(text)) return 'fillet-brazed';
-  if (/(\btig\b|spawan\w*)/.test(text)) return 'tig';
+  if (/(mufow\w*|\bmuf[ay]\b|lugged|\blugs\b|lugi|muffen\w*|gemufft\w*)/.test(text)) return 'lugged';
+  if (/(fillet|lutowan\w*\s*mosi|brazed|gelotet)/.test(text)) return 'fillet-brazed';
+  if (/(\btig\b|spawan\w*|geschweisst)/.test(text)) return 'tig';
   return 'unknown';
 }
 
 function detectWheelSize(text: string, declared?: string): string | null {
   if (declared) return declared;
-  if (/(\b26\s*(?:"|''|”|cal\w*|in\b|x\s?\d)|kol\w*\s*26\b|\b559\b)/.test(text)) return '26"';
-  if (/(\b700\s*c\b|\b28\s*(?:"|''|”|cal\w*|x\s?\d)|kol\w*\s*28\b|\b622\b)/.test(text)) return '28" / 700c';
+  if (/(\b26\s*(?:"|''|”|cal\w*|zoll|in\b|x\s?\d)|kol\w*\s*26\b|\b559\b)/.test(text)) return '26"';
+  if (/(\b700\s*c\b|\b28\s*(?:"|''|”|cal\w*|zoll|x\s?\d)|kol\w*\s*28\b|\b622\b)/.test(text)) return '28" / 700c';
   if (/(\b27\s*(?:"|''|”|cal\w*|x\s?1)|\b630\b)/.test(text)) return '27"';
   if (/(\b24\s*(?:"|''|”|cal\w*)|kol\w*\s*24\b)/.test(text)) return '24"';
   if (/(\b20\s*(?:"|''|”|cal\w*)|kol\w*\s*20\b)/.test(text)) return '20"';
@@ -245,26 +248,30 @@ function detectWheelSize(text: string, declared?: string): string | null {
 function detectYear(text: string): string | null {
   const y = text.match(/\b(19[5-9]\d|200\d)\b(?!\s*(?:zl|pln|km|g\b|gram))/);
   if (y) return y[1];
-  const dec = text.match(/lat(?:a|ach)?\s*(50|60|70|80|90)/);
+  const dec = text.match(/lat(?:a|ach)?\s*(50|60|70|80|90)/) ?? text.match(/\b(70|80|90)(?:er|s)\b/);
   if (dec) return `lata ${dec[1]}.`;
   return null;
 }
 
 function detectItemType(title: string, text: string, declared?: ItemType): ItemType {
   if (declared) return declared;
-  if (/(rama\s*(?:\+|z|i)\s*widel|frameset|komplet\s*rama)/.test(text)) return 'frameset';
-  if (/^(rama|frame)\b/.test(title) || /(sama\s*rama|tylko\s*rama|frame\s*only)/.test(text)) return 'frame';
-  if (/^(czesci|grupa|osprzet|komponenty|korba|przerzutk|piasta|kola)\b/.test(title)) return 'components';
+  if (/(rama\s*(?:\+|z|i)\s*widel|frameset|komplet\s*rama|rahmenset|rahmen\s*(?:mit|und|\+)\s*\w*gabel)/.test(text)) return 'frameset';
+  if (/^(rama|frame|rahmen|\w+rahmen)\b/.test(title) || /(sama\s*rama|tylko\s*rama|frame\s*only|nur\s*(?:der\s*)?rahmen)/.test(text)) return 'frame';
+  if (/^(czesci|grupa|osprzet|komponenty|korba|przerzutk|piasta|kola|teile|gruppe|schaltwerk|kurbel|sattel|lenker|vorbau|laufrad\w*|bremse\w*)\b/.test(title)) return 'components';
+  // "MTB Rahmen Scott …" / "Stalowa rama MTB …" — a frame offered on its own.
+  if (/\b(rahmen|rama)\b/.test(title) && !/\b(fahrrad|mountainbike|rower|rad)\b/.test(title)) return 'frame';
+  // A single part named in the title ("Tange Prestige Lenker", "Retro MTB Gabel") without any bike/frame word.
+  if (PART_WORDS.test(title) && !BIKE_WORDS.test(title)) return 'components';
   return 'complete';
 }
 
 function detectCondition(text: string, declared?: ListingCondition): ListingCondition {
   if (declared && declared !== 'unknown') return declared;
-  if (/(na\s*czesci|niekompletn\w*|bez\s*kol|brak\s*kol|projekt\b|do\s*odbudowy)/.test(text)) return 'project';
-  if (/(do\s*remontu|do\s*renowacji|mocno\s*zardzewial|skorodowan|peknie|pekniet)/.test(text)) return 'poor';
-  if (/(drobnych\s*poprawek|slady\s*uzytk|wymaga\s*serwisu|do\s*serwisu|lekka\s*rdza|powierzchown\w*\s*rdz|nalot|rysy)/.test(text)) return 'fair';
-  if (/(idealn\w*|jak\s*nowy|perfekcyjn\w*|stan\s*kolekcjonersk)/.test(text)) return 'excellent';
-  if (/(dobry\s*stan|bardzo\s*dobr\w*\s*stan|zadban\w*|sprawn\w*|gotow\w*\s*do\s*jazdy|serwisowan)/.test(text)) return 'good';
+  if (/(na\s*czesci|niekompletn\w*|bez\s*kol|brak\s*kol|projekt\b|do\s*odbudowy|ersatzteilspender|fur\s*teile|unvollstandig|bastlerprojekt)/.test(text)) return 'project';
+  if (/(do\s*remontu|do\s*renowacji|mocno\s*zardzewial|skorodowan|peknie|pekniet|defekt|reparaturbedurftig|fur\s*bastler|stark\s*verrostet|\briss\b)/.test(text)) return 'poor';
+  if (/(drobnych\s*poprawek|slady\s*uzytk|wymaga\s*serwisu|do\s*serwisu|lekka\s*rdza|powierzchown\w*\s*rdz|nalot|rysy|gebrauchsspuren|kleine\s*mangel|uberholungsbedurftig|muss\s*uberholt|flugrost)/.test(text)) return 'fair';
+  if (/(idealn\w*|jak\s*nowy|perfekcyjn\w*|stan\s*kolekcjonersk|neuwertig|wie\s*neu|top\s*zustand|sammlerzustand)/.test(text)) return 'excellent';
+  if (/(dobry\s*stan|bardzo\s*dobr\w*\s*stan|zadban\w*|sprawn\w*|gotow\w*\s*do\s*jazdy|serwisowan|guter\s*zustand|gut\s*erhalten|fahrbereit|sehr\s*gut|voll\s*funktionsfahig)/.test(text)) return 'good';
   return 'unknown';
 }
 
@@ -279,7 +286,8 @@ function detectCategory(
   if (/randonne/.test(text)) return 'randonneur';
   if (/\bgravel\b/.test(text)) return 'gravel-conversion';
   if (model) return model.category;
-  if (/(turystyczn\w*|touring|trekking\w*|wyprawow\w*|sakw)/.test(text)) return 'touring';
+  if (/(rennrad|randonneur)/.test(text) && !/(mtb|mountain)/.test(text)) return 'vintage-road';
+  if (/(turystyczn\w*|touring|trekking\w*|wyprawow\w*|sakw|reiserad)/.test(text)) return 'touring';
   if (/(szosow\w*|kolarzowk\w*|kolark\w*|\bszosa\b|road\s*bike|wyscigow\w*)/.test(text)) return 'vintage-road';
   if (/(transportow\w*|cargo|towarow\w*|dostawcz\w*|listonosz\w*|pocztow\w*)/.test(text)) return 'utility';
   if (/(\batb\b|all[\s-]*terrain|hybryd\w*|crossow\w*)/.test(text)) return 'atb';
@@ -288,39 +296,39 @@ function detectCategory(
     if (old || /(vintage|retro|stary|starszy|klasyk|oldschool|old\s*school)/.test(text)) return 'vintage-mtb';
     return 'retro-mtb';
   }
-  if (/(miejsk\w*|\bcity\b|holender\w*|damk\w*|damsk\w*)/.test(text)) return 'city';
+  if (/(miejsk\w*|\bcity\b|holender\w*|damk\w*|damsk\w*|damenrad|stadtrad|hollandrad)/.test(text)) return 'city';
   return 'unknown';
 }
 
 const FEATURE_RULES: [string, RegExp][] = [
-  ['Sztywny widelec', /(sztywn\w*\s*widel\w*|rigid|bez\s*amortyzac\w*|widel\w*\s*sztywn\w*)/],
-  ['Widelec amortyzowany', /(amortyzowan\w*\s*widel|widel\w*\s*amortyzowan|amortyzator\s*przedn|rock\s*shox|manitou|suspension\s*fork)/],
-  ['Mocowania bagażnika', /(bagaznik\w*|\brack\b|mocowani\w*\s*(?:pod\s*)?bagaz|eyelet|oczk\w*)/],
-  ['Mocowania błotników', /(blotnik\w*|fender\w*)/],
-  ['Mocowania koszyka', /(koszyk\w*|bidon\w*|bottle\s*cage)/],
+  ['Sztywny widelec', /(sztywn\w*\s*widel\w*|rigid|bez\s*amortyzac\w*|widel\w*\s*sztywn\w*|starrgabel|ungefedert)/],
+  ['Widelec amortyzowany', /(amortyzowan\w*\s*widel|widel\w*\s*amortyzowan|amortyzator\s*przedn|rock\s*shox|manitou|suspension\s*fork|federgabel)/],
+  ['Mocowania bagażnika', /(bagaznik\w*|gepacktrager\w*|\brack\b|mocowani\w*\s*(?:pod\s*)?bagaz|eyelet|oczk\w*)/],
+  ['Mocowania błotników', /(blotnik\w*|fender\w*|schutzblech\w*)/],
+  ['Mocowania koszyka', /(koszyk\w*|bidon\w*|bottle\s*cage|flaschenhalter\w*)/],
   ['Hamulce cantilever', /(cantilever\w*|\bcanti\b|kantilew\w*)/],
   ['Hamulce V-brake', /(v-?brake|\bv\s*brake)/],
   ['Kierownica baranek', /(baranek|drop\s*bar|kierownic\w*\s*szosow)/],
-  ['Oryginalny lakier', /(oryginaln\w*\s*lakier|original\s*paint|fabryczn\w*\s*lakier)/],
+  ['Oryginalny lakier', /(oryginaln\w*\s*lakier|original\s*paint|fabryczn\w*\s*lakier|originallack\w*)/],
   ['Naklejki rur widoczne', DECAL_RE],
   ['Prądnica / oświetlenie', /(pradnic\w*|dynamo|oswietleni)/],
   ['Napęd 3x7 / 3x8', /(3\s*x\s*[78]\b|21\s*bieg|24\s*biegi?)/],
 ];
 
 const RED_FLAG_RULES: [string, RegExp][] = [
-  ['Rower dziecięcy / junior', /(dzieci\w*|dzieciec\w*|junior|\bbmx\b)/],
-  ['Rower elektryczny', /(elektryczn\w*|e-?bike|wspomaganie)/],
-  ['Tani full suspension (zwykle niska jakość)', /(podwojn\w*\s*amortyzac|pelne\s*zawieszenie|full\s*(?:suspension|sus)|amortyzator\w*\s*tyln)/],
+  ['Rower dziecięcy / junior', /(dzieci\w*|dzieciec\w*|dzieck\w*|junior|mlodziezow\w*|nastolat\w*|\bbmx\b|kinder\w*|jugendrad)/],
+  ['Rower elektryczny', /(elektryczn\w*|e[\s-]?bike|wspomaganie|pedelec)/],
+  ['Tani full suspension (zwykle niska jakość)', /(podwojn\w*\s*amortyzac|pelne\s*zawieszenie|full\s*(?:suspension|sus)|amortyzator\w*\s*tyln|vollgefedert|\bfully\b)/],
   ['Rower z marketu (BSO)', /(supermarket\w*|z\s*marketu|tesco|carrefour|auchan|biedronk\w*|lidl)/],
   ['Fatbike / niestandard', /fat\s*bike/],
 ];
 
 const NEGOTIATION_RULES: [string, RegExp][] = [
-  ['Cena do negocjacji', /(do\s*negocjacji|do\s*uzgodnienia|do\s*dogadania|negocjuj\w*|\bnegocj\w*)/],
-  ['Możliwa zamiana', /zamian\w*|zamienie/],
+  ['Cena do negocjacji', /(do\s*negocjacji|do\s*uzgodnienia|do\s*dogadania|negocjuj\w*|\bnegocj\w*|\bvb\b|verhandlungsbasis|verhandelbar)/],
+  ['Możliwa zamiana', /zamian\w*|zamienie|\btausch\w*/],
   ['Pilna sprzedaż', /(pilne|pilnie|szybka\s*sprzedaz|musze\s*sprzedac)/],
-  ['Przeprowadzka / likwidacja', /(przeprowadzk\w*|likwidacj\w*|wyprzedaz\w*|porzadki)/],
-  ['Z piwnicy / strychu / garażu', /(z\s*piwnicy|ze\s*strychu|z\s*garazu|z\s*szopy|po\s*dziadku|po\s*tacie)/],
+  ['Przeprowadzka / likwidacja', /(przeprowadzk\w*|likwidacj\w*|wyprzedaz\w*|porzadki|umzug\w*|platz\s*schaffen)/],
+  ['Z piwnicy / strychu / garażu', /(z\s*piwnicy|ze\s*strychu|z\s*garazu|z\s*szopy|po\s*dziadku|po\s*tacie|dachboden|scheunenfund|kellerfund)/],
 ];
 
 // ---------- main ----------

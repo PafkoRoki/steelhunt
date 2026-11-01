@@ -27,6 +27,8 @@ export interface AppSettings {
   roadFactor: number;
   /** Flat courier cost for bikes when the seller ships, PLN. */
   courierCost: number;
+  /** Exchange rate used for EUR listings (e.g. Kleinanzeigen). Editable in Settings. */
+  eurToPln: number;
   demoMode: boolean;
   /** Show only retro MTB / ATB bikes, MTB frames and MTB components. */
   mtbOnly: boolean;

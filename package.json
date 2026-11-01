@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
     "ingest": "tsx scripts/ingest.ts",
+    "scout": "tsx scripts/scout.ts",
     "test:scoring": "tsx scripts/selftest.ts"
   },
   "dependencies": {

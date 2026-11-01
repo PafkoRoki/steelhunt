@@ -4,6 +4,7 @@ export function normalizeText(input: string | null | undefined): string {
   return input
     .toLowerCase()
     .replace(/ł/g, 'l')
+    .replace(/ß/g, 'ss')
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')
     .replace(/[_/|•·]+/g, ' ')

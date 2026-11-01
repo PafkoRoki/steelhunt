@@ -2,7 +2,8 @@ const pln = new Intl.NumberFormat('pl-PL', { maximumFractionDigits: 0 });
 
 export function formatPrice(v: number | null | undefined, currency = 'PLN'): string {
   if (v == null) return '—';
-  return `${pln.format(v)} ${currency === 'PLN' ? 'zł' : currency}`;
+  const c = (currency || 'PLN').toUpperCase();
+  return `${pln.format(v)} ${c === 'PLN' ? 'zł' : c === 'EUR' ? '€' : currency}`;
 }
 
 export function formatRange(min: number, max: number): string {

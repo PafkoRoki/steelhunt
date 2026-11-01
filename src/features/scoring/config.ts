@@ -17,6 +17,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   fuelCostPerKm: 0.8,
   roadFactor: 1.25,
   courierCost: 140,
+  eurToPln: 4.25,
   demoMode: false,
   mtbOnly: true,
   settingsVersion: 3,

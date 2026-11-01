@@ -14,6 +14,7 @@ export type MarketplaceId =
   | 'sprzedajemy'
   | 'facebook'
   | 'gumtree'
+  | 'kleinanzeigen'
   | 'manual'
   | 'other';
 
@@ -46,7 +47,7 @@ export interface SourceListing {
   latitude: number | null;
   longitude: number | null;
   /** How the coordinates were obtained. */
-  geoPrecision: 'exact' | 'city' | 'none';
+  geoPrecision: 'exact' | 'city' | 'region' | 'none';
   postedAt: string | null;
   discoveredAt: string;
   lastSeenAt: string;
@@ -148,6 +149,8 @@ export interface ListingAnalysis {
   features: string[];
   components: { name: string; tier: number }[];
 
+  /** Asking price converted to PLN (EUR listings use the configured exchange rate). */
+  pricePln: number | null;
   distanceKm: number | null;
   drivingDistanceKm: number | null;
   price: PriceEstimate;

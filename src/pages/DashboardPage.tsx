@@ -16,7 +16,7 @@ export default function DashboardPage() {
   const bargains = visible.filter((l) => l.analysis.isBargain).sort((a, b) => b.analysis.dealScore - a.analysis.dealScore);
   const gems = visible.filter((l) => l.analysis.isUnknownGem).sort((a, b) => b.analysis.dealScore - a.analysis.dealScore);
   const near = visible.filter((l) => l.analysis.distanceKm != null && l.analysis.distanceKm <= 30).sort((a, b) => b.analysis.dealScore - a.analysis.dealScore);
-  const prices = visible.map((l) => l.listing.price).filter((p): p is number => p != null && p > 0);
+  const prices = visible.map((l) => l.analysis.pricePln).filter((p): p is number => p != null && p > 0);
   const avg = prices.length ? Math.round(prices.reduce((s, p) => s + p, 0) / prices.length) : null;
 
   // Best deal of the day: best-scored bargain discovered in the last 24 h, otherwise best bargain overall.

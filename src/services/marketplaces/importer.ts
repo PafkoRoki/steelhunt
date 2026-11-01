@@ -5,7 +5,7 @@
  */
 import { z } from 'zod';
 import type { DataOrigin, ListingCondition, SourceListing } from '../../types/listing';
-import { resolvePlace } from '../geolocation/geo';
+import { resolveLocation } from '../geolocation/geo';
 import { detectMarketplace } from './registry';
 
 const conditionEnum = z.enum(['excellent', 'good', 'fair', 'poor', 'project', 'unknown']);
@@ -21,7 +21,7 @@ export const ImportRecordSchema = z.object({
   title: z.string().min(3, 'Tytuł jest wymagany'),
   description: z.string().optional().default(''),
   price: numberish.nullable().optional(),
-  currency: z.string().optional().default('PLN'),
+  currency: z.string().optional(),
   location: z.string().optional().nullable(),
   latitude: z.coerce.number().min(-90).max(90).optional().nullable(),
   longitude: z.coerce.number().min(-180).max(180).optional().nullable(),
@@ -31,6 +31,8 @@ export const ImportRecordSchema = z.object({
   itemType: itemTypeEnum.optional(),
   shipping: z.union([z.boolean(), z.string()]).optional(),
   externalId: z.string().optional(),
+  /** Coordinates are approximate (e.g. the portal's map pin for the area) → shown as town-level precision. */
+  coordsApprox: z.boolean().optional(),
 });
 
 export type ImportRecord = z.input<typeof ImportRecordSchema>;
@@ -39,7 +41,7 @@ export function normalizeImportRecord(input: unknown, origin: DataOrigin = 'impo
   const r = ImportRecordSchema.parse(input);
   const mk = detectMarketplace(r.url) ?? { id: 'other' as const, externalId: null };
   const externalId = r.externalId || mk.externalId || hashString(r.url);
-  const place = r.latitude != null && r.longitude != null ? null : resolvePlace(r.location);
+  const place = r.latitude != null && r.longitude != null ? null : resolveLocation(r.location);
   const images = Array.isArray(r.images) ? r.images : r.images ? r.images.split(/[\s;,]+/).filter((s) => /^https?:\/\//.test(s)) : [];
   const shipping = typeof r.shipping === 'string' ? /^(1|true|tak|yes)$/i.test(r.shipping) : r.shipping;
   return {
@@ -50,12 +52,12 @@ export function normalizeImportRecord(input: unknown, origin: DataOrigin = 'impo
     title: r.title.trim(),
     description: (r.description ?? '').trim(),
     price: r.price ?? null,
-    currency: r.currency ?? 'PLN',
+    currency: r.currency ?? (mk.id === 'kleinanzeigen' ? 'EUR' : 'PLN'),
     images,
     locationName: r.location?.trim() || null,
     latitude: r.latitude ?? place?.lat ?? null,
     longitude: r.longitude ?? place?.lng ?? null,
-    geoPrecision: r.latitude != null && r.longitude != null ? 'exact' : place ? 'city' : 'none',
+    geoPrecision: r.latitude != null && r.longitude != null ? (r.coordsApprox ? 'city' : 'exact') : place ? place.precision : 'none',
     postedAt: r.postedAt ?? null,
     discoveredAt: nowIso,
     lastSeenAt: nowIso,

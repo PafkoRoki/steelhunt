@@ -64,6 +64,16 @@ export const MARKETPLACES: MarketplaceInfo[] = [
     parseExternalId: (u) => u.pathname.match(/marketplace\/item\/(\d+)/)?.[1] ?? null,
   },
   {
+    id: 'kleinanzeigen',
+    name: 'Kleinanzeigen (DE)',
+    homepage: 'https://www.kleinanzeigen.de',
+    status: 'manual',
+    note: 'Niemiecki portal ogłoszeń (dawniej eBay Kleinanzeigen). Brak publicznego API wyszukiwania. Ceny w EUR przeliczane na PLN.',
+    hosts: ['kleinanzeigen.de', 'www.kleinanzeigen.de'],
+    searchUrl: (q) => `https://www.kleinanzeigen.de/s-fahrraeder/${enc(slug(q))}/k0c217`,
+    parseExternalId: (u) => u.pathname.match(/\/(\d{6,})-\d+-\d+/)?.[1] ?? null,
+  },
+  {
     id: 'other',
     name: 'Inne źródło',
     homepage: '',
