@@ -73,11 +73,11 @@
   },
   "scott": {
     "src": "logos/scott.svg",
-    "title": "Scott Sports logo.svg",
-    "page": "https://commons.wikimedia.org/wiki/File:Scott_Sports_logo.svg",
-    "license": "Public domain",
-    "author": "SCOTT Sports SA",
-    "source": "Wikimedia Commons"
+    "title": "scott.svg (z scott.eps)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "rocky-mountain": {
     "src": "logos/rocky-mountain.svg",
@@ -89,7 +89,7 @@
   },
   "schwinn": {
     "src": "logos/schwinn.svg",
-    "title": "schwinn.svg",
+    "title": "schwinn.svg (emblemat z schwinn.cdr + napis z schwinn.eps)",
     "page": null,
     "license": null,
     "author": null,
@@ -216,13 +216,12 @@
     "source": "dodane ręcznie przez właściciela strony"
   },
   "musing": {
-    "src": "logos/musing.jpg",
-    "title": "musing.jpg",
+    "src": "logos/musing.png",
+    "title": "musing.png",
     "page": null,
     "license": null,
     "author": null,
-    "source": "dodane ręcznie przez właściciela strony",
-    "zoom": 1.5
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "stevens": {
     "src": "logos/stevens.svg",
@@ -243,6 +242,14 @@
   "ktm": {
     "src": "logos/ktm.svg",
     "title": "ktm.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "hercules": {
+    "src": "logos/hercules.svg",
+    "title": "hercules.svg (z hercules.eps)",
     "page": null,
     "license": null,
     "author": null,
@@ -307,6 +314,14 @@
   "checker-pig": {
     "src": "logos/checker-pig.png",
     "title": "checker-pig.png",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
+  },
+  "herkelmann": {
+    "src": "logos/herkelmann.png",
+    "title": "herkelmann.png",
     "page": null,
     "license": null,
     "author": null,
@@ -402,11 +417,11 @@
   },
   "klein": {
     "src": "logos/klein.svg",
-    "title": "Klein Logo.svg",
-    "page": "https://commons.wikimedia.org/wiki/File:Klein_Logo.svg",
-    "license": "Public domain",
-    "author": "Unknown authorUnknown author",
-    "source": "Wikimedia Commons"
+    "title": "klein.svg",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "cilo": {
     "src": "logos/cilo.png",
@@ -432,6 +447,14 @@
     "license": "Public domain",
     "author": "Unknown authorUnknown author",
     "source": "Wikimedia Commons"
+  },
+  "kettler": {
+    "src": "logos/kettler.png",
+    "title": "kettler.png",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "merida": {
     "src": "logos/merida.svg",
