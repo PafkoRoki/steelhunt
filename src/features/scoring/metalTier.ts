@@ -1,7 +1,7 @@
 import type { ListingAnalysis } from '../../types/listing';
 
 /**
- * Value tiers named after metal grades (inspired by Team Fortress 2), worst → best:
+ * Value tiers named after metal grades (Team Fortress 2; icons are the TF2 item images, © Valve), worst → best:
  *  - scrap      : weak or risky offer (low Deal Score or red flags)
  *  - reclaimed  : decent, ordinary offer
  *  - refined    : a real bargain (meets the "Okazja" rule)
@@ -17,13 +17,13 @@ export const RECLAIMED_MIN_SCORE = 45;
 export const METAL_TIERS: Record<MetalTier, { label: string; icon: string; hint: string; color: string }> = {
   hunted: {
     label: 'Hunted',
-    icon: 'tiers/hunted.svg',
+    icon: 'tiers/hunted.png',
     hint: `Unikat: okazja na rowerze wartym ≥ ${HUNTED_MIN_VALUE_PLN} zł (Deal Score ≥ ${HUNTED_MIN_SCORE}).`,
     color: '#b9a8ff',
   },
-  refined: { label: 'Refined', icon: 'tiers/refined.svg', hint: 'Okazja: cena wyraźnie poniżej szacowanej wartości.', color: '#e6e9ea' },
-  reclaimed: { label: 'Reclaimed', icon: 'tiers/reclaimed.svg', hint: `Przeciętna oferta (Deal Score ≥ ${RECLAIMED_MIN_SCORE}).`, color: '#a9a29a' },
-  scrap: { label: 'Scrap', icon: 'tiers/scrap.svg', hint: 'Słaba lub ryzykowna oferta (niski Deal Score albo czerwone flagi).', color: '#b07a55' },
+  refined: { label: 'Refined', icon: 'tiers/refined.png', hint: 'Okazja: cena wyraźnie poniżej szacowanej wartości.', color: '#e6e9ea' },
+  reclaimed: { label: 'Reclaimed', icon: 'tiers/reclaimed.png', hint: `Przeciętna oferta (Deal Score ≥ ${RECLAIMED_MIN_SCORE}).`, color: '#a9a29a' },
+  scrap: { label: 'Scrap', icon: 'tiers/scrap.png', hint: 'Słaba lub ryzykowna oferta (niski Deal Score albo czerwone flagi).', color: '#b07a55' },
 };
 
 export const METAL_ORDER: MetalTier[] = ['scrap', 'reclaimed', 'refined', 'hunted'];

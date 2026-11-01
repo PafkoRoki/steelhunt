@@ -31,6 +31,7 @@ export function MetalLegend() {
           <span className="max-w-[16rem]">{METAL_TIERS[k].hint}</span>
         </span>
       ))}
+      <span className="w-full text-[10px] text-ink-500">Grafiki stopni metalu: Team Fortress 2 © Valve.</span>
     </div>
   );
 }

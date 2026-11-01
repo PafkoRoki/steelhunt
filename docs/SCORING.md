@@ -72,12 +72,12 @@ tier 4–5 components, brand often undervalued in Poland, old steel bike ≤ 500
 
 ## Metal tiers (value icons)
 
-Each listing gets a metal grade (icons in `public/tiers/`, logic in `src/features/scoring/metalTier.ts`),
-inspired by Team Fortress 2's metal grades — the drawings are original:
+Each listing gets a metal grade (icons in `public/tiers/*.png` — the owner-supplied Team Fortress 2 item images, © Valve; originals in `design/tiers-original/`; logic in `src/features/scoring/metalTier.ts`),
+named after Team Fortress 2 metal grades:
 
 | Tier | Rule |
 |---|---|
-| **Hunted** (purple ingots) | a bargain (`isBargain`) with Deal Score ≥ 70 on a bike whose estimated value is ≥ 1500 PLN — the unicorns |
-| **Refined** (silver bracket, piston and gears; also the site logo) | a bargain (`isBargain`) |
+| **Hunted** (purple bars) | a bargain (`isBargain`) with Deal Score ≥ 70 on a bike whose estimated value is ≥ 1500 PLN — the unicorns |
+| **Refined** (silver parts; also the site logo and favicon) | a bargain (`isBargain`) |
 | **Reclaimed** (iron plates, nuts and screws) | no red flags and Deal Score ≥ 45 |
 | **Scrap** (rusty pipe, angle irons, bolts) | everything else (low Deal Score or red flags) |
