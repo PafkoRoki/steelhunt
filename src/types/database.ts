@@ -30,6 +30,7 @@ export interface Manufacturer {
   undervaluedInPoland?: boolean;
   notes?: string;
   era?: string;
+  sources?: string[];
 }
 
 export interface BikeModel {
@@ -47,6 +48,10 @@ export interface BikeModel {
   /** Heuristic asking-price range for a complete bike in fair/good condition, PLN. Editable. */
   marketValuePLN?: { min: number; max: number };
   xbikingNotes?: string;
+  /** Known frame material for the model, when documented (e.g. an aluminium 'Hitech' model). */
+  frameMaterial?: 'steel' | 'aluminium';
+  /** Where the facts come from (URLs). */
+  sources?: string[];
 }
 
 export type TubingTier = 'top' | 'high' | 'mid' | 'entry' | 'low';

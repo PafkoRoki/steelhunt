@@ -109,6 +109,7 @@ export default function BikeDatabasePage() {
                 )}
               </div>
               {sel.notes && <p className="mt-3 rounded-xl bg-ink-950/50 p-3 text-sm text-ink-300">{sel.notes}</p>}
+              <Sources urls={sel.sources} />
               <div className="mt-4 space-y-2">
                 {models.length === 0 && <p className="text-sm text-ink-500">Brak modeli w bazie — ogłoszenia tej marki mogą trafić do Unknown Gems.</p>}
                 {models.map((m) => (
@@ -137,6 +138,7 @@ export default function BikeDatabasePage() {
                     </div>
                     {m.tubingNote && <p className="mt-1.5 text-xs text-ink-400">{m.tubingNote}</p>}
                     {m.xbikingNotes && <p className="mt-1 text-xs text-moss-300/80">{m.xbikingNotes}</p>}
+                    <Sources urls={m.sources} />
                   </div>
                 ))}
               </div>
@@ -271,5 +273,20 @@ function AddForm({
         </button>
       </div>
     </div>
+  );
+}
+
+function Sources({ urls }: { urls?: string[] }) {
+  if (!urls?.length) return null;
+  return (
+    <p className="mt-1.5 text-[11px] text-ink-500">
+      Źródło:{' '}
+      {urls.map((u, i) => (
+        <a key={u} href={u} target="_blank" rel="noopener noreferrer" className="text-moss-400 hover:text-moss-300">
+          {i > 0 && ', '}
+          {new URL(u).hostname}
+        </a>
+      ))}
+    </p>
   );
 }

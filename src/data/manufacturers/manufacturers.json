@@ -26,7 +26,7 @@
   {"id": "centurion", "name": "Centurion", "aliases": ["centurion"], "country": "other", "steelReputation": 72, "undervaluedInPoland": true, "notes": "Dwie różne firmy: amerykański Centurion (ramy japońskie, lata 70–80, np. Accordo) i niemiecki Centurion (MTB/trekking). Sprawdź pochodzenie."},
   {"id": "wheeler", "name": "Wheeler", "aliases": ["wheeler"], "country": "switzerland", "steelReputation": 70, "undervaluedInPoland": true},
   {"id": "corratec", "name": "Corratec", "aliases": ["corratec"], "country": "germany", "steelReputation": 68, "undervaluedInPoland": true},
-  {"id": "longus", "name": "Longus", "aliases": ["longus"], "country": "germany", "steelReputation": 55, "undervaluedInPoland": true},
+  {"id": "longus", "name": "Longus", "aliases": ["longus"], "country": "germany", "steelReputation": 65, "undervaluedInPoland": true, "era": "od 1984/85", "notes": "Marka firmy Paul Lange & Co. (Stuttgart, dystrybutor Shimano w Niemczech i Austrii). Wczesne MTB Longus były importowane z Japonii (naklejki „made in Japan”), często z osprzętem Shimano XT. Później także rowery turystyczne i miejskie.", "sources": ["https://mtbtimeline.com/wiki/longus/start"]},
   {"id": "musing", "name": "Müsing", "aliases": ["musing", "muesing"], "country": "germany", "steelReputation": 68, "undervaluedInPoland": true},
   {"id": "stevens", "name": "Stevens", "aliases": ["stevens"], "country": "germany", "steelReputation": 68, "undervaluedInPoland": true},
   {"id": "simplon", "name": "Simplon", "aliases": ["simplon"], "country": "austria", "steelReputation": 68, "undervaluedInPoland": true},

@@ -36,6 +36,9 @@ function analyzeOne(
 ): ListingAnalysis {
   const warnings = [...facts.warnings, ...facts.tubing.warnings];
 
+  // Material fallback from the model's documented frame material.
+  if (facts.frameMaterial === 'unknown' && facts.model?.frameMaterial === 'aluminium') facts.frameMaterial = 'aluminium';
+  if (facts.frameMaterial === 'unknown' && facts.model?.frameMaterial === 'steel' && !facts.tubingSpec) facts.frameMaterial = 'steel-unknown';
   // Material fallback from model DB typical tubing.
   if (facts.frameMaterial === 'unknown' && facts.tubingSpec && facts.tubing.evidence[0]?.source === 'model-db') {
     facts.frameMaterial = facts.tubingSpec.material === 'hiten' ? 'steel-hiten' : 'steel-crmo';
