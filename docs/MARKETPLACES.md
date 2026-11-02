@@ -20,7 +20,7 @@ Statuses below are mirrored in the app (Dashboard → “Źródła danych”).
 | Portal | Why not (yet) | What you can do |
 |---|---|---|
 | **Bikemarkt (bikemarkt.mtb-news.de)** | Allowed by robots.txt, but search results are loaded by JavaScript, so a plain request gets no listings. Good source of German classic MTB (Klassiker). | Open the search manually; paste good finds via “Dodaj ogłoszenie”. Worth revisiting if a feed appears. |
-| **Vinted** | Allowed paths exist, but the site's own robots.txt text forbids automated agents simulating customer activity, and bikes are rare there. | Manual import only. |
+| **Vinted** | Terms forbid automated access/scraping; robots.txt blocks AI agents (ClaudeBot, GPTBot…) entirely. | Save the listing page (Ctrl+S) and load it in “Dodaj ogłoszenie” — fields are filled from the file. |
 | **Gratka.pl** | No bicycle category any more (404); mostly real estate and cars. | — |
 | **Gumtree.pl** | Not reachable (domain no longer serves the site). | — |
 | **Sbazar.cz** | robots.txt disallows everything (`Disallow: /`). | — |
@@ -37,6 +37,12 @@ Required: `url`, `title`. Optional: `price`, `currency`, `location`, `latitude`,
 (boolean / `tak` / `true`), `externalId`.
 
 - **In the app** (“Dodaj ogłoszenie”): stored in the user's browser only.
+- **Saved page** (“Wczytaj zapisaną stronę ogłoszenia”): the user saves a listing page in their own browser
+  (Ctrl+S, `.htm/.html`) and picks the file. `src/services/marketplaces/htmlExtract.ts` parses it locally
+  (nothing is fetched): schema.org JSON-LD `Product` → title, description, price/currency, brand, photos;
+  Open Graph / canonical / “saved from url” as fallbacks; Vinted's condition label and its `f800` photos;
+  the town from pickup sentences in the description (“odbiór w …”). The form is pre-filled for the user to
+  check before adding. This is the intended route for Vinted, whose terms forbid automated access.
 - **In the repo** (`data/imports/*.json|*.csv`): picked up by every scheduled run and published.
 
 The marketplace and external id are derived from the URL (`-ID…​.html` for OLX, numeric id for Allegro,

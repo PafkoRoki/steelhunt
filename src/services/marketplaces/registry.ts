@@ -64,6 +64,16 @@ export const MARKETPLACES: MarketplaceInfo[] = [
     parseExternalId: (u) => u.pathname.match(/marketplace\/item\/(\d+)/)?.[1] ?? null,
   },
   {
+    id: 'vinted',
+    name: 'Vinted',
+    homepage: 'https://www.vinted.pl',
+    status: 'manual',
+    note: 'Regulamin Vinted zabrania automatycznego dostępu, a robots.txt blokuje agentów AI — scout tego portalu nie czyta. Dodawaj ręcznie: zapisz stronę ogłoszenia (Ctrl+S) i wczytaj plik w „Dodaj ogłoszenie”.',
+    hosts: ['vinted.pl', 'www.vinted.pl', 'vinted.de', 'www.vinted.de', 'vinted.com', 'www.vinted.com'],
+    searchUrl: (q) => `https://www.vinted.pl/catalog?search_text=${enc(q)}`,
+    parseExternalId: (u) => u.pathname.match(/\/items\/(\d+)/)?.[1] ?? null,
+  },
+  {
     id: 'kleinanzeigen',
     name: 'Kleinanzeigen (DE)',
     homepage: 'https://www.kleinanzeigen.de',

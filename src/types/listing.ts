@@ -13,6 +13,7 @@ export type MarketplaceId =
   | 'allegro-lokalnie'
   | 'sprzedajemy'
   | 'facebook'
+  | 'vinted'
   | 'gumtree'
   | 'kleinanzeigen'
   | 'ebay'

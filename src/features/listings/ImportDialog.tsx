@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { FileJson, FileSpreadsheet, Link2, X } from 'lucide-react';
+import { FileCode2, FileJson, FileSpreadsheet, Link2, X } from 'lucide-react';
 import { useAppData } from '../../hooks/AppData';
 import { importCsv, importJson, normalizeImportRecord } from '../../services/marketplaces/importer';
 import { detectMarketplace, marketplaceName } from '../../services/marketplaces/registry';
+import { extractListingFromHtml } from '../../services/marketplaces/htmlExtract';
 import { z } from 'zod';
 
 type Tab = 'url' | 'json' | 'csv';
@@ -22,6 +23,8 @@ const JSON_EXAMPLE = `[
   }
 ]`;
 
+const EMPTY_FORM = { url: '', title: '', price: '', currency: '', location: '', description: '', condition: '', itemType: '', shipping: false, images: '' };
+
 /**
  * Manual import — the legally safe default for portals without an API.
  * The user pastes what they see; STEELHUNT does not fetch or scrape the URL.
@@ -30,8 +33,37 @@ export function ImportDialog({ onClose }: { onClose: () => void }) {
   const { addImports } = useAppData();
   const [tab, setTab] = useState<Tab>('url');
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
-  const [form, setForm] = useState({ url: '', title: '', price: '', location: '', description: '', condition: '', itemType: '', shipping: false, images: '' });
+  const [form, setForm] = useState(EMPTY_FORM);
   const [text, setText] = useState('');
+  const [fromFile, setFromFile] = useState<{ name: string; found: string[]; missing: string[]; brand: string | null } | null>(null);
+
+  /** A page the user saved in their own browser — parsed locally, nothing is fetched. */
+  const onHtmlFile = async (f: File | undefined) => {
+    if (!f) return;
+    setMsg(null);
+    try {
+      const x = extractListingFromHtml(await f.text());
+      if (!x.title && !x.url) {
+        setFromFile(null);
+        setMsg({ ok: false, text: 'Nie znalazłem w tym pliku danych ogłoszenia. Zapisz stronę samego ogłoszenia (Ctrl+S → „Strona internetowa, kompletna” lub „tylko HTML”).' });
+        return;
+      }
+      setForm({
+        ...EMPTY_FORM,
+        url: x.url,
+        title: x.title,
+        price: x.price == null ? '' : String(x.price),
+        currency: x.currency && x.currency !== 'PLN' ? x.currency : '',
+        location: x.location,
+        description: x.description,
+        condition: x.condition,
+        images: x.images.join(' '),
+      });
+      setFromFile({ name: f.name, found: x.found, missing: x.missing, brand: x.brand });
+    } catch (e) {
+      setMsg({ ok: false, text: `Nie udało się odczytać pliku: ${(e as Error).message}` });
+    }
+  };
 
   const detected = form.url ? detectMarketplace(form.url) : null;
 
@@ -41,6 +73,7 @@ export function ImportDialog({ onClose }: { onClose: () => void }) {
         url: form.url,
         title: form.title,
         price: form.price === '' ? null : form.price,
+        currency: form.currency || undefined,
         location: form.location || null,
         description: form.description,
         condition: form.condition || undefined,
@@ -50,7 +83,8 @@ export function ImportDialog({ onClose }: { onClose: () => void }) {
       });
       const ev = addImports([l], 'url', 0);
       setMsg({ ok: true, text: ev.added ? 'Dodano ogłoszenie i przeanalizowano.' : 'To ogłoszenie już istnieje — zaktualizowano dane.' });
-      setForm({ url: '', title: '', price: '', location: '', description: '', condition: '', itemType: '', shipping: false, images: '' });
+      setForm(EMPTY_FORM);
+      setFromFile(null);
     } catch (e) {
       setMsg({ ok: false, text: e instanceof z.ZodError ? e.issues.map((i) => i.message).join(', ') : (e as Error).message });
     }
@@ -114,6 +148,27 @@ export function ImportDialog({ onClose }: { onClose: () => void }) {
         {tab === 'url' ? (
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="sm:col-span-2">
+              <label className="btn-ghost w-full cursor-pointer gap-2">
+                <FileCode2 size={16} /> Wczytaj zapisaną stronę ogłoszenia (.htm / .html)
+                <input type="file" accept=".htm,.html,text/html" className="hidden" onChange={(e) => { onHtmlFile(e.target.files?.[0]); e.target.value = ''; }} />
+              </label>
+              <p className="mt-1 text-[11px] text-ink-500">
+                Otwórz ogłoszenie (Vinted, OLX, Kleinanzeigen, Facebook…), zapisz je Ctrl+S i wybierz plik tutaj — pola uzupełnią się same. Plik czytany jest tylko w tej przeglądarce.
+              </p>
+              {fromFile && (
+                <div className="mt-2 rounded-xl bg-ink-950/60 px-3 py-2 text-[12px] text-ink-300">
+                  Odczytano <span className="text-ink-100">{fromFile.name}</span>
+                  {fromFile.found.length ? ` (${fromFile.found.join(', ')})` : ''}
+                  {fromFile.brand ? ` · marka: ${fromFile.brand}` : ''}.{' '}
+                  {fromFile.missing.length ? (
+                    <span className="text-rust-400">Uzupełnij: {fromFile.missing.join(', ')}.</span>
+                  ) : (
+                    'Sprawdź pola i dodaj.'
+                  )}
+                </div>
+              )}
+            </div>
+            <div className="sm:col-span-2">
               <label className="label">Link do ogłoszenia *</label>
               <input className="input" placeholder="https://www.olx.pl/d/oferta/…" value={form.url} onChange={(e) => setForm({ ...form, url: e.target.value })} />
               {detected && <p className="mt-1 text-[11px] text-ink-500">Rozpoznano: {marketplaceName(detected.id)}{detected.externalId ? ` · ID ${detected.externalId}` : ''}</p>}
@@ -123,7 +178,7 @@ export function ImportDialog({ onClose }: { onClose: () => void }) {
               <input className="input" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
             </div>
             <div>
-              <label className="label">Cena (zł)</label>
+              <label className="label">Cena ({form.currency || 'zł'})</label>
               <input className="input" inputMode="numeric" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
             </div>
             <div>
