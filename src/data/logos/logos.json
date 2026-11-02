@@ -32,12 +32,12 @@
     "source": "dodane ręcznie przez właściciela strony"
   },
   "marin": {
-    "src": "logos/marin.svg",
-    "title": "Marin Wordmark.svg",
-    "page": "https://commons.wikimedia.org/wiki/File:Marin_Wordmark.svg",
-    "license": "Public domain",
-    "author": "Marin Bikes",
-    "source": "Wikimedia Commons"
+    "src": "logos/marin.png",
+    "title": "marin.png (tło usunięte, białe wypełnienie liter zachowane)",
+    "page": null,
+    "license": null,
+    "author": null,
+    "source": "dodane ręcznie przez właściciela strony"
   },
   "kona": {
     "src": "logos/kona.svg",
