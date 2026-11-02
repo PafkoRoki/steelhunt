@@ -29,7 +29,13 @@ used for analysis in memory only and is never written to the repository.
 
 Kept: retro MTB/ATB, MTB frames. Dropped: road bikes, kids'/teen bikes, e-bikes, full suspension, single parts,
 modern bikes (27.5"/29", disc/hydraulic brakes, carbon, production year ≥ 2005), listings without any retro signal.
-A Shimano generation code up to 2002 (e.g. RD-M732) counts as a retro signal.
+A Shimano generation code up to 2002 (e.g. RD-M732) counts as a retro signal, as do Deore DX, STX and Exage
+("Deore XT/LX" alone does not — those groups are still made).
+Also dropped: titles with no bike word and no known maker (e.g. fishing rods), tandems, cross / trekking / 28" bikes,
+single parts named by a part code ("FC-M900") or a fork brand ("Marzocchi Bomber") without a bike word,
+found / stolen / wanted posts and listings priced at 0.
+`npm run scout -- --refilter` re-applies the current filters to the saved `auto-*.json` files without fetching
+(add `--dry` to only list what would be dropped).
 Allegro Lokalnie: towns within 200 km of Poznań (unknown towns dropped). Sprzedajemy: the portal's own 150 km filter.
 Kleinanzeigen: only postcode regions within driving range of Poznań (eastern Germany, see `postcodePrefixes`).
 EUR prices are converted with the exchange rate from Settings (default 4.25).

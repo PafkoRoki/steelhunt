@@ -31,6 +31,8 @@ const IMPORTS = resolve(ROOT, 'data/imports');
 const DRY = process.argv.includes('--dry');
 /** `--only=ebay,olx` runs just those portals (CI runs `--only=ebay`, the API source that needs secrets). */
 const ONLY = process.argv.find((a) => a.startsWith('--only='))?.slice(7).split(',') ?? null;
+/** `--refilter` re-checks the saved listings against the current filters without fetching anything. */
+const REFILTER = process.argv.includes('--refilter');
 const run = (name: string) => !ONLY || ONLY.includes(name);
 const UA = 'steelhunt-scout/0.1 (personal use; low rate; +https://github.com/PafkoRoki/steelhunt)';
 const pexec = promisify(execFile);
@@ -564,17 +566,35 @@ async function scoutEbay(known: Set<string>, previous: Map<string, AutoRecord>):
 
 const MODERN = /(27[,.]5|\b29\s*(?:["“”″]|''|zoll|er|cali)|\b29er\b|hydraul|tarczow|scheibenbremse|\bdisc\b|e[\s-]?bike|pedelec|carbon|karbon|boost|1x1[12]\b|tubeless)/i;
 
+const BIKE_HINT = /(rower|bike|mtb|atb|g[oó]ral|g[oó]rsk|fahrrad|\brad\b|rahmen|rama|mountain|bicykl|velo)/i;
+const NOT_MTB = /(tandem|crossow\w*|\bcross\b|trekking\w*|prze[lł]aj\w*|\b28\s*(?:cali|"|''|”|zoll|er)|ko[lł]a\s*28)/i;
+const BIKE_WORD = /(rower|bike|fahrrad|\brad\b|rama|ramy|rahmen|mountain)/i;
+const PART_CODE = /\b(?:fc|rd|fd|st|br|bl|cs|hb|fh|sl|bb)-?[a-z]{0,2}\d{2,4}\b/i;
+const FORK_BRAND = /\b(marzocchi|rock\s*shox|rockshox|manitou|answer|judy|bomber)\b/i;
+const NOT_OFFER =/(gefunden|gestohlen|vermisst|\bsuche\b|szukam|kupi[eę]\b|zagin[aą][lł]|skradzion\w*)/i;
+
 /** `titleOnly`: pre-filter on a search card — the retro signal may only be in the description. */
 function keep(a: AnalyzedListing, rawText: string, titleOnly = false): boolean {
   const an = a.analysis;
+  const title = a.listing.title;
   if (isRoadBike(a) || !isMtbLike(a)) return false;
+  // Must look like a bike at all (drops e.g. fishing rods caught by broad portal searches).
+  if (!BIKE_HINT.test(title) && !an.manufacturerId) return false;
+  // Not retro MTB: tandems, cross / trekking / 28" bikes.
+  if (NOT_MTB.test(title)) return false;
+  // Not a sale offer: found / stolen / wanted posts, or a zero price.
+  if (NOT_OFFER.test(rawText) || a.listing.price === 0) return false;
   if (an.redFlags.length) return false;
   if (an.itemType === 'components') return false;
+  // A single part sold on its own: a Shimano-style part code ("FC-M900") with no bike word,
+  // or a fork / component brand ("Marzocchi Bomber") when no bike maker was recognised.
+  if (!BIKE_WORD.test(title) && (PART_CODE.test(title) || (!an.manufacturerId && FORK_BRAND.test(title)))) return false;
   if (MODERN.test(rawText)) return false;
   const y = an.productionYear && /^\d{4}$/.test(an.productionYear) ? Number(an.productionYear) : null;
   if (y && y >= 2005) return false;
   // Needs at least one "retro" signal — otherwise it's just a used MTB.
-  const retro = /(retro|vintage|oldschool|old\s*school|klasyk|kult|\b(?:19[89]\d)\b|lata\s*[89]0|\b[89]0(?:er|s)\b|starrgabel|sztywn\w*\s*widel|cr-?mo|chrom|stahl|stalow|tange|reynolds|columbus|ishiwata|true\s*temper|mufow|muffen|cantilever|biopace|deore\s*(?:xt|lx|dx)|suntour)/i;
+  const retro = /(retro|vintage|oldschool|old\s*school|klasyk|kult|\b(?:19[89]\d)\b|lata\s*[89]0|\b[89]0(?:er|s)\b|starrgabel|sztywn\w*\s*widel|cr-?mo|chrom|stahl|stalow|tange|reynolds|columbus|ishiwata|true\s*temper|mufow|muffen|cantilever|biopace|suntour|deore\s*dx|\bstx\b|exage)/i;
+  // "Deore XT/LX" alone is no retro signal (still produced); DX / STX / Exage are 90s-only groups.
   // Shimano generations up to 2002 (M7xx XT, M9xx XTR, MT6x Deore, M5xx LX…) are a retro signal too.
   const era = an.groupsetEra?.match(/\d{4}/g)?.map(Number);
   if (era && Math.max(...era) <= 2002) return true;
@@ -688,26 +708,37 @@ async function main() {
   const known = manualUrls();
   const results: { name: string; records: AutoRecord[]; added: number }[] = [];
 
-  if (cfg.olx.enabled && run('olx')) {
+  // `--refilter`: no fetching — re-apply the current filters to the saved auto-*.json files.
+  if (REFILTER) {
+    for (const name of readdirSync(IMPORTS).filter((f) => /^auto-.*\.json$/.test(f))) {
+      const prev = readAuto(name);
+      const out = toRecords([], prev, known, nowIso);
+      const kept = new Set(out.records.map((r) => r.url));
+      for (const r of prev) if (!kept.has(r.url)) log.push(`  − ${name}: ${r.title.slice(0, 80)}`);
+      results.push({ name, ...out });
+    }
+  }
+
+  if (!REFILTER && cfg.olx.enabled && run('olx')) {
     const prev = readAuto('auto-olx.json');
     const cands = await scoutOlx();
     results.push({ name: 'auto-olx.json', ...toRecords(cands, prev, known, nowIso) });
   }
-  if (cfg.kleinanzeigen.enabled && run('kleinanzeigen')) {
+  if (!REFILTER && cfg.kleinanzeigen.enabled && run('kleinanzeigen')) {
     const prev = readAuto('auto-kleinanzeigen.json');
     const cands = await scoutKleinanzeigen(known, new Map(prev.map((r) => [r.url, r])));
     results.push({ name: 'auto-kleinanzeigen.json', ...toRecords(cands, prev, known, nowIso) });
   }
 
   const al = cfg.allegroLokalnie;
-  if (al?.enabled && run('allegro-lokalnie')) {
+  if (!REFILTER && al?.enabled && run('allegro-lokalnie')) {
     const prev = readAuto('auto-allegro-lokalnie.json');
     const url = (q: string) => `https://allegrolokalnie.pl/oferty/rowery-i-akcesoria/rowery-16420/q/${encodeURIComponent(q)}`;
     const cands = await scoutCards('Allegro Lokalnie', al, true, url, parseAllegroLokalnie, allegroLokalnieDetail, known, new Map(prev.map((r) => [r.url, r])));
     results.push({ name: 'auto-allegro-lokalnie.json', ...toRecords(cands, prev, known, nowIso) });
   }
   const sp = cfg.sprzedajemy;
-  if (sp?.enabled && run('sprzedajemy')) {
+  if (!REFILTER && sp?.enabled && run('sprzedajemy')) {
     const prev = readAuto('auto-sprzedajemy.json');
     // The portal's own Poznań + distance filter (150 km is one of its options).
     const url = (q: string) => `https://sprzedajemy.pl/poznan?inp_text=${encodeURIComponent(q).replace(/%20/g, '+')}&inp_distance=150`;
@@ -715,7 +746,7 @@ async function main() {
     results.push({ name: 'auto-sprzedajemy.json', ...toRecords(cands, prev, known, nowIso) });
   }
   const eb = cfg.ebay;
-  if (eb?.enabled && run('ebay')) {
+  if (!REFILTER && eb?.enabled && run('ebay')) {
     const prev = readAuto('auto-ebay.json');
     const cands = await scoutEbay(known, new Map(prev.map((r) => [r.url, r])));
     // Without keys the source is skipped and the existing file is left untouched.
