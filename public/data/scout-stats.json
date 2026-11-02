@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-11-02T12:19:11.334Z",
+  "keepDays": 14,
+  "maxDetailFetches": 40,
+  "portals": [
+    {
+      "file": "auto-olx.json",
+      "name": "OLX.pl",
+      "queries": 13,
+      "raw": 522,
+      "inArea": 432,
+      "pre": {
+        "checked": 0,
+        "rejected": {}
+      },
+      "detailsFetched": 0,
+      "full": {
+        "checked": 432,
+        "rejected": {
+          "part": 40,
+          "not-mtb": 135,
+          "part-code": 2,
+          "cross-trekking": 6,
+          "modern": 114,
+          "no-retro": 45,
+          "red-flag": 33,
+          "not-offer": 10,
+          "not-bike": 4
+        },
+        "manualDuplicates": 16
+      },
+      "added": 3,
+      "carried": 1,
+      "expired": 0,
+      "rechecked": {},
+      "published": 28,
+      "errors": 0
+    },
+    {
+      "file": "auto-kleinanzeigen.json",
+      "name": "Kleinanzeigen.de",
+      "queries": 15,
+      "raw": 351,
+      "inArea": 38,
+      "pre": {
+        "checked": 38,
+        "rejected": {
+          "part": 10,
+          "not-offer": 1,
+          "red-flag": 2,
+          "not-mtb": 2,
+          "modern": 2,
+          "no-retro": 2
+        }
+      },
+      "detailsFetched": 5,
+      "full": {
+        "checked": 19,
+        "rejected": {
+          "modern": 1,
+          "red-flag": 1
+        },
+        "manualDuplicates": 0
+      },
+      "added": 3,
+      "carried": 8,
+      "expired": 0,
+      "rechecked": {},
+      "published": 25,
+      "errors": 0
+    },
+    {
+      "file": "auto-sprzedajemy.json",
+      "name": "Sprzedajemy.pl",
+      "queries": 8,
+      "raw": 154,
+      "inArea": 135,
+      "pre": {
+        "checked": 135,
+        "rejected": {
+          "part": 2,
+          "not-mtb": 112,
+          "cross-trekking": 3,
+          "modern": 3,
+          "red-flag": 1
+        }
+      },
+      "detailsFetched": 10,
+      "full": {
+        "checked": 14,
+        "rejected": {
+          "no-retro": 2,
+          "modern": 4,
+          "not-offer": 1
+        },
+        "manualDuplicates": 0
+      },
+      "added": 3,
+      "carried": 0,
+      "expired": 0,
+      "rechecked": {},
+      "published": 7,
+      "errors": 0
+    }
+  ]
+}
