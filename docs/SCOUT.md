@@ -42,6 +42,12 @@ EUR prices are converted with the exchange rate from Settings (default 4.25).
 
 Listings stay published for `keepDays` (14) after they were last seen in the results.
 
+The rules live in `src/features/listings/scoutRules.ts` (`scoutRejectReason`, `REJECT_RULES`) and are shared with
+the site: the **“Selekcja ofert”** page (`/selection`) explains every stage with the same rule texts. Each full run
+(not `--dry`, `--refilter` or `--only=`) writes the funnel to `public/data/scout-stats.json`: per portal the raw
+results, unique listings in the area, title pre-filter rejections by reason, ad pages fetched, full-check
+rejections by reason, new / carried-over / expired listings and the published total.
+
 ## Photo review (frame decals, component markings)
 
 The scheduled scout task (Claude on the owner's computer) also looks at the listing photos:

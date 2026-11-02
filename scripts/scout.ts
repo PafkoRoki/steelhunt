@@ -21,7 +21,7 @@ import { normalizeImportRecord } from '../src/services/marketplaces/importer';
 import { analyzeListings } from '../src/services/analysis/pipeline';
 import { buildDatabase } from '../src/services/database/db';
 import { DEFAULT_SETTINGS } from '../src/features/scoring/config';
-import { isMtbLike, isRoadBike } from '../src/features/listings/focus';
+import { scoutRejectReason, type RejectReason, type ScoutPortalStats, type ScoutStats } from '../src/features/listings/scoutRules';
 import { tubingLabel } from '../src/services/analysis/textAnalyzer';
 import { haversineKm, resolveLocation } from '../src/services/geolocation/geo';
 import type { AnalyzedListing } from '../src/types/listing';
@@ -89,6 +89,20 @@ const cfg = JSON.parse(readFileSync(resolve(ROOT, 'config/scout.json'), 'utf8'))
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const log: string[] = [];
 
+// ---------------------------------------------------------------- selection funnel stats (shown on the "Selekcja ofert" page)
+const STATS_FILE = resolve(ROOT, 'public/data/scout-stats.json');
+const PORTAL_FILE: Record<string, string> = { OLX: 'auto-olx.json', Kleinanzeigen: 'auto-kleinanzeigen.json', 'Allegro Lokalnie': 'auto-allegro-lokalnie.json', Sprzedajemy: 'auto-sprzedajemy.json', eBay: 'auto-ebay.json' };
+const PORTAL_NAME: Record<string, string> = { 'auto-olx.json': 'OLX.pl', 'auto-kleinanzeigen.json': 'Kleinanzeigen.de', 'auto-allegro-lokalnie.json': 'Allegro Lokalnie', 'auto-sprzedajemy.json': 'Sprzedajemy.pl', 'auto-ebay.json': 'eBay.de' };
+const STATS = new Map<string, ScoutPortalStats>();
+function stat(file: string): ScoutPortalStats {
+  let s = STATS.get(file);
+  if (!s) {
+    s = { file, name: PORTAL_NAME[file] ?? file, queries: 0, raw: 0, inArea: 0, pre: { checked: 0, rejected: {} }, detailsFetched: 0, full: { checked: 0, rejected: {}, manualDuplicates: 0 }, added: 0, carried: 0, expired: 0, rechecked: {}, published: 0, errors: 0 };
+    STATS.set(file, s);
+  }
+  return s;
+}
+
 /** Plain GET via curl with an honest, identifying User-Agent and a fixed delay between requests. */
 async function get(url: string): Promise<string> {
   await sleep(cfg.delayMs);
@@ -124,10 +138,13 @@ const OLX_STATE: Record<string, string> = { damaged: 'poor', new: 'excellent', r
 
 async function scoutOlx(): Promise<Candidate[]> {
   const out = new Map<string, Candidate>();
+  const st = stat(PORTAL_FILE.OLX);
+  st.queries = cfg.olx.queries.length;
   for (const q of cfg.olx.queries) {
     const url = `https://www.olx.pl/api/v1/offers/?offset=0&limit=40&category_id=767&query=${encodeURIComponent(q)}&city_id=${OLX_POZNAN_CITY_ID}&distance=${cfg.olx.radiusKm}`;
     try {
       const ads: any[] = JSON.parse(await get(url))?.data ?? [];
+      st.raw += ads.length;
       for (const ad of ads) {
         if (!ad?.url || out.has(ad.url)) continue;
         const pv = ad.params?.find((p: any) => p.key === 'price')?.value;
@@ -156,8 +173,10 @@ async function scoutOlx(): Promise<Candidate[]> {
       log.push(`OLX „${q}”: ${ads.length}`);
     } catch (e) {
       log.push(`OLX „${q}”: BŁĄD ${(e as Error).message}`);
+      st.errors++;
     }
   }
+  st.inArea = out.size;
   return [...out.values()];
 }
 
@@ -203,10 +222,13 @@ function kaPrice(t: string): number | null {
 
 async function scoutKleinanzeigen(known: Set<string>, previous: Map<string, AutoRecord>): Promise<Candidate[]> {
   const stubs = new Map<string, KaStub>();
+  const st = stat(PORTAL_FILE.Kleinanzeigen);
+  st.queries = cfg.kleinanzeigen.queries.length;
   for (const q of cfg.kleinanzeigen.queries) {
     const slug = encodeURIComponent(q.trim().toLowerCase().replace(/\s+/g, '-'));
     try {
       const found = parseKaSearch(await get(`https://www.kleinanzeigen.de/s-fahrraeder/${slug}/k0c217`));
+      st.raw += found.length;
       let kept = 0;
       for (const s of found) {
         const plz = s.location.slice(0, 2);
@@ -217,14 +239,17 @@ async function scoutKleinanzeigen(known: Set<string>, previous: Map<string, Auto
       log.push(`Kleinanzeigen „${q}”: ${found.length} (we wschodnich Niemczech: ${kept})`);
     } catch (e) {
       log.push(`Kleinanzeigen „${q}”: BŁĄD ${(e as Error).message}`);
+      st.errors++;
     }
   }
+  st.inArea = stubs.size;
+  st.pre.checked = stubs.size;
 
   // Quick pre-filter on title + snippet before spending detail requests.
   const db = buildDatabase();
   const pre = [...stubs.values()].filter((s) => {
     const probe = normalizeImportRecord({ url: s.url, title: s.title || 'x x x', description: s.snippet, price: kaPrice(s.priceText), currency: 'EUR', location: s.location });
-    return keep(analyzeListings([probe], DEFAULT_SETTINGS, db)[0], s.title + ' ' + s.snippet);
+    return keep(analyzeListings([probe], DEFAULT_SETTINGS, db)[0], s.title + ' ' + s.snippet, false, st.pre.rejected);
   });
 
   const out: Candidate[] = [];
@@ -258,6 +283,7 @@ async function scoutKleinanzeigen(known: Set<string>, previous: Map<string, Auto
       log.push(`Kleinanzeigen szczegóły ${s.id}: BŁĄD ${(e as Error).message}`);
     }
   }
+  st.detailsFetched = details;
   return out;
 }
 
@@ -350,10 +376,13 @@ async function scoutCards(
   previous: Map<string, AutoRecord>,
 ): Promise<Candidate[]> {
   const stubs = new Map<string, CardStub>();
+  const st = stat(PORTAL_FILE[name] ?? name);
+  st.queries = conf.queries.length;
   for (const q of conf.queries) {
     try {
       await sleep(conf.delayMs ?? 0); // extra, per-portal pause on top of the global delay
       const found = parse(await get(searchUrl(q)));
+      st.raw += found.length;
       let kept = 0;
       for (const s of found) {
         const km = kmFromPoznan(s.location);
@@ -366,15 +395,18 @@ async function scoutCards(
       // An error here is usually the portal limiting requests (HTTP 429). Respect it: stop this portal
       // for this run instead of retrying.
       log.push(`${name} „${q}”: BŁĄD ${(e as Error).message} — pomijam portal do następnego uruchomienia`);
+      st.errors++;
       break;
     }
   }
 
+  st.inArea = stubs.size;
+  st.pre.checked = stubs.size;
   // Cheap pre-filter on the card title before spending detail requests.
   const db = buildDatabase();
   const pre = [...stubs.values()].filter((s) => {
     const probe = normalizeImportRecord({ url: s.url, title: s.title || 'x x x', description: '', price: s.price, currency: 'PLN', location: s.location });
-    return keep(analyzeListings([probe], DEFAULT_SETTINGS, db)[0], s.title, true);
+    return keep(analyzeListings([probe], DEFAULT_SETTINGS, db)[0], s.title, true, st.pre.rejected);
   });
 
   const out: Candidate[] = [];
@@ -396,6 +428,7 @@ async function scoutCards(
       break;
     }
   }
+  st.detailsFetched = details;
   return out;
 }
 
@@ -564,41 +597,11 @@ async function scoutEbay(known: Set<string>, previous: Map<string, AutoRecord>):
 
 // ---------------------------------------------------------------- filtering & fact summary
 
-const MODERN = /(27[,.]5|\b29\s*(?:["“”″]|''|zoll|er|cali)|\b29er\b|hydraul|tarczow|scheibenbremse|\bdisc\b|e[\s-]?bike|pedelec|carbon|karbon|boost|1x1[12]\b|tubeless)/i;
-
-const BIKE_HINT = /(rower|bike|mtb|atb|g[oó]ral|g[oó]rsk|fahrrad|\brad\b|rahmen|rama|mountain|bicykl|velo)/i;
-const NOT_MTB = /(tandem|crossow\w*|\bcross\b|trekking\w*|prze[lł]aj\w*|\b28\s*(?:cali|"|''|”|zoll|er)|ko[lł]a\s*28)/i;
-const BIKE_WORD = /(rower|bike|fahrrad|\brad\b|rama|ramy|rahmen|mountain)/i;
-const PART_CODE = /\b(?:fc|rd|fd|st|br|bl|cs|hb|fh|sl|bb)-?[a-z]{0,2}\d{2,4}\b/i;
-const FORK_BRAND = /\b(marzocchi|rock\s*shox|rockshox|manitou|answer|judy|bomber)\b/i;
-const NOT_OFFER =/(gefunden|gestohlen|vermisst|\bsuche\b|szukam|kupi[eę]\b|zagin[aą][lł]|skradzion\w*)/i;
-
-/** `titleOnly`: pre-filter on a search card — the retro signal may only be in the description. */
-function keep(a: AnalyzedListing, rawText: string, titleOnly = false): boolean {
-  const an = a.analysis;
-  const title = a.listing.title;
-  if (isRoadBike(a) || !isMtbLike(a)) return false;
-  // Must look like a bike at all (drops e.g. fishing rods caught by broad portal searches).
-  if (!BIKE_HINT.test(title) && !an.manufacturerId) return false;
-  // Not retro MTB: tandems, cross / trekking / 28" bikes.
-  if (NOT_MTB.test(title)) return false;
-  // Not a sale offer: found / stolen / wanted posts, or a zero price.
-  if (NOT_OFFER.test(rawText) || a.listing.price === 0) return false;
-  if (an.redFlags.length) return false;
-  if (an.itemType === 'components') return false;
-  // A single part sold on its own: a Shimano-style part code ("FC-M900") with no bike word,
-  // or a fork / component brand ("Marzocchi Bomber") when no bike maker was recognised.
-  if (!BIKE_WORD.test(title) && (PART_CODE.test(title) || (!an.manufacturerId && FORK_BRAND.test(title)))) return false;
-  if (MODERN.test(rawText)) return false;
-  const y = an.productionYear && /^\d{4}$/.test(an.productionYear) ? Number(an.productionYear) : null;
-  if (y && y >= 2005) return false;
-  // Needs at least one "retro" signal — otherwise it's just a used MTB.
-  const retro = /(retro|vintage|oldschool|old\s*school|klasyk|kult|\b(?:19[89]\d)\b|lata\s*[89]0|\b[89]0(?:er|s)\b|starrgabel|sztywn\w*\s*widel|cr-?mo|chrom|stahl|stalow|tange|reynolds|columbus|ishiwata|true\s*temper|mufow|muffen|cantilever|biopace|suntour|deore\s*dx|\bstx\b|exage)/i;
-  // "Deore XT/LX" alone is no retro signal (still produced); DX / STX / Exage are 90s-only groups.
-  // Shimano generations up to 2002 (M7xx XT, M9xx XTR, MT6x Deore, M5xx LX…) are a retro signal too.
-  const era = an.groupsetEra?.match(/\d{4}/g)?.map(Number);
-  if (era && Math.max(...era) <= 2002) return true;
-  return titleOnly || retro.test(rawText) || an.modelId != null;
+/** Applies the shared rules (src/features/listings/scoutRules.ts); counts the reason when a tally is given. */
+function keep(a: AnalyzedListing, rawText: string, titleOnly = false, tally?: Partial<Record<RejectReason, number>>): boolean {
+  const r = scoutRejectReason(a, rawText, titleOnly);
+  if (r && tally) tally[r] = (tally[r] ?? 0) + 1;
+  return r == null;
 }
 
 const NEGO: Record<string, string> = {
@@ -652,14 +655,19 @@ function manualUrls(): Set<string> {
   return urls;
 }
 
-function toRecords(cands: Candidate[], previous: AutoRecord[], known: Set<string>, nowIso: string): { records: AutoRecord[]; added: number } {
+function toRecords(file: string, cands: Candidate[], previous: AutoRecord[], known: Set<string>, nowIso: string): { records: AutoRecord[]; added: number } {
   const db = buildDatabase();
+  const st = stat(file);
+  st.full.checked += cands.length;
   const prevByUrl = new Map(previous.map((r) => [r.url, r]));
   const records = new Map<string, AutoRecord>();
   let added = 0;
 
   for (const c of cands) {
-    if (known.has(c.url.split('?')[0])) continue; // curated manually already
+    if (known.has(c.url.split('?')[0])) {
+      st.full.manualDuplicates++; // curated manually already
+      continue;
+    }
     const listing = normalizeImportRecord({
       url: c.url,
       title: c.title || 'bez tytułu',
@@ -671,7 +679,7 @@ function toRecords(cands: Candidate[], previous: AutoRecord[], known: Set<string
       condition: c.condition as 'good' | undefined,
     });
     const a = analyzeListings([listing], DEFAULT_SETTINGS, db)[0];
-    if (!keep(a, `${c.title} ${c.description}`)) continue;
+    if (!keep(a, `${c.title} ${c.description}`, false, st.full.rejected)) continue;
     const prev = prevByUrl.get(c.url);
     if (!prev) added++;
     records.set(c.url, {
@@ -695,11 +703,20 @@ function toRecords(cands: Candidate[], previous: AutoRecord[], known: Set<string
   const cutoff = Date.now() - cfg.keepDays * 86400_000;
   // Re-check them against the current filters (filters improve over time).
   for (const r of previous) {
-    if (records.has(r.url) || Date.parse(r.lastSeen) < cutoff || known.has(r.url.split('?')[0])) continue;
+    if (records.has(r.url)) continue;
+    if (Date.parse(r.lastSeen) < cutoff || known.has(r.url.split('?')[0])) {
+      st.expired++;
+      continue;
+    }
     // Re-detect the item type from the text (the stored one may come from older, weaker rules).
     const a = analyzeListings([normalizeImportRecord({ ...r, itemType: undefined })], DEFAULT_SETTINGS, db)[0];
-    if (keep(a, `${r.title} ${r.description}`)) records.set(r.url, r);
+    if (keep(a, `${r.title} ${r.description}`, false, st.rechecked)) {
+      records.set(r.url, r);
+      st.carried++;
+    } else st.expired++;
   }
+  st.added += added;
+  st.published = records.size;
   return { records: [...records.values()], added };
 }
 
@@ -712,7 +729,7 @@ async function main() {
   if (REFILTER) {
     for (const name of readdirSync(IMPORTS).filter((f) => /^auto-.*\.json$/.test(f))) {
       const prev = readAuto(name);
-      const out = toRecords([], prev, known, nowIso);
+      const out = toRecords(name, [], prev, known, nowIso);
       const kept = new Set(out.records.map((r) => r.url));
       for (const r of prev) if (!kept.has(r.url)) log.push(`  − ${name}: ${r.title.slice(0, 80)}`);
       results.push({ name, ...out });
@@ -722,12 +739,12 @@ async function main() {
   if (!REFILTER && cfg.olx.enabled && run('olx')) {
     const prev = readAuto('auto-olx.json');
     const cands = await scoutOlx();
-    results.push({ name: 'auto-olx.json', ...toRecords(cands, prev, known, nowIso) });
+    results.push({ name: 'auto-olx.json', ...toRecords('auto-olx.json', cands, prev, known, nowIso) });
   }
   if (!REFILTER && cfg.kleinanzeigen.enabled && run('kleinanzeigen')) {
     const prev = readAuto('auto-kleinanzeigen.json');
     const cands = await scoutKleinanzeigen(known, new Map(prev.map((r) => [r.url, r])));
-    results.push({ name: 'auto-kleinanzeigen.json', ...toRecords(cands, prev, known, nowIso) });
+    results.push({ name: 'auto-kleinanzeigen.json', ...toRecords('auto-kleinanzeigen.json', cands, prev, known, nowIso) });
   }
 
   const al = cfg.allegroLokalnie;
@@ -735,7 +752,7 @@ async function main() {
     const prev = readAuto('auto-allegro-lokalnie.json');
     const url = (q: string) => `https://allegrolokalnie.pl/oferty/rowery-i-akcesoria/rowery-16420/q/${encodeURIComponent(q)}`;
     const cands = await scoutCards('Allegro Lokalnie', al, true, url, parseAllegroLokalnie, allegroLokalnieDetail, known, new Map(prev.map((r) => [r.url, r])));
-    results.push({ name: 'auto-allegro-lokalnie.json', ...toRecords(cands, prev, known, nowIso) });
+    results.push({ name: 'auto-allegro-lokalnie.json', ...toRecords('auto-allegro-lokalnie.json', cands, prev, known, nowIso) });
   }
   const sp = cfg.sprzedajemy;
   if (!REFILTER && sp?.enabled && run('sprzedajemy')) {
@@ -743,20 +760,28 @@ async function main() {
     // The portal's own Poznań + distance filter (150 km is one of its options).
     const url = (q: string) => `https://sprzedajemy.pl/poznan?inp_text=${encodeURIComponent(q).replace(/%20/g, '+')}&inp_distance=150`;
     const cands = await scoutCards('Sprzedajemy', sp, false, url, parseSprzedajemy, sprzedajemyDetail, known, new Map(prev.map((r) => [r.url, r])));
-    results.push({ name: 'auto-sprzedajemy.json', ...toRecords(cands, prev, known, nowIso) });
+    results.push({ name: 'auto-sprzedajemy.json', ...toRecords('auto-sprzedajemy.json', cands, prev, known, nowIso) });
   }
   const eb = cfg.ebay;
   if (!REFILTER && eb?.enabled && run('ebay')) {
     const prev = readAuto('auto-ebay.json');
     const cands = await scoutEbay(known, new Map(prev.map((r) => [r.url, r])));
     // Without keys the source is skipped and the existing file is left untouched.
-    if (process.env.EBAY_CLIENT_ID) results.push({ name: 'auto-ebay.json', ...toRecords(cands, prev, known, nowIso) });
+    if (process.env.EBAY_CLIENT_ID) results.push({ name: 'auto-ebay.json', ...toRecords('auto-ebay.json', cands, prev, known, nowIso) });
   }
 
   console.log(log.join('\n'));
   for (const r of results) {
     console.log(`\n${r.name}: ${r.records.length} ogłoszeń (nowe: ${r.added})`);
     if (!DRY) writeFileSync(resolve(IMPORTS, r.name), '[\n' + r.records.map((x) => '  ' + JSON.stringify(x)).join(',\n') + '\n]\n', 'utf8');
+  }
+
+  // Funnel of this run for the "Selekcja ofert" page. Only full runs: a re-filter, a dry run or a
+  // single-portal run (--only=) would not describe the whole search.
+  if (!DRY && !REFILTER && !ONLY && STATS.size) {
+    const stats: ScoutStats = { generatedAt: nowIso, keepDays: cfg.keepDays, maxDetailFetches: cfg.maxDetailFetches, portals: [...STATS.values()] };
+    writeFileSync(STATS_FILE, JSON.stringify(stats, null, 2) + '\n', 'utf8');
+    console.log(`\nStatystyki selekcji: ${STATS_FILE}`);
   }
 
   // Top deals across everything (for the run report).

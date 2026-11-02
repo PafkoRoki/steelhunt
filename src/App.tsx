@@ -10,6 +10,7 @@ import BikeDatabasePage from './pages/BikeDatabasePage';
 import TubingDatabasePage from './pages/TubingDatabasePage';
 import GroupsetsPage from './pages/GroupsetsPage';
 import HistoryPage from './pages/HistoryPage';
+import SelectionPage from './pages/SelectionPage';
 import SettingsPage from './pages/SettingsPage';
 import ListingPage from './pages/ListingPage';
 
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/bikes" element={<BikeDatabasePage />} />
           <Route path="/tubing" element={<TubingDatabasePage />} />
           <Route path="/groupsets" element={<GroupsetsPage />} />
+          <Route path="/selection" element={<SelectionPage />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/listing/:id" element={<ListingPage />} />
