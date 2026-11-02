@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-02T12:19:11.334Z",
+  "generatedAt": "2026-11-02T22:58:42.542Z",
   "keepDays": 14,
   "maxDetailFetches": 40,
   "portals": [
@@ -8,28 +8,28 @@
       "name": "OLX.pl",
       "queries": 13,
       "raw": 522,
-      "inArea": 432,
+      "inArea": 436,
       "pre": {
         "checked": 0,
         "rejected": {}
       },
       "detailsFetched": 0,
       "full": {
-        "checked": 432,
+        "checked": 436,
         "rejected": {
-          "part": 40,
-          "not-mtb": 135,
+          "not-mtb": 136,
+          "part": 37,
           "part-code": 2,
-          "cross-trekking": 6,
-          "modern": 114,
-          "no-retro": 45,
+          "cross-trekking": 7,
+          "modern": 115,
+          "no-retro": 48,
           "red-flag": 33,
           "not-offer": 10,
-          "not-bike": 4
+          "not-bike": 5
         },
         "manualDuplicates": 16
       },
-      "added": 3,
+      "added": 0,
       "carried": 1,
       "expired": 0,
       "rechecked": {},
@@ -41,32 +41,35 @@
       "name": "Kleinanzeigen.de",
       "queries": 15,
       "raw": 351,
-      "inArea": 38,
+      "inArea": 46,
       "pre": {
-        "checked": 38,
+        "checked": 46,
         "rejected": {
-          "part": 10,
+          "red-flag": 6,
+          "part": 11,
           "not-offer": 1,
-          "red-flag": 2,
           "not-mtb": 2,
           "modern": 2,
           "no-retro": 2
         }
       },
-      "detailsFetched": 5,
+      "detailsFetched": 6,
       "full": {
-        "checked": 19,
+        "checked": 22,
         "rejected": {
           "modern": 1,
-          "red-flag": 1
+          "red-flag": 2,
+          "not-mtb": 1
         },
         "manualDuplicates": 0
       },
       "added": 3,
-      "carried": 8,
-      "expired": 0,
-      "rechecked": {},
-      "published": 25,
+      "carried": 9,
+      "expired": 1,
+      "rechecked": {
+        "not-mtb": 1
+      },
+      "published": 27,
       "errors": 0
     },
     {
@@ -85,21 +88,23 @@
           "red-flag": 1
         }
       },
-      "detailsFetched": 10,
+      "detailsFetched": 7,
       "full": {
         "checked": 14,
         "rejected": {
-          "no-retro": 2,
-          "modern": 4,
+          "no-retro": 4,
+          "modern": 3,
           "not-offer": 1
         },
         "manualDuplicates": 0
       },
-      "added": 3,
+      "added": 0,
       "carried": 0,
-      "expired": 0,
-      "rechecked": {},
-      "published": 7,
+      "expired": 1,
+      "rechecked": {
+        "no-retro": 1
+      },
+      "published": 6,
       "errors": 0
     }
   ]
