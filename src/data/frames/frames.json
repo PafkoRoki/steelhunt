@@ -1,0 +1,19 @@
+[
+  {
+    "id": "stumpjumper-comp-1990",
+    "manufacturerId": "specialized",
+    "modelId": "specialized-stumpjumper-comp",
+    "title": "Specialized Stumpjumper Comp",
+    "year": 1990,
+    "size": "18\"",
+    "tubing": "DirectDrive / Tange Prestige Cr-Mo",
+    "construction": "spawana TIG",
+    "color": "biała",
+    "glb": "models/stumpjumper-comp-1990.glb",
+    "poster": "models/stumpjumper-comp-1990-poster.jpg",
+    "fileSizeMb": 1.3,
+    "triangles": 40000,
+    "source": "https://bikalog.org/c/specialized/1990-spec-bikes90",
+    "summary": "Geometria z oryginalnego katalogu i zdjęcia z katalogu; spoiny TIG, owalne widełki DD, kute haki, odlewana obejma sztycy, wszystkie lutowane uchwyty."
+  }
+]

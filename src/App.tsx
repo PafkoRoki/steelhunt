@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import DashboardPage from './pages/DashboardPage';
@@ -17,12 +17,13 @@ import ListingPage from './pages/ListingPage';
 // Leaflet is the heaviest dependency — load the map only when needed.
 const MapPage = lazy(() => import('./pages/MapPage'));
 const FrameModelPage = lazy(() => import('./pages/FrameModelPage'));
+const FramesPage = lazy(() => import('./pages/FramesPage'));
 
 export default function App() {
   return (
     <Layout>
       <ErrorBoundary>
-      <Suspense fallback={<div className="py-20 text-center text-sm text-ink-500">Ładowanie mapy…</div>}>
+      <Suspense fallback={<div className="py-20 text-center text-sm text-ink-500">Ładowanie…</div>}>
         <Routes>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/deals" element={<DealsPage />} />
@@ -33,7 +34,9 @@ export default function App() {
           <Route path="/tubing" element={<TubingDatabasePage />} />
           <Route path="/groupsets" element={<GroupsetsPage />} />
           <Route path="/selection" element={<SelectionPage />} />
-          <Route path="/model/stumpjumper-comp-1990" element={<FrameModelPage />} />
+          <Route path="/frames" element={<FramesPage />} />
+          <Route path="/frames/stumpjumper-comp-1990" element={<FrameModelPage />} />
+          <Route path="/model/stumpjumper-comp-1990" element={<Navigate to="/frames/stumpjumper-comp-1990" replace />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/listing/:id" element={<ListingPage />} />

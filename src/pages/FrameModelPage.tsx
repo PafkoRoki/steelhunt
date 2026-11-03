@@ -96,8 +96,8 @@ function Table({ title, rows, note }: { title: string; rows: [string, string][];
 export default function FrameModelPage() {
   return (
     <>
-      <Link to="/bikes" className="tap mb-3 inline-flex items-center gap-1.5 text-sm text-ink-400 hover:text-ink-100">
-        <ArrowLeft size={15} /> Baza rowerów
+      <Link to="/frames" className="tap mb-3 inline-flex items-center gap-1.5 text-sm text-ink-400 hover:text-ink-100">
+        <ArrowLeft size={15} /> Baza ram
       </Link>
       <PageHeader
         title="Stumpjumper Comp 1990 — rama 3D"

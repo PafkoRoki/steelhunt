@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Bookmark, Cog, Database, Gauge, History, Layers, ListFilter, Map as MapIcon, Menu, Plus, Settings, Sparkles, Trophy, X } from 'lucide-react';
+import { Bookmark, Box, Cog, Database, Gauge, History, Layers, ListFilter, Map as MapIcon, Menu, Plus, Settings, Sparkles, Trophy, X } from 'lucide-react';
 import { useAppData } from '../hooks/AppData';
 import { RADIUS_OPTIONS } from '../features/scoring/config';
 import type { RadiusOption } from '../types/settings';
@@ -13,6 +13,7 @@ const NAV = [
   { to: '/new', label: 'Nowe ogłoszenia', icon: Sparkles },
   { to: '/watchlist', label: 'Obserwowane', icon: Bookmark },
   { to: '/bikes', label: 'Baza rowerów', icon: Database },
+  { to: '/frames', label: 'Baza ram', icon: Box },
   { to: '/tubing', label: 'Baza rur', icon: Layers },
   { to: '/groupsets', label: 'Osprzęt Shimano', icon: Cog },
   { to: '/selection', label: 'Selekcja ofert', icon: ListFilter },
