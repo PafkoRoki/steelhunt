@@ -16,7 +16,7 @@
 - Honest User-Agent `steelhunt-scout/0.1 (...)`, a fixed delay between requests (`config/scout.json → delayMs`),
   at most ~30 requests per run, a cap on ad-page fetches. No login, no CAPTCHA solving, no proxies, no browser
   impersonation. If a portal starts refusing requests (e.g. HTTP 429), the run logs it and stops querying that portal until the next run — it does not try to get around it.
-- **Runs only on the owner's computer** (scheduled Claude task), never in GitHub Actions.
+- **Runs only on the owner's computer**, never in GitHub Actions — **started manually** (`npm run scout`, or the saved Claude task "steelhunt-scout" run on demand; its 7:30/19:30 schedule is switched off).
 - Portal terms of use may restrict automated access; this is a low-volume personal tool. The owner decides whether to run it.
 
 ## What is published
@@ -50,7 +50,7 @@ rejections by reason, new / carried-over / expired listings and the published to
 
 ## Photo review (frame decals, component markings)
 
-The scheduled scout task (Claude on the owner's computer) also looks at the listing photos:
+The scout task (Claude on the owner's computer, run on demand) also looks at the listing photos:
 
 1. `npm run photos -- todo --limit=10` picks listings whose photos were not checked yet, downloads up to 3
    photos each into `tmp/photo-cache/` (git-ignored, low rate, same User-Agent) and writes `tmp/photo-cache/todo.json`.

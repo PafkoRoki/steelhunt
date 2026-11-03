@@ -122,7 +122,7 @@ export default function SelectionPage() {
         <Stage
           n={1}
           title="Wyszukiwanie na portalach"
-          who="Scout — skrypt na komputerze właściciela, codziennie 7:30 i 19:30"
+          who="Scout — skrypt na komputerze właściciela, uruchamiany ręcznie"
           count={s ? <>{sum((p) => p.raw)} wyników → {sum((p) => p.inArea)} unikalnych w obszarze</> : undefined}
         >
           <p>
