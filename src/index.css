@@ -59,13 +59,43 @@
     @apply btn border border-white/[0.08] bg-white/[0.03] text-ink-200 hover:bg-white/[0.07];
   }
   .input {
-    @apply w-full rounded-xl border border-white/[0.08] bg-ink-950/60 px-3 py-2 text-sm text-ink-100 placeholder:text-ink-500 focus:border-moss-500/60 focus:outline-none focus:ring-2 focus:ring-moss-500/20;
+    @apply w-full rounded-xl border border-white/[0.08] bg-ink-950/60 px-3 py-2 text-sm text-ink-100 placeholder:text-ink-500 focus:border-moss-400 focus:outline-none focus:ring-2 focus:ring-moss-400/60;
   }
   .label {
     @apply mb-1 block text-xs font-medium text-ink-400;
   }
   .stat-num {
     @apply font-mono tabular-nums;
+  }
+}
+
+/* Keyboard focus: always visible (mouse clicks don't show it — :focus-visible). */
+:where(a, button, select, summary, [role="button"], [tabindex]):focus-visible {
+  outline: 2px solid #a3bfa5;
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+/* File pickers are a hidden <input> inside a styled <label>. */
+label:has(> input[type="file"]:focus-visible) {
+  outline: 2px solid #a3bfa5;
+  outline-offset: 2px;
+}
+
+/* Touch screens / phones: controls at least 44×44 px (Apple HIG / WCAG 2.5.5). */
+@media (pointer: coarse), (max-width: 639px) {
+  .btn,
+  .btn-primary,
+  .btn-ghost,
+  .input,
+  .tap {
+    min-height: 44px;
+  }
+  .tap-square {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  input[type="range"] {
+    min-height: 44px;
   }
 }
 

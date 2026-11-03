@@ -89,7 +89,7 @@ function Section({ title, to, count, intro, children }: { title: string; to: str
           </h2>
           {intro && <p className="mt-1 max-w-3xl text-xs text-ink-400">{intro}</p>}
         </div>
-        <Link to={to} className="inline-flex shrink-0 items-center gap-1 text-sm text-moss-400 hover:text-moss-300">
+        <Link to={to} className="tap -my-2 inline-flex shrink-0 items-center gap-1 rounded-lg px-1 text-sm text-moss-400 hover:text-moss-300">
           Wszystkie <ArrowRight size={14} />
         </Link>
       </div>

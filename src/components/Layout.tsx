@@ -52,7 +52,7 @@ export function Layout({ children }: { children: ReactNode }) {
           end={end}
           onClick={() => setOpen(false)}
           className={({ isActive }) =>
-            `group flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition ${
+            `tap group flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition ${
               isActive ? 'bg-moss-500/10 text-moss-200 ring-1 ring-inset ring-moss-500/25' : 'text-ink-400 hover:bg-white/[0.04] hover:text-ink-100'
             }`
           }
@@ -85,7 +85,7 @@ export function Layout({ children }: { children: ReactNode }) {
           <div className="absolute inset-y-0 left-0 w-72 bg-ink-900 px-4 py-5 shadow-2xl">
             <div className="mb-8 flex items-center justify-between">
               <Logo />
-              <button onClick={() => setOpen(false)} className="text-ink-400" aria-label="Zamknij menu">
+              <button onClick={() => setOpen(false)} className="tap-square -mr-2 inline-flex items-center justify-center rounded-lg text-ink-400" aria-label="Zamknij menu">
                 <X size={20} />
               </button>
             </div>
@@ -96,7 +96,7 @@ export function Layout({ children }: { children: ReactNode }) {
 
       <header className="sticky top-0 z-20 border-b border-white/[0.05] bg-ink-900/80 backdrop-blur">
         <div className="mx-auto flex max-w-[1400px] items-center gap-3 px-4 py-3 sm:px-6">
-          <button onClick={() => setOpen(true)} className="text-ink-300 lg:hidden" aria-label="Otwórz menu">
+          <button onClick={() => setOpen(true)} className="tap-square -ml-2 inline-flex items-center justify-center rounded-lg text-ink-300 lg:hidden" aria-label="Otwórz menu">
             <Menu size={22} />
           </button>
           <div className="lg:hidden">
@@ -117,7 +117,7 @@ export function Layout({ children }: { children: ReactNode }) {
                 ))}
               </select>
             </label>
-            <button className="btn-primary !py-1.5" onClick={() => setImportOpen(true)}>
+            <button className="btn-primary tap-square !py-1.5" onClick={() => setImportOpen(true)} aria-label="Dodaj ogłoszenie">
               <Plus size={16} /> <span className="hidden sm:inline">Dodaj ogłoszenie</span>
             </button>
           </div>

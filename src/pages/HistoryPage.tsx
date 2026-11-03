@@ -38,7 +38,7 @@ export default function HistoryPage() {
                   </div>
                   <div className="mt-2 flex flex-wrap gap-1.5">
                     {r.sources.map((s) => (
-                      <span key={s.source} className={`chip ${s.ok ? '' : s.skipped ? 'opacity-60' : '!border-rust-500/40 !text-rust-400'}`} title={s.error}>
+                      <span key={s.source} className={`chip ${s.ok ? '' : s.skipped ? '!border-dashed !text-ink-400' : '!border-rust-500/40 !text-rust-400'}`} title={s.error}>
                         {s.ok ? <CheckCircle2 size={11} /> : s.skipped ? <MinusCircle size={11} /> : <XCircle size={11} />}
                         {s.source}: {s.ok ? s.found : s.skipped ? 'pominięto' : 'błąd'}
                       </span>

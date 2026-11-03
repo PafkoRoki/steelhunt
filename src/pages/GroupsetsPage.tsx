@@ -58,7 +58,7 @@ export default function GroupsetsPage() {
             <button
               key={f.id || 'all'}
               onClick={() => setFamily(f.id)}
-              className={`rounded-full border px-3 py-1 text-xs ${family === f.id ? 'border-moss-500/50 bg-moss-500/15 text-moss-200' : 'border-white/[0.08] text-ink-400'}`}
+              className={`tap inline-flex items-center rounded-full border px-3 py-1 text-xs ${family === f.id ? 'border-moss-500/50 bg-moss-500/15 text-moss-200' : 'border-white/[0.08] text-ink-400'}`}
             >
               {f.name}
             </button>
