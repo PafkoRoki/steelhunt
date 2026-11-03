@@ -73,7 +73,7 @@ const DETAILS = [
   'trzy prowadnice linek na rurze górnej, oporniki linek na rurze dolnej, prowadnica pod suportem',
   'po dwa mocowania koszyka na rurze dolnej i podsiodłowej',
   'mostek tylnych widełek dolnych, gwintowana mufa suportu, otwarta główka',
-  'naklejka SPECIALIZED na rurze górnej (z pliku logo dodanego na stronę)',
+  'naklejka SPECIALIZED na rurze górnej i napis „Stumpjumper” z cieniem na rurze dolnej, po obu stronach (z grafik dodanych przez właściciela strony)',
 ];
 
 function Table({ title, rows, note }: { title: string; rows: [string, string][]; note?: string }) {
@@ -144,7 +144,7 @@ export default function FrameModelPage() {
           ))}
         </ul>
         <p className="mt-3 text-xs text-ink-500">
-          Bez napisu „Stumpjumper” na rurze dolnej (nie mamy wzoru tej naklejki) i bez widelca. Skrypt: <code>design/3d/stumpjumper_comp_1990.py</code> — każdy wymiar to parametr.
+          Bez widelca. Kolory naklejek dobrane do białej ramy (bordowe litery, ciemny cień). Skrypt: <code>design/3d/stumpjumper_comp_1990.py</code> — każdy wymiar to parametr.
         </p>
         <a href={SOURCE} target="_blank" rel="noreferrer" className="tap mt-2 inline-flex items-center gap-1.5 text-sm text-moss-300 hover:underline">
           Katalog Specialized 1990 (bikalog.org) <ExternalLink size={13} />

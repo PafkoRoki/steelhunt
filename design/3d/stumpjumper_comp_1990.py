@@ -52,7 +52,7 @@ scene = bpy.context.scene
 coll = scene.collection
 
 
-def mat(name, color, rough=0.28, metal=0.0, coat=0.0, alpha_tex=None):
+def mat(name, color, rough=0.28, metal=0.0, coat=0.0, alpha_tex=None, color_from_tex=False):
     m = bpy.data.materials.new(name)
     m.use_nodes = True
     nt = m.node_tree
@@ -65,6 +65,8 @@ def mat(name, color, rough=0.28, metal=0.0, coat=0.0, alpha_tex=None):
         tex = nt.nodes.new('ShaderNodeTexImage')
         tex.image = bpy.data.images.load(alpha_tex)
         nt.links.new(tex.outputs['Alpha'], b.inputs['Alpha'])
+        if color_from_tex:   # multi-colour decal: colours come from the texture itself
+            nt.links.new(tex.outputs['Color'], b.inputs['Base Color'])
         m.blend_method = 'CLIP'
         m.alpha_threshold = 0.5
         m.shadow_method = 'CLIP'
@@ -75,6 +77,8 @@ PAINT = mat('paint_white', (0.74, 0.745, 0.73), rough=0.2, coat=1.0)
 BARE = mat('steel_bare', (0.55, 0.56, 0.57), rough=0.35, metal=1.0)       # threads, bolt
 DARK = mat('hole_dark', (0.02, 0.02, 0.02), rough=0.6)
 DECAL_M = mat('decal_specialized', (0.30, 0.02, 0.05), rough=0.3, coat=1.0, alpha_tex=DECAL)
+DECAL_SJ = os.path.join(ROOT, 'design', '3d', 'decal-stumpjumper.png')   # from the owner-supplied script artwork
+DECAL_SJ_M = mat('decal_stumpjumper', (1, 1, 1), rough=0.3, coat=1.0, alpha_tex=DECAL_SJ, color_from_tex=True)
 
 
 def obj_from_bm(bm, name, material, smooth=True):
@@ -434,36 +438,48 @@ for s in (-1, 1):
     sd = (ssl[0 if s == -1 else 1][6] - a).normalized()
     weld(f'weld_ss_st_{s}', a + sd * 40, -sd, 7.0, 7.0, UPZ, BB, st_dir, rs + 1.1, 0, 60)
 
-# decals: SPECIALIZED wordmark on both sides of the top tube (owner-supplied logo file, recoloured)
-img = bpy.data.images.load(DECAL)
-aspect = img.size[0] / img.size[1]
-L = 150.0
-H = L / aspect
-arc = H / rt
-for s in (-1, 1):
-    bm = bmesh.new()
-    uv = bm.loops.layers.uv.new('UVMap')
-    nu, nv = 24, 10
-    start = TT_R.lerp(TT_F, 0.5) - tt_dir * (L / 2)
-    side = Y * s
-    up2 = tt_up
-    grid = []
-    for i in range(nu + 1):
-        row = []
-        for j in range(nv + 1):
-            a = -arc / 2 + arc * j / nv
-            n_vec = side * math.cos(a) + up2 * math.sin(a)
-            row.append(bm.verts.new(start + tt_dir * (L * i / nu) + n_vec * (rt + 0.08)))
-        grid.append(row)
-    for i in range(nu):
-        for j in range(nv):
-            f = bm.faces.new((grid[i][j], grid[i + 1][j], grid[i + 1][j + 1], grid[i][j + 1]) if s == 1 else (grid[i][j], grid[i][j + 1], grid[i + 1][j + 1], grid[i + 1][j]))
-            for loop in f.loops:
-                vi = next((ii, jj) for ii in range(nu + 1) for jj in range(nv + 1) if grid[ii][jj] == loop.vert)
-                u = vi[0] / nu
-                v = vi[1] / nv
-                loop[uv].uv = (1 - u if s == 1 else u, v)
-    obj_from_bm(bm, f'decal_tt_{s}', DECAL_M)
+# decals ----------------------------------------------------------------------
+def decal(name, p0, p1, r, up, centre, length, image_path, material, nu=36, nv=28):
+    """Wrap an image around tube p0->p1 (radius r) on both sides. The image is never mirrored: on each side
+    u runs to the viewer's right and v towards `up` (so lettering stands upright, read like on a real frame)."""
+    img = bpy.data.images.load(image_path, check_existing=True)
+    height = length * img.size[1] / img.size[0]
+    arc = height / r
+    d = (p1 - p0).normalized()
+    up = (up - d * up.dot(d)).normalized()
+    start = p0.lerp(p1, centre) - d * (length / 2)
+    for s in (-1, 1):
+        side = Y * s
+        screen_right = Vector((-s, 0, 0))            # camera on side s looking at the frame
+        forward_u = d.dot(screen_right) > 0
+        bm = bmesh.new()
+        uv = bm.loops.layers.uv.new('UVMap')
+        grid = [[None] * (nv + 1) for _ in range(nu + 1)]
+        for i in range(nu + 1):
+            for j in range(nv + 1):
+                ang = -arc / 2 + arc * j / nv
+                n_vec = side * math.cos(ang) + up * math.sin(ang)
+                grid[i][j] = bm.verts.new(start + d * (length * i / nu) + n_vec * (r + 0.3))
+        for i in range(nu):
+            for j in range(nv):
+                quad = [(i, j), (i + 1, j), (i + 1, j + 1), (i, j + 1)]
+                f = bm.faces.new([grid[a][b] for a, b in quad])
+                f.normal_update()
+                centre_pt = sum((grid[a][b].co for a, b in quad), Vector()) / 4
+                axis_pt = start + d * d.dot(centre_pt - start)
+                if f.normal.dot(centre_pt - axis_pt) < 0:
+                    f.normal_flip()
+                for loop in f.loops:
+                    ii, jj = next(q for q in quad if grid[q[0]][q[1]] == loop.vert)
+                    u = ii / nu
+                    loop[uv].uv = (u if forward_u else 1 - u, jj / nv)
+        obj_from_bm(bm, f'{name}_{s}', material)
+
+
+# SPECIALIZED on the top tube (owner-supplied logo file, recoloured maroon)
+decal('decal_tt', TT_R, TT_F, rt, tt_up, 0.5, 150.0, DECAL, DECAL_M)
+# Stumpjumper script on the down tube (owner-supplied artwork: maroon letters, dark shadow)
+decal('decal_dt', BB, DT_F, rd, dt_up, 0.52, 180.0, DECAL_SJ, DECAL_SJ_M)
 
 # ----------------------------------------------------------------------------- finish: join, scale, export
 bpy.ops.object.select_all(action='DESELECT')
@@ -531,6 +547,7 @@ if RENDER:
         'rear_detail': ((-1.1, 0.75, 0.25), Vector((-0.25, 0, -0.1)), 85),
         'seat_cluster': (tuple(seat + Vector((-0.28, 0.42, 0.12))), seat - Vector((0, 0, 0.04)), 100),
         'head_tube': (tuple(head + Vector((0.32, 0.38, 0.1))), head, 100),
+        'down_tube': (tuple(mpt(BB.lerp(DT_F, 0.52)) + Vector((0.0, 0.55, 0.02))), mpt(BB.lerp(DT_F, 0.52)), 100),
     }
     for name, (loc, target, lens) in views.items():
         cam.location = loc
