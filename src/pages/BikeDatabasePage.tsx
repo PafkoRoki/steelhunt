@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { BrandLogo, BrandLogoCredit } from '../components/BrandLogo';
-import { Download, Plus, Trash2 } from 'lucide-react';
+import { Box, Download, Plus, Trash2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useAppData } from '../hooks/AppData';
 import { PageHeader } from '../components/ui';
 import { CATEGORY_LABEL } from '../utils/labels';
@@ -144,6 +145,11 @@ export default function BikeDatabasePage() {
                     </div>
                     {m.tubingNote && <p className="mt-1.5 text-xs text-ink-400">{m.tubingNote}</p>}
                     {m.xbikingNotes && <p className="mt-1 text-xs text-moss-300/80">{m.xbikingNotes}</p>}
+                    {m.id === 'specialized-stumpjumper-comp' && (
+                      <Link to="/model/stumpjumper-comp-1990" className="tap mt-2 inline-flex items-center gap-1.5 rounded-lg border border-moss-500/30 bg-moss-500/10 px-2.5 py-1 text-xs text-moss-200 hover:bg-moss-500/20">
+                        <Box size={13} /> Model 3D ramy (1990)
+                      </Link>
+                    )}
                     <Sources urls={m.sources} />
                   </div>
                 ))}

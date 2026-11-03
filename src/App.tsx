@@ -16,6 +16,7 @@ import ListingPage from './pages/ListingPage';
 
 // Leaflet is the heaviest dependency — load the map only when needed.
 const MapPage = lazy(() => import('./pages/MapPage'));
+const FrameModelPage = lazy(() => import('./pages/FrameModelPage'));
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="/tubing" element={<TubingDatabasePage />} />
           <Route path="/groupsets" element={<GroupsetsPage />} />
           <Route path="/selection" element={<SelectionPage />} />
+          <Route path="/model/stumpjumper-comp-1990" element={<FrameModelPage />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/listing/:id" element={<ListingPage />} />
