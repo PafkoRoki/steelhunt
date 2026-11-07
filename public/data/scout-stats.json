@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T13:12:36.102Z",
+  "generatedAt": "2026-11-07T12:25:01.127Z",
   "keepDays": 14,
   "maxDetailFetches": 40,
   "portals": [
@@ -7,68 +7,68 @@
       "file": "auto-olx.json",
       "name": "OLX.pl",
       "queries": 13,
-      "raw": 522,
-      "inArea": 434,
+      "raw": 523,
+      "inArea": 431,
       "pre": {
         "checked": 0,
         "rejected": {}
       },
       "detailsFetched": 0,
       "full": {
-        "checked": 434,
+        "checked": 431,
         "rejected": {
-          "not-mtb": 135,
-          "not-offer": 13,
-          "part": 36,
+          "not-mtb": 138,
+          "modern": 119,
+          "part": 35,
           "part-code": 2,
-          "cross-trekking": 6,
-          "no-retro": 46,
-          "modern": 114,
-          "red-flag": 34,
+          "cross-trekking": 5,
+          "no-retro": 42,
+          "red-flag": 36,
+          "not-offer": 9,
           "not-bike": 4
         },
-        "manualDuplicates": 17
+        "manualDuplicates": 13
       },
-      "added": 1,
-      "carried": 1,
-      "expired": 1,
-      "rechecked": {
-        "not-mtb": 1
-      },
-      "published": 28,
+      "added": 4,
+      "carried": 4,
+      "expired": 0,
+      "rechecked": {},
+      "published": 32,
       "errors": 0
     },
     {
       "file": "auto-kleinanzeigen.json",
       "name": "Kleinanzeigen.de",
       "queries": 15,
-      "raw": 290,
-      "inArea": 39,
+      "raw": 346,
+      "inArea": 48,
       "pre": {
-        "checked": 39,
+        "checked": 48,
         "rejected": {
-          "red-flag": 5,
-          "part": 11,
-          "not-offer": 1,
-          "not-mtb": 2,
+          "modern": 5,
+          "red-flag": 6,
+          "not-mtb": 1,
+          "part": 7,
           "cross-trekking": 1,
-          "modern": 2
+          "no-retro": 2
         }
       },
-      "detailsFetched": 4,
+      "detailsFetched": 13,
       "full": {
-        "checked": 17,
+        "checked": 26,
         "rejected": {
           "modern": 1,
           "red-flag": 1
         },
         "manualDuplicates": 0
       },
-      "added": 2,
-      "carried": 14,
-      "expired": 0,
-      "rechecked": {},
-      "published": 29,
+      "added": 11,
+      "carried": 15,
+      "expired": 1,
+      "rechecked": {
+        "not-mtb": 1
+      },
+      "published": 39,
       "errors": 0
     },
     {
@@ -76,32 +76,34 @@
       "name": "Sprzedajemy.pl",
       "queries": 8,
       "raw": 154,
-      "inArea": 134,
+      "inArea": 135,
       "pre": {
-        "checked": 134,
+        "checked": 135,
         "rejected": {
           "part": 2,
-          "not-mtb": 111,
+          "not-mtb": 113,
           "cross-trekking": 3,
           "modern": 3,
           "red-flag": 1
         }
       },
-      "detailsFetched": 8,
+      "detailsFetched": 7,
       "full": {
-        "checked": 14,
+        "checked": 13,
         "rejected": {
-          "modern": 3,
           "no-retro": 3,
+          "modern": 4,
           "not-offer": 1
         },
         "manualDuplicates": 0
       },
-      "added": 1,
-      "carried": 0,
-      "expired": 0,
-      "rechecked": {},
-      "published": 7,
+      "added": 0,
+      "carried": 1,
+      "expired": 1,
+      "rechecked": {
+        "no-retro": 1
+      },
+      "published": 6,
       "errors": 0
     }
   ]
