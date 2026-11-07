@@ -10,3 +10,7 @@ tmp/
 
 # Blender preview renders (regenerate with --render)
 design/3d/preview-*.png
+
+# Agent skills installed locally with `npx skills add` (tools for this machine, not part of the site)
+.claude/skills/
+skills-lock.json
