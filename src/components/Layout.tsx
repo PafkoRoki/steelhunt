@@ -68,13 +68,13 @@ export function Layout({ children }: { children: ReactNode }) {
           onClick={() => setOpen(false)}
           className={({ isActive }) =>
             `tap group flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition ${
-              isActive ? 'bg-moss-500/10 text-moss-200 ring-1 ring-inset ring-moss-500/25' : 'text-ink-400 hover:bg-white/[0.04] hover:text-ink-100'
+              isActive ? 'bg-moss-500/10 text-moss-200 ring-1 ring-inset ring-moss-500/25' : 'text-ink-400 hover:bg-white/45 hover:text-ink-100'
             }`
           }
         >
           <Icon size={17} className="shrink-0" />
           <span className="flex-1">{label}</span>
-          {to === '/watchlist' && watchlist.length > 0 && <span className="stat-num rounded-full bg-white/[0.06] px-1.5 text-[11px] text-ink-300">{watchlist.length}</span>}
+          {to === '/watchlist' && watchlist.length > 0 && <span className="stat-num rounded-full bg-white/55 px-1.5 text-[11px] text-ink-300">{watchlist.length}</span>}
         </NavLink>
       ))}
     </nav>
@@ -90,7 +90,7 @@ export function Layout({ children }: { children: ReactNode }) {
         Przejdź do treści
       </a>
       {/* Desktop sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-white/[0.05] bg-ink-950/70 px-4 py-5 backdrop-blur lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-black/[0.08] bg-ink-950/70 px-4 py-5 backdrop-blur lg:flex">
         <Logo />
         <div className="mt-8 flex-1">{nav}</div>
         {settings.demoMode && (
@@ -116,7 +116,7 @@ export function Layout({ children }: { children: ReactNode }) {
         </div>
       )}
 
-      <header className="sticky top-0 z-20 border-b border-white/[0.05] bg-ink-900/80 backdrop-blur">
+      <header className="sticky top-0 z-20 border-b border-black/[0.08] bg-ink-900/80 backdrop-blur">
         <div className="mx-auto flex max-w-[1400px] items-center gap-3 px-4 py-3 sm:px-6">
           <button
             onClick={() => setOpen(true)}

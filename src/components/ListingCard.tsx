@@ -71,7 +71,7 @@ export function ListingCard({ item, compact = false }: { item: AnalyzedListing; 
         </div>
 
         {!compact && (
-          <div className="rounded-xl border border-white/[0.05] bg-ink-950/40 p-3">
+          <div className="rounded-xl border border-black/[0.08] bg-ink-950/40 p-3">
             <div className="flex items-center justify-between gap-2">
               <div className="min-w-0">
                 <div className="text-[10px] uppercase tracking-wider text-ink-500">Rama</div>

@@ -64,11 +64,11 @@ export default function MapPage() {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {radius !== 0 && <Circle center={[settings.origin.lat, settings.origin.lng]} radius={radius * 1000} pathOptions={{ color: '#7fa283', weight: 1, dashArray: '6 6', fillOpacity: 0.04 }} />}
+            {radius !== 0 && <Circle center={[settings.origin.lat, settings.origin.lng]} radius={radius * 1000} pathOptions={{ color: '#b0298f', weight: 1, dashArray: '6 6', fillOpacity: 0.04 }} />}
             {[30, 60, 100].filter((r) => radius === 0 || r < radius).map((r) => (
-              <Circle key={r} center={[settings.origin.lat, settings.origin.lng]} radius={r * 1000} pathOptions={{ color: '#5a5f60', weight: 0.6, fill: false, dashArray: '2 6' }} />
+              <Circle key={r} center={[settings.origin.lat, settings.origin.lng]} radius={r * 1000} pathOptions={{ color: '#7da8bf', weight: 0.6, fill: false, dashArray: '2 6' }} />
             ))}
-            <CircleMarker center={[settings.origin.lat, settings.origin.lng]} radius={7} pathOptions={{ color: '#ecede9', weight: 2, fillColor: '#141516', fillOpacity: 1 }}>
+            <CircleMarker center={[settings.origin.lat, settings.origin.lng]} radius={7} pathOptions={{ color: '#ffffff', weight: 2, fillColor: '#0a0a0a', fillOpacity: 1 }}>
               <Tooltip direction="top" permanent className="!border-0 !bg-transparent !shadow-none">
                 <span className="font-display text-sm font-semibold uppercase tracking-wider text-ink-100">{settings.origin.name}</span>
               </Tooltip>
@@ -81,7 +81,7 @@ export default function MapPage() {
                   key={item.listing.id}
                   center={[lat, lng]}
                   radius={a.isBargain ? 10 : 7}
-                  pathOptions={{ color: a.isUnknownGem ? '#7dd3fc' : '#0e0f0f', weight: a.isUnknownGem ? 2.5 : 1.5, fillColor: color, fillOpacity: 0.9 }}
+                  pathOptions={{ color: a.isUnknownGem ? '#0e7490' : '#ffffff', weight: a.isUnknownGem ? 2.5 : 1.5, fillColor: color, fillOpacity: 0.9 }}
                 >
                   <Popup>
                     <div className="w-56 space-y-1">
@@ -119,7 +119,7 @@ export default function MapPage() {
           </span>
         ))}
         <span className="inline-flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full border-2 border-sky-300" /> Unknown Gem
+          <span className="h-2.5 w-2.5 rounded-full border-2 border-cyan-700" /> Unknown Gem
         </span>
         <span>Większy znacznik = okazja</span>
       </div>

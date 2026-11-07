@@ -22,7 +22,7 @@ export function SourceStatus() {
           const log = lastRun?.sources.find((s) => s.source === m.id);
           const Icon = m.status === 'api' ? PlugZap : m.status === 'scout' ? Radar : m.status === 'manual' ? Hand : CircleDashed;
           return (
-            <div key={m.id} className="rounded-xl border border-white/[0.05] bg-ink-950/40 p-3">
+            <div key={m.id} className="rounded-xl border border-black/[0.08] bg-ink-950/40 p-3">
               <div className="flex items-center justify-between">
                 <span className="flex items-center gap-2 text-sm font-medium text-ink-100">
                   <Icon size={15} className={m.status === 'api' || m.status === 'scout' ? 'text-moss-400' : 'text-ink-500'} />

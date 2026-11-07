@@ -47,8 +47,8 @@ export function scoreTone(score: number): 'top' | 'good' | 'mid' | 'low' {
 }
 
 export const TONE_COLOR: Record<ReturnType<typeof scoreTone>, string> = {
-  top: '#8fc08f',
-  good: '#c9b45a',
-  mid: '#c98a4a',
-  low: '#8a8f8e',
+  top: '#1f6236', // ≥ 5:1 on the light cards
+  good: '#6b5309',
+  mid: '#8c3f12',
+  low: '#44606e',
 };

@@ -199,7 +199,7 @@ function Toggle({ label, checked, onChange }: { label: string; checked: boolean;
         onClick={() => onChange(!checked)}
         className={`relative h-5 w-9 shrink-0 rounded-full transition ${checked ? 'bg-moss-500' : 'bg-ink-700'}`}
       >
-        <span className={`absolute top-0.5 h-4 w-4 rounded-full bg-ink-100 transition ${checked ? 'left-[18px]' : 'left-0.5'}`} />
+        <span className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition ${checked ? 'left-[18px]' : 'left-0.5'}`} />
       </button>
     </label>
   );
@@ -215,7 +215,7 @@ function ChipGroup<T extends string>({ label, values, selected, labelOf, onToggl
           <button
             key={v}
             onClick={() => onToggle(v)}
-            className={`rounded-full border px-2.5 py-1 text-xs transition ${selected.includes(v) ? 'border-moss-500/50 bg-moss-500/15 text-moss-200' : 'border-white/[0.08] text-ink-400 hover:text-ink-200'}`}
+            className={`rounded-full border px-2.5 py-1 text-xs transition ${selected.includes(v) ? 'border-moss-500/50 bg-moss-500/15 text-moss-200' : 'border-black/[0.11] text-ink-400 hover:text-ink-200'}`}
           >
             {labelOf(v)}
           </button>

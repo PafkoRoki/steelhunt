@@ -58,7 +58,7 @@ export default function GroupsetsPage() {
             <button
               key={f.id || 'all'}
               onClick={() => setFamily(f.id)}
-              className={`tap inline-flex items-center rounded-full border px-3 py-1 text-xs ${family === f.id ? 'border-moss-500/50 bg-moss-500/15 text-moss-200' : 'border-white/[0.08] text-ink-400'}`}
+              className={`tap inline-flex items-center rounded-full border px-3 py-1 text-xs ${family === f.id ? 'border-moss-500/50 bg-moss-500/15 text-moss-200' : 'border-black/[0.11] text-ink-400'}`}
             >
               {f.name}
             </button>
@@ -78,7 +78,7 @@ export default function GroupsetsPage() {
 
       <div className="card overflow-x-auto">
         <table className="w-full min-w-[860px] text-left text-sm">
-          <thead className="border-b border-white/[0.06] text-[11px] uppercase tracking-wider text-ink-500">
+          <thead className="border-b border-black/[0.09] text-[11px] uppercase tracking-wider text-ink-500">
             <tr>
               <th className="px-4 py-3">Grupa / seria</th>
               <th className="px-4 py-3">Lata</th>
@@ -102,7 +102,7 @@ export default function GroupsetsPage() {
               const width = Math.max(((to - g.yearFrom + 1) / span) * 100, 3);
               const inListings = counts.get(`Shimano ${fam.name} ${g.series} (${yearsLabel(g)})`) ?? 0;
               return (
-                <tr key={g.id} className="border-b border-white/[0.04] align-top last:border-0">
+                <tr key={g.id} className="border-b border-black/[0.07] align-top last:border-0">
                   <td className="px-4 py-3">
                     <div className="font-medium text-ink-100">
                       {fam.name} <span className="text-ink-300">{g.series}</span>
@@ -115,7 +115,7 @@ export default function GroupsetsPage() {
                     {g.yearNote && <div className="mt-0.5 max-w-[11rem] whitespace-normal text-[11px] font-normal text-brass-300">{g.yearNote}</div>}
                   </td>
                   <td className="px-4 py-3">
-                    <div className="relative mt-1.5 h-2 rounded-full bg-white/[0.04]">
+                    <div className="relative mt-1.5 h-2 rounded-full bg-white/45">
                       <div
                         className={`absolute inset-y-0 rounded-full ${g.yearTo ? '' : 'opacity-60'}`}
                         style={{ left: `${left}%`, width: `${width}%`, background: fam.tier >= 5 ? '#7fa283' : fam.tier >= 3 ? '#a8a37a' : '#6b6f70' }}

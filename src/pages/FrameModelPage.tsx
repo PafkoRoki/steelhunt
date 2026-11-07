@@ -125,7 +125,7 @@ export default function FrameModelPage() {
           loading="eager"
           style={{ width: '100%', height: 'min(70vh, 620px)', background: 'radial-gradient(ellipse at 50% 40%, #232627 0%, #121314 75%)' }}
         />
-        <p className="border-t border-white/[0.05] px-4 py-2.5 text-xs text-ink-400">
+        <p className="border-t border-black/[0.08] px-4 py-2.5 text-xs text-ink-400">
           Przeciągnij, aby obrócić · kółko myszy lub dwa palce, aby przybliżyć — mikrodetale (spoiny, haki, uchwyty) najlepiej widać z bliska.
         </p>
       </div>
