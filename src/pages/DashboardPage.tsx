@@ -63,20 +63,19 @@ export default function DashboardPage() {
 
       {best ? <BestDeal item={best} isToday={!!today[0]} /> : <EmptyState icon={<BadgePercent size={22} />} title="Brak ogłoszeń">Dodaj ogłoszenie ręcznie lub włącz tryb demo w ustawieniach.</EmptyState>}
 
-      <Section no="01" title="Najlepsze okazje" to="/deals" count={bargains.length}>
+      <Section title="Najlepsze okazje" to="/deals" count={bargains.length}>
         {bargainCards.map((l) => (
           <ListingCard key={l.listing.id} item={l} />
         ))}
       </Section>
 
-      <Section no="02" title={`Blisko ${settings.origin.name} (≤ 30 km)`} to="/map" count={near.length}>
+      <Section title={`Blisko ${settings.origin.name} (≤ 30 km)`} to="/map" count={near.length}>
         {nearCards.map((l) => (
           <ListingCard key={l.listing.id} item={l} />
         ))}
       </Section>
 
       <Section
-        no="03"
         title="Unknown Gems"
         to="/deals?gems=1"
         count={gems.length}
@@ -92,12 +91,11 @@ export default function DashboardPage() {
   );
 }
 
-function Section({ no, title, to, count, intro, children }: { no?: string; title: string; to: string; count: number; intro?: string; children: React.ReactNode }) {
+function Section({ title, to, count, intro, children }: { title: string; to: string; count: number; intro?: string; children: React.ReactNode }) {
   return (
     <section>
       <div className="mb-3 flex items-end justify-between gap-4">
         <div>
-          {no && <div className="section-title mb-1 !text-moss-300">{no} /</div>}
           <h2 className="font-display text-2xl uppercase tracking-wide">
             {title} <span className="stat-num text-base text-ink-500">({count})</span>
           </h2>

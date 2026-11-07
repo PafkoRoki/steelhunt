@@ -15,12 +15,12 @@
   }
   body {
     @apply bg-ink-900 text-ink-200 font-sans antialiased;
-    background-image: radial-gradient(1200px 600px at 85% -10%, rgba(255, 255, 255, 0.55), transparent 60%),
-      radial-gradient(900px 500px at -10% 110%, rgba(196, 72, 26, 0.05), transparent 60%);
+    background-image: radial-gradient(1200px 600px at 85% -10%, rgba(176, 41, 143, 0.07), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(236, 214, 170, 0.45), transparent 60%);
     background-attachment: fixed;
   }
   ::selection {
-    background: rgba(196, 72, 26, 0.2);
+    background: rgba(176, 41, 143, 0.22);
   }
   h1,
   h2,
@@ -29,7 +29,7 @@
   }
   * {
     scrollbar-width: thin;
-    scrollbar-color: #b3aa98 transparent;
+    scrollbar-color: #7da8bf transparent;
   }
 }
 
@@ -41,28 +41,7 @@
     @apply transition duration-200 hover:border-moss-500/30 hover:bg-ink-800/80;
   }
   .section-title {
-    @apply font-mono text-[12px] font-medium uppercase tracking-[0.16em] text-ink-400;
-  }
-  /* Spec plate: a printed data panel with two screws, like a label riveted onto equipment. */
-  .plate {
-    @apply relative rounded-xl border border-black/[0.09] bg-ink-950/70;
-    box-shadow: inset 0 1px 2px rgba(20, 19, 18, 0.06);
-  }
-  .plate::before,
-  .plate::after {
-    content: '';
-    position: absolute;
-    top: 7px;
-    width: 5px;
-    height: 5px;
-    border-radius: 999px;
-    background: radial-gradient(circle at 35% 35%, #fff 0 25%, #b3aa98 26% 100%);
-    box-shadow: 0 0 0 1px rgba(20, 19, 18, 0.12);
-  }
-  .plate::before { left: 7px; }
-  .plate::after { right: 7px; }
-  .plate-label {
-    @apply font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-ink-500;
+    @apply font-display text-[13px] font-semibold uppercase tracking-[0.18em] text-ink-400;
   }
   .page-title {
     @apply font-display text-3xl font-semibold uppercase tracking-wide text-ink-100 sm:text-4xl;
@@ -92,13 +71,13 @@
 
 /* Keyboard focus: always visible (mouse clicks don't show it — :focus-visible). */
 :where(a, button, select, summary, [role="button"], [tabindex]):focus-visible {
-  outline: 2px solid #943410;
+  outline: 2px solid #8a1a6f;
   outline-offset: 2px;
   border-radius: 0.5rem;
 }
 /* File pickers are a hidden <input> inside a styled <label>. */
 label:has(> input[type="file"]:focus-visible) {
-  outline: 2px solid #943410;
+  outline: 2px solid #8a1a6f;
   outline-offset: 2px;
 }
 
@@ -120,9 +99,9 @@ label:has(> input[type="file"]:focus-visible) {
   }
 }
 
-/* Leaflet tuned to the bone "future familiar" palette */
+/* Leaflet tuned to the light sky-sand palette */
 .leaflet-container {
-  background: #e2dccf;
+  background: #dbeef8;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .steel-tiles {
@@ -130,22 +109,22 @@ label:has(> input[type="file"]:focus-visible) {
 }
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  background: #f7f4ee;
+  background: #eef7fc;
   color: #0a0a0a;
-  border: 1px solid rgba(20, 19, 18, 0.12);
+  border: 1px solid rgba(16, 48, 72, 0.14);
 }
 .leaflet-popup-content {
   margin: 12px 14px;
 }
 .leaflet-control-zoom a {
-  background: #f7f4ee !important;
+  background: #eef7fc !important;
   color: #142630 !important;
-  border-color: rgba(20, 19, 18, 0.12) !important;
+  border-color: rgba(16, 48, 72, 0.14) !important;
 }
 .leaflet-control-attribution {
-  background: rgba(247, 244, 238, 0.88) !important;
-  color: #5f5a52 !important;
+  background: rgba(238, 247, 252, 0.85) !important;
+  color: #44606e !important;
 }
 .leaflet-control-attribution a {
-  color: #943410 !important;
+  color: #8a1a6f !important;
 }
