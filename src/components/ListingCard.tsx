@@ -71,10 +71,10 @@ export function ListingCard({ item, compact = false }: { item: AnalyzedListing; 
         </div>
 
         {!compact && (
-          <div className="rounded-xl border border-black/[0.08] bg-ink-950/40 p-3">
+          <div className="plate px-3 pb-3 pt-4">
             <div className="flex items-center justify-between gap-2">
               <div className="min-w-0">
-                <div className="text-[10px] uppercase tracking-wider text-ink-500">Rama</div>
+                <div className="plate-label">Rama</div>
                 <div className="truncate text-sm text-ink-200">
                   {MATERIAL_LABEL[a.frameMaterial]}
                   {tubing && <span className="text-ink-400"> · {tubing}</span>}
@@ -120,7 +120,7 @@ function MiniScore({ label, value }: { label: string; value: number | null }) {
   return (
     <div>
       <div className="stat-num text-base font-semibold text-ink-100">{value ?? '?'}</div>
-      <div className="text-[10px] uppercase tracking-wider text-ink-500">{label}</div>
+      <div className="plate-label !text-[10px]">{label}</div>
     </div>
   );
 }

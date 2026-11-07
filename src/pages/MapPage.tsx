@@ -64,9 +64,9 @@ export default function MapPage() {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {radius !== 0 && <Circle center={[settings.origin.lat, settings.origin.lng]} radius={radius * 1000} pathOptions={{ color: '#b0298f', weight: 1, dashArray: '6 6', fillOpacity: 0.04 }} />}
+            {radius !== 0 && <Circle center={[settings.origin.lat, settings.origin.lng]} radius={radius * 1000} pathOptions={{ color: '#bc4418', weight: 1, dashArray: '6 6', fillOpacity: 0.04 }} />}
             {[30, 60, 100].filter((r) => radius === 0 || r < radius).map((r) => (
-              <Circle key={r} center={[settings.origin.lat, settings.origin.lng]} radius={r * 1000} pathOptions={{ color: '#7da8bf', weight: 0.6, fill: false, dashArray: '2 6' }} />
+              <Circle key={r} center={[settings.origin.lat, settings.origin.lng]} radius={r * 1000} pathOptions={{ color: '#b3aa98', weight: 0.6, fill: false, dashArray: '2 6' }} />
             ))}
             <CircleMarker center={[settings.origin.lat, settings.origin.lng]} radius={7} pathOptions={{ color: '#ffffff', weight: 2, fillColor: '#0a0a0a', fillOpacity: 1 }}>
               <Tooltip direction="top" permanent className="!border-0 !bg-transparent !shadow-none">
