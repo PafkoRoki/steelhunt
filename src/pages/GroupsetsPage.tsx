@@ -70,7 +70,7 @@ export default function GroupsetsPage() {
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {(['hunted', 'refined', 'reclaimed', 'scrap'] as MetalTier[]).map((m) => (
             <div key={m} className="flex flex-col gap-1.5">
-              <MetalTierBadge tier={m} />
+              <MetalTierBadge tier={m} size="lg" />
               <div className="flex flex-wrap gap-1">
                 {families.filter((f) => groupMetal(f) === m).map((f, j, arr) => (
                   <button key={f.id} onClick={() => setFamily(f.id)} className="text-xs text-ink-300 hover:text-ink-100">
@@ -93,7 +93,7 @@ export default function GroupsetsPage() {
               onClick={() => setFamily(f.id)}
               className={`tap inline-flex items-center rounded-full border px-3 py-1 text-xs ${family === f.id ? 'border-moss-500/50 bg-moss-500/15 text-moss-200' : 'border-white/[0.08] text-ink-400'}`}
             >
-              {f.id && <img src={METAL_TIERS[groupMetal(families.find((x) => x.id === f.id)!)].icon} alt="" width={18} height={18} className="-my-1 mr-1" />}
+              {f.id && <img src={METAL_TIERS[groupMetal(families.find((x) => x.id === f.id)!)].icon} alt="" width={28} height={28} className="-my-2 -ml-1 mr-1" />}
               {f.name}
             </button>
           ))}
@@ -143,7 +143,7 @@ export default function GroupsetsPage() {
                 {newMetal && (
                   <tr className="border-b border-white/[0.06] bg-white/[0.02]">
                     <td colSpan={6} className="px-4 py-2">
-                      <MetalTierBadge tier={metal} />
+                      <MetalTierBadge tier={metal} size="lg" />
                     </td>
                   </tr>
                 )}
