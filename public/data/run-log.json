@@ -1,7 +1,27 @@
 {
-  "lastRunAt": "2026-11-07T13:10:06.281Z",
-  "lastSuccessAt": "2026-11-07T13:10:06.281Z",
+  "lastRunAt": "2026-11-07T21:55:04.076Z",
+  "lastSuccessAt": "2026-11-07T21:55:04.076Z",
   "runs": [
+    {
+      "startedAt": "2026-11-07T21:55:03.867Z",
+      "finishedAt": "2026-11-07T21:55:04.076Z",
+      "ok": true,
+      "found": 96,
+      "added": 0,
+      "updated": 96,
+      "duplicates": 96,
+      "analyzed": 95,
+      "priceChanges": [],
+      "sources": [
+        {
+          "source": "manual",
+          "ok": true,
+          "skipped": false,
+          "found": 96,
+          "durationMs": 20
+        }
+      ]
+    },
     {
       "startedAt": "2026-11-07T13:10:06.026Z",
       "finishedAt": "2026-11-07T13:10:06.281Z",
