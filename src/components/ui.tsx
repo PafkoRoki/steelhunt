@@ -12,7 +12,7 @@ export function ScoreRing({ value, size = 56, label, stroke = 5 }: { value: numb
   return (
     <div className="relative inline-flex flex-col items-center" style={{ width: size }}>
       <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={r} stroke="rgba(16,48,72,0.14)" strokeWidth={stroke} fill="none" />
+        <circle cx={size / 2} cy={size / 2} r={r} stroke="rgba(255,255,255,0.07)" strokeWidth={stroke} fill="none" />
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -41,8 +41,8 @@ export function ScoreBar({ value, label, hint }: { value: number | null; label: 
         <span className="text-ink-400">{label}</span>
         <span className="stat-num text-ink-200">{value == null ? '?' : value}</span>
       </div>
-      <div className="h-1.5 overflow-hidden rounded-full bg-white/55">
-        <div className="h-full rounded-full" style={{ width: `${v}%`, background: value == null ? '#97c2d9' : TONE_COLOR[scoreTone(v)] }} />
+      <div className="h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
+        <div className="h-full rounded-full" style={{ width: `${v}%`, background: value == null ? '#3a3e3f' : TONE_COLOR[scoreTone(v)] }} />
       </div>
       {hint && <p className="mt-1 text-[11px] text-ink-500">{hint}</p>}
     </div>
@@ -55,7 +55,7 @@ export function ConfidenceBadge({ level }: { level: ConfidenceLevel }) {
     strong: 'border-moss-500/30 bg-moss-600/15 text-moss-300',
     probable: 'border-brass-500/30 bg-brass-500/10 text-brass-300',
     unverified: 'border-rust-500/30 bg-rust-500/10 text-rust-400',
-    unknown: 'border-black/15 bg-white/40 text-ink-400',
+    unknown: 'border-white/10 bg-white/[0.03] text-ink-400',
   };
   const Icon = level === 'verified' || level === 'strong' ? ShieldCheck : ShieldQuestion;
   return (
@@ -74,7 +74,7 @@ export function OriginBadge({ origin }: { origin: DataOrigin }) {
       </span>
     );
   if (origin === 'import')
-    return <span className="rounded-md border border-black/15 bg-ink-950/80 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-ink-300">Import</span>;
+    return <span className="rounded-md border border-white/10 bg-ink-950/80 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-ink-300">Import</span>;
   return <span className="rounded-md border border-moss-500/40 bg-ink-950/80 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-moss-300">Live</span>;
 }
 
@@ -84,7 +84,7 @@ export function MarketplaceTag({ id }: { id: MarketplaceId }) {
 
 export function GemBadge() {
   return (
-    <span className="inline-flex items-center gap-1 rounded-full border border-cyan-700/30 bg-cyan-600/10 px-2 py-0.5 text-[11px] font-medium text-cyan-800">
+    <span className="inline-flex items-center gap-1 rounded-full border border-sky-400/30 bg-sky-400/10 px-2 py-0.5 text-[11px] font-medium text-sky-300">
       <Gem size={12} /> Unknown Gem
     </span>
   );
@@ -102,7 +102,7 @@ export function WarningNote({ children }: { children: ReactNode }) {
 export function EmptyState({ icon, title, children }: { icon: ReactNode; title: string; children?: ReactNode }) {
   return (
     <div className="card flex flex-col items-center px-6 py-14 text-center">
-      <div className="mb-4 rounded-2xl border border-black/[0.09] bg-white/40 p-4 text-moss-400">{icon}</div>
+      <div className="mb-4 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4 text-moss-400">{icon}</div>
       <h3 className="font-display text-xl uppercase tracking-wide">{title}</h3>
       {children && <div className="mt-2 max-w-md text-sm text-ink-400">{children}</div>}
     </div>

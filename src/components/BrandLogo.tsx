@@ -29,7 +29,7 @@ export function BrandLogo({ id, size = 'sm', placeholder = false }: { id: string
   const logo = brandLogo(id);
   const box = size === 'lg' ? 'h-14 w-44 p-2.5' : 'h-8 w-20 p-1.5';
   // Keeps list rows aligned when a brand has no free logo.
-  if (!logo) return placeholder ? <span className={`inline-flex shrink-0 rounded-lg border border-dashed border-black/[0.11] ${box}`} aria-hidden /> : null;
+  if (!logo) return placeholder ? <span className={`inline-flex shrink-0 rounded-lg border border-dashed border-white/[0.08] ${box}`} aria-hidden /> : null;
   return (
     <span className={`inline-flex shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white/90 ${box}`}>
       <img

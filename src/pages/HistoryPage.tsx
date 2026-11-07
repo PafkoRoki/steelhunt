@@ -65,7 +65,7 @@ export default function HistoryPage() {
             {priceChanges.length ? (
               <div className="card divide-y divide-white/[0.04]">
                 {priceChanges.map(({ item, from, to, at }) => (
-                  <Link key={item.listing.id} to={`/listing/${encodeURIComponent(item.listing.id)}`} className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-white/30">
+                  <Link key={item.listing.id} to={`/listing/${encodeURIComponent(item.listing.id)}`} className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-white/[0.02]">
                     <div className="min-w-0">
                       <div className="truncate text-sm text-ink-100">{item.listing.title}</div>
                       <div className="text-[11px] text-ink-500">{formatDateTime(at)}</div>

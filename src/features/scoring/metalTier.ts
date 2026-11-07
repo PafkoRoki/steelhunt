@@ -19,11 +19,11 @@ export const METAL_TIERS: Record<MetalTier, { label: string; icon: string; hint:
     label: 'Hunted',
     icon: 'tiers/hunted.png',
     hint: `Unikat: okazja na rowerze wartym ≥ ${HUNTED_MIN_VALUE_PLN} zł (Deal Score ≥ ${HUNTED_MIN_SCORE}).`,
-    color: '#4b33a8',
+    color: '#b9a8ff',
   },
-  refined: { label: 'Refined', icon: 'tiers/refined.png', hint: 'Okazja: cena wyraźnie poniżej szacowanej wartości.', color: '#2f3a40' },
-  reclaimed: { label: 'Reclaimed', icon: 'tiers/reclaimed.png', hint: `Przeciętna oferta (Deal Score ≥ ${RECLAIMED_MIN_SCORE}).`, color: '#4f4a44' },
-  scrap: { label: 'Scrap', icon: 'tiers/scrap.png', hint: 'Słaba lub ryzykowna oferta (niski Deal Score albo czerwone flagi).', color: '#7a3f1c' },
+  refined: { label: 'Refined', icon: 'tiers/refined.png', hint: 'Okazja: cena wyraźnie poniżej szacowanej wartości.', color: '#e6e9ea' },
+  reclaimed: { label: 'Reclaimed', icon: 'tiers/reclaimed.png', hint: `Przeciętna oferta (Deal Score ≥ ${RECLAIMED_MIN_SCORE}).`, color: '#a9a29a' },
+  scrap: { label: 'Scrap', icon: 'tiers/scrap.png', hint: 'Słaba lub ryzykowna oferta (niski Deal Score albo czerwone flagi).', color: '#b07a55' },
 };
 
 export const METAL_ORDER: MetalTier[] = ['scrap', 'reclaimed', 'refined', 'hunted'];

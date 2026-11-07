@@ -73,7 +73,7 @@ export default function BikeDatabasePage() {
             <button
               key={m.id}
               onClick={() => setSelected(m.id)}
-              className={`flex w-full items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-left transition ${selected === m.id ? 'bg-moss-500/10 ring-1 ring-inset ring-moss-500/25' : 'hover:bg-white/40'}`}
+              className={`flex w-full items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-left transition ${selected === m.id ? 'bg-moss-500/10 ring-1 ring-inset ring-moss-500/25' : 'hover:bg-white/[0.03]'}`}
             >
               <div className="flex min-w-0 items-center gap-3">
                 <BrandLogo id={m.id} placeholder />
@@ -120,7 +120,7 @@ export default function BikeDatabasePage() {
               <div className="mt-4 space-y-2">
                 {models.length === 0 && <p className="text-sm text-ink-500">Brak modeli w bazie — ogłoszenia tej marki mogą trafić do Unknown Gems.</p>}
                 {models.map((m) => (
-                  <div key={m.id} className="rounded-xl border border-black/[0.08] bg-ink-950/40 p-3">
+                  <div key={m.id} className="rounded-xl border border-white/[0.05] bg-ink-950/40 p-3">
                     <div className="flex items-start justify-between gap-2">
                       <div>
                         <div className="font-medium text-ink-100">

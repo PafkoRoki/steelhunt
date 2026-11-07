@@ -45,7 +45,7 @@ export default function TubingDatabasePage() {
             <button
               key={m || 'all'}
               onClick={() => setMaker(m)}
-              className={`tap inline-flex items-center rounded-full border px-3 py-1 text-xs ${maker === m ? 'border-moss-500/50 bg-moss-500/15 text-moss-200' : 'border-black/[0.11] text-ink-400'}`}
+              className={`tap inline-flex items-center rounded-full border px-3 py-1 text-xs ${maker === m ? 'border-moss-500/50 bg-moss-500/15 text-moss-200' : 'border-white/[0.08] text-ink-400'}`}
             >
               {m || 'Wszystkie'}
             </button>
@@ -54,7 +54,7 @@ export default function TubingDatabasePage() {
       </div>
       <div className="card overflow-x-auto">
         <table className="w-full min-w-[760px] text-left text-sm">
-          <thead className="border-b border-black/[0.09] text-[11px] uppercase tracking-wider text-ink-500">
+          <thead className="border-b border-white/[0.06] text-[11px] uppercase tracking-wider text-ink-500">
             <tr>
               <th className="px-4 py-3">Producent / seria</th>
               <th className="px-4 py-3">Materiał</th>
@@ -68,7 +68,7 @@ export default function TubingDatabasePage() {
               const override = settings.frameScoreOverrides[t.id];
               const score = override ?? t.score;
               return (
-                <tr key={t.id} className="border-b border-black/[0.07] align-top last:border-0">
+                <tr key={t.id} className="border-b border-white/[0.04] align-top last:border-0">
                   <td className="px-4 py-3">
                     <div className="font-medium text-ink-100">
                       {t.manufacturer === 'Generic' ? '' : t.manufacturer + ' '}

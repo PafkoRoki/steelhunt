@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 @layer base {
@@ -15,12 +15,12 @@
   }
   body {
     @apply bg-ink-900 text-ink-200 font-sans antialiased;
-    background-image: radial-gradient(1200px 600px at 85% -10%, rgba(176, 41, 143, 0.07), transparent 60%),
-      radial-gradient(900px 500px at -10% 110%, rgba(236, 214, 170, 0.45), transparent 60%);
+    background-image: radial-gradient(1200px 600px at 85% -10%, rgba(95, 134, 101, 0.08), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(201, 162, 74, 0.04), transparent 60%);
     background-attachment: fixed;
   }
   ::selection {
-    background: rgba(176, 41, 143, 0.22);
+    background: rgba(127, 162, 131, 0.35);
   }
   h1,
   h2,
@@ -29,13 +29,13 @@
   }
   * {
     scrollbar-width: thin;
-    scrollbar-color: #7da8bf transparent;
+    scrollbar-color: #3a3e3f transparent;
   }
 }
 
 @layer components {
   .card {
-    @apply rounded-2xl border border-black/[0.09] bg-ink-850/80 shadow-card backdrop-blur-sm;
+    @apply rounded-2xl border border-white/[0.06] bg-ink-850/80 shadow-card backdrop-blur-sm;
   }
   .card-hover {
     @apply transition duration-200 hover:border-moss-500/30 hover:bg-ink-800/80;
@@ -47,7 +47,7 @@
     @apply font-display text-3xl font-semibold uppercase tracking-wide text-ink-100 sm:text-4xl;
   }
   .chip {
-    @apply inline-flex items-center gap-1 rounded-full border border-black/[0.11] bg-white/40 px-2 py-0.5 text-[11px] font-medium text-ink-300;
+    @apply inline-flex items-center gap-1 rounded-full border border-white/[0.08] bg-white/[0.03] px-2 py-0.5 text-[11px] font-medium text-ink-300;
   }
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-xl px-3.5 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50;
@@ -56,10 +56,10 @@
     @apply btn bg-moss-500 text-ink-950 hover:bg-moss-400;
   }
   .btn-ghost {
-    @apply btn border border-black/[0.11] bg-white/40 text-ink-200 hover:bg-white/60;
+    @apply btn border border-white/[0.08] bg-white/[0.03] text-ink-200 hover:bg-white/[0.07];
   }
   .input {
-    @apply w-full rounded-xl border border-black/[0.11] bg-ink-950/60 px-3 py-2 text-sm text-ink-100 placeholder:text-ink-500 focus:border-moss-400 focus:outline-none focus:ring-2 focus:ring-moss-400/60;
+    @apply w-full rounded-xl border border-white/[0.08] bg-ink-950/60 px-3 py-2 text-sm text-ink-100 placeholder:text-ink-500 focus:border-moss-400 focus:outline-none focus:ring-2 focus:ring-moss-400/60;
   }
   .label {
     @apply mb-1 block text-xs font-medium text-ink-400;
@@ -71,13 +71,13 @@
 
 /* Keyboard focus: always visible (mouse clicks don't show it — :focus-visible). */
 :where(a, button, select, summary, [role="button"], [tabindex]):focus-visible {
-  outline: 2px solid #8a1a6f;
+  outline: 2px solid #a3bfa5;
   outline-offset: 2px;
   border-radius: 0.5rem;
 }
 /* File pickers are a hidden <input> inside a styled <label>. */
 label:has(> input[type="file"]:focus-visible) {
-  outline: 2px solid #8a1a6f;
+  outline: 2px solid #a3bfa5;
   outline-offset: 2px;
 }
 
@@ -99,32 +99,32 @@ label:has(> input[type="file"]:focus-visible) {
   }
 }
 
-/* Leaflet tuned to the light sky-sand palette */
+/* Leaflet dark-tone tuning */
 .leaflet-container {
-  background: #dbeef8;
+  background: #101112;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .steel-tiles {
-  filter: grayscale(0.55) saturate(0.7) brightness(1.03) contrast(0.95);
+  filter: grayscale(0.85) invert(0.92) hue-rotate(180deg) brightness(0.82) contrast(0.92);
 }
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  background: #eef7fc;
-  color: #0a0a0a;
-  border: 1px solid rgba(16, 48, 72, 0.14);
+  background: #1a1c1d;
+  color: #d6d8d4;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 .leaflet-popup-content {
   margin: 12px 14px;
 }
 .leaflet-control-zoom a {
-  background: #eef7fc !important;
-  color: #142630 !important;
-  border-color: rgba(16, 48, 72, 0.14) !important;
+  background: #1a1c1d !important;
+  color: #d6d8d4 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }
 .leaflet-control-attribution {
-  background: rgba(238, 247, 252, 0.85) !important;
-  color: #44606e !important;
+  background: rgba(20, 21, 22, 0.8) !important;
+  color: #8a8f8e !important;
 }
 .leaflet-control-attribution a {
-  color: #8a1a6f !important;
+  color: #a3bfa5 !important;
 }

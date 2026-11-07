@@ -118,7 +118,7 @@ export default function SettingsPage() {
               <button
                 key={t}
                 onClick={() => updateSettings({ dealThresholdPct: t })}
-                className={`tap rounded-xl border px-4 py-2 text-sm ${settings.dealThresholdPct === t ? 'border-moss-500/50 bg-moss-500/15 text-moss-200' : 'border-black/[0.11] text-ink-400'}`}
+                className={`tap rounded-xl border px-4 py-2 text-sm ${settings.dealThresholdPct === t ? 'border-moss-500/50 bg-moss-500/15 text-moss-200' : 'border-white/[0.08] text-ink-400'}`}
               >
                 ≥ {t}% poniżej rynku
               </button>

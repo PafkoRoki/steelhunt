@@ -262,7 +262,7 @@ export default function ListingPage() {
               )}
               {a.isUnknownGem && (
                 <div>
-                  <h3 className="section-title mb-2 flex items-center gap-2 !text-cyan-800">
+                  <h3 className="section-title mb-2 flex items-center gap-2 !text-sky-300">
                     <Gem size={13} /> Dlaczego Unknown Gem
                   </h3>
                   {a.gemReasons.map((r) => (
