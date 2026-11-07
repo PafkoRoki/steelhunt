@@ -46,9 +46,10 @@ export function scoreTone(score: number): 'top' | 'good' | 'mid' | 'low' {
   return 'low';
 }
 
+/** Score colours follow the metal grades (METAL_TIERS). */
 export const TONE_COLOR: Record<ReturnType<typeof scoreTone>, string> = {
-  top: '#8fc08f',
-  good: '#c9b45a',
-  mid: '#c98a4a',
-  low: '#8a8f8e',
+  top: '#b9a8ff', // Hunted
+  good: '#e6e9ea', // Refined
+  mid: '#a9a29a', // Reclaimed
+  low: '#b07a55', // Scrap
 };

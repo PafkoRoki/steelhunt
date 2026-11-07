@@ -115,7 +115,7 @@ export default function MapPage() {
         {(['top', 'good', 'mid', 'low'] as const).map((t) => (
           <span key={t} className="inline-flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full" style={{ background: TONE_COLOR[t] }} />
-            {t === 'top' ? 'Deal ≥ 75' : t === 'good' ? '60–74' : t === 'mid' ? '45–59' : '< 45'}
+            {t === 'top' ? 'Hunted: Deal ≥ 75' : t === 'good' ? 'Refined: 60–74' : t === 'mid' ? 'Reclaimed: 45–59' : 'Scrap: < 45'}
           </span>
         ))}
         <span className="inline-flex items-center gap-1.5">
