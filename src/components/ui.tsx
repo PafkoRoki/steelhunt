@@ -2,17 +2,17 @@ import type { ReactNode } from 'react';
 import { AlertTriangle, FlaskConical, Gem, ShieldCheck, ShieldQuestion } from 'lucide-react';
 import type { ConfidenceLevel, DataOrigin, MarketplaceId } from '../types/listing';
 import { CONFIDENCE_LABEL } from '../utils/labels';
-import { scoreTone, TONE_COLOR } from '../utils/format';
+import { scoreColor } from '../utils/format';
 import { marketplaceName } from '../services/marketplaces/registry';
 
 export function ScoreRing({ value, size = 56, label, stroke = 5 }: { value: number; size?: number; label?: string; stroke?: number }) {
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
-  const color = TONE_COLOR[scoreTone(value)];
+  const color = scoreColor(value);
   return (
     <div className="relative inline-flex flex-col items-center" style={{ width: size }}>
       <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={r} stroke="rgba(16,48,72,0.14)" strokeWidth={stroke} fill="none" />
+        <circle cx={size / 2} cy={size / 2} r={r} stroke="rgba(20,19,18,0.1)" strokeWidth={stroke} fill="none" />
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -25,7 +25,7 @@ export function ScoreRing({ value, size = 56, label, stroke = 5 }: { value: numb
           strokeDashoffset={c * (1 - value / 100)}
         />
       </svg>
-      <span className="stat-num absolute inset-0 flex items-center justify-center text-sm font-semibold text-ink-100" style={{ height: size }}>
+      <span className="stat-num absolute inset-0 flex items-center justify-center text-sm font-semibold" style={{ height: size, color }}>
         {value}
       </span>
       {label && <span className="mt-1 text-center text-[10px] uppercase tracking-wider text-ink-400">{label}</span>}
@@ -39,10 +39,10 @@ export function ScoreBar({ value, label, hint }: { value: number | null; label: 
     <div>
       <div className="mb-1 flex items-baseline justify-between text-xs">
         <span className="text-ink-400">{label}</span>
-        <span className="stat-num text-ink-200">{value == null ? '?' : value}</span>
+        <span className="stat-num font-semibold" style={{ color: scoreColor(value) }}>{value == null ? '?' : value}</span>
       </div>
       <div className="h-1.5 overflow-hidden rounded-full bg-white/55">
-        <div className="h-full rounded-full" style={{ width: `${v}%`, background: value == null ? '#97c2d9' : TONE_COLOR[scoreTone(v)] }} />
+        <div className="h-full rounded-full" style={{ width: `${v}%`, background: scoreColor(value) }} />
       </div>
       {hint && <p className="mt-1 text-[11px] text-ink-500">{hint}</p>}
     </div>
