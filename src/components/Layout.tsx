@@ -43,6 +43,20 @@ export function Layout({ children }: { children: ReactNode }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [loc.pathname]);
+  // Esc closes the mobile menu.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
+  /** Skip link: with hash routing an href="#main" would change the route, so focus the content directly. */
+  const skipToContent = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const main = document.getElementById('main-content');
+    main?.focus();
+    main?.scrollIntoView();
+  };
 
   const nav = (
     <nav className="flex flex-col gap-0.5">
@@ -68,6 +82,13 @@ export function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen lg:pl-64">
+      <a
+        href="#main-content"
+        onClick={skipToContent}
+        className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[60] focus:rounded-xl focus:bg-moss-500 focus:px-4 focus:py-3 focus:text-sm focus:font-medium focus:text-ink-950"
+      >
+        Przejdź do treści
+      </a>
       {/* Desktop sidebar */}
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-white/[0.05] bg-ink-950/70 px-4 py-5 backdrop-blur lg:flex">
         <Logo />
@@ -83,7 +104,7 @@ export function Layout({ children }: { children: ReactNode }) {
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="absolute inset-0 bg-black/60" onClick={() => setOpen(false)} />
-          <div className="absolute inset-y-0 left-0 w-72 bg-ink-900 px-4 py-5 shadow-2xl">
+          <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu" className="absolute inset-y-0 left-0 w-72 bg-ink-900 px-4 py-5 shadow-2xl">
             <div className="mb-8 flex items-center justify-between">
               <Logo />
               <button onClick={() => setOpen(false)} className="tap-square -mr-2 inline-flex items-center justify-center rounded-lg text-ink-400" aria-label="Zamknij menu">
@@ -97,7 +118,13 @@ export function Layout({ children }: { children: ReactNode }) {
 
       <header className="sticky top-0 z-20 border-b border-white/[0.05] bg-ink-900/80 backdrop-blur">
         <div className="mx-auto flex max-w-[1400px] items-center gap-3 px-4 py-3 sm:px-6">
-          <button onClick={() => setOpen(true)} className="tap-square -ml-2 inline-flex items-center justify-center rounded-lg text-ink-300 lg:hidden" aria-label="Otwórz menu">
+          <button
+            onClick={() => setOpen(true)}
+            className="tap-square -ml-2 inline-flex items-center justify-center rounded-lg text-ink-300 lg:hidden"
+            aria-label={open ? 'Zamknij menu' : 'Otwórz menu'}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+          >
             <Menu size={22} />
           </button>
           <div className="lg:hidden">
@@ -125,7 +152,7 @@ export function Layout({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <main key={loc.pathname} className="mx-auto max-w-[1400px] px-4 pb-24 pt-6 sm:px-6 sm:pt-8">
+      <main id="main-content" tabIndex={-1} key={loc.pathname} className="mx-auto max-w-[1400px] px-4 pb-24 pt-6 outline-none sm:px-6 sm:pt-8">
         {children}
       </main>
 

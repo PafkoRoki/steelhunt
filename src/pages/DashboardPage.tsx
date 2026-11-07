@@ -25,6 +25,18 @@ export default function DashboardPage() {
 
   const lastSearch = runLog?.lastRunAt ?? live.generatedAt;
 
+  // Each listing appears once on the Pulpit: a section shows the next ones not already shown above it
+  // (the section counts still cover every matching listing).
+  const shown = new Set<string>(best ? [best.listing.id] : []);
+  const pick = (list: typeof visible, n = 3) => {
+    const out = list.filter((l) => !shown.has(l.listing.id)).slice(0, n);
+    out.forEach((l) => shown.add(l.listing.id));
+    return out;
+  };
+  const bargainCards = pick(bargains);
+  const nearCards = pick(near);
+  const gemCards = pick(gems);
+
   return (
     <div className="space-y-8">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
@@ -52,13 +64,13 @@ export default function DashboardPage() {
       {best ? <BestDeal item={best} isToday={!!today[0]} /> : <EmptyState icon={<BadgePercent size={22} />} title="Brak ogłoszeń">Dodaj ogłoszenie ręcznie lub włącz tryb demo w ustawieniach.</EmptyState>}
 
       <Section title="Najlepsze okazje" to="/deals" count={bargains.length}>
-        {bargains.slice(0, 3).map((l) => (
+        {bargainCards.map((l) => (
           <ListingCard key={l.listing.id} item={l} />
         ))}
       </Section>
 
       <Section title={`Blisko ${settings.origin.name} (≤ 30 km)`} to="/map" count={near.length}>
-        {near.slice(0, 3).map((l) => (
+        {nearCards.map((l) => (
           <ListingCard key={l.listing.id} item={l} />
         ))}
       </Section>
@@ -69,7 +81,7 @@ export default function DashboardPage() {
         count={gems.length}
         intro="Model nierozpoznany w bazie, ale tekst zawiera sygnały jakości: rury (Tange, Columbus, Reynolds), mufy, osprzęt sprzed 2002. Wycena orientacyjna — niska pewność."
       >
-        {gems.slice(0, 3).map((l) => (
+        {gemCards.map((l) => (
           <ListingCard key={l.listing.id} item={l} />
         ))}
       </Section>
@@ -93,7 +105,13 @@ function Section({ title, to, count, intro, children }: { title: string; to: str
           Wszystkie <ArrowRight size={14} />
         </Link>
       </div>
-      {count ? <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{children}</div> : <p className="text-sm text-ink-500">Brak pozycji.</p>}
+      {!count ? (
+        <p className="text-sm text-ink-500">Brak pozycji.</p>
+      ) : Array.isArray(children) && children.length === 0 ? (
+        <p className="text-sm text-ink-500">Wszystkie pasujące ogłoszenia są już pokazane wyżej.</p>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{children}</div>
+      )}
     </section>
   );
 }
