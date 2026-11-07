@@ -1,8 +1,10 @@
-import { useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { useAppData } from '../hooks/AppData';
 import { PageHeader, WarningNote } from '../components/ui';
 import { SHIMANO, yearsLabel } from '../services/groupsets/match';
 import { normalizeText } from '../utils/text';
+import { MetalTierBadge } from '../components/MetalBadge';
+import { METAL_TIERS, type MetalTier } from '../features/scoring/metalTier';
 
 const VERIF_LABEL = { documented: 'udokumentowane', 'commonly-reported': 'powszechnie podawane', unverified: 'niezweryfikowane' } as const;
 const SOURCE_LABEL: Record<string, string> = { wl: 'Wikipedia (lista grup)', wxt: 'Wikipedia (Deore XT)', mombat: 'MOMBAT', shimano100: 'Shimano – historia' };
@@ -11,6 +13,18 @@ const SOURCE_LABEL: Record<string, string> = { wl: 'Wikipedia (lista grup)', wxt
 const AXIS_FROM = 1983;
 const AXIS_TO = 2006;
 const span = AXIS_TO - AXIS_FROM;
+
+/**
+ * Groupset hierarchy shown with the metal grades, best → worst:
+ * XTR = Hunted, XT / DX / LX = Refined, Deore / Mountain LX / STX = Reclaimed, Exage and below = Scrap.
+ * Based on each family's `tier` (5 = top, 1 = entry level); XTR alone gets Hunted.
+ */
+function groupMetal(f: { id: string; tier: number }): MetalTier {
+  if (f.id === 'xtr') return 'hunted';
+  if (f.tier >= 4) return 'refined';
+  if (f.tier >= 3) return 'reclaimed';
+  return 'scrap';
+}
 
 /**
  * Shimano MTB groupsets by generation and production years. The same data drives listing analysis:
@@ -51,6 +65,25 @@ export default function GroupsetsPage() {
         </WarningNote>
       </div>
 
+      <div className="card mb-4 p-4">
+        <h2 className="section-title mb-3">Hierarchia grup: od najlepszych do najtańszych</h2>
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {(['hunted', 'refined', 'reclaimed', 'scrap'] as MetalTier[]).map((m) => (
+            <div key={m} className="flex flex-col gap-1.5">
+              <MetalTierBadge tier={m} />
+              <div className="flex flex-wrap gap-1">
+                {families.filter((f) => groupMetal(f) === m).map((f, j, arr) => (
+                  <button key={f.id} onClick={() => setFamily(f.id)} className="text-xs text-ink-300 hover:text-ink-100">
+                    {f.name}
+                    {j < arr.length - 1 && <span className="text-ink-500">,</span>}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <input className="input max-w-xs" placeholder="Szukaj: M732, Rapidfire, 1990…" value={q} onChange={(e) => setQ(e.target.value)} />
         <div className="flex flex-wrap gap-1.5">
@@ -60,6 +93,7 @@ export default function GroupsetsPage() {
               onClick={() => setFamily(f.id)}
               className={`tap inline-flex items-center rounded-full border px-3 py-1 text-xs ${family === f.id ? 'border-moss-500/50 bg-moss-500/15 text-moss-200' : 'border-white/[0.08] text-ink-400'}`}
             >
+              {f.id && <img src={METAL_TIERS[groupMetal(families.find((x) => x.id === f.id)!)].icon} alt="" width={18} height={18} className="-my-1 mr-1" />}
               {f.name}
             </button>
           ))}
@@ -95,14 +129,25 @@ export default function GroupsetsPage() {
             </tr>
           </thead>
           <tbody>
-            {rows.map((g) => {
+            {rows.map((g, i) => {
               const fam = families.find((f) => f.id === g.family)!;
+              const metal = groupMetal(fam);
+              const prev = rows[i - 1];
+              const newMetal = !prev || groupMetal(families.find((f) => f.id === prev.family)!) !== metal;
               const to = g.yearTo ?? g.yearFrom;
               const left = ((g.yearFrom - AXIS_FROM) / span) * 100;
               const width = Math.max(((to - g.yearFrom + 1) / span) * 100, 3);
               const inListings = counts.get(`Shimano ${fam.name} ${g.series} (${yearsLabel(g)})`) ?? 0;
               return (
-                <tr key={g.id} className="border-b border-white/[0.04] align-top last:border-0">
+                <Fragment key={g.id}>
+                {newMetal && (
+                  <tr className="border-b border-white/[0.06] bg-white/[0.02]">
+                    <td colSpan={6} className="px-4 py-2">
+                      <MetalTierBadge tier={metal} />
+                    </td>
+                  </tr>
+                )}
+                <tr className="border-b border-white/[0.04] align-top last:border-0">
                   <td className="px-4 py-3">
                     <div className="font-medium text-ink-100">
                       {fam.name} <span className="text-ink-300">{g.series}</span>
@@ -118,7 +163,7 @@ export default function GroupsetsPage() {
                     <div className="relative mt-1.5 h-2 rounded-full bg-white/[0.04]">
                       <div
                         className={`absolute inset-y-0 rounded-full ${g.yearTo ? '' : 'opacity-60'}`}
-                        style={{ left: `${left}%`, width: `${width}%`, background: fam.tier >= 5 ? '#7fa283' : fam.tier >= 3 ? '#a8a37a' : '#6b6f70' }}
+                        style={{ left: `${left}%`, width: `${width}%`, background: METAL_TIERS[metal].color }}
                         title={yearsLabel(g)}
                       />
                     </div>
@@ -140,6 +185,7 @@ export default function GroupsetsPage() {
                     </div>
                   </td>
                 </tr>
+                </Fragment>
               );
             })}
           </tbody>
