@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Circle, CircleMarker, MapContainer, Popup, TileLayer, Tooltip } from 'react-leaflet';
 import { useAppData } from '../hooks/AppData';
 import { PageHeader } from '../components/ui';
-import { formatKm, formatPrice, scoreColor } from '../utils/format';
+import { formatKm, formatPrice, scoreTone, TONE_COLOR } from '../utils/format';
 import { MATERIAL_LABEL } from '../utils/labels';
 import { RADIUS_OPTIONS } from '../features/scoring/config';
 import type { RadiusOption } from '../types/settings';
@@ -75,7 +75,7 @@ export default function MapPage() {
             </CircleMarker>
             {positioned.map(({ item, lat, lng }) => {
               const a = item.analysis;
-              const color = scoreColor(a.dealScore);
+              const color = TONE_COLOR[scoreTone(a.dealScore)];
               return (
                 <CircleMarker
                   key={item.listing.id}
@@ -112,10 +112,10 @@ export default function MapPage() {
         </div>
       </div>
       <div className="mt-3 flex flex-wrap gap-4 text-xs text-ink-400">
-        {[0, 20, 40, 60, 80, 100].map((t) => (
+        {(['top', 'good', 'mid', 'low'] as const).map((t) => (
           <span key={t} className="inline-flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full" style={{ background: scoreColor(t) }} />
-            {t === 100 ? 'Deal 100' : `Deal ${t}–${t + 9}`}
+            <span className="h-2.5 w-2.5 rounded-full" style={{ background: TONE_COLOR[t] }} />
+            {t === 'top' ? 'Deal ≥ 75' : t === 'good' ? '60–74' : t === 'mid' ? '45–59' : '< 45'}
           </span>
         ))}
         <span className="inline-flex items-center gap-1.5">

@@ -38,25 +38,17 @@ export function formatDateTime(iso: string | null | undefined): string {
   return d.toLocaleString('pl-PL', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 
-/** Score step: 0-9 → 0, 10-19 → 1, … 90-99 → 9, 100 → 10. */
-export function scoreStep(score: number): number {
-  return Math.max(0, Math.min(10, Math.floor(score / 10)));
+/** Score → tone used across cards, map markers and rings. */
+export function scoreTone(score: number): 'top' | 'good' | 'mid' | 'low' {
+  if (score >= 75) return 'top';
+  if (score >= 60) return 'good';
+  if (score >= 45) return 'mid';
+  return 'low';
 }
 
-function hsl(h: number, s: number, l: number): string {
-  s /= 100;
-  l /= 100;
-  const k = (n: number) => (n + h / 30) % 12;
-  const a = s * Math.min(l, 1 - l);
-  const c = (n: number) => Math.round(255 * (l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1))));
-  return '#' + [c(0), c(8), c(4)].map((v) => v.toString(16).padStart(2, '0')).join('');
-}
-
-/**
- * Score colour: the site's burnt orange, more saturated the better the score, in 10-point steps
- * (0-9 almost grey … 100 full orange). Lightness is fixed at 38%, so every step reads at ~4.9:1 on panels.
- */
-export function scoreColor(score: number | null | undefined): string {
-  if (score == null) return '#b3aa98';
-  return hsl(18, 6 + scoreStep(score) * 7.6, 38);
-}
+export const TONE_COLOR: Record<ReturnType<typeof scoreTone>, string> = {
+  top: '#1f6236', // ≥ 5:1 on the light cards
+  good: '#6b5309',
+  mid: '#8c3f12',
+  low: '#44606e',
+};

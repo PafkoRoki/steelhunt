@@ -4,7 +4,7 @@ import type { AnalyzedListing } from '../types/listing';
 import { ConfidenceBadge, GemBadge, MarketplaceTag, OriginBadge, ScoreRing } from './ui';
 import { MetalBadge } from './MetalBadge';
 import { ListingImage } from './ListingImage';
-import { formatKm, formatPct, formatPrice, formatRange, scoreColor, timeAgo } from '../utils/format';
+import { formatKm, formatPct, formatPrice, formatRange, timeAgo } from '../utils/format';
 import { CATEGORY_LABEL, MATERIAL_LABEL } from '../utils/labels';
 import { useAppData } from '../hooks/AppData';
 
@@ -119,7 +119,7 @@ export function ListingCard({ item, compact = false }: { item: AnalyzedListing; 
 function MiniScore({ label, value }: { label: string; value: number | null }) {
   return (
     <div>
-      <div className="stat-num text-base font-semibold" style={{ color: scoreColor(value) }}>{value ?? '?'}</div>
+      <div className="stat-num text-base font-semibold text-ink-100">{value ?? '?'}</div>
       <div className="plate-label !text-[10px]">{label}</div>
     </div>
   );

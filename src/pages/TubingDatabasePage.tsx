@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useAppData } from '../hooks/AppData';
 import { PageHeader, WarningNote } from '../components/ui';
-import { scoreColor } from '../utils/format';
+import { scoreTone, TONE_COLOR } from '../utils/format';
 import { normalizeText } from '../utils/text';
 
 const VERIF_LABEL = { documented: 'udokumentowane', 'commonly-reported': 'powszechnie podawane', unverified: 'niezweryfikowane' } as const;
@@ -87,7 +87,7 @@ export default function TubingDatabasePage() {
                         min={0}
                         max={100}
                         className="input stat-num !w-16 !px-2 !py-1"
-                        style={{ color: scoreColor(score) }}
+                        style={{ color: TONE_COLOR[scoreTone(score)] }}
                         value={score}
                         onChange={(e) => setScore(t.id, e.target.value === '' ? null : Math.max(0, Math.min(100, Number(e.target.value))))}
                       />
