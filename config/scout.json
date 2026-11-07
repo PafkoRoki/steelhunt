@@ -104,5 +104,11 @@
       "specialized stumpjumper",
       "koga miyata mtb"
     ]
-  }
+  },
+  "excluded": [
+    {
+      "url": "https://www.kleinanzeigen.de/s-anzeige/retro-mtb-kult-klassiker-/3563642198-217-2414",
+      "reason": "Haibike z pełnym zawieszeniem (widać na zdjęciach), opis tego nie mówi"
+    }
+  ]
 }

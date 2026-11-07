@@ -46,6 +46,8 @@ interface ScoutConfig {
   allegroLokalnie?: { enabled: boolean; radiusKm: number; delayMs?: number; queries: string[] };
   sprzedajemy?: { enabled: boolean; radiusKm: number; delayMs?: number; queries: string[] };
   ebay?: { enabled: boolean; marketplaceId: string; categoryIds?: string; limit?: number; postcodePrefixes?: string[]; queries: string[] };
+  /** Listings the owner rejected by hand (the text alone can't tell, e.g. a full-suspension bike described vaguely). */
+  excluded?: { url: string; reason: string }[];
 }
 
 /** Raw candidate as read from a portal (kept in memory only). */
@@ -655,9 +657,18 @@ function manualUrls(): Set<string> {
   return urls;
 }
 
+const EXCLUDED = new Set((cfg.excluded ?? []).map((e) => e.url.split('?')[0]));
+
 function toRecords(file: string, cands: Candidate[], previous: AutoRecord[], known: Set<string>, nowIso: string): { records: AutoRecord[]; added: number } {
   const db = buildDatabase();
   const st = stat(file);
+  const isExcluded = (url: string) => {
+    if (!EXCLUDED.has(url.split('?')[0])) return false;
+    st.excluded = (st.excluded ?? 0) + 1;
+    return true;
+  };
+  cands = cands.filter((c) => !isExcluded(c.url));
+  previous = previous.filter((r) => !isExcluded(r.url));
   st.full.checked += cands.length;
   const prevByUrl = new Map(previous.map((r) => [r.url, r]));
   const records = new Map<string, AutoRecord>();

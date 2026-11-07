@@ -34,6 +34,13 @@ A Shimano generation code up to 2002 (e.g. RD-M732) counts as a retro signal, as
 Also dropped: titles with no bike word and no known maker (e.g. fishing rods), tandems, cross / trekking / 28" bikes,
 single parts named by a part code ("FC-M900") or a fork brand ("Marzocchi Bomber") without a bike word,
 found / stolen / wanted posts and listings priced at 0.
+Full-suspension bikes are dropped by wording (full / fully, vollgefedert, Dämpfer hinten, tylny amortyzator,
+pełne zawieszenie, softail…; a bare "FS" is not used — the 1993 Stumpjumper FS is front suspension). Fishing
+gear is dropped by its own words (wędka, kołowrotek, spinning, przelotki, Angelrute…), and a title without a bike
+word must name the bike maker or a known model itself — a maker found only in the description (e.g. "Fuji" rod
+guides) does not count. Frame-size + 29 ("L 29") and 29x2.x tyre sizes count as modern.
+Listings the text cannot reveal (e.g. a vaguely described full-suspension bike seen on the photos) go to
+`config/scout.json → excluded` (`{ url, reason }`); the scout then never publishes them.
 `npm run scout -- --refilter` re-applies the current filters to the saved `auto-*.json` files without fetching
 (add `--dry` to only list what would be dropped).
 Allegro Lokalnie: towns within 200 km of Poznań (unknown towns dropped). Sprzedajemy: the portal's own 150 km filter.

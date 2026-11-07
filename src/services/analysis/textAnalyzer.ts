@@ -322,7 +322,7 @@ const FEATURE_RULES: [string, RegExp][] = [
 const RED_FLAG_RULES: [string, RegExp][] = [
   ['Rower dziecięcy / junior', /(dzieci\w*|dzieciec\w*|dzieck\w*|junior|mlodziezow\w*|nastolat\w*|\bbmx\b|kinder\w*|jugendrad)/],
   ['Rower elektryczny', /(elektryczn\w*|e[\s-]?bike|wspomaganie|pedelec)/],
-  ['Tani full suspension (zwykle niska jakość)', /(podwojn\w*\s*amortyzac|pelne\s*zawieszenie|full\s*(?:suspension|sus)|amortyzator\w*\s*tyln|vollgefedert|\bfully\b|super\s*v\s*\d|dualfederung|\bfs\b)/],
+  ['Tani full suspension (zwykle niska jakość)', /(podwojn\w*\s*amortyzac|pelne\s*zawieszenie|full\s*(?:suspension|sus)|amortyzator\w*\s*tyln|vollgefedert|\bfully\b|super\s*v\s*\d|dualfederung)/],   // no bare "FS": Stumpjumper FS (1993) = front suspension
   ['Rower z marketu (BSO)', /(supermarket\w*|z\s*marketu|tesco|carrefour|auchan|biedronk\w*|lidl)/],
   ['Fatbike / niestandard', /fat\s*bike/],
 ];

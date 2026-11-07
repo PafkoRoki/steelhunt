@@ -1,17 +1,22 @@
 import type { AnalyzedListing } from '../../types/listing';
 import { isMtbLike, isRoadBike } from './focus';
+import { normalizeText } from '../../utils/text';
 
 /**
  * The scout's selection rules — ONE source of truth used by scripts/scout.ts (to decide) and by the
  * "Selekcja ofert" page (to explain, with the counts of the last run). Change a rule here and both follow.
  */
 
-export const MODERN = /(27[,.]5|\b29\s*(?:["“”″]|''|zoll|er|cali)|\b29er\b|hydraul|tarczow|scheibenbremse|\bdisc\b|e[\s-]?bike|pedelec|carbon|karbon|boost|1x1[12]\b|tubeless)/i;
+export const MODERN = /(27[,.]5|\b29\s*(?:["“”″]|''|zoll|er|cali)|\b29er\b|\b(?:xs|s|m|l|xl|xxl)\s*[-/]?\s*29\b|\b29\s*[x×]\s*[12](?:[.,]\d+)?\b|hydraul|tarczow|scheibenbremse|\bdisc\b|e[\s-]?bike|pedelec|carbon|karbon|boost|1x1[12]\b|tubeless)/i;
 export const BIKE_HINT = /(rower|bike|mtb|atb|g[oó]ral|g[oó]rsk|fahrrad|\brad\b|rahmen|rama|mountain|bicykl|velo)/i;
 export const NOT_MTB = /(tandem|crossow\w*|\bcross\b|trekking\w*|prze[lł]aj\w*|\b28\s*(?:cali|"|''|”|zoll|er)|ko[lł]a\s*28)/i;
 export const BIKE_WORD = /(rower|bike|fahrrad|\brad\b|rama|ramy|rahmen|mountain)/i;
 export const PART_CODE = /\b(?:fc|rd|fd|st|br|bl|cs|hb|fh|sl|bb)-?[a-z]{0,2}\d{2,4}\b/i;
 export const FORK_BRAND = /\b(marzocchi|rock\s*shox|rockshox|manitou|answer|judy|bomber)\b/i;
+/** Things that are not bikes but come up in broad searches (fishing rods: blank, Fuji guides…). */
+export const NOT_BIKE_ITEM = /(w[eę]dk\w*|ko[lł]owrot\w*|spinning\w*|\bangel\w*|\brute\b|feeder\w*|karpiow\w*|przelotk\w*)/i;
+/** Full suspension in the words sellers use (PL / DE / EN). "FS" alone is left out: Stumpjumper FS (1993) = front suspension. */
+export const FULL_SUSPENSION = /(\bfully\b|full[\s-]*sus\w*|vollgefedert|vollfederung|dual[\s-]*(?:sus\w*|feder\w*)|hinterbau\w*\s*(?:feder|d[äa]mpf)\w*|(?:d[äa]mpfer|federung)\s*hinten|hinten\s*gefedert|vorne\s*(?:und|u\.|&)\s*hinten\s*gefedert|tyln\w*\s*amortyzator|amortyzator\w*\s*tyln|amortyzator\w*\s*(?:z|na)\s*ty[lł]u|pe[lł]n\w*\s*zawiesz|podw[oó]jn\w*\s*amortyzac|\bsoftail\b|super\s*v\b)/i;
 export const NOT_OFFER = /(gefunden|gestohlen|vermisst|\bsuche\b|szukam|kupi[eę]\b|zagin[aą][lł]|skradzion\w*)/i;
 /** "Deore XT/LX" alone is no retro signal (still produced); DX / STX / Exage are 90s-only groups. */
 export const RETRO = /(retro|vintage|oldschool|old\s*school|klasyk|kult|\b(?:19[89]\d)\b|lata\s*[89]0|\b[89]0(?:er|s)\b|starrgabel|sztywn\w*\s*widel|cr-?mo|chrom|stahl|stalow|tange|reynolds|columbus|ishiwata|true\s*temper|mufow|muffen|cantilever|biopace|suntour|deore\s*dx|\bstx\b|exage)/i;
@@ -24,6 +29,7 @@ export type RejectReason =
   | 'cross-trekking'
   | 'not-offer'
   | 'red-flag'
+  | 'full-suspension'
   | 'part'
   | 'part-code'
   | 'modern'
@@ -33,10 +39,11 @@ export type RejectReason =
 /** Checked in this order; the first rule that fails decides. */
 export const REJECT_RULES: { id: RejectReason; label: string; rule: string }[] = [
   { id: 'not-mtb', label: 'Szosa / nie MTB', rule: 'Rower szosowy (baranek, 700c, „kolarzówka”, Rennrad) albo kategoria, która nie jest MTB/ATB (miejski, trekking) i bez słów MTB / „górski” / koła 26".' },
-  { id: 'not-bike', label: 'To nie rower', rule: 'W tytule brak słowa „rower / bike / MTB / górski / rama / Fahrrad…” i brak rozpoznanego producenta (np. wędka trafiona szerokim wyszukiwaniem).' },
+  { id: 'not-bike', label: 'To nie rower', rule: 'Słowa wędkarskie (wędka, kołowrotek, spinning, przelotki, Angelrute…) albo tytuł bez słowa „rower / bike / MTB / górski / rama / Fahrrad…” i bez producenta ani modelu roweru w samym tytule — producent znaleziony tylko w opisie (np. „Fuji” w przelotkach wędki) nie wystarcza.' },
   { id: 'cross-trekking', label: 'Tandem / cross / trekking / 28"', rule: 'Tytuł mówi o tandemie, rowerze crossowym, trekkingowym, przełajowym albo kołach 28".' },
   { id: 'not-offer', label: 'Nie oferta sprzedaży', rule: 'Ogłoszenia „znaleziony / skradziony / szukam / kupię” (Gefunden, Gestohlen, Suche) albo cena 0.' },
   { id: 'red-flag', label: 'Czerwona flaga', rule: 'Rower dziecięcy / młodzieżowy, elektryczny, tani full (rower z marketu) — wykryte w tekście.' },
+  { id: 'full-suspension', label: 'Pełne zawieszenie', rule: 'Full / fully, vollgefedert, Dämpfer hinten, tylny amortyzator, pełne zawieszenie, softail… — szukamy sztywnych ram; amortyzowany widelec z przodu jest dozwolony.' },
   { id: 'part', label: 'Pojedyncza część', rule: 'Ogłoszenie dotyczy części (opony, rogi, siodło, przerzutka, wieszak, zacisk…), a nie roweru ani ramy.' },
   { id: 'part-code', label: 'Część po kodzie / marce', rule: 'Kod części Shimano („FC-M900”) bez słowa „rower/rama” albo marka amortyzatora („Marzocchi Bomber”, „Rock Shox”) bez rozpoznanego producenta roweru.' },
   { id: 'modern', label: 'Nowoczesny rower', rule: 'Koła 27,5"/29", hamulce tarczowe / hydrauliczne, karbon, Boost, napęd 1x11/1x12, tubeless, e-bike.' },
@@ -52,10 +59,15 @@ export function scoutRejectReason(a: AnalyzedListing, rawText: string, titleOnly
   const an = a.analysis;
   const title = a.listing.title;
   if (isRoadBike(a) || !isMtbLike(a)) return 'not-mtb';
-  if (!BIKE_HINT.test(title) && !an.manufacturerId) return 'not-bike';
+  const t = normalizeText(title);
+  const named = (s: string | null) => !!s && t.includes(normalizeText(s));
+  // A bike maker or a known model must be in the title itself — a "maker" found only in the description
+  // (e.g. Fuji guides on a fishing rod) is not enough.
+  if (NOT_BIKE_ITEM.test(rawText) || (!BIKE_HINT.test(title) && !named(an.manufacturer) && !named(an.model))) return 'not-bike';
   if (NOT_MTB.test(title)) return 'cross-trekking';
   if (NOT_OFFER.test(rawText) || a.listing.price === 0) return 'not-offer';
   if (an.redFlags.length) return 'red-flag';
+  if (FULL_SUSPENSION.test(rawText)) return 'full-suspension';
   if (an.itemType === 'components') return 'part';
   if (!BIKE_WORD.test(title) && (PART_CODE.test(title) || (!an.manufacturerId && FORK_BRAND.test(title)))) return 'part-code';
   if (MODERN.test(rawText)) return 'modern';
@@ -90,6 +102,8 @@ export interface ScoutPortalStats {
   rechecked: Partial<Record<RejectReason, number>>;
   published: number;
   errors: number;
+  /** Dropped because the URL is on the manual exclusion list (config/scout.json → excluded). */
+  excluded?: number;
 }
 
 export interface ScoutStats {
