@@ -64,7 +64,7 @@ export default function MapPage() {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {radius !== 0 && <Circle center={[settings.origin.lat, settings.origin.lng]} radius={radius * 1000} pathOptions={{ color: '#7fa283', weight: 1, dashArray: '6 6', fillOpacity: 0.04 }} />}
+            {radius !== 0 && <Circle center={[settings.origin.lat, settings.origin.lng]} radius={radius * 1000} pathOptions={{ color: '#a9adae', weight: 1, dashArray: '6 6', fillOpacity: 0.04 }} />}
             {[30, 60, 100].filter((r) => radius === 0 || r < radius).map((r) => (
               <Circle key={r} center={[settings.origin.lat, settings.origin.lng]} radius={r * 1000} pathOptions={{ color: '#5a5f60', weight: 0.6, fill: false, dashArray: '2 6' }} />
             ))}

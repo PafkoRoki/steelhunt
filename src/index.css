@@ -15,12 +15,12 @@
   }
   body {
     @apply bg-ink-900 text-ink-200 font-sans antialiased;
-    background-image: radial-gradient(1200px 600px at 85% -10%, rgba(95, 134, 101, 0.08), transparent 60%),
+    background-image: radial-gradient(1200px 600px at 85% -10%, rgba(142, 147, 148, 0.06), transparent 60%),
       radial-gradient(900px 500px at -10% 110%, rgba(201, 162, 74, 0.04), transparent 60%);
     background-attachment: fixed;
   }
   ::selection {
-    background: rgba(127, 162, 131, 0.35);
+    background: rgba(169, 173, 174, 0.35);
   }
   h1,
   h2,
@@ -71,13 +71,13 @@
 
 /* Keyboard focus: always visible (mouse clicks don't show it — :focus-visible). */
 :where(a, button, select, summary, [role="button"], [tabindex]):focus-visible {
-  outline: 2px solid #a3bfa5;
+  outline: 2px solid #c4c7c8;
   outline-offset: 2px;
   border-radius: 0.5rem;
 }
 /* File pickers are a hidden <input> inside a styled <label>. */
 label:has(> input[type="file"]:focus-visible) {
-  outline: 2px solid #a3bfa5;
+  outline: 2px solid #c4c7c8;
   outline-offset: 2px;
 }
 
@@ -126,5 +126,5 @@ label:has(> input[type="file"]:focus-visible) {
   color: #8a8f8e !important;
 }
 .leaflet-control-attribution a {
-  color: #a3bfa5 !important;
+  color: #c4c7c8 !important;
 }
