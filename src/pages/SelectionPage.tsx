@@ -209,11 +209,14 @@ export default function SelectionPage() {
           n={5}
           title="Przegląd starszych ogłoszeń"
           who={`Scout — ogłoszenia z wcześniejszych przebiegów trzymane ${scoutConfig.keepDays} dni`}
-          count={s ? <>zostaje {sum((p) => p.carried)} · usunięte {sum((p) => p.expired)} · opublikowane razem {sum((p) => p.published)}</> : undefined}
+          count={s ? <>zakończone/sprzedane {sum((p) => p.gone ?? 0)} · zostaje {sum((p) => p.carried)} · usunięte {sum((p) => p.expired)} · opublikowane razem {sum((p) => p.published)}</> : undefined}
         >
           <p>
-            Ogłoszenie, które wypadło z pierwszej strony wyników, zostaje jeszcze {scoutConfig.keepDays} dni od ostatniego zobaczenia — ale za każdym
-            razem jest ponownie sprawdzane aktualnymi regułami (reguły się poprawiają).
+            Ogłoszenie, którego nie ma w wynikach tego przebiegu, jest sprawdzane na swojej stronie (raz, do 15 na portal): jeśli portal zwraca 404
+            albo pisze, że jest niedostępne / zakończone (np. „Dostępność: niedostępne”, „nicht mehr verfügbar”), znika od razu
+            {s ? ` (ostatnio sprawdzone: ${sum((p) => p.goneChecked ?? 0)})` : ''}. Pozostałe zostają jeszcze {scoutConfig.keepDays} dni od ostatniego
+            zobaczenia — bo czasem wypadają tylko z pierwszej strony wyników — i za każdym razem są ponownie sprawdzane aktualnymi regułami.
+            Ogłoszenia odrzucone ręcznie (lista <code>excluded</code> w <code>config/scout.json</code>) nie wracają nigdy.
             {s && total(recheckTally) > 0 && <> Przy ostatnim przeglądzie odpadły: {REJECT_RULES.filter((r) => recheckTally[r.id]).map((r) => `${r.label} ${recheckTally[r.id]}`).join(', ')}.</>}
           </p>
         </Stage>

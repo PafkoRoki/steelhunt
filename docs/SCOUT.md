@@ -48,6 +48,11 @@ Kleinanzeigen: only postcode regions within driving range of Poznań (eastern Ge
 EUR prices are converted with the exchange rate from Settings (default 4.25).
 
 Listings stay published for `keepDays` (14) after they were last seen in the results.
+Before that, every earlier listing missing from the current results gets its ad page opened once (at most 15 per
+portal, same delay and User-Agent): HTTP 404/410 or the portal's own "ended / unavailable" text
+(Sprzedajemy "Dostępność: niedostępne", "nicht mehr verfügbar", "ogłoszenie zakończone"…) removes it at once.
+Markers are matched in the visible page only — OLX embeds all its UI messages, including "ad inactive", in
+script JSON on every page. A failed request keeps the listing (unknown is not "gone").
 
 The rules live in `src/features/listings/scoutRules.ts` (`scoutRejectReason`, `REJECT_RULES`) and are shared with
 the site: the **“Selekcja ofert”** page (`/selection`) explains every stage with the same rule texts. Each full run

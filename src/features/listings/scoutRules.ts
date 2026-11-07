@@ -104,6 +104,9 @@ export interface ScoutPortalStats {
   errors: number;
   /** Dropped because the URL is on the manual exclusion list (config/scout.json → excluded). */
   excluded?: number;
+  /** Earlier listings missing from the results whose ad page was checked, and how many of them had ended / were sold. */
+  goneChecked?: number;
+  gone?: number;
 }
 
 export interface ScoutStats {

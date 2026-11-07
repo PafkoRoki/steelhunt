@@ -118,6 +118,49 @@ async function get(url: string): Promise<string> {
   }
 }
 
+/** GET returning the HTTP status too (no -f), same User-Agent and delay. */
+async function getWithStatus(url: string): Promise<{ status: number; body: string }> {
+  await sleep(cfg.delayMs);
+  const { stdout } = await pexec('curl', ['-s', '-L', '--max-time', '30', '-A', UA, '-H', 'Accept-Language: pl,de;q=0.8,en;q=0.5', '-w', '\n%{http_code}', url], {
+    maxBuffer: 30 * 1024 * 1024,
+  });
+  const i = stdout.lastIndexOf('\n');
+  return { status: Number(stdout.slice(i + 1)) || 0, body: stdout.slice(0, i) };
+}
+
+/** What portals show on an ad that ended / was sold / deleted. */
+const GONE_MARKERS =
+  /(Dostępność:\s*(?:<[^>]*>\s*)*niedostępne|ogłoszenie\s+(?:jest\s+)?(?:nieaktywne|nieaktualne|zakończone|usunięte|wygasło)|to ogłoszenie nie jest już dostępne|ogłoszenie zostało (?:usunięte|zakończone)|anzeige\s+ist\s+nicht\s+mehr\s+verfügbar|nicht mehr verfügbar|anzeige\s+(?:wurde\s+)?gelöscht|anzeige\s+ist\s+abgelaufen)/i;
+const MAX_GONE_CHECKS = 15;
+/** Page text without <script>/<style>: OLX ships every UI message (incl. "ad inactive") inside script JSON. */
+const visibleText = (html: string) => html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ');
+
+/**
+ * Listings from earlier runs that are missing from this run's results: open each ad page once and drop the
+ * ones that are gone (HTTP 404/410 or the portal's own "ended / unavailable" text) — instead of keeping them
+ * for keepDays. Network errors keep the listing (unknown is not "gone"). At most MAX_GONE_CHECKS per portal.
+ */
+async function pruneGone(file: string, previous: AutoRecord[], cands: Candidate[]): Promise<AutoRecord[]> {
+  const st = stat(file);
+  const seen = new Set(cands.map((c) => c.url));
+  const missing = previous.filter((r) => !seen.has(r.url) && !EXCLUDED.has(r.url.split('?')[0])).slice(0, MAX_GONE_CHECKS);
+  const gone = new Set<string>();
+  for (const r of missing) {
+    try {
+      const { status, body } = await getWithStatus(r.url);
+      st.goneChecked = (st.goneChecked ?? 0) + 1;
+      if (status === 404 || status === 410 || (status >= 200 && status < 300 && GONE_MARKERS.test(visibleText(body)))) {
+        gone.add(r.url);
+        log.push(`${st.name}: zakończone/sprzedane — ${r.title.slice(0, 60)}`);
+      }
+    } catch (e) {
+      log.push(`${st.name}: sprawdzenie dostępności nie powiodło się — ${(e as Error).message}`);
+    }
+  }
+  st.gone = (st.gone ?? 0) + gone.size;
+  return previous.filter((r) => !gone.has(r.url));
+}
+
 const decode = (s: string) =>
   s
     .replace(/<br\s*\/?>/gi, '\n')
@@ -750,12 +793,12 @@ async function main() {
   if (!REFILTER && cfg.olx.enabled && run('olx')) {
     const prev = readAuto('auto-olx.json');
     const cands = await scoutOlx();
-    results.push({ name: 'auto-olx.json', ...toRecords('auto-olx.json', cands, prev, known, nowIso) });
+    results.push({ name: 'auto-olx.json', ...toRecords('auto-olx.json', cands, await pruneGone('auto-olx.json', prev, cands), known, nowIso) });
   }
   if (!REFILTER && cfg.kleinanzeigen.enabled && run('kleinanzeigen')) {
     const prev = readAuto('auto-kleinanzeigen.json');
     const cands = await scoutKleinanzeigen(known, new Map(prev.map((r) => [r.url, r])));
-    results.push({ name: 'auto-kleinanzeigen.json', ...toRecords('auto-kleinanzeigen.json', cands, prev, known, nowIso) });
+    results.push({ name: 'auto-kleinanzeigen.json', ...toRecords('auto-kleinanzeigen.json', cands, await pruneGone('auto-kleinanzeigen.json', prev, cands), known, nowIso) });
   }
 
   const al = cfg.allegroLokalnie;
@@ -763,7 +806,7 @@ async function main() {
     const prev = readAuto('auto-allegro-lokalnie.json');
     const url = (q: string) => `https://allegrolokalnie.pl/oferty/rowery-i-akcesoria/rowery-16420/q/${encodeURIComponent(q)}`;
     const cands = await scoutCards('Allegro Lokalnie', al, true, url, parseAllegroLokalnie, allegroLokalnieDetail, known, new Map(prev.map((r) => [r.url, r])));
-    results.push({ name: 'auto-allegro-lokalnie.json', ...toRecords('auto-allegro-lokalnie.json', cands, prev, known, nowIso) });
+    results.push({ name: 'auto-allegro-lokalnie.json', ...toRecords('auto-allegro-lokalnie.json', cands, await pruneGone('auto-allegro-lokalnie.json', prev, cands), known, nowIso) });
   }
   const sp = cfg.sprzedajemy;
   if (!REFILTER && sp?.enabled && run('sprzedajemy')) {
@@ -771,14 +814,14 @@ async function main() {
     // The portal's own Poznań + distance filter (150 km is one of its options).
     const url = (q: string) => `https://sprzedajemy.pl/poznan?inp_text=${encodeURIComponent(q).replace(/%20/g, '+')}&inp_distance=150`;
     const cands = await scoutCards('Sprzedajemy', sp, false, url, parseSprzedajemy, sprzedajemyDetail, known, new Map(prev.map((r) => [r.url, r])));
-    results.push({ name: 'auto-sprzedajemy.json', ...toRecords('auto-sprzedajemy.json', cands, prev, known, nowIso) });
+    results.push({ name: 'auto-sprzedajemy.json', ...toRecords('auto-sprzedajemy.json', cands, await pruneGone('auto-sprzedajemy.json', prev, cands), known, nowIso) });
   }
   const eb = cfg.ebay;
   if (!REFILTER && eb?.enabled && run('ebay')) {
     const prev = readAuto('auto-ebay.json');
     const cands = await scoutEbay(known, new Map(prev.map((r) => [r.url, r])));
     // Without keys the source is skipped and the existing file is left untouched.
-    if (process.env.EBAY_CLIENT_ID) results.push({ name: 'auto-ebay.json', ...toRecords('auto-ebay.json', cands, prev, known, nowIso) });
+    if (process.env.EBAY_CLIENT_ID) results.push({ name: 'auto-ebay.json', ...toRecords('auto-ebay.json', cands, await pruneGone('auto-ebay.json', prev, cands), known, nowIso) });
   }
 
   console.log(log.join('\n'));
