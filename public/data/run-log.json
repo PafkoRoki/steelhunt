@@ -1,7 +1,33 @@
 {
-  "lastRunAt": "2026-11-08T06:08:51.167Z",
-  "lastSuccessAt": "2026-11-08T06:08:51.167Z",
+  "lastRunAt": "2026-11-08T12:49:58.657Z",
+  "lastSuccessAt": "2026-11-08T12:49:58.657Z",
   "runs": [
+    {
+      "startedAt": "2026-11-08T12:49:58.497Z",
+      "finishedAt": "2026-11-08T12:49:58.657Z",
+      "ok": true,
+      "found": 104,
+      "added": 8,
+      "updated": 96,
+      "duplicates": 96,
+      "analyzed": 103,
+      "priceChanges": [
+        {
+          "id": "kleinanzeigen:3549569060",
+          "from": 200,
+          "to": 180
+        }
+      ],
+      "sources": [
+        {
+          "source": "manual",
+          "ok": true,
+          "skipped": false,
+          "found": 104,
+          "durationMs": 15
+        }
+      ]
+    },
     {
       "startedAt": "2026-11-08T06:08:50.986Z",
       "finishedAt": "2026-11-08T06:08:51.167Z",
