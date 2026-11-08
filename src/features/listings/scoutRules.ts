@@ -17,6 +17,8 @@ export const FORK_BRAND = /\b(marzocchi|rock\s*shox|rockshox|manitou|answer|judy
 export const NOT_BIKE_ITEM = /(w[eę]dk\w*|ko[lł]owrot\w*|spinning\w*|\bangel\w*|\brute\b|feeder\w*|karpiow\w*|przelotk\w*)/i;
 /** Full suspension in the words sellers use (PL / DE / EN). "FS" alone is left out: Stumpjumper FS (1993) = front suspension. */
 export const FULL_SUSPENSION = /(\bfully\b|full[\s-]*sus\w*|vollgefedert|vollfederung|dual[\s-]*(?:sus\w*|feder\w*)|hinterbau\w*\s*(?:feder|d[äa]mpf)\w*|(?:d[äa]mpfer|federung)\s*hinten|hinten\s*gefedert|vorne\s*(?:und|u\.|&)\s*hinten\s*gefedert|tyln\w*\s*amortyzator|amortyzator\w*\s*tyln|amortyzator\w*\s*(?:z|na)\s*ty[lł]u|pe[lł]n\w*\s*zawiesz|podw[oó]jn\w*\s*amortyzac|\bsoftail\b|super\s*v\b)/i;
+/** Kids' / youth wheel sizes in the title (20" / 24"), unless the number is a frame size ("rama 24\""). */
+export const KIDS_WHEELS = /(?<!(?:rama|rahmen|frame|rh)\s*)\b(?:20|24)\s*(?:"|''|”|″|zoll\b)|\bko[lł]\w*\s*(?:20|24)\b|\b(?:20|24)er\s*(?:rad|fahrrad|mtb|mountain)/i;
 export const NOT_OFFER = /(gefunden|gestohlen|vermisst|\bsuche\b|szukam|kupi[eę]\b|zagin[aą][lł]|skradzion\w*)/i;
 /** "Deore XT/LX" alone is no retro signal (still produced); DX / STX / Exage are 90s-only groups. */
 export const RETRO = /(retro|vintage|oldschool|old\s*school|klasyk|kult|\b(?:19[89]\d)\b|lata\s*[89]0|\b[89]0(?:er|s)\b|starrgabel|sztywn\w*\s*widel|cr-?mo|chrom|stahl|stalow|tange|reynolds|columbus|ishiwata|true\s*temper|mufow|muffen|cantilever|biopace|suntour|deore\s*dx|\bstx\b|exage)/i;
@@ -42,9 +44,9 @@ export const REJECT_RULES: { id: RejectReason; label: string; rule: string }[] =
   { id: 'not-bike', label: 'To nie rower', rule: 'Słowa wędkarskie (wędka, kołowrotek, spinning, przelotki, Angelrute…) albo tytuł bez słowa „rower / bike / MTB / górski / rama / Fahrrad…” i bez producenta ani modelu roweru w samym tytule — producent znaleziony tylko w opisie (np. „Fuji” w przelotkach wędki) nie wystarcza.' },
   { id: 'cross-trekking', label: 'Tandem / cross / trekking / 28"', rule: 'Tytuł mówi o tandemie, rowerze crossowym, trekkingowym, przełajowym albo kołach 28".' },
   { id: 'not-offer', label: 'Nie oferta sprzedaży', rule: 'Ogłoszenia „znaleziony / skradziony / szukam / kupię” (Gefunden, Gestohlen, Suche) albo cena 0.' },
-  { id: 'red-flag', label: 'Czerwona flaga', rule: 'Rower dziecięcy / młodzieżowy, elektryczny, tani full (rower z marketu) — wykryte w tekście.' },
+  { id: 'red-flag', label: 'Czerwona flaga', rule: 'Rower dziecięcy / młodzieżowy (także koła 20"/24" w tytule), elektryczny, tani full (rower z marketu) — wykryte w tekście.' },
   { id: 'full-suspension', label: 'Pełne zawieszenie', rule: 'Full / fully, vollgefedert, Dämpfer hinten, tylny amortyzator, pełne zawieszenie, softail… — szukamy sztywnych ram; amortyzowany widelec z przodu jest dozwolony.' },
-  { id: 'part', label: 'Pojedyncza część', rule: 'Ogłoszenie dotyczy części (opony, rogi, siodło, przerzutka, wieszak, zacisk…), a nie roweru ani ramy.' },
+  { id: 'part', label: 'Pojedyncza część', rule: 'Ogłoszenie dotyczy części (opony, rogi, chwyty, siodło, przerzutka, wieszak, zacisk…), a nie roweru ani ramy.' },
   { id: 'part-code', label: 'Część po kodzie / marce', rule: 'Kod części Shimano („FC-M900”) bez słowa „rower/rama” albo marka amortyzatora („Marzocchi Bomber”, „Rock Shox”) bez rozpoznanego producenta roweru.' },
   { id: 'modern', label: 'Nowoczesny rower', rule: 'Koła 27,5"/29", hamulce tarczowe / hydrauliczne, karbon, Boost, napęd 1x11/1x12, tubeless, e-bike.' },
   { id: 'too-new', label: `Rocznik ≥ ${MAX_YEAR}`, rule: `Podany rok produkcji ${MAX_YEAR} lub nowszy.` },
@@ -66,7 +68,8 @@ export function scoutRejectReason(a: AnalyzedListing, rawText: string, titleOnly
   if (NOT_BIKE_ITEM.test(rawText) || (!BIKE_HINT.test(title) && !named(an.manufacturer) && !named(an.model))) return 'not-bike';
   if (NOT_MTB.test(title)) return 'cross-trekking';
   if (NOT_OFFER.test(rawText) || a.listing.price === 0) return 'not-offer';
-  if (an.redFlags.length) return 'red-flag';
+  // 20"/24" next to 26" wheels is the frame size ("Peugeot … 26" … 20""), not kids' wheels.
+  if (an.redFlags.length || (KIDS_WHEELS.test(title) && !/\b26\s*(?:"|''|”|″|zoll|cal)/i.test(title))) return 'red-flag';
   if (FULL_SUSPENSION.test(rawText)) return 'full-suspension';
   if (an.itemType === 'components') return 'part';
   if (!BIKE_WORD.test(title) && (PART_CODE.test(title) || (!an.manufacturerId && FORK_BRAND.test(title)))) return 'part-code';
