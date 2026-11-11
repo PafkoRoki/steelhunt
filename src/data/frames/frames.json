@@ -11,12 +11,12 @@
     "color": "biała",
     "glb": "models/stumpjumper-comp-1990.glb",
     "poster": "models/stumpjumper-comp-1990-poster.jpg",
-    "fileSizeMb": 1.5,
-    "triangles": 40000,
+    "fileSizeMb": 0.4,
+    "triangles": 60500,
     "source": "https://bikalog.org/c/specialized/1990-spec-bikes90",
     "summary": "Geometria z oryginalnego katalogu i zdjęcia z katalogu; spoiny TIG, owalne widełki DD, kute haki, odlewana obejma sztycy, wszystkie lutowane uchwyty, naklejki SPECIALIZED i Stumpjumper.",
     "pageTitle": "Stumpjumper Comp 1990 — rama 3D",
-    "pageSubtitle": "Specialized Stumpjumper Comp z 1990 r., rozmiar 18\", sama rama. Model zbudowany parametrycznie w Blenderze na podstawie oryginalnego katalogu i zdjęcia z katalogu.",
+    "pageSubtitle": "Specialized Stumpjumper Comp z 1990 r., rozmiar 18\", rama z widelcem DirectDrive i sterami. Model zbudowany parametrycznie w Blenderze na podstawie oryginalnego katalogu i zdjęcia z katalogu.",
     "alt": "Model 3D ramy Specialized Stumpjumper Comp 1990, biała",
     "sourceLabel": "Katalog Specialized 1990 (bikalog.org)",
     "tables": [
@@ -68,12 +68,13 @@
       "kute haki z hakiem przerzutki (prawy) i pionowym wycięciem na oś",
       "obejma sztycy z uszami, szczeliną i śrubą imbusową; tuleja wzmocnienia STR",
       "cantilevery na widełkach (z otworami na sprężynę), mostek widełek z oparciem pancerza",
-      "trzy prowadnice linek na rurze górnej, oporniki linek na rurze dolnej, prowadnica pod suportem",
+      "dwie prowadnice linek na rurze górnej, oporniki linek na rurze dolnej, prowadnica pod suportem",
       "po dwa mocowania koszyka na rurze dolnej i podsiodłowej",
-      "mostek tylnych widełek dolnych, gwintowana mufa suportu, otwarta główka",
-      "naklejka SPECIALIZED na rurze górnej i napis „Stumpjumper” z cieniem na rurze dolnej, po obu stronach (z grafik dodanych przez właściciela strony)"
+      "mostek tylnych widełek dolnych, gwintowana mufa suportu",
+      "widelec DirectDrive: korona unicrown, owalne golenie gięte dużym promieniem, wtykane haki, piwoty cantileverów; czarne stery (kształt widelca oszacowany ze zdjęć katalogu)",
+      "naklejki według zdjęć zachowanych ram: flaga USA i konturowy napis SPECIALIZED na rurze górnej, czerwony „Stumpjumper” z cieniem na rurze dolnej, znak S na główce, „COMP” na górnych widełkach (napis i znak S z grafik dodanych przez właściciela strony; krój „COMP” przybliżony)"
     ],
-    "footnote": "Bez widelca. Kolory naklejek dobrane do białej ramy (bordowe litery, ciemny cień). Skrypt: design/3d/stumpjumper_comp_1990.py — każdy wymiar to parametr."
+    "footnote": "Kolory i położenie naklejek według zdjęć zachowanych ram (czerwone litery, ciemny cień). Skrypt: design/3d/stumpjumper_comp_1990.py — każdy wymiar to parametr."
   },
   {
     "id": "ritchey-p23-1990",

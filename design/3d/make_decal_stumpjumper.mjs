@@ -1,5 +1,5 @@
 // Builds design/3d/decal-stumpjumper.png from the owner-supplied two-colour sticker artwork
-// (yellow letters + blue shadow on a white border): letters -> maroon, shadow -> dark grey, rest transparent.
+// (yellow letters + blue shadow on a white border): letters -> red, shadow -> near-black, rest transparent.
 // node design/3d/make_decal_stumpjumper.mjs
 import { readFileSync, writeFileSync } from 'node:fs';
 import { inflateSync, deflateSync } from 'node:zlib';
@@ -9,8 +9,8 @@ import { fileURLToPath } from 'node:url';
 const here = dirname(fileURLToPath(import.meta.url));
 const IN = resolve(here, 'sources/stumpjumper-script-sticker.png');
 const OUT = resolve(here, 'decal-stumpjumper.png');
-const LETTER = [140, 20, 36];   // maroon, same family as the SPECIALIZED decal
-const SHADOW = [43, 47, 52];    // dark grey drop shadow
+const LETTER = [205, 25, 40];   // bright red, as on owners' photos of 1990 frames
+const SHADOW = [30, 30, 34];    // near-black drop shadow
 
 const buf = readFileSync(IN);
 let pos = 8, W = 0, H = 0, ct = 0; const idat = [];
