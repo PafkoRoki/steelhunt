@@ -58,7 +58,7 @@ const FORK_RE = /\b(widel\w*|fork\w*|amortyzator\w*|\w*gabel\w*)\b/;
 const FRAME_RE = /\b(ram[aeyi]\w*|frame\w*|rury\w*|tubing|tubeset|\w*rahmen\w*|rohre?\w*)\b/;
 const MAIN_TUBES_RE = /(main\s*tubes?|rury\s*glown\w*|glown\w*\s*rury|3\s*main|trzy\s*(?:glowne\s*)?rury|main\s*triangle|glowny\s*trojkat|hauptrohre?)/;
 const PART_WORDS =
-  /\b(rogi|rozki|chwyt\w*|griffe?|grips?|owijk\w*|zamienn\w*|ersatzteil\w*|dzwon\w*|\w*klingel\w*|\w*glocke|hak\w*|dump\w*|damper\w*|pivot\w*|piwot\w*|kolo|kola|bar\s*ends?|barends?|hornchen|\w*gabel|detk\w*|schlauch\w*|lancuch\w*|kette|kierownic\w*|mostek|siodel\w*|siodlo|sztyca|manetk\w*|klamk\w*|przerzutk\w*|korb\w*|kaset\w*|piast\w*|obrecz\w*|opon\w*|pedal\w*|widelec|amortyzator\w*|hamulc\w*|stery|lenker|vorbau|sattel\w*|gabel|starrgabel|federgabel|schaltwerk|schalthebel|kurbel\w*|nabe\w*|bremse\w*|felge\w*|reifen|laufrad\w*|laufradsatz|steuersatz|fork|stem|handlebar|saddle|derailleur|crankset|chainsuck|wieszak\w*|zacisk\w*|pancerz\w*|link[ai]|suport\w*|bottom\s*bracket)\b/;
+  /\b(buty|butow|schuhe?|kask\w*|helm|koszyk\w*|bidon\w*|flaschenhalter\w*|blotnik\w*|schutzblech\w*|bagaznik\w*|gepacktrager\w*|lampk\w*|licznik\w*|pompk\w*|sakw\w*|torb[aey]\w*|koszulk\w*|trikot\w*|spodenk\w*|rekawiczk\w*|handschuhe?|katalog\w*|prospekt\w*|rogi|rozki|chwyt\w*|griffe?|grips?|owijk\w*|zamienn\w*|ersatzteil\w*|dzwon\w*|\w*klingel\w*|\w*glocke|hak\w*|dump\w*|damper\w*|pivot\w*|piwot\w*|kolo|kola|bar\s*ends?|barends?|hornchen|\w*gabel|detk\w*|schlauch\w*|lancuch\w*|kette|kierownic\w*|mostek|siodel\w*|siodlo|sztyca|manetk\w*|klamk\w*|przerzutk\w*|korb\w*|kaset\w*|piast\w*|obrecz\w*|opon\w*|pedal\w*|widelec|amortyzator\w*|hamulc\w*|stery|lenker|vorbau|sattel\w*|gabel|starrgabel|federgabel|schaltwerk|schalthebel|kurbel\w*|nabe\w*|bremse\w*|felge\w*|reifen|laufrad\w*|laufradsatz|steuersatz|fork|stem|handlebar|saddle|derailleur|crankset|chainsuck|wieszak\w*|zacisk\w*|pancerz\w*|link[ai]|suport\w*|bottom\s*bracket)\b/;
 const BIKE_WORDS = /\b(rower|rowery|roweru|fahrrad|fahrrader|mountainbike\w*|bike|\brad\b|rama|ramy|rahmen\w*|frameset|frame)\b/;
 const FRAME_AND_FORK_RE = /(ram[aeyi]\w*\s*(?:i|oraz|and|\+|&|z)\s*widel\w*|widel\w*\s*(?:i|oraz|and|\+|&)\s*ram[aeyi]\w*|frame\s*(?:and|&|\+)\s*fork|rahmen\s*(?:und|\+|&|mit)\s*\w*gabel\w*|gabel\w*\s*(?:und|\+|&)\s*rahmen)/;
 const DECAL_RE = /(naklejk\w*|decal\w*|sticker\w*|aufkleber\w*|emblemat\w*|oryginaln\w*\s*oznaczen\w*)/;
@@ -66,18 +66,36 @@ const BUTTED_RE = /(double[\s-]*butted|triple[\s-]*butted|\bbutted\b|cieniowan\w
 
 // ---------- manufacturer & model ----------
 
+/** "GT Ricochet jak Zaskar", "ähnlich Kona", "w stylu Stumpjumper" — the name after these words is a comparison. "jak nowy" / "wie neu" are not. */
+const COMPARISON_BEFORE = /(?:^|[^a-z0-9])(?:jak|wie|ahnlich\w*|podobn\w*(?:\s+do)?|w\s+stylu|a\s+la|typu|zamiast|statt)\s+(?:(?!now|neu)[a-z0-9-]+\s+)?$/;
+
+/** First occurrence of the alias that is not a comparison; null when there is none. */
+export function firstRealMatch(re: RegExp, text: string): { index: number } | null {
+  const g = new RegExp(re.source, 'gi');
+  let m: RegExpExecArray | null;
+  while ((m = g.exec(text))) {
+    const start = m.index + m[0].length - (m[1]?.length ?? m[0].length);
+    if (!COMPARISON_BEFORE.test(text.slice(Math.max(0, start - 40), start))) return { index: m.index };
+    if (m[0].length === 0) g.lastIndex++;
+  }
+  return null;
+}
+
+/** Makers better known for parts: in a description the name usually means a stem, rim or saddle, so only the title counts. */
+const COMPONENT_BRANDS = new Set(['bontrager', 'ritchey']);
+
 function findManufacturer(title: string, desc: string, db: BikeDatabase) {
   let best: { m: Manufacturer; pos: number; len: number; where: 'title' | 'description'; alias: string } | null = null;
   for (const m of db.manufacturers) {
     for (const alias of m.aliases) {
       const short = alias.replace(/[^a-z0-9]/g, '').length <= 3 || alias === 'orange' || alias === 'fisher';
       const re = aliasRegex(alias);
-      const t = re.exec(title);
+      const t = firstRealMatch(re, title);
       let pos = -1;
       let where: 'title' | 'description' = 'title';
       if (t) pos = t.index;
-      else if (!short) {
-        const d = re.exec(desc);
+      else if (!short && !COMPONENT_BRANDS.has(m.id)) {
+        const d = firstRealMatch(re, desc);
         if (d) {
           pos = 10000 + d.index;
           where = 'description';
@@ -99,7 +117,7 @@ function findModel(title: string, desc: string, db: BikeDatabase, manufacturer: 
     for (const alias of model.aliases) {
       if (!manufacturer && !DISTINCTIVE_MODEL_ALIASES.has(alias)) continue;
       const re = aliasRegex(alias);
-      const where = re.test(title) ? 'title' : re.test(desc) ? 'description' : null;
+      const where = firstRealMatch(re, title) ? 'title' : firstRealMatch(re, desc) ? 'description' : null;
       if (!where) continue;
       const len = alias.length + (where === 'title' ? 100 : 0);
       if (!best || len > best.len) best = { model, len, where };
@@ -266,6 +284,10 @@ function detectItemType(title: string, text: string, declared?: ItemType): ItemT
   if (/\b(rahmen|rama)\b/.test(title) && !/\b(fahrrad|mountainbike|rower|rad)\b/.test(title)) return 'frame';
   // A single part named in the title ("Tange Prestige Lenker", "Retro MTB Gabel") without any bike/frame word.
   if (PART_WORDS.test(title) && !BIKE_WORDS.test(title)) return 'components';
+  // A clamp / seat-post diameter in the title without any bike word ("Bontrager Race Lite 31.8") is a part.
+  if (/(?:^|[^0-9])(?:25[.,]4|26[.,]0|26[.,]8|27[.,]2|28[.,]6|30[.,]9|31[.,]6|31[.,]8)(?![0-9])/.test(title) && !BIKE_WORDS.test(title)) return 'components';
+  // Chainring / sprocket: tooth count or bolt circle in the title without any bike word ("Gebhardt GIP 94 mm 44 T").
+  if (/\b\d{2}\s*(?:t|z|zebow|zahne)\b|\b(?:58|74|94|104|110|130)\s*mm\b/.test(title) && !BIKE_WORDS.test(title)) return 'components';
   return 'complete';
 }
 

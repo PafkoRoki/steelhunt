@@ -35,6 +35,8 @@ export function toPln(l: SourceListing, settings: AppSettings): number | null {
   return null;
 }
 
+const ALUMINIUM_ONLY_MAKERS = new Set(['cannondale', 'klein']);
+
 function analyzeOne(
   listing: SourceListing,
   facts: TextFacts,
@@ -48,6 +50,11 @@ function analyzeOne(
   // Material fallback from the model's documented frame material.
   if (facts.frameMaterial === 'unknown' && facts.model?.frameMaterial === 'aluminium') facts.frameMaterial = 'aluminium';
   if (facts.frameMaterial === 'unknown' && facts.model?.frameMaterial === 'steel' && !facts.tubingSpec) facts.frameMaterial = 'steel-unknown';
+  // Makers that built aluminium frames only (see their notes in the database) — an unnamed material is aluminium.
+  if (facts.frameMaterial === 'unknown' && facts.manufacturer && ALUMINIUM_ONLY_MAKERS.has(facts.manufacturer.id)) {
+    facts.frameMaterial = 'aluminium';
+    warnings.push(`${facts.manufacturer.name} budował ramy aluminiowe — materiał przyjęty na podstawie marki, nie ogłoszenia.`);
+  }
   // Material fallback from model DB typical tubing.
   if (facts.frameMaterial === 'unknown' && facts.tubingSpec && facts.tubing.evidence[0]?.source === 'model-db') {
     facts.frameMaterial = facts.tubingSpec.material === 'hiten' ? 'steel-hiten' : 'steel-crmo';

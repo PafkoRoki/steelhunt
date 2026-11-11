@@ -13,7 +13,7 @@
  * Usage: npm run scout            (writes files)
  *        npm run scout -- --dry   (prints summary only)
  */
-import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { resolve } from 'node:path';
@@ -25,6 +25,7 @@ import { scoutRejectReason, type RejectReason, type ScoutPortalStats, type Scout
 import { tubingLabel } from '../src/services/analysis/textAnalyzer';
 import { haversineKm, resolveLocation } from '../src/services/geolocation/geo';
 import type { AnalyzedListing } from '../src/types/listing';
+import { normalizeText } from '../src/utils/text';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const IMPORTS = resolve(ROOT, 'data/imports');
@@ -41,8 +42,18 @@ interface ScoutConfig {
   delayMs: number;
   keepDays: number;
   maxDetailFetches: number;
-  olx: { enabled: boolean; radiusKm: number; queries: string[] };
-  kleinanzeigen: { enabled: boolean; postcodePrefixes: string[]; queries: string[] };
+  /** How many database models (steel, most valuable first) get their own "maker model" query per run; the set rotates run by run. */
+  modelQueriesPerRun?: number;
+  olx: { enabled: boolean; radiusKm: number; /** Result pages per general query, newest first (50 per page). */ pages?: number; queries: string[] };
+  kleinanzeigen: {
+    enabled: boolean;
+    postcodePrefixes: string[];
+    /** Search around a town instead of all of Germany (the portal's own location filter): slug + location id + radius. */
+    area?: { slug: string; locationId: number; radiusKm: number };
+    /** Result pages per general query (25 per page, newest first). */
+    pages?: number;
+    queries: string[];
+  };
   allegroLokalnie?: { enabled: boolean; radiusKm: number; delayMs?: number; queries: string[] };
   sprzedajemy?: { enabled: boolean; radiusKm: number; delayMs?: number; queries: string[] };
   ebay?: { enabled: boolean; marketplaceId: string; categoryIds?: string; limit?: number; postcodePrefixes?: string[]; queries: string[] };
@@ -90,6 +101,37 @@ interface AutoRecord {
 const cfg = JSON.parse(readFileSync(resolve(ROOT, 'config/scout.json'), 'utf8')) as ScoutConfig;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const log: string[] = [];
+/** Titles the rules dropped in this run — written to tmp/scout-rejected.json (local only) for tuning the rules. */
+const REJECTED: { portal: string; stage: 'card' | 'full' | 'recheck'; reason: RejectReason; title: string; url: string; price: number | null; maker: string | null; material: string }[] = [];
+
+/**
+ * Rotating "maker model" queries built from the bike database: steel models, most valuable first.
+ * Each run takes the next `modelQueriesPerRun` of them (cursor kept in scout-stats.json), so over a few runs
+ * every known model gets searched by name without raising the request rate of a single run.
+ */
+function modelQueries(): { queries: string[]; cursor: number } {
+  const n = cfg.modelQueriesPerRun ?? 0;
+  if (!n) return { queries: [], cursor: 0 };
+  const db = buildDatabase();
+  const all = db.models
+    .filter((m) => m.frameMaterial === 'steel' && db.manufacturerById.get(m.manufacturerId))
+    .sort((a, b) => (b.marketValuePLN?.max ?? 0) - (a.marketValuePLN?.max ?? 0) || a.id.localeCompare(b.id))
+    .map((m) => `${db.manufacturerById.get(m.manufacturerId)!.name} ${m.name.split(/\s+\/\s+|\(/)[0]}`.toLowerCase().replace(/\./g, ' ').replace(/\s+/g, ' ').trim());
+  const unique = [...new Set(all)];
+  all.length = 0;
+  all.push(...unique);
+  if (!all.length) return { queries: [], cursor: 0 };
+  let start = 0;
+  try {
+    start = Number(JSON.parse(readFileSync(resolve(ROOT, 'public/data/scout-stats.json'), 'utf8')).modelCursor) || 0;
+  } catch {
+    /* first run */
+  }
+  start %= all.length;
+  const queries = Array.from({ length: Math.min(n, all.length) }, (_, i) => all[(start + i) % all.length]);
+  return { queries, cursor: (start + queries.length) % all.length };
+}
+let MODEL_Q: { queries: string[]; cursor: number } = { queries: [], cursor: 0 };
 
 // ---------------------------------------------------------------- selection funnel stats (shown on the "Selekcja ofert" page)
 const STATS_FILE = resolve(ROOT, 'public/data/scout-stats.json');
@@ -184,14 +226,30 @@ const OLX_STATE: Record<string, string> = { damaged: 'poor', new: 'excellent', r
 async function scoutOlx(): Promise<Candidate[]> {
   const out = new Map<string, Candidate>();
   const st = stat(PORTAL_FILE.OLX);
-  st.queries = cfg.olx.queries.length;
-  for (const q of cfg.olx.queries) {
-    const url = `https://www.olx.pl/api/v1/offers/?offset=0&limit=40&category_id=767&query=${encodeURIComponent(q)}&city_id=${OLX_POZNAN_CITY_ID}&distance=${cfg.olx.radiusKm}`;
+  const general = new Set(cfg.olx.queries);
+  const queries = [...cfg.olx.queries, ...MODEL_Q.queries.filter((q) => !general.has(q))];
+  st.queries = queries.length;
+  const LIMIT = 50;
+  for (const q of queries) {
+    // General queries: several pages, newest first (the default order hides most of a long result list).
+    // Model queries are narrow — one page is the whole list.
+    const pages = general.has(q) ? cfg.olx.pages ?? 1 : 1;
     try {
-      const ads: any[] = JSON.parse(await get(url))?.data ?? [];
+      const ads: any[] = [];
+      for (let page = 0; page < pages; page++) {
+        const url = `https://www.olx.pl/api/v1/offers/?offset=${page * LIMIT}&limit=${LIMIT}&category_id=767&query=${encodeURIComponent(q)}&city_id=${OLX_POZNAN_CITY_ID}&distance=${cfg.olx.radiusKm}&sort_by=created_at:desc`;
+        const got: any[] = JSON.parse(await get(url))?.data ?? [];
+        ads.push(...got);
+        if (got.length < LIMIT) break;
+      }
       st.raw += ads.length;
+      const words = general.has(q) ? [] : normalizeText(q).split(/[^a-z0-9]+/).filter(Boolean);
       for (const ad of ads) {
         if (!ad?.url || out.has(ad.url)) continue;
+        if (words.length) {
+          const hay = normalizeText(`${ad.title ?? ''} ${ad.description ?? ''}`).replace(/[^a-z0-9]+/g, ' ');
+          if (!words.every((w) => new RegExp(`(?:^| )${w}(?: |$)`).test(hay))) continue;
+        }
         const pv = ad.params?.find((p: any) => p.key === 'price')?.value;
         const state = ad.params?.find((p: any) => p.key === 'state')?.value?.key;
         const city = [ad.location?.city?.name, ad.location?.district?.name].filter(Boolean).join(', ');
@@ -252,7 +310,8 @@ function parseKaSearch(html: string): KaStub[] {
       /* ignore */
     }
     const text = decode(art.replace(/<script[\s\S]*?<\/script>/g, ' '));
-    const location = text.match(/\b(\d{5}\s+[A-Za-zÄÖÜäöüß.\-() ]+?)(?=\s+(?:Heute|Gestern|\d{2}\.\d{2}\.\d{4}))/)?.[1]?.trim() ?? '';
+    // Radius searches add the distance after the town: "08056 Zwickau (ca. 200 km) Heute, 17:58".
+    const location = text.match(/\b(\d{5}\s+[A-Za-zÄÖÜäöüß.\-() ]+?)(?:\s*\((?:ca\.\s*)?\d+\s*km\))?(?=\s+(?:Heute|Gestern|\d{2}\.\d{2}\.\d{4}))/)?.[1]?.trim() ?? '';
     const priceText = text.match(/(\d[\d.]*\s*€(?:\s*VB)?|\bVB\b|Zu verschenken)/)?.[1] ?? '';
     stubs.push({ id, url: `https://www.kleinanzeigen.de${href}`, title: decode(ld.title ?? ''), snippet: decode(ld.description ?? ''), location, priceText, image: ld.contentUrl });
   }
@@ -268,11 +327,26 @@ function kaPrice(t: string): number | null {
 async function scoutKleinanzeigen(known: Set<string>, previous: Map<string, AutoRecord>): Promise<Candidate[]> {
   const stubs = new Map<string, KaStub>();
   const st = stat(PORTAL_FILE.Kleinanzeigen);
-  st.queries = cfg.kleinanzeigen.queries.length;
-  for (const q of cfg.kleinanzeigen.queries) {
+  const general = new Set(cfg.kleinanzeigen.queries);
+  const queries = [...cfg.kleinanzeigen.queries, ...MODEL_Q.queries.filter((q) => !general.has(q))];
+  st.queries = queries.length;
+  const area = cfg.kleinanzeigen.area;
+  for (const q of queries) {
     const slug = encodeURIComponent(q.trim().toLowerCase().replace(/\s+/g, '-'));
+    const pages = general.has(q) ? cfg.kleinanzeigen.pages ?? 1 : 1;
     try {
-      const found = parseKaSearch(await get(`https://www.kleinanzeigen.de/s-fahrraeder/${slug}/k0c217`));
+      const found: KaStub[] = [];
+      for (let page = 1; page <= pages; page++) {
+        const seite = page > 1 ? `seite:${page}/` : '';
+        // With `area` the portal itself limits results to the town + radius (e.g. Berlin + 200 km), so nearly
+        // every result is in range; without it the search is nationwide and most results are dropped below.
+        const url = area
+          ? `https://www.kleinanzeigen.de/s-fahrraeder/${area.slug}/${seite}${slug}/k0c217l${area.locationId}r${area.radiusKm}`
+          : `https://www.kleinanzeigen.de/s-fahrraeder/${seite}${slug}/k0c217`;
+        const got = parseKaSearch(await get(url));
+        found.push(...got);
+        if (got.length < 25) break;
+      }
       st.raw += found.length;
       let kept = 0;
       for (const s of found) {
@@ -294,7 +368,7 @@ async function scoutKleinanzeigen(known: Set<string>, previous: Map<string, Auto
   const db = buildDatabase();
   const pre = [...stubs.values()].filter((s) => {
     const probe = normalizeImportRecord({ url: s.url, title: s.title || 'x x x', description: s.snippet, price: kaPrice(s.priceText), currency: 'EUR', location: s.location });
-    return keep(analyzeListings([probe], DEFAULT_SETTINGS, db)[0], s.title + ' ' + s.snippet, false, st.pre.rejected);
+    return keep(analyzeListings([probe], DEFAULT_SETTINGS, db)[0], s.title + ' ' + s.snippet, false, st.pre.rejected, 'card');
   });
 
   const out: Candidate[] = [];
@@ -451,7 +525,7 @@ async function scoutCards(
   const db = buildDatabase();
   const pre = [...stubs.values()].filter((s) => {
     const probe = normalizeImportRecord({ url: s.url, title: s.title || 'x x x', description: '', price: s.price, currency: 'PLN', location: s.location });
-    return keep(analyzeListings([probe], DEFAULT_SETTINGS, db)[0], s.title, true, st.pre.rejected);
+    return keep(analyzeListings([probe], DEFAULT_SETTINGS, db)[0], s.title, true, st.pre.rejected, 'card');
   });
 
   const out: Candidate[] = [];
@@ -643,9 +717,10 @@ async function scoutEbay(known: Set<string>, previous: Map<string, AutoRecord>):
 // ---------------------------------------------------------------- filtering & fact summary
 
 /** Applies the shared rules (src/features/listings/scoutRules.ts); counts the reason when a tally is given. */
-function keep(a: AnalyzedListing, rawText: string, titleOnly = false, tally?: Partial<Record<RejectReason, number>>): boolean {
+function keep(a: AnalyzedListing, rawText: string, titleOnly = false, tally?: Partial<Record<RejectReason, number>>, stage: 'card' | 'full' | 'recheck' = 'full'): boolean {
   const r = scoutRejectReason(a, rawText, titleOnly);
   if (r && tally) tally[r] = (tally[r] ?? 0) + 1;
+  if (r) REJECTED.push({ portal: a.listing.marketplace, stage, reason: r, title: a.listing.title, url: a.listing.sourceUrl, price: a.listing.price, maker: a.analysis.manufacturer, material: a.analysis.frameMaterial });
   return r == null;
 }
 
@@ -710,6 +785,11 @@ function toRecords(file: string, cands: Candidate[], previous: AutoRecord[], kno
     st.excluded = (st.excluded ?? 0) + 1;
     return true;
   };
+  // Dry run: keep the raw candidates locally (tmp/ is not in the repo) so rule changes can be replayed offline with tmp/replay.ts.
+  if (DRY && cands.length) {
+    mkdirSync(resolve(ROOT, 'tmp'), { recursive: true });
+    writeFileSync(resolve(ROOT, 'tmp', `scout-candidates-${file}`), JSON.stringify(cands), 'utf8');
+  }
   cands = cands.filter((c) => !isExcluded(c.url));
   previous = previous.filter((r) => !isExcluded(r.url));
   st.full.checked += cands.length;
@@ -735,7 +815,10 @@ function toRecords(file: string, cands: Candidate[], previous: AutoRecord[], kno
     const a = analyzeListings([listing], DEFAULT_SETTINGS, db)[0];
     if (!keep(a, `${c.title} ${c.description}`, false, st.full.rejected)) continue;
     const prev = prevByUrl.get(c.url);
-    if (!prev) added++;
+    if (!prev) {
+      added++;
+      if (DRY) log.push(`  + ${file}: ${c.title.slice(0, 90)} — ${c.price ?? '?'} ${c.currency}`);
+    }
     records.set(c.url, {
       url: c.url,
       title: c.title,
@@ -764,7 +847,7 @@ function toRecords(file: string, cands: Candidate[], previous: AutoRecord[], kno
     }
     // Re-detect the item type from the text (the stored one may come from older, weaker rules).
     const a = analyzeListings([normalizeImportRecord({ ...r, itemType: undefined })], DEFAULT_SETTINGS, db)[0];
-    if (keep(a, `${r.title} ${r.description}`, false, st.rechecked)) {
+    if (keep(a, `${r.title} ${r.description}`, false, st.rechecked, 'recheck')) {
       records.set(r.url, r);
       st.carried++;
     } else st.expired++;
@@ -776,6 +859,8 @@ function toRecords(file: string, cands: Candidate[], previous: AutoRecord[], kno
 
 async function main() {
   const nowIso = new Date().toISOString();
+  if (!REFILTER) MODEL_Q = modelQueries();
+  if (MODEL_Q.queries.length) log.push(`Zapytania o modele z bazy (rotacja): ${MODEL_Q.queries.join(', ')}`);
   const known = manualUrls();
   const results: { name: string; records: AutoRecord[]; added: number }[] = [];
 
@@ -833,9 +918,15 @@ async function main() {
   // Funnel of this run for the "Selekcja ofert" page. Only full runs: a re-filter, a dry run or a
   // single-portal run (--only=) would not describe the whole search.
   if (!DRY && !REFILTER && !ONLY && STATS.size) {
-    const stats: ScoutStats = { generatedAt: nowIso, keepDays: cfg.keepDays, maxDetailFetches: cfg.maxDetailFetches, portals: [...STATS.values()] };
+    const stats: ScoutStats = { generatedAt: nowIso, keepDays: cfg.keepDays, maxDetailFetches: cfg.maxDetailFetches, modelQueries: MODEL_Q.queries, modelCursor: MODEL_Q.cursor, portals: [...STATS.values()] };
     writeFileSync(STATS_FILE, JSON.stringify(stats, null, 2) + '\n', 'utf8');
     console.log(`\nStatystyki selekcji: ${STATS_FILE}`);
+  }
+
+  if (!REFILTER && REJECTED.length) {
+    mkdirSync(resolve(ROOT, 'tmp'), { recursive: true });
+    writeFileSync(resolve(ROOT, 'tmp/scout-rejected.json'), JSON.stringify(REJECTED, null, 1), 'utf8');
+    console.log(`\nOdrzucone (do strojenia reguł): tmp/scout-rejected.json — ${REJECTED.length}`);
   }
 
   // Top deals across everything (for the run report).

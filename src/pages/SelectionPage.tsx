@@ -131,9 +131,9 @@ export default function SelectionPage() {
           </p>
           <div className="grid gap-2 sm:grid-cols-2">
             {[
-              { id: 'olx', area: `Poznań ± ${scoutConfig.olx.radiusKm} km (filtr API OLX, kategoria Rowery)`, q: scoutConfig.olx.queries, file: 'auto-olx.json' },
+              { id: 'olx', area: `Poznań ± ${scoutConfig.olx.radiusKm} km (filtr API OLX, kategoria Rowery); do ${(scoutConfig.olx.pages ?? 1) * 50} najnowszych wyników na zapytanie`, q: scoutConfig.olx.queries, file: 'auto-olx.json' },
               { id: 'sprzedajemy', area: 'Poznań ± 150 km (filtr portalu)', q: scoutConfig.sprzedajemy.queries, file: 'auto-sprzedajemy.json' },
-              { id: 'kleinanzeigen', area: `wschodnie Niemcy — kody pocztowe ${scoutConfig.kleinanzeigen.postcodePrefixes.join(', ')}xxx; ceny EUR × ${settings.eurToPln}`, q: scoutConfig.kleinanzeigen.queries, file: 'auto-kleinanzeigen.json' },
+              { id: 'kleinanzeigen', area: `${scoutConfig.kleinanzeigen.area ? `Berlin ± ${scoutConfig.kleinanzeigen.area.radiusKm} km (filtr portalu), z tego ` : 'wschodnie Niemcy — '}kody pocztowe ${scoutConfig.kleinanzeigen.postcodePrefixes.join(', ')}xxx; do ${(scoutConfig.kleinanzeigen.pages ?? 1) * 25} najnowszych wyników na zapytanie; ceny EUR × ${settings.eurToPln}`, q: scoutConfig.kleinanzeigen.queries, file: 'auto-kleinanzeigen.json' },
             ].map((p) => {
               const st = portals.find((x) => x.file === p.file);
               const info = scoutPortals.find((m) => m.id === p.id);
@@ -154,6 +154,13 @@ export default function SelectionPage() {
               );
             })}
           </div>
+          {(scoutConfig.modelQueriesPerRun ?? 0) > 0 && (
+            <p className="text-xs text-ink-400">
+              Do tego w każdym uruchomieniu OLX i Kleinanzeigen dostają {scoutConfig.modelQueriesPerRun} zapytań „producent model” z bazy rowerów (modele stalowe,
+              od najcenniejszych). Zestaw zmienia się z każdym uruchomieniem, więc po kilkunastu przebiegach każdy model z bazy jest wyszukany po nazwie.
+              {s?.modelQueries?.length ? ` Ostatnio: ${s.modelQueries.join(' · ')}.` : ''}
+            </p>
+          )}
           <p className="text-xs text-ink-500">
             Bez automatu: {manualPortals.map((m) => m.name).join(', ')} — regulaminy lub brak API. Takie ogłoszenia dodajesz ręcznie przez „Dodaj ogłoszenie” (np. z zapisanej strony).
           </p>

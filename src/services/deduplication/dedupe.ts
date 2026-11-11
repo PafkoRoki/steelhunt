@@ -4,6 +4,7 @@ import { jaccard, tokenize } from '../../utils/text';
 /**
  * Duplicate detection.
  *  1. Exact: same marketplace + externalId (or same canonical URL) → same listing (update, not insert).
+ *  3. Repost on the same portal: identical title + price + town → flagged `duplicateOf` too.
  *  2. Fuzzy cross-portal: similar title + similar price + same town → flagged `duplicateOf`, kept visible.
  */
 export function canonicalUrl(url: string): string {
@@ -33,6 +34,12 @@ export function isLikelyDuplicate(a: SourceListing, b: SourceListing): boolean {
   const priceOk = a.price != null && b.price != null && Math.abs(a.price - b.price) / Math.max(a.price, b.price, 1) <= 0.1;
   const locOk = !!a.locationName && !!b.locationName && tokenize(a.locationName)[0] === tokenize(b.locationName)[0];
   return (t >= 0.5 && priceOk && locOk) || similarity(a, b) >= 0.75;
+}
+
+/** Same portal: identical title, same price, same town — the seller posted the ad twice. */
+export function isRepost(a: SourceListing, b: SourceListing): boolean {
+  const same = (x: string | null | undefined, y: string | null | undefined) => !!x && !!y && tokenize(x).join(' ') === tokenize(y).join(' ');
+  return a.marketplace === b.marketplace && a.price != null && a.price === b.price && same(a.title, b.title) && same(a.locationName, b.locationName);
 }
 
 export interface MergeResult {
@@ -80,7 +87,8 @@ export function mergeListings(existing: SourceListing[], incoming: SourceListing
     };
     // Fuzzy cross-portal duplicate?
     for (const other of byKey.values()) {
-      if (other.marketplace !== fresh.marketplace && isLikelyDuplicate(other, fresh)) {
+      if (other.duplicateOf) continue;
+      if (other.marketplace !== fresh.marketplace ? isLikelyDuplicate(other, fresh) : isRepost(other, fresh)) {
         fresh.duplicateOf = other.id;
         duplicates++;
         break;
