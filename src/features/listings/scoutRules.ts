@@ -9,7 +9,7 @@ import { normalizeText } from '../../utils/text';
 
 export const MODERN = /(27[,.]5|\b29\s*(?:["“”″]|''|zoll|er|cali)|\b29er\b|\b(?:xs|s|m|l|xl|xxl)\s*[-/]?\s*29\b|\b29\s*[x×]\s*[12](?:[.,]\d+)?\b|hydraul|tarczow|scheibenbremse|\bdisc\b|e[\s-]?bike|pedelec|carbon|karbon|boost|1x1[12]\b|tubeless)/i;
 export const BIKE_HINT = /(rower|bike|mtb|atb|g[oó]ral|g[oó]rsk|fahrrad|\brad\b|rahmen|rama|mountain|bicykl|velo)/i;
-export const NOT_MTB = /(tandem|crossow\w*|\bcross\b|trekking\w*|prze[lł]aj\w*|\b28\s*(?:cali|"|''|”|zoll|er)|ko[lł]a\s*28)/i;
+export const NOT_MTB = /(tandem|crossow\w*|\bcross\b|crossbike\w*|crossrad\w*|hybrid\w*|trekking\w*|prze[lł]aj\w*|\b28\s*(?:cali|"|''|”|zoll|er)|ko[lł]a\s*28)/i;
 export const BIKE_WORD = /(rower|bike|fahrrad|\brad\b|rama|ramy|rahmen|mountain)/i;
 export const PART_CODE = /\b(?:fc|rd|fd|st|br|bl|cs|hb|fh|sl|bb)-?[a-z]{0,2}\d{2,4}\b/i;
 export const FORK_BRAND = /\b(marzocchi|rock\s*shox|rockshox|manitou|answer|judy|bomber)\b/i;
@@ -42,11 +42,11 @@ export type RejectReason =
 export const REJECT_RULES: { id: RejectReason; label: string; rule: string }[] = [
   { id: 'not-mtb', label: 'Szosa / nie MTB', rule: 'Rower szosowy (baranek, 700c, „kolarzówka”, Rennrad) albo kategoria, która nie jest MTB/ATB (miejski, trekking) i bez słów MTB / „górski” / koła 26".' },
   { id: 'not-bike', label: 'To nie rower', rule: 'Słowa wędkarskie (wędka, kołowrotek, spinning, przelotki, Angelrute…) albo tytuł bez słowa „rower / bike / MTB / górski / rama / Fahrrad…” i bez producenta ani modelu roweru w samym tytule — producent znaleziony tylko w opisie (np. „Fuji” w przelotkach wędki) nie wystarcza.' },
-  { id: 'cross-trekking', label: 'Tandem / cross / trekking / 28"', rule: 'Tytuł mówi o tandemie, rowerze crossowym, trekkingowym, przełajowym albo kołach 28".' },
+  { id: 'cross-trekking', label: 'Tandem / cross / trekking / 28"', rule: 'Tytuł mówi o tandemie, rowerze crossowym (Crossbike), hybrydzie, trekkingowym, przełajowym albo kołach 28".' },
   { id: 'not-offer', label: 'Nie oferta sprzedaży', rule: 'Ogłoszenia „znaleziony / skradziony / szukam / kupię” (Gefunden, Gestohlen, Suche) albo cena 0.' },
   { id: 'red-flag', label: 'Czerwona flaga', rule: 'Rower dziecięcy / młodzieżowy (także koła 20"/24" w tytule), elektryczny, tani full (rower z marketu) — wykryte w tekście.' },
   { id: 'full-suspension', label: 'Pełne zawieszenie', rule: 'Full / fully, vollgefedert, Dämpfer hinten, tylny amortyzator, pełne zawieszenie, softail… — szukamy sztywnych ram; amortyzowany widelec z przodu jest dozwolony.' },
-  { id: 'part', label: 'Pojedyncza część', rule: 'Ogłoszenie dotyczy części (opony, rogi, chwyty, siodło, przerzutka, wieszak, zacisk…), a nie roweru ani ramy.' },
+  { id: 'part', label: 'Pojedyncza część', rule: 'Ogłoszenie dotyczy części (opony, rogi, chwyty, dzwonek, „części zamienne”, siodło, przerzutka, wieszak, zacisk…), a nie roweru ani ramy.' },
   { id: 'part-code', label: 'Część po kodzie / marce', rule: 'Kod części Shimano („FC-M900”) bez słowa „rower/rama” albo marka amortyzatora („Marzocchi Bomber”, „Rock Shox”) bez rozpoznanego producenta roweru.' },
   { id: 'modern', label: 'Nowoczesny rower', rule: 'Koła 27,5"/29", hamulce tarczowe / hydrauliczne, karbon, Boost, napęd 1x11/1x12, tubeless, e-bike.' },
   { id: 'too-new', label: `Rocznik ≥ ${MAX_YEAR}`, rule: `Podany rok produkcji ${MAX_YEAR} lub nowszy.` },
