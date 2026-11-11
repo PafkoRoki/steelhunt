@@ -1,7 +1,38 @@
 {
-  "lastRunAt": "2026-11-11T06:33:10.848Z",
-  "lastSuccessAt": "2026-11-11T06:33:10.848Z",
+  "lastRunAt": "2026-11-11T13:33:56.868Z",
+  "lastSuccessAt": "2026-11-11T13:33:56.868Z",
   "runs": [
+    {
+      "startedAt": "2026-11-11T13:33:56.713Z",
+      "finishedAt": "2026-11-11T13:33:56.868Z",
+      "ok": true,
+      "found": 106,
+      "added": 8,
+      "updated": 98,
+      "duplicates": 99,
+      "analyzed": 105,
+      "priceChanges": [
+        {
+          "id": "olx:1bPn8G",
+          "from": 400,
+          "to": 299
+        },
+        {
+          "id": "sprzedajemy:72409305",
+          "from": 400,
+          "to": 300
+        }
+      ],
+      "sources": [
+        {
+          "source": "manual",
+          "ok": true,
+          "skipped": false,
+          "found": 106,
+          "durationMs": 17
+        }
+      ]
+    },
     {
       "startedAt": "2026-11-11T06:33:10.663Z",
       "finishedAt": "2026-11-11T06:33:10.848Z",
