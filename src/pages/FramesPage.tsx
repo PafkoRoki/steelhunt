@@ -20,9 +20,18 @@ export interface FrameEntry {
   triangles: number;
   source: string;
   summary: string;
+  pageTitle: string;
+  pageSubtitle: string;
+  alt?: string;
+  sourceLabel: string;
+  /** Paint schemes — each its own GLB; the first is the default. */
+  variants?: { id: string; label: string; glb: string; poster: string; alt: string; fileSizeMb: number }[];
+  tables: { title: string; rows: [string, string][]; note?: string }[];
+  details: string[];
+  footnote: string;
 }
 
-export const FRAMES = frames as FrameEntry[];
+export const FRAMES = frames as unknown as FrameEntry[];
 
 /** "Baza ram" — 3D models of classic frames, built parametrically in Blender from period catalogues. */
 export default function FramesPage() {
@@ -64,6 +73,7 @@ export default function FramesPage() {
                   Źródło <ExternalLink size={12} />
                 </a>
                 <span className="ml-auto text-xs text-ink-500">
+                  {f.variants && f.variants.length > 1 && `${f.variants.length} malowania · `}
                   {f.fileSizeMb} MB · ~{Math.round(f.triangles / 1000)} tys. trójkątów
                 </span>
               </div>

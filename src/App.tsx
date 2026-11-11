@@ -35,7 +35,7 @@ export default function App() {
           <Route path="/groupsets" element={<GroupsetsPage />} />
           <Route path="/selection" element={<SelectionPage />} />
           <Route path="/frames" element={<FramesPage />} />
-          <Route path="/frames/stumpjumper-comp-1990" element={<FrameModelPage />} />
+          <Route path="/frames/:id" element={<FrameModelPage />} />
           <Route path="/model/stumpjumper-comp-1990" element={<Navigate to="/frames/stumpjumper-comp-1990" replace />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/settings" element={<SettingsPage />} />

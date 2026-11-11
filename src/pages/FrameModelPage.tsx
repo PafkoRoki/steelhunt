@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import '@google/model-viewer';
 import { PageHeader } from '../components/ui';
+import { FRAMES } from './FramesPage';
 
 /** <model-viewer> web component (Google), typed for JSX. */
 declare global {
@@ -32,50 +34,6 @@ declare global {
   }
 }
 
-const SOURCE = 'https://bikalog.org/c/specialized/1990-spec-bikes90';
-
-const FROM_CATALOG: [string, string][] = [
-  ['Rury', 'DirectDrive / Tange Prestige, cieniowane Cr-Mo'],
-  ['Rura górna', 'Ø 31,8 mm'],
-  ['Tylne widełki dolne', 'DirectDrive, owalne, stożkowe'],
-  ['Tylne widełki górne', 'podwójnie stożkowe'],
-  ['Haki', 'kute'],
-  ['Obejma sztycy', 'odlew (investment casting)'],
-  ['Wzmocnienie rury podsiodłowej', 'STR'],
-  ['Mufa suportu', '73 mm'],
-  ['Długość tylnych widełek', '429 mm'],
-  ['Kąt rury podsiodłowej', '73°'],
-  ['Kąt główki', '71°'],
-  ['Wysokość suportu', '294 mm'],
-  ['Wyprzedzenie widelca', '42 mm'],
-  ['Lakier', 'biały'],
-];
-const FROM_PHOTO: [string, string][] = [
-  ['Rozmiar', '18" (rura podsiodłowa 457 mm do góry obejmy)'],
-  ['Główka', '100 mm'],
-  ['Front center', '620 mm'],
-  ['Rura górna', 'opada ok. 6° ku tyłowi'],
-];
-const ESTIMATED: [string, string][] = [
-  ['Rura dolna', 'Ø 31,8 mm'],
-  ['Rura podsiodłowa', 'Ø 28,6 mm'],
-  ['Główka', 'Ø 35 mm'],
-  ['Mufa suportu', 'Ø 38 mm'],
-  ['Rozstaw haków', '130 mm'],
-  ['Przekroje widełek, położenie lutowanych uchwytów', 'typowe dla epoki'],
-];
-const DETAILS = [
-  'spoiny TIG z charakterystycznym „łuskowaniem” na wszystkich połączeniach',
-  'owalne, zwężające się tylne widełki z przegięciem pod oponę',
-  'kute haki z hakiem przerzutki (prawy) i pionowym wycięciem na oś',
-  'obejma sztycy z uszami, szczeliną i śrubą imbusową; tuleja wzmocnienia STR',
-  'cantilevery na widełkach (z otworami na sprężynę), mostek widełek z oparciem pancerza',
-  'trzy prowadnice linek na rurze górnej, oporniki linek na rurze dolnej, prowadnica pod suportem',
-  'po dwa mocowania koszyka na rurze dolnej i podsiodłowej',
-  'mostek tylnych widełek dolnych, gwintowana mufa suportu, otwarta główka',
-  'naklejka SPECIALIZED na rurze górnej i napis „Stumpjumper” z cieniem na rurze dolnej, po obu stronach (z grafik dodanych przez właściciela strony)',
-];
-
 function Table({ title, rows, note }: { title: string; rows: [string, string][]; note?: string }) {
   return (
     <div className="card p-4">
@@ -94,21 +52,46 @@ function Table({ title, rows, note }: { title: string; rows: [string, string][];
 }
 
 export default function FrameModelPage() {
+  const { id } = useParams();
+  const frame = FRAMES.find((f) => f.id === id);
+  const variants = frame?.variants ?? [];
+  const [variantId, setVariantId] = useState(variants[0]?.id);
+  if (!frame) return <Navigate to="/frames" replace />;
+  const v = variants.find((x) => x.id === variantId) ?? null;
+  const glb = v?.glb ?? frame.glb;
+  const poster = v?.poster ?? frame.poster;
+  const alt = v?.alt ?? frame.alt ?? `Model 3D ramy ${frame.title} ${frame.year}`;
+
   return (
     <>
       <Link to="/frames" className="tap mb-3 inline-flex items-center gap-1.5 text-sm text-ink-400 hover:text-ink-100">
         <ArrowLeft size={15} /> Baza ram
       </Link>
-      <PageHeader
-        title="Stumpjumper Comp 1990 — rama 3D"
-        subtitle="Specialized Stumpjumper Comp z 1990 r., rozmiar 18&quot;, sama rama. Model zbudowany parametrycznie w Blenderze na podstawie oryginalnego katalogu i zdjęcia z katalogu."
-      />
+      <PageHeader title={frame.pageTitle} subtitle={frame.pageSubtitle} />
 
       <div className="card overflow-hidden">
+        {variants.length > 1 && (
+          <div className="flex flex-wrap items-center gap-2 border-b border-white/[0.05] px-4 py-2.5" role="group" aria-label="Malowanie">
+            <span className="text-xs text-ink-400">Malowanie:</span>
+            {variants.map((x) => (
+              <button
+                key={x.id}
+                type="button"
+                onClick={() => setVariantId(x.id)}
+                aria-pressed={x.id === variantId}
+                className={`tap rounded-full px-3 py-1 text-xs font-medium transition ${x.id === variantId ? 'bg-ink-100 text-ink-950' : 'bg-white/[0.06] text-ink-300 hover:text-ink-100'}`}
+              >
+                {x.label}
+              </button>
+            ))}
+            {v?.fileSizeMb != null && <span className="ml-auto text-xs text-ink-500">{v.fileSizeMb} MB</span>}
+          </div>
+        )}
         <model-viewer
-          src="models/stumpjumper-comp-1990.glb"
-          poster="models/stumpjumper-comp-1990-poster.jpg"
-          alt="Model 3D ramy Specialized Stumpjumper Comp 1990, biała"
+          key={glb}
+          src={glb}
+          poster={poster}
+          alt={alt}
           camera-controls
           touch-action="pan-y"
           auto-rotate
@@ -126,28 +109,26 @@ export default function FrameModelPage() {
           style={{ width: '100%', height: 'min(70vh, 620px)', background: 'radial-gradient(ellipse at 50% 40%, #232627 0%, #121314 75%)' }}
         />
         <p className="border-t border-white/[0.05] px-4 py-2.5 text-xs text-ink-400">
-          Przeciągnij, aby obrócić · kółko myszy lub dwa palce, aby przybliżyć — mikrodetale (spoiny, haki, uchwyty) najlepiej widać z bliska.
+          Przeciągnij, aby obrócić · kółko myszy lub dwa palce, aby przybliżyć — mikrodetale (haki, uchwyty, naklejki) najlepiej widać z bliska.
         </p>
       </div>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
-        <Table title="Z katalogu Specialized 1990" rows={FROM_CATALOG} />
-        <Table title="Zmierzone na zdjęciu z katalogu" rows={FROM_PHOTO} note="Skala z opony 26 × 1,95 (≈ 1,44 mm/px); dokładność ok. ±1 cm." />
-        <Table title="Szacowane (nie ma w katalogu)" rows={ESTIMATED} note="Typowe wymiary z epoki — do poprawienia po zmierzeniu prawdziwej ramy (parametry na początku skryptu)." />
+        {frame.tables.map((t) => (
+          <Table key={t.title} title={t.title} rows={t.rows} note={t.note} />
+        ))}
       </div>
 
       <section className="card mt-4 p-5">
         <h3 className="section-title mb-2">Co jest wymodelowane</h3>
         <ul className="list-disc space-y-1 pl-5 text-sm text-ink-300">
-          {DETAILS.map((d) => (
+          {frame.details.map((d) => (
             <li key={d}>{d}</li>
           ))}
         </ul>
-        <p className="mt-3 text-xs text-ink-500">
-          Bez widelca. Kolory naklejek dobrane do białej ramy (bordowe litery, ciemny cień). Skrypt: <code>design/3d/stumpjumper_comp_1990.py</code> — każdy wymiar to parametr.
-        </p>
-        <a href={SOURCE} target="_blank" rel="noreferrer" className="tap mt-2 inline-flex items-center gap-1.5 text-sm text-moss-300 hover:underline">
-          Katalog Specialized 1990 (bikalog.org) <ExternalLink size={13} />
+        <p className="mt-3 text-xs text-ink-500">{frame.footnote}</p>
+        <a href={frame.source} target="_blank" rel="noreferrer" className="tap mt-2 inline-flex items-center gap-1.5 text-sm text-moss-300 hover:underline">
+          {frame.sourceLabel} <ExternalLink size={13} />
         </a>
       </section>
     </>
