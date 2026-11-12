@@ -33,10 +33,13 @@ const ROAD_WORDS = /(szos|kolarz|kolark|\broad\b|baranek|drop\s*bar|\b700\s*c\b|
 /** Road bikes are out of scope for STEELHUNT entirely — they are never shown. */
 export function isRoadBike({ listing, analysis: a }: AnalyzedListing): boolean {
   if (ROAD_CATEGORIES.has(a.bicycleCategory)) return true;
-  if (MTB_CATEGORIES.has(a.bicycleCategory)) return false;
   const text = normalizeText(`${listing.title} ${listing.description}`);
   // A road word in the title decides, whatever the description mentions ("zamienię na MTB").
   const title = normalizeText(listing.title);
-  if (ROAD_WORDS.test(title) && !MTB_WORDS.test(title)) return true;
+  // "Retro Rennrad / Retro MTB - Stadtrad": when both are named, the first one is what the bike is.
+  const road = title.search(ROAD_WORDS);
+  const mtb = title.search(MTB_WORDS);
+  if (road >= 0 && (mtb < 0 || road < mtb)) return true;
+  if (MTB_CATEGORIES.has(a.bicycleCategory)) return false;
   return ROAD_WORDS.test(text) && !MTB_WORDS.test(text);
 }

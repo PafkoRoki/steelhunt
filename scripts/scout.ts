@@ -24,7 +24,7 @@ import { DEFAULT_SETTINGS } from '../src/features/scoring/config';
 import { scoutRejectReason, type RejectReason, type ScoutPortalStats, type ScoutStats } from '../src/features/listings/scoutRules';
 import { tubingLabel } from '../src/services/analysis/textAnalyzer';
 import { haversineKm, resolveLocation } from '../src/services/geolocation/geo';
-import type { AnalyzedListing } from '../src/types/listing';
+import type { AnalyzedListing, PhotoNotes } from '../src/types/listing';
 import { normalizeText } from '../src/utils/text';
 
 const ROOT = resolve(import.meta.dirname, '..');
@@ -717,7 +717,14 @@ async function scoutEbay(known: Set<string>, previous: Map<string, AutoRecord>):
 // ---------------------------------------------------------------- filtering & fact summary
 
 /** Applies the shared rules (src/features/listings/scoutRules.ts); counts the reason when a tally is given. */
+const PHOTO_NOTES = new Map<string, PhotoNotes>(
+  (existsSync(resolve(ROOT, 'data/photo-notes.json')) ? (JSON.parse(readFileSync(resolve(ROOT, 'data/photo-notes.json'), 'utf8')) as (PhotoNotes & { url: string })[]) : []).map(({ url, ...n }) => [url.split('?')[0], n as PhotoNotes]),
+);
+
 function keep(a: AnalyzedListing, rawText: string, titleOnly = false, tally?: Partial<Record<RejectReason, number>>, stage: 'card' | 'full' | 'recheck' = 'full'): boolean {
+  // Decals read from the listing photos (data/photo-notes.json) count as evidence, e.g. an "Alloy" sticker.
+  const note = PHOTO_NOTES.get(a.listing.sourceUrl.split('?')[0]);
+  if (note) a.listing.photo = note;
   const r = scoutRejectReason(a, rawText, titleOnly);
   if (r && tally) tally[r] = (tally[r] ?? 0) + 1;
   if (r) REJECTED.push({ portal: a.listing.marketplace, stage, reason: r, title: a.listing.title, url: a.listing.sourceUrl, price: a.listing.price, maker: a.analysis.manufacturer, material: a.analysis.frameMaterial });

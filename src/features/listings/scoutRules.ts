@@ -8,9 +8,9 @@ import { buildDatabase } from '../../services/database/db';
  * "Selekcja ofert" page (to explain, with the counts of the last run). Change a rule here and both follow.
  */
 
-export const MODERN = /(27[,.]5|\b29\s*(?:["“”″]|''|zoll|er|cali)|\b29er\b|\b(?:xs|s|m|l|xl|xxl)\s*[-/]?\s*29\b|\b29\s*[x×]\s*[12](?:[.,]\d+)?\b|hydraul|tarczow|scheibenbremse|\bdisc\b|e[\s-]?bike|pedelec|carbon|karbon|boost|1x1[12]\b|tubeless)/i;
+export const MODERN = /(27[,.]5|\b29\s*(?:["“”″]|''|zoll|er|cali)|\b29er\b|\b(?:xs|s|m|l|xl|xxl)\s*[-/]?\s*29\b|\b29\s*[x×]\s*[12](?:[.,]\d+)?\b|hydraul|tarczow|scheibenbremse|\bdisc\b|e[\s-]?bike|pedelec|carbon|karbon|boost|1x1[12]\b|tubeless|dual\s*control|hollowtech\s*(?:ii|2)\b)/i;
 export const BIKE_HINT = /(rower|bike|mtb|atb|g[oó]ral|g[oó]rsk|fahrrad|\brad\b|rahmen|rama|mountain|bicykl|velo)/i;
-export const NOT_MTB = /(tandem|bcruiserb|chopp?er|sk[lł]adak\w*|klapprad|faltrad|crossow\w*|\bcross\b|crossbike\w*|crossrad\w*|hybrid\w*|trekking\w*|prze[lł]aj\w*|\b28\s*(?:cali|"|''|”|zoll|er)|ko[lł]a\s*28)/i;
+export const NOT_MTB = /(tandem|\bcruiser\b|chopp?er|sk[lł]adak\w*|klapprad|faltrad|crossow\w*|\bcross\b|crossbike\w*|crossrad\w*|hybrid\w*|trekking\w*|prze[lł]aj\w*|\b28\s*(?:cali|"|''|”|zoll|er)|ko[lł]a\s*28)/i;
 export const BIKE_WORD = /(rower|bike|fahrrad|\brad\b|rama|ramy|rahmen|mountain)/i;
 export const PART_CODE = /\b(?:fc|rd|fd|st|br|bl|cs|hb|fh|sl|bb)-?[a-z]{0,2}\d{2,4}\b/i;
 export const FORK_BRAND = /\b(marzocchi|rock\s*shox|rockshox|manitou|answer|judy|bomber)\b/i;
@@ -25,6 +25,10 @@ export const NOT_OFFER = /(gefunden|gestohlen|vermisst|\bsuche\b|szukam|kupi[eę
 export const RETRO = /(retro|vintage|oldschool|old\s*school|klasyk|kult|\b(?:19[89]\d)\b|lata\s*[89]0|\b[89]0(?:er|s)\b|starrgabel|sztywn\w*\s*widel|cr-?mo|cro[\s-]?mol?y?|chromo\w*|chrom[\s-]*mol\w*|tange|reynolds|columbus|ishiwata|true\s*temper|mufow|muffen|cantilever|biopace|(?<!\bsr\s)(?<!(?:amortyzator|amortyzatorem|widelec|widelca|gabel|federgabel|fork)\s)suntour(?!\s*(?:xc[tmre]|nex|ncx|nvx|epi\w*|raid\w*|axon|sf\d|m\d{4}|amortyz\w*|widel\w*|gabel|federgabel|fork))|deore\s*dx|\bstx\b|exage)/i;
 /** "Steel frame" alone is a retro signal only on a bike from a known maker — no-name steel bikes are market bikes. */
 export const STEEL_WORD = /(stahl|stalow)/i;
+/** Sales words ("retro", "kultowy") — on a no-name bike they prove nothing unless they are in the title. */
+export const SOFT_RETRO = /(retro|vintage|oldschool|old\s*school|klasyk\w*|kult\w*)/gi;
+/** Aluminium named on a frame decal read from the photos ("ZR 9000 Custom Alloy", "Alu 7005"). */
+export const ALU_DECAL = /(alloy|alumin\w*|\balu\b|\b(?:6061|7005|7020)\b)/i;
 /** Part nouns that sellers do not put in the title of a complete bike (unlike "amortyzator", "hamulce", "koła"). */
 export const STRONG_PART = /\b(sattel|saddle|siodlo|siodelko|lenker|kierownica|vorbau|mostek|kurbel\w*|korba|kassette|kaseta|kettenbl\w*|bremshebel\w*|brake\s*levers?|u[\s-]?brake|\w*pedale?n?|vorderrad|hinterrad|laufrad\w*|schaltwerk|schalthebel|manetki|klamki|piasta|sztyca|sattelstutze)\b/;
 /** Plural "bikes" at the start of the title: a batch ad or a dealer's stock list. */
@@ -53,6 +57,7 @@ export type RejectReason =
   | 'part-code'
   | 'modern'
   | 'too-new'
+  | 'aluminium'
   | 'no-retro';
 
 /** Checked in this order; the first rule that fails decides. */
@@ -66,9 +71,10 @@ export const REJECT_RULES: { id: RejectReason; label: string; rule: string }[] =
   { id: 'full-suspension', label: 'Pełne zawieszenie', rule: 'Full / fully, vollgefedert, Dämpfer hinten, tylny amortyzator, pełne zawieszenie, softail… — szukamy sztywnych ram; amortyzowany widelec z przodu jest dozwolony.' },
   { id: 'part', label: 'Pojedyncza część', rule: 'Ogłoszenie dotyczy części (opony, rogi, chwyty, dzwonek, buty, kask, koszyk na bidon, błotniki, „części zamienne”, sam wymiar obejmy „31.8”, siodło, przerzutka, wieszak, zacisk…; także część nazwana w tytule bez producenta roweru, np. „Fahrrad Sattel”, „XT Kurbel … Mountainbike”), a nie roweru ani ramy.' },
   { id: 'part-code', label: 'Część po kodzie / marce', rule: 'Kod części Shimano („FC-M900”) bez słowa „rower/rama” albo marka amortyzatora („Marzocchi Bomber”, „Rock Shox”) bez rozpoznanego producenta roweru.' },
-  { id: 'modern', label: 'Nowoczesny rower', rule: 'Koła 27,5"/29", hamulce tarczowe / hydrauliczne, karbon, Boost, napęd 1x11/1x12, tubeless, e-bike.' },
+  { id: 'modern', label: 'Nowoczesny rower', rule: 'Koła 27,5"/29", hamulce tarczowe / hydrauliczne, karbon, Boost, napęd 1x11/1x12, tubeless, e-bike, klamkomanetki Dual Control, korba Hollowtech II.' },
   { id: 'too-new', label: `Rocznik ≥ ${MAX_YEAR}`, rule: `Podany rok produkcji ${MAX_YEAR} lub nowszy.` },
-  { id: 'no-retro', label: 'Brak cech retro', rule: `Żadnej cechy retro: słowa retro/vintage/klasyk/lata 90., rok 198x–199x, stal Cr-Mo / Tange / Reynolds / Columbus / True Temper, „stalowa rama” przy znanym producencie, mufy, cantilevery, Biopace, napęd SunTour (nie widelec SR Suntour), Deore DX / STX / Exage, kod grupy Shimano do ${MAX_GROUPSET_YEAR} r. — ani modelu z bazy rowerów.` },
+  { id: 'aluminium', label: 'Aluminium bez cech retro', rule: 'Rama aluminiowa (z opisu, z marki albo z naklejki odczytanej na zdjęciu, np. „Custom Alloy”) zostaje tylko wtedy, gdy tytuł sam mówi o retro / vintage / latach 90. albo podany rocznik to 1999 lub starszy. Sam znany model albo stara grupa osprzętu nie wystarcza — szukamy stali.' },
+  { id: 'no-retro', label: 'Brak cech retro', rule: `Żadnej cechy retro (przy rowerze bez rozpoznanego producenta samo słowo „retro / kultowy” w opisie nie wystarcza — musi być w tytule albo musi być twarda cecha): słowa retro/vintage/klasyk/lata 90., rok 198x–199x, stal Cr-Mo / Tange / Reynolds / Columbus / True Temper, „stalowa rama” przy znanym producencie, mufy, cantilevery, Biopace, napęd SunTour (nie widelec SR Suntour), Deore DX / STX / Exage, kod grupy Shimano do ${MAX_GROUPSET_YEAR} r. — ani modelu z bazy rowerów.` },
 ];
 
 /**
@@ -99,10 +105,14 @@ export function scoutRejectReason(a: AnalyzedListing, rawText: string, titleOnly
   if (MODERN.test(rawText)) return 'modern';
   const y = an.productionYear && /^\d{4}$/.test(an.productionYear) ? Number(an.productionYear) : null;
   if (y && y >= MAX_YEAR) return 'too-new';
+  const decals = (a.listing.photo?.readings ?? []).map((r) => r.text).join(' ');
+  if ((an.frameMaterial === 'aluminium' || ALU_DECAL.test(decals)) && !RETRO.test(title) && !(y && y <= 1999)) return 'aluminium';
   const era = an.groupsetEra?.match(/\d{4}/g)?.map(Number);
   if (era && Math.max(...era) <= MAX_GROUPSET_YEAR) return null;
   // OLX's structured "Materiał ramy: stal" line is ticked on any cheap bike — the seller's own words must carry the retro signal.
   const own = rawText.replace(/^\s*(?:Materia[lł] ramy|Rahmenmaterial)\s*:.*$/gim, ' ');
+  // A no-name bike: "retro" somewhere in the description is sales talk — it needs the word in the title or a hard sign (year, tubing, parts).
+  if (!titleOnly && !an.manufacturerId && an.modelId == null && !RETRO.test(title) && !RETRO.test(own.replace(SOFT_RETRO, ' '))) return 'no-retro';
   if (titleOnly || RETRO.test(own) || an.modelId != null || (an.manufacturerId != null && STEEL_WORD.test(own))) return null;
   return 'no-retro';
 }
