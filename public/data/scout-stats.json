@@ -50,10 +50,12 @@
       "carried": 8,
       "expired": 3,
       "rechecked": {
-        "no-retro": 2,
-        "multi-bike": 1
+        "no-retro": 4,
+        "multi-bike": 1,
+        "aluminium": 9,
+        "modern": 1
       },
-      "published": 45,
+      "published": 33,
       "errors": 0,
       "goneChecked": 8,
       "gone": 0
@@ -93,8 +95,10 @@
       "added": 38,
       "carried": 14,
       "expired": 0,
-      "rechecked": {},
-      "published": 82,
+      "rechecked": {
+        "not-mtb": 1
+      },
+      "published": 81,
       "errors": 0,
       "goneChecked": 14,
       "gone": 0,
