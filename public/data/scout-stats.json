@@ -1,97 +1,122 @@
 {
-  "generatedAt": "2026-11-11T13:27:37.315Z",
+  "generatedAt": "2026-11-12T00:14:03.516Z",
   "keepDays": 14,
-  "maxDetailFetches": 40,
+  "maxDetailFetches": 60,
+  "modelQueries": [
+    "fat chance yo eddy",
+    "bontrager race",
+    "bridgestone mb-1",
+    "bridgestone mb-2",
+    "salsa ala carte",
+    "rocky mountain blizzard",
+    "bontrager race lite",
+    "bridgestone mb-zip",
+    "centurion country",
+    "corratec 2010 grand grizzly",
+    "fat chance 10th anniversary",
+    "fuji mt fuji ltd"
+  ],
+  "modelCursor": 12,
   "portals": [
     {
       "file": "auto-olx.json",
       "name": "OLX.pl",
-      "queries": 13,
-      "raw": 521,
-      "inArea": 427,
+      "queries": 28,
+      "raw": 2316,
+      "inArea": 1248,
       "pre": {
         "checked": 0,
         "rejected": {}
       },
       "detailsFetched": 0,
       "full": {
-        "checked": 427,
+        "checked": 1248,
         "rejected": {
-          "not-mtb": 141,
-          "part": 34,
-          "modern": 111,
-          "part-code": 2,
-          "not-offer": 11,
-          "no-retro": 38,
-          "cross-trekking": 4,
-          "full-suspension": 4,
-          "red-flag": 36,
-          "not-bike": 8
+          "modern": 298,
+          "not-bike": 58,
+          "part": 126,
+          "not-mtb": 328,
+          "no-retro": 136,
+          "red-flag": 185,
+          "not-offer": 20,
+          "multi-bike": 5,
+          "part-code": 5,
+          "cross-trekking": 25,
+          "full-suspension": 12
         },
         "manualDuplicates": 13
       },
-      "added": 2,
-      "carried": 5,
-      "expired": 0,
-      "rechecked": {},
-      "published": 30,
+      "added": 19,
+      "carried": 8,
+      "expired": 3,
+      "rechecked": {
+        "no-retro": 2,
+        "multi-bike": 1
+      },
+      "published": 45,
       "errors": 0,
-      "goneChecked": 7,
-      "gone": 3
+      "goneChecked": 8,
+      "gone": 0
     },
     {
       "file": "auto-kleinanzeigen.json",
       "name": "Kleinanzeigen.de",
-      "queries": 15,
-      "raw": 350,
-      "inArea": 39,
+      "queries": 30,
+      "raw": 559,
+      "inArea": 294,
       "pre": {
-        "checked": 39,
+        "checked": 294,
         "rejected": {
-          "red-flag": 6,
-          "part": 7,
-          "not-mtb": 2,
-          "modern": 2,
-          "not-bike": 1,
-          "no-retro": 1
+          "part": 54,
+          "multi-bike": 1,
+          "modern": 24,
+          "red-flag": 32,
+          "part-code": 10,
+          "not-mtb": 31,
+          "cross-trekking": 4,
+          "not-bike": 4,
+          "no-retro": 21,
+          "not-offer": 3,
+          "too-new": 1
         }
       },
-      "detailsFetched": 9,
+      "detailsFetched": 60,
       "full": {
-        "checked": 20,
+        "checked": 89,
         "rejected": {
-          "not-mtb": 1,
-          "modern": 1,
-          "red-flag": 1
+          "red-flag": 4,
+          "modern": 3,
+          "part": 14
         },
         "manualDuplicates": 0
       },
-      "added": 6,
-      "carried": 29,
+      "added": 38,
+      "carried": 14,
       "expired": 0,
       "rechecked": {},
-      "published": 46,
+      "published": 82,
       "errors": 0,
-      "goneChecked": 15,
-      "gone": 0
+      "goneChecked": 14,
+      "gone": 0,
+      "excluded": 1
     },
     {
       "file": "auto-sprzedajemy.json",
       "name": "Sprzedajemy.pl",
       "queries": 8,
       "raw": 154,
-      "inArea": 136,
+      "inArea": 137,
       "pre": {
-        "checked": 136,
+        "checked": 137,
         "rejected": {
           "part": 2,
-          "not-mtb": 114,
+          "not-mtb": 115,
           "cross-trekking": 3,
           "modern": 3,
           "red-flag": 1
         }
       },
-      "detailsFetched": 7,
+      "detailsFetched": 8,
       "full": {
         "checked": 13,
         "rejected": {
@@ -103,10 +128,8 @@
       },
       "added": 0,
       "carried": 0,
-      "expired": 1,
-      "rechecked": {
-        "no-retro": 1
-      },
+      "expired": 0,
+      "rechecked": {},
       "published": 5,
       "errors": 0,
       "gone": 0
