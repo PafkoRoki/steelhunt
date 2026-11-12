@@ -25,6 +25,8 @@ export const NOT_OFFER = /(gefunden|gestohlen|vermisst|\bsuche\b|szukam|kupi[eę
 export const RETRO = /(retro|vintage|oldschool|old\s*school|klasyk|kult|\b(?:19[89]\d)\b|lata\s*[89]0|\b[89]0(?:er|s)\b|starrgabel|sztywn\w*\s*widel|cr-?mo|cro[\s-]?mol?y?|chromo\w*|chrom[\s-]*mol\w*|tange|reynolds|columbus|ishiwata|true\s*temper|mufow|muffen|cantilever|biopace|(?<!\bsr\s)(?<!(?:amortyzator|amortyzatorem|widelec|widelca|gabel|federgabel|fork)\s)suntour(?!\s*(?:xc[tmre]|nex|ncx|nvx|epi\w*|raid\w*|axon|sf\d|m\d{4}|amortyz\w*|widel\w*|gabel|federgabel|fork))|deore\s*dx|\bstx\b|exage)/i;
 /** "Steel frame" alone is a retro signal only on a bike from a known maker — no-name steel bikes are market bikes. */
 export const STEEL_WORD = /(stahl|stalow)/i;
+/** Part nouns that sellers do not put in the title of a complete bike (unlike "amortyzator", "hamulce", "koła"). */
+export const STRONG_PART = /\b(sattel|saddle|siodlo|siodelko|lenker|kierownica|vorbau|mostek|kurbel\w*|korba|kassette|kaseta|kettenbl\w*|bremshebel\w*|brake\s*levers?|u[\s-]?brake|\w*pedale?n?|vorderrad|hinterrad|laufrad\w*|schaltwerk|schalthebel|manetki|klamki|piasta|sztyca|sattelstutze)\b/;
 /** Plural "bikes" at the start of the title: a batch ad or a dealer's stock list. */
 export const PLURAL_BIKES = /^\s*(?:rowery|fahrr[aä]der|bikes|r[aä]der)\b/i;
 /** "dwa rowery", "komplet dwóch rowerów", "zwei Fahrräder", "2x MTB" — more than one bike for one price. */
@@ -62,7 +64,7 @@ export const REJECT_RULES: { id: RejectReason; label: string; rule: string }[] =
   { id: 'multi-bike', label: 'Ogłoszenie zbiorcze', rule: 'Tytuł wymienia trzech lub więcej producentów rowerów albo zaczyna się od „Rowery / Fahrräder” i wymienia dwóch, albo mówi wprost o kilku rowerach („dwa rowery”, „zwei Fahrräder”) — to lista kilku rowerów (często handlarz), a nie jedna oferta, więc ceny i opisu nie da się przypisać do konkretnego roweru.' },
   { id: 'red-flag', label: 'Czerwona flaga', rule: 'Rower dziecięcy / młodzieżowy (także koła 20"/24" w tytule), elektryczny, tani full (rower z marketu) — wykryte w tekście.' },
   { id: 'full-suspension', label: 'Pełne zawieszenie', rule: 'Full / fully, vollgefedert, Dämpfer hinten, tylny amortyzator, pełne zawieszenie, softail… — szukamy sztywnych ram; amortyzowany widelec z przodu jest dozwolony.' },
-  { id: 'part', label: 'Pojedyncza część', rule: 'Ogłoszenie dotyczy części (opony, rogi, chwyty, dzwonek, buty, kask, koszyk na bidon, błotniki, „części zamienne”, sam wymiar obejmy „31.8”, siodło, przerzutka, wieszak, zacisk…), a nie roweru ani ramy.' },
+  { id: 'part', label: 'Pojedyncza część', rule: 'Ogłoszenie dotyczy części (opony, rogi, chwyty, dzwonek, buty, kask, koszyk na bidon, błotniki, „części zamienne”, sam wymiar obejmy „31.8”, siodło, przerzutka, wieszak, zacisk…; także część nazwana w tytule bez producenta roweru, np. „Fahrrad Sattel”, „XT Kurbel … Mountainbike”), a nie roweru ani ramy.' },
   { id: 'part-code', label: 'Część po kodzie / marce', rule: 'Kod części Shimano („FC-M900”) bez słowa „rower/rama” albo marka amortyzatora („Marzocchi Bomber”, „Rock Shox”) bez rozpoznanego producenta roweru.' },
   { id: 'modern', label: 'Nowoczesny rower', rule: 'Koła 27,5"/29", hamulce tarczowe / hydrauliczne, karbon, Boost, napęd 1x11/1x12, tubeless, e-bike.' },
   { id: 'too-new', label: `Rocznik ≥ ${MAX_YEAR}`, rule: `Podany rok produkcji ${MAX_YEAR} lub nowszy.` },
@@ -90,6 +92,9 @@ export function scoutRejectReason(a: AnalyzedListing, rawText: string, titleOnly
   if (an.redFlags.length || (KIDS_WHEELS.test(title) && !/\b26\s*(?:"|''|”|″|zoll|cal)/i.test(title))) return 'red-flag';
   if (FULL_SUSPENSION.test(rawText)) return 'full-suspension';
   if (an.itemType === 'components') return 'part';
+  // "Fahrrad Sattel bike saddle…", "Shimano XT Kurbel … Mountainbike MTB": a part noun in a title that names no bike maker —
+  // "Fahrrad / Mountainbike" only says what the part is for.
+  if (!an.manufacturerId && STRONG_PART.test(normalizeText(title))) return 'part';
   if (!BIKE_WORD.test(title) && (PART_CODE.test(title) || (!an.manufacturerId && FORK_BRAND.test(title)))) return 'part-code';
   if (MODERN.test(rawText)) return 'modern';
   const y = an.productionYear && /^\d{4}$/.test(an.productionYear) ? Number(an.productionYear) : null;
