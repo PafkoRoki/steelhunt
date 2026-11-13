@@ -33,16 +33,17 @@ const host = (u: string) => {
 
 export default function MtbHistoryPage() {
   const { db } = useAppData();
-  const [scope, setScope] = useState<Scope | 'all'>('all');
+  const [scope, setScope] = useState<Scope | 'all'>('europe');
   const rows = ENTRIES.filter((e) => scope === 'all' || e.scope === scope);
-  const regional = db.manufacturers.filter((m) => ['poland', 'czechia', 'slovakia'].includes(m.country));
+  const EUROPE = ['germany', 'austria', 'switzerland', 'uk', 'france', 'italy', 'netherlands'];
+  const gems = db.manufacturers.filter((m) => EUROPE.includes(m.country) && m.steelReputation >= 80).sort((a, b) => b.steelReputation - a.steelReputation);
 
   return (
     <>
-      <PageHeader title="Historia MTB" subtitle="Od Kalifornii do Krynicy: jak rower górski trafił do Europy i do Polski. Każdy wpis ma źródło." />
+      <PageHeader title="Historia MTB" subtitle="Jak rower górski trafił z Kalifornii do Europy i kto budował tu najlepsze stalowe ramy lat 80. i 90. Każdy wpis ma źródło." />
 
       <div className="mb-5 flex flex-wrap gap-2">
-        {(['all', 'poland', 'europe', 'world'] as const).map((s) => (
+        {(['europe', 'world', 'poland', 'all'] as const).map((s) => (
           <button key={s} type="button" onClick={() => setScope(s)} aria-pressed={scope === s} className={scope === s ? 'btn-primary' : 'btn-ghost'}>
             {s === 'all' ? 'Wszystko' : SCOPE_LABEL[s]} · {s === 'all' ? ENTRIES.length : ENTRIES.filter((e) => e.scope === s).length}
           </button>
@@ -80,30 +81,20 @@ export default function MtbHistoryPage() {
             <h2 className="section-title mb-2">Co z tego wynika dla łowcy</h2>
             <p className="mb-2 text-[11px] text-ink-500">To wnioski z osi czasu, nie fakty ze źródeł.</p>
             <ul className="space-y-2 text-sm text-ink-300">
-              <li>
-                Polska weszła w MTB późno: seria wyścigów od 1992, mistrzostwa od 1993. Rower górski sprzed 1990 r. w polskim ogłoszeniu to prawie zawsze
-                import.
-              </li>
-              <li>
-                Polskie marki lat 90. (Romet, Kross, Unibike) robiły proste rowery masowe. Scout traktuje je jak rowery bez marki: samo „retro” w opisie nie
-                wystarcza.
-              </li>
-              <li>
-                Stal z wyższej półki przyjeżdżała z Niemiec, Wielkiej Brytanii i Francji, a tam pochodziła głównie z Japonii i Tajwanu. Dlatego warto czytać
-                naklejki rur, a nie tylko markę.
-              </li>
+              <li>Najcenniejsze europejskie ramy to małe serie od budowniczych: Roberts, Overbury's, Ferraroli, Mécacycle. W ogłoszeniach często nie mają nazwy modelu — liczy się naklejka rur i sposób łączenia.</li>
+              <li>Lutowanie bez muf (fillet brazing) i rury Reynolds 753 / 853 albo Columbus to znak ręcznej roboty, nie produkcji masowej.</li>
+              <li>Duże marki (Peugeot, Raleigh, Centurion) robiły głównie rowery seryjne; perłami są ich krótkie serie specjalne, jak Raleigh Dyna-Tech.</li>
               <li>Lata 1988–1996 (Puchar Świata, mistrzostwa świata, igrzyska) to szczyt stalowych ram wyścigowych — te roczniki są najcenniejsze.</li>
             </ul>
           </section>
 
           <section className="card p-4">
-            <h2 className="section-title mb-2">Marki z Polski, Czech i Słowacji w bazie</h2>
+            <h2 className="section-title mb-2">Europejskie perły w bazie</h2>
             <ul className="space-y-2 text-sm">
-              {regional.map((m) => (
+              {gems.map((m) => (
                 <li key={m.id}>
                   <b className="text-ink-100">{m.name}</b>
-                  {m.era && <span className="text-ink-500"> · {m.era}</span>}
-                  <div className="text-xs text-ink-400">{m.notes}</div>
+                  <span className="text-ink-500"> · {db.models.filter((x) => x.manufacturerId === m.id).length} modeli</span>
                 </li>
               ))}
             </ul>
@@ -115,9 +106,9 @@ export default function MtbHistoryPage() {
           <section className="card p-4">
             <h2 className="section-title mb-2">Czego jeszcze brakuje</h2>
             <ul className="space-y-1 text-sm text-ink-400">
-              <li>Nazw i roczników pierwszych górskich modeli Rometu — źródła podają tylko zakład (Kowalewo).</li>
-              <li>Dokładnego roku startu Grand Prix MTB i Bike Maratonu — daty są wyliczone z numerów edycji.</li>
-              <li>Historii polskiej prasy MTB i importu używanych rowerów z Niemiec w latach 90.</li>
+              <li>Włochy, Holandia, Belgia, Hiszpania i Skandynawia — o stalowych MTB z tych krajów jest na razie mało potwierdzonych danych.</li>
+              <li>Niemieckie manufaktury (Nöll, Wiesmann, Germans, Marschall) — znane tylko z forów, bez roczników i nazw modeli.</li>
+              <li>Widełek cen dla nowo dodanych modeli — pojawią się, gdy scout zbierze własne obserwacje.</li>
             </ul>
           </section>
         </aside>
