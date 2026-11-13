@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T03:12:48.717Z",
+  "generatedAt": "2026-11-13T03:54:50.055Z",
   "listings": [
     {
       "id": "olx:1aNma0",
@@ -21,7 +21,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-27T12:00:00Z",
       "discoveredAt": "2026-11-01T01:36:19.004Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -55,7 +55,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-28T12:00:00Z",
       "discoveredAt": "2026-11-01T01:36:19.005Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -90,7 +90,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-31T12:00:00Z",
       "discoveredAt": "2026-11-01T01:36:19.006Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -124,7 +124,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-09T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.445Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -157,7 +157,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-06T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.447Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -191,7 +191,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-08T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.449Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -225,7 +225,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-06T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.450Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -258,7 +258,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-10T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.450Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -292,7 +292,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-20T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.450Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -326,7 +326,7 @@
       "geoPrecision": "none",
       "postedAt": "2026-10-28T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.450Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -360,7 +360,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-20T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.451Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -394,7 +394,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-19T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.451Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -428,7 +428,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-15T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.451Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -461,7 +461,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-03T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -495,7 +495,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-09T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -529,7 +529,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-15T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -563,7 +563,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-31T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -597,7 +597,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-11T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -631,7 +631,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-17T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -665,7 +665,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-13T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -699,7 +699,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-10T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.452Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -732,7 +732,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-21T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.453Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -766,7 +766,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-03T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.453Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -800,7 +800,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-10T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.453Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -835,7 +835,7 @@
       "geoPrecision": "none",
       "postedAt": "2026-10-27T12:00:00Z",
       "discoveredAt": "2026-11-01T01:46:45.453Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -869,7 +869,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-31T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.080Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -902,7 +902,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-31T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.086Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -935,7 +935,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-27T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.087Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -969,7 +969,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-26T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.088Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1002,7 +1002,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-26T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.088Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1035,7 +1035,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-31T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.088Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1056,7 +1056,7 @@
       "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/26-raleigh-mountainbike-90er-2000-er-retro-cro-mo-14-gang/3555199643-217-13049",
       "title": "26 \" Raleigh Mountainbike 90er/2000 er Retro Cro-Mo ,14 Gang",
       "description": "rocznik 2000, rama Cr-Mo (niezweryfikowane), Siodło Brooks, cena do negocjacji. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
-      "price": 195,
+      "price": 175,
       "currency": "EUR",
       "images": [
         "https://img.kleinanzeigen.de/api/v1/prod-ads/images/0b/0bd231d0-b8ef-4aba-be1a-14853dfd60e0?rule=$_59.AUTO",
@@ -1069,7 +1069,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-28T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.089Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1079,6 +1079,10 @@
         {
           "date": "2026-11-12T00:32:45.471Z",
           "price": 195
+        },
+        {
+          "date": "2026-11-13T03:54:50.055Z",
+          "price": 175
         }
       ],
       "declared": {
@@ -1106,7 +1110,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-23T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.089Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1143,7 +1147,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-17T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.089Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1176,7 +1180,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-11T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.089Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1209,7 +1213,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-09-13T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.090Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1242,7 +1246,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-30T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.090Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1275,7 +1279,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-30T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.090Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1307,7 +1311,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-29T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.091Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1340,7 +1344,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-17T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.091Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1373,7 +1377,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-13T12:00:00Z",
       "discoveredAt": "2026-11-01T02:38:30.091Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1406,7 +1410,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-03-12T14:30:53+01:00",
       "discoveredAt": "2026-11-01T02:38:30.092Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1440,7 +1444,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-09-26T09:35:39+02:00",
       "discoveredAt": "2026-11-01T02:38:30.092Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1475,7 +1479,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-06T22:29:27+02:00",
       "discoveredAt": "2026-11-01T02:38:30.093Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1510,7 +1514,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-01-21T12:54:52+01:00",
       "discoveredAt": "2026-11-01T02:38:30.093Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1544,7 +1548,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-05-12T17:24:19+02:00",
       "discoveredAt": "2026-11-01T02:38:30.093Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1578,7 +1582,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-04-03T17:36:57+02:00",
       "discoveredAt": "2026-11-01T02:38:30.093Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1613,7 +1617,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-08-04T19:20:13+02:00",
       "discoveredAt": "2026-11-01T02:38:30.093Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1648,7 +1652,7 @@
       "geoPrecision": "city",
       "postedAt": "2025-06-14T10:35:55+02:00",
       "discoveredAt": "2026-11-01T02:38:30.093Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1683,7 +1687,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-05-31T11:33:20+02:00",
       "discoveredAt": "2026-11-01T02:38:30.093Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1718,7 +1722,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-18T20:38:48+02:00",
       "discoveredAt": "2026-11-01T02:38:30.093Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1753,7 +1757,7 @@
       "geoPrecision": "city",
       "postedAt": "2025-06-01T10:28:18+02:00",
       "discoveredAt": "2026-11-01T02:38:30.093Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1787,7 +1791,7 @@
       "geoPrecision": "city",
       "postedAt": "2024-08-21T20:20:34+02:00",
       "discoveredAt": "2026-11-01T02:38:30.093Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1821,7 +1825,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-19T14:50:13+02:00",
       "discoveredAt": "2026-11-01T02:38:30.093Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1860,7 +1864,7 @@
       "geoPrecision": "city",
       "postedAt": "2025-11-10T10:38:26+01:00",
       "discoveredAt": "2026-11-01T02:38:30.093Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1893,7 +1897,7 @@
       "geoPrecision": "city",
       "postedAt": "2025-04-21T08:35:09+02:00",
       "discoveredAt": "2026-11-01T02:38:30.093Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1928,7 +1932,7 @@
       "geoPrecision": "city",
       "postedAt": "2022-12-03T12:43:25+01:00",
       "discoveredAt": "2026-11-01T02:38:30.094Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -1962,7 +1966,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-09-15T12:00:00Z",
       "discoveredAt": "2026-11-01T04:20:29.467Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2016,7 +2020,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-31T12:00:00Z",
       "discoveredAt": "2026-11-01T10:02:10.766Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2076,7 +2080,7 @@
       "geoPrecision": "none",
       "postedAt": null,
       "discoveredAt": "2026-11-01T10:02:10.768Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2141,7 +2145,7 @@
       "geoPrecision": "none",
       "postedAt": null,
       "discoveredAt": "2026-11-01T10:02:10.768Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2192,7 +2196,7 @@
       "geoPrecision": "none",
       "postedAt": null,
       "discoveredAt": "2026-11-01T10:02:10.769Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2250,7 +2254,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-01T12:00:00Z",
       "discoveredAt": "2026-11-01T20:27:50.097Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2309,7 +2313,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-01T12:00:00Z",
       "discoveredAt": "2026-11-01T20:27:50.102Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2369,7 +2373,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-01T12:00:00Z",
       "discoveredAt": "2026-11-01T20:27:50.105Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2441,7 +2445,7 @@
       "geoPrecision": "city",
       "postedAt": "2024-12-05T12:33:34+01:00",
       "discoveredAt": "2026-11-01T20:27:50.116Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2495,7 +2499,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-01T12:00:00Z",
       "discoveredAt": "2026-11-01T23:59:56.333Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2552,7 +2556,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-02T12:00:00Z",
       "discoveredAt": "2026-11-02T12:23:02.989Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2606,7 +2610,7 @@
       "geoPrecision": "none",
       "postedAt": null,
       "discoveredAt": "2026-11-02T12:23:03.003Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2653,7 +2657,7 @@
       "geoPrecision": "city",
       "postedAt": null,
       "discoveredAt": "2026-11-02T12:23:03.003Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2712,7 +2716,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-02T12:00:00Z",
       "discoveredAt": "2026-11-02T23:43:33.785Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2772,7 +2776,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-02T12:00:00Z",
       "discoveredAt": "2026-11-02T23:43:33.790Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2831,7 +2835,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-02T12:00:00Z",
       "discoveredAt": "2026-11-02T23:43:33.794Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2894,7 +2898,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-01-07T10:44:52+01:00",
       "discoveredAt": "2026-11-03T13:26:18.648Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -2954,7 +2958,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-06T12:00:00Z",
       "discoveredAt": "2026-11-07T12:32:35.948Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3020,7 +3024,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-07T12:00:00Z",
       "discoveredAt": "2026-11-07T12:32:35.951Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3074,7 +3078,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-07T12:00:00Z",
       "discoveredAt": "2026-11-07T12:32:35.952Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3133,7 +3137,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-06T12:00:00Z",
       "discoveredAt": "2026-11-07T12:32:35.952Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3187,7 +3191,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-05T12:00:00Z",
       "discoveredAt": "2026-11-07T12:32:35.952Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3240,7 +3244,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-03T12:00:00Z",
       "discoveredAt": "2026-11-07T12:32:35.953Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3288,7 +3292,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-05T12:00:00Z",
       "discoveredAt": "2026-11-07T12:32:35.953Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3323,7 +3327,7 @@
       "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/26-raleigh-mountainbike-90er-2000er-retro-cro-mo-14-gang/3561929397-217-13049",
       "title": "26\" Raleigh Mountainbike 90er/2000er Retro Cro-Mo , 14 Gang",
       "description": "rocznik 2000, rama Cr-Mo (niezweryfikowane), Siodło Brooks, cena do negocjacji. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
-      "price": 195,
+      "price": 175,
       "currency": "EUR",
       "images": [
         "https://img.kleinanzeigen.de/api/v1/prod-ads/images/6d/6d00a878-2387-4711-b596-e87eda030ff6?rule=$_59.AUTO",
@@ -3336,12 +3340,16 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-04T12:00:00Z",
       "discoveredAt": "2026-11-07T12:32:35.954Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
           "date": "2026-11-07T12:32:35.954Z",
           "price": 195
+        },
+        {
+          "date": "2026-11-13T03:54:50.055Z",
+          "price": 175
         }
       ],
       "declared": {
@@ -3396,7 +3404,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-04T12:00:00Z",
       "discoveredAt": "2026-11-07T12:32:35.954Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3436,7 +3444,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-05-20T17:34:15+02:00",
       "discoveredAt": "2026-11-07T12:32:35.962Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3490,7 +3498,7 @@
       "geoPrecision": "city",
       "postedAt": "2024-11-16T13:25:35+01:00",
       "discoveredAt": "2026-11-07T12:32:35.962Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3561,7 +3569,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-03-06T19:57:14+01:00",
       "discoveredAt": "2026-11-07T12:32:35.963Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3632,7 +3640,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-08T12:00:00Z",
       "discoveredAt": "2026-11-08T12:49:58.500Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3686,7 +3694,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-08T12:00:00Z",
       "discoveredAt": "2026-11-08T12:49:58.504Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3750,7 +3758,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-07T12:00:00Z",
       "discoveredAt": "2026-11-08T12:49:58.507Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3804,7 +3812,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-10T12:00:00Z",
       "discoveredAt": "2026-11-11T13:33:56.715Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3867,7 +3875,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-10T12:00:00Z",
       "discoveredAt": "2026-11-11T13:33:56.719Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3921,7 +3929,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-10T12:00:00Z",
       "discoveredAt": "2026-11-11T13:33:56.721Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -3986,7 +3994,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-10T12:00:00Z",
       "discoveredAt": "2026-11-11T13:33:56.721Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4034,7 +4042,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-08T12:00:00Z",
       "discoveredAt": "2026-11-11T13:33:56.722Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4088,7 +4096,7 @@
       "geoPrecision": "city",
       "postedAt": "2025-10-10T20:52:07+02:00",
       "discoveredAt": "2026-11-11T13:33:56.728Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4137,7 +4145,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-11T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.445Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4172,7 +4180,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-04T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.451Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4207,7 +4215,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-29T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.451Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4241,7 +4249,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-27T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.452Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4276,7 +4284,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-26T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.452Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4311,7 +4319,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-25T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.452Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4345,7 +4353,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-07T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.453Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4380,7 +4388,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-05T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.453Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4414,7 +4422,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-05T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.453Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4448,7 +4456,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-10-30T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.454Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4482,7 +4490,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-29T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.454Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4517,7 +4525,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-27T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.454Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4552,7 +4560,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-24T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.454Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4587,7 +4595,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-09-06T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.456Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4621,7 +4629,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-08-26T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.456Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4656,7 +4664,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-08-16T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.457Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [],
       "declared": {
@@ -4685,7 +4693,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-08-13T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.457Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [],
       "declared": {
@@ -4714,7 +4722,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-07-09T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.457Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4748,7 +4756,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-06-18T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.457Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4781,7 +4789,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-05-06T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.457Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4815,7 +4823,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-01T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.458Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4825,40 +4833,6 @@
       ],
       "declared": {
         "itemType": "frame",
-        "shippingAvailable": true
-      },
-      "origin": "import"
-    },
-    {
-      "id": "kleinanzeigen:3547406792",
-      "externalId": "3547406792",
-      "marketplace": "kleinanzeigen",
-      "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/gt-zazkar-xtr-90er-kult-sammler-rar-no-le-fahrrad/3547406792-217-2241",
-      "title": "GT Zazkar XTR, 90er Kult Sammler Rar No Le, Fahrrad",
-      "description": "lata 90., rama aluminiowa, Shimano XTR, Mavic (obręcze/piasty). (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
-      "price": 1250,
-      "currency": "EUR",
-      "images": [
-        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/b6/b6ccba93-88ed-41ef-8341-d62b6578b4ae?rule=$_59.AUTO",
-        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/1e/1e10a368-329a-409d-bdec-57ecfeb09264?rule=$_59.AUTO",
-        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/01/0120cf02-17ed-4b31-9743-a4c34199848f?rule=$_59.AUTO"
-      ],
-      "locationName": "39128 Magdeburg",
-      "latitude": 52.12,
-      "longitude": 11.628,
-      "geoPrecision": "city",
-      "postedAt": "2026-10-21T12:00:00Z",
-      "discoveredAt": "2026-11-12T00:32:45.458Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
-      "status": "active",
-      "priceHistory": [
-        {
-          "date": "2026-11-12T00:32:45.458Z",
-          "price": 1250
-        }
-      ],
-      "declared": {
-        "itemType": "complete",
         "shippingAvailable": true
       },
       "origin": "import"
@@ -4883,7 +4857,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-19T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.458Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4918,7 +4892,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-15T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.458Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4953,7 +4927,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-08-23T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.459Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -4988,7 +4962,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-08-17T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.459Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5023,7 +4997,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-11-11T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.459Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5057,7 +5031,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-08-13T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.459Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5092,7 +5066,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-09-25T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.459Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5127,7 +5101,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-09-06T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.459Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5162,7 +5136,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-08-12T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.460Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5197,7 +5171,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-06-11T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.460Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5232,7 +5206,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-04-11T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.460Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5266,7 +5240,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-07-29T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.460Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5300,7 +5274,7 @@
       "geoPrecision": "region",
       "postedAt": "2024-10-20T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.460Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5335,7 +5309,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-21T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.460Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5370,7 +5344,7 @@
       "geoPrecision": "region",
       "postedAt": "2026-10-17T12:00:00Z",
       "discoveredAt": "2026-11-12T00:32:45.460Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5405,7 +5379,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-09-15T13:28:33+02:00",
       "discoveredAt": "2026-11-12T00:32:45.463Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5445,7 +5419,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-09-21T14:06:37+02:00",
       "discoveredAt": "2026-11-12T00:32:45.463Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5517,7 +5491,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-09-26T12:33:38+02:00",
       "discoveredAt": "2026-11-12T00:32:45.464Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5557,7 +5531,7 @@
       "geoPrecision": "city",
       "postedAt": "2025-05-27T11:26:54+02:00",
       "discoveredAt": "2026-11-12T00:32:45.464Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5610,7 +5584,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-01-07T10:02:23+01:00",
       "discoveredAt": "2026-11-12T00:32:45.464Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5681,7 +5655,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-03-10T21:58:55+01:00",
       "discoveredAt": "2026-11-12T00:32:45.464Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5716,7 +5690,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-09-29T07:43:49+02:00",
       "discoveredAt": "2026-11-12T00:32:45.464Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5751,7 +5725,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-07-02T09:35:59+02:00",
       "discoveredAt": "2026-11-12T00:32:45.465Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5786,7 +5760,7 @@
       "geoPrecision": "city",
       "postedAt": "2026-08-12T13:59:29+02:00",
       "discoveredAt": "2026-11-12T00:32:45.465Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5821,7 +5795,7 @@
       "geoPrecision": "city",
       "postedAt": "2021-01-26T10:03:15+01:00",
       "discoveredAt": "2026-11-12T00:32:45.465Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5856,7 +5830,7 @@
       "geoPrecision": "city",
       "postedAt": "2025-10-01T04:10:44+02:00",
       "discoveredAt": "2026-11-12T00:32:45.465Z",
-      "lastSeenAt": "2026-11-13T03:12:48.717Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
       "status": "active",
       "priceHistory": [
         {
@@ -5870,6 +5844,855 @@
         "shippingAvailable": false
       },
       "origin": "import"
+    },
+    {
+      "id": "kleinanzeigen:3569632890",
+      "externalId": "3569632890",
+      "marketplace": "kleinanzeigen",
+      "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/26-raleigh-mountainbike-90er-2000er-jahre-cro-mo-14-gang-retro/3569632890-217-13049",
+      "title": "26\" Raleigh Mountainbike 90er / 2000er Jahre Cro-Mo 14 Gang Retro",
+      "description": "rocznik 2000, rama Cr-Mo (niezweryfikowane), Siodło Brooks, cena do negocjacji. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 175,
+      "currency": "EUR",
+      "images": [
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/6d/6dbdd3f3-8bd4-4b61-a8aa-ce3f98937543?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/91/9176b53b-e020-46b7-a83e-8318a6bd2557?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/af/af4fddf0-08dd-44f1-9f4b-771a4ed534fe?rule=$_59.AUTO"
+      ],
+      "locationName": "18059 Südstadt",
+      "latitude": 54.092,
+      "longitude": 12.099,
+      "geoPrecision": "region",
+      "postedAt": "2026-11-12T12:00:00Z",
+      "discoveredAt": "2026-11-13T03:54:50.047Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.047Z",
+          "price": 175
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete",
+        "shippingAvailable": true
+      },
+      "origin": "import",
+      "photo": {
+        "images": 3,
+        "readings": [
+          {
+            "where": "rura dolna",
+            "text": "RALEIGH USA",
+            "confidence": "legible",
+            "image": 2
+          },
+          {
+            "where": "rura górna",
+            "text": "ALUMINUM (dalej nieczytelne)",
+            "confidence": "probable",
+            "image": 1
+          },
+          {
+            "where": "widelec",
+            "text": "RALEIGH USA FULL (nieczytelne)",
+            "confidence": "probable",
+            "image": 2
+          }
+        ],
+        "summary": "Kompletny rower z zieloną ramą i sztywnym widelcem; na rurze górnej napis wyglądający na „Aluminum”, choć tytuł mówi o Cr-Mo — do sprawdzenia u sprzedawcy.",
+        "checkedAt": "2026-11-13T03:54:31.183Z"
+      }
+    },
+    {
+      "id": "kleinanzeigen:3568997121",
+      "externalId": "3568997121",
+      "marketplace": "kleinanzeigen",
+      "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/schoenes-oldtimer-damenfahrrad-hercules-atb-26-/3568997121-217-3391",
+      "title": "Schönes Oldtimer Damenfahrrad Hercules ATB 26\"",
+      "description": "rocznik 1990, rama stalowa, mocowania błotników, koła 26\". (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 100,
+      "currency": "EUR",
+      "images": [
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/b2/b23a8829-5292-4422-a369-6bbbc9c57848?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/2c/2cb31a8a-d87f-4e25-b4d0-51b8e72d5607?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/49/49aa884a-b6b7-4ee5-b63c-815c842a380e?rule=$_59.AUTO"
+      ],
+      "locationName": "12053 Neukölln",
+      "latitude": 52.45,
+      "longitude": 13.45,
+      "geoPrecision": "region",
+      "postedAt": "2026-11-12T12:00:00Z",
+      "discoveredAt": "2026-11-13T03:54:50.048Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.048Z",
+          "price": 100
+        }
+      ],
+      "declared": {
+        "itemType": "complete",
+        "shippingAvailable": false
+      },
+      "origin": "import",
+      "photo": {
+        "images": 3,
+        "readings": [
+          {
+            "where": "rura dolna",
+            "text": "HERCULES",
+            "confidence": "probable",
+            "image": 3
+          }
+        ],
+        "summary": "Kompletny damski rower z różową ramą typu mixte, sztywnym widelcem, plastikowymi błotnikami i srebrną korbą.",
+        "checkedAt": "2026-11-13T03:54:31.183Z"
+      }
+    },
+    {
+      "id": "kleinanzeigen:3565531504",
+      "externalId": "3565531504",
+      "marketplace": "kleinanzeigen",
+      "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/fahrrad-mtb-heavy-tools-3x7-gang-shinamo-deore-dx/3565531504-217-3530",
+      "title": "Fahrrad MTB Heavy Tools 3x7 Gang Shinamo Deore DX",
+      "description": "napęd 3x7 / 3x8, Shimano Deore DX. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 240,
+      "currency": "EUR",
+      "images": [
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/74/741994bf-15ae-4da9-aa27-174b9f2f3120?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/dc/dcc5265e-3605-4d39-9d8a-912942a12f84?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/10/10f19d01-7c63-4c24-bd04-1a93028f5f2a?rule=$_59.AUTO"
+      ],
+      "locationName": "14129 Zehlendorf",
+      "latitude": 52.391,
+      "longitude": 13.065,
+      "geoPrecision": "region",
+      "postedAt": "2026-11-08T12:00:00Z",
+      "discoveredAt": "2026-11-13T03:54:50.048Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.048Z",
+          "price": 240
+        }
+      ],
+      "declared": {
+        "itemType": "complete",
+        "shippingAvailable": true
+      },
+      "origin": "import",
+      "photo": {
+        "images": 3,
+        "readings": [
+          {
+            "where": "rura dolna",
+            "text": "HEAVY TOOLS",
+            "confidence": "legible",
+            "image": 1
+          }
+        ],
+        "summary": "Kompletny rower z ciemną ramą i sztywnym widelcem, z bagażnikiem, błotnikami i oświetleniem; manetki górne nad kierownicą.",
+        "checkedAt": "2026-11-13T03:54:31.183Z"
+      }
+    },
+    {
+      "id": "kleinanzeigen:3547460762",
+      "externalId": "3547460762",
+      "marketplace": "kleinanzeigen",
+      "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/rocky-mountain-hammer-vintage-mtb-syncros-deore-dx/3547460762-217-7816",
+      "title": "Rocky Mountain Hammer Vintage MTB Syncros Deore DX",
+      "description": "rama stalowa, Shimano Deore DX, cena do negocjacji. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 1,
+      "currency": "EUR",
+      "images": [
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/8e/8e0fb180-a105-4439-a45f-bdc9e5ab115b?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/71/71e09f4e-b8b2-4c2f-a282-c22f410e046e?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/8e/8e0fb180-a105-4439-a45f-bdc9e5ab115b?rule=$_57.AUTO"
+      ],
+      "locationName": "16767 Leegebruch",
+      "latitude": 52.833,
+      "longitude": 13.818,
+      "geoPrecision": "region",
+      "postedAt": "2026-10-21T12:00:00Z",
+      "discoveredAt": "2026-11-13T03:54:50.048Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.048Z",
+          "price": 1
+        }
+      ],
+      "declared": {
+        "condition": "fair",
+        "itemType": "complete",
+        "shippingAvailable": true
+      },
+      "origin": "import",
+      "photo": {
+        "images": 3,
+        "readings": [
+          {
+            "where": "rura dolna",
+            "text": "ROCKY MOUNTAIN",
+            "confidence": "legible",
+            "image": 3
+          },
+          {
+            "where": "główka ramy",
+            "text": "ROCKY MOUNTAIN (znaczek)",
+            "confidence": "legible",
+            "image": 2
+          },
+          {
+            "where": "mostek",
+            "text": "syncros",
+            "confidence": "legible",
+            "image": 3
+          },
+          {
+            "where": "sztyca",
+            "text": "syncros",
+            "confidence": "legible",
+            "image": 3
+          },
+          {
+            "where": "siodło",
+            "text": "O2",
+            "confidence": "probable",
+            "image": 3
+          },
+          {
+            "where": "opona",
+            "text": "FACTORY XC 1.95",
+            "confidence": "legible",
+            "image": 3
+          }
+        ],
+        "summary": "Kompletny rower z czarną ramą i sztywnym widelcem, mostek i sztyca Syncros, hamulce cantilever; wygląda na zadbany. Nazwy modelu na ramie nie widać.",
+        "checkedAt": "2026-11-13T03:54:31.183Z"
+      }
+    },
+    {
+      "id": "kleinanzeigen:3543743233",
+      "externalId": "3543743233",
+      "marketplace": "kleinanzeigen",
+      "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/kalkhoff-knight-vintage-mtb-rahmen-crmo-stahl-retro/3543743233-217-3373",
+      "title": "Kalkhoff Knight Vintage MTB Rahmen – CrMo Stahl – Retro",
+      "description": "rama Cr-Mo (niezweryfikowane), hamulce cantilever, hamulce v-brake, cena do negocjacji. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 45,
+      "currency": "EUR",
+      "images": [
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/55/55842d60-9aea-4d7a-b33d-00ba931a7ece?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/d9/d9f936cc-cd9b-40e9-ae0f-fddfdce7d6b3?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/b8/b83e5ce4-dd33-49fb-b667-1b0f22e53dfb?rule=$_59.AUTO"
+      ],
+      "locationName": "12589 Köpenick",
+      "latitude": 52.45,
+      "longitude": 13.45,
+      "geoPrecision": "region",
+      "postedAt": "2026-10-17T12:00:00Z",
+      "discoveredAt": "2026-11-13T03:54:50.048Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.048Z",
+          "price": 45
+        }
+      ],
+      "declared": {
+        "condition": "project",
+        "itemType": "frame",
+        "shippingAvailable": true
+      },
+      "origin": "import",
+      "photo": {
+        "images": 3,
+        "readings": [
+          {
+            "where": "rura górna",
+            "text": "KALKHOFF",
+            "confidence": "legible",
+            "image": 1
+          },
+          {
+            "where": "rura dolna",
+            "text": "NIGHT",
+            "confidence": "legible",
+            "image": 1
+          },
+          {
+            "where": "rura podsiodłowa",
+            "text": "PRÄZISIONS STAHL CrMo QUALITÄT MADE BY KALKHOFF",
+            "confidence": "legible",
+            "image": 2
+          }
+        ],
+        "summary": "Sama czerwona rama bez widelca, lakier i naklejki mocno zniszczone, w suporcie została stara oś; pivoty pod hamulce cantilever.",
+        "checkedAt": "2026-11-13T03:54:31.183Z"
+      }
+    },
+    {
+      "id": "kleinanzeigen:3152621159",
+      "externalId": "3152621159",
+      "marketplace": "kleinanzeigen",
+      "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/cycle-culture-delta-mtb-rahmen-set-stahl-kult-vintage-spinner/3152621159-217-7962",
+      "title": "Cycle Culture Delta MTB Rahmen Set Stahl Kult Vintage Spinner",
+      "description": "lata 90., rama Cr-Mo (niezweryfikowane), cena do negocjacji. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 200,
+      "currency": "EUR",
+      "images": [
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/15/156e62dc-4de2-4f63-a3ac-6f4850cb7545?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/01/01bbc8cf-70ed-43f1-9cc9-8b17541a5498?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/99/9910dad3-819b-4f2e-9107-ed987942414c?rule=$_59.AUTO"
+      ],
+      "locationName": "14467 Potsdam",
+      "latitude": 52.391,
+      "longitude": 13.065,
+      "geoPrecision": "city",
+      "postedAt": "2025-08-03T12:00:00Z",
+      "discoveredAt": "2026-11-13T03:54:50.048Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.048Z",
+          "price": 200
+        }
+      ],
+      "declared": {
+        "condition": "excellent",
+        "itemType": "frameset",
+        "shippingAvailable": true
+      },
+      "origin": "import",
+      "photo": {
+        "images": 3,
+        "readings": [
+          {
+            "where": "rura dolna",
+            "text": "Cycle Culture",
+            "confidence": "legible",
+            "image": 3
+          },
+          {
+            "where": "rura górna",
+            "text": "delta",
+            "confidence": "legible",
+            "image": 3
+          },
+          {
+            "where": "rura górna",
+            "text": "international bike design",
+            "confidence": "legible",
+            "image": 3
+          },
+          {
+            "where": "mostek",
+            "text": "syncros",
+            "confidence": "legible",
+            "image": 3
+          },
+          {
+            "where": "sztyca",
+            "text": "SYNCROS",
+            "confidence": "legible",
+            "image": 2
+          }
+        ],
+        "summary": "Rama w kolorze szampańskim ze sztywnym widelcem, mostkiem i sztycą Syncros, kierownicą i siodłem; bez kół i napędu, stan wizualnie bardzo dobry.",
+        "checkedAt": "2026-11-13T03:54:31.183Z"
+      }
+    },
+    {
+      "id": "kleinanzeigen:3534696685",
+      "externalId": "3534696685",
+      "marketplace": "kleinanzeigen",
+      "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/kona-hahanna-mtb-26-klassiker/3534696685-217-3477",
+      "title": "KONA „HAHANNA“,MTB,26“,Klassiker",
+      "description": "rama stalowa, cena do negocjacji. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 250,
+      "currency": "EUR",
+      "images": [
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/44/443274f5-12b4-4b12-a3d2-25de49b19623?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/a9/a9410965-902c-480a-8b39-03e41cdff028?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/44/443274f5-12b4-4b12-a3d2-25de49b19623?rule=$_57.AUTO"
+      ],
+      "locationName": "13088 Weissensee",
+      "latitude": 52.57,
+      "longitude": 13.33,
+      "geoPrecision": "region",
+      "postedAt": "2026-10-08T12:00:00Z",
+      "discoveredAt": "2026-11-13T03:54:50.048Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.048Z",
+          "price": 250
+        }
+      ],
+      "declared": {
+        "itemType": "complete",
+        "shippingAvailable": true
+      },
+      "origin": "import",
+      "photo": {
+        "images": 3,
+        "readings": [
+          {
+            "where": "rura dolna",
+            "text": "KONA",
+            "confidence": "legible",
+            "image": 3
+          },
+          {
+            "where": "rura górna",
+            "text": "HAHANNA",
+            "confidence": "legible",
+            "image": 3
+          },
+          {
+            "where": "rura podsiodłowa",
+            "text": "RACE Light",
+            "confidence": "legible",
+            "image": 3
+          },
+          {
+            "where": "mostek",
+            "text": "KORE",
+            "confidence": "legible",
+            "image": 3
+          },
+          {
+            "where": "opona",
+            "text": "SCHWALBE BILLY BONKERS",
+            "confidence": "legible",
+            "image": 3
+          }
+        ],
+        "summary": "Kompletny rower z czerwoną ramą i szarym sztywnym widelcem, mała rama, nowe opony Schwalbe Billy Bonkers; wygląda na zadbany.",
+        "checkedAt": "2026-11-13T03:54:31.183Z"
+      }
+    },
+    {
+      "id": "kleinanzeigen:3528115087",
+      "externalId": "3528115087",
+      "marketplace": "kleinanzeigen",
+      "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/schwarzes-kona-26-zoll-mtb/3528115087-217-3354",
+      "title": "schwarzes Kona 26 Zoll MTB",
+      "description": "rama stalowa, mocowania błotników, hamulce v-brake, Shimano Deore, koła 26\", cena do negocjacji. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 420,
+      "currency": "EUR",
+      "images": [
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/5f/5fd34191-b5bc-48ba-9fab-0e3b86d1126c?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/7e/7e569b9f-a348-4a47-bfcd-c2f14a325398?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/62/6239681e-98ea-4091-90d3-b6def730509f?rule=$_59.AUTO"
+      ],
+      "locationName": "10243 Friedrichshain",
+      "latitude": 52.52,
+      "longitude": 13.405,
+      "geoPrecision": "region",
+      "postedAt": "2026-10-01T12:00:00Z",
+      "discoveredAt": "2026-11-13T03:54:50.048Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.048Z",
+          "price": 420
+        }
+      ],
+      "declared": {
+        "condition": "fair",
+        "itemType": "complete",
+        "shippingAvailable": true
+      },
+      "origin": "import"
+    },
+    {
+      "id": "kleinanzeigen:3537606807",
+      "externalId": "3537606807",
+      "marketplace": "kleinanzeigen",
+      "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/univega-alpina-sport-26-mtb/3537606807-217-17085",
+      "title": "Univega Alpina Sport 26 MTB",
+      "description": "rama stalowa, hamulce cantilever, cena do negocjacji. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 375,
+      "currency": "EUR",
+      "images": [
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/77/7718de16-c961-488c-a338-ae062d417130?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/ec/ecf40bb8-2705-49a6-b46f-6ed7739173c8?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/dd/ddc210fb-9483-41d9-af52-830c271d07a9?rule=$_59.AUTO"
+      ],
+      "locationName": "12159 Friedenau",
+      "latitude": 52.45,
+      "longitude": 13.45,
+      "geoPrecision": "region",
+      "postedAt": "2026-10-11T12:00:00Z",
+      "discoveredAt": "2026-11-13T03:54:50.049Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.049Z",
+          "price": 375
+        }
+      ],
+      "declared": {
+        "itemType": "complete",
+        "shippingAvailable": true
+      },
+      "origin": "import"
+    },
+    {
+      "id": "kleinanzeigen:3532899485",
+      "externalId": "3532899485",
+      "marketplace": "kleinanzeigen",
+      "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/univega-alpina-530ht-27-gang-fahrrad-sehr-guter-gebrauchter-z/3532899485-217-7963",
+      "title": "Univega Alpina 530HT – 27-Gang Fahrrad | Sehr guter gebrauchter Z",
+      "description": "rama stalowa, widelec amortyzowany, mocowania błotników, mocowania koszyka, cena do negocjacji. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 250,
+      "currency": "EUR",
+      "images": [
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/a1/a1bf262f-0dd4-4de0-936f-ad15872e1232?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/0b/0bca59ae-00a8-471e-891f-5580f3874bfe?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/d9/d95e9913-4ea0-4c06-97fe-f7d6f889b62a?rule=$_59.AUTO"
+      ],
+      "locationName": "14469 Potsdam",
+      "latitude": 52.391,
+      "longitude": 13.065,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-06T12:00:00Z",
+      "discoveredAt": "2026-11-13T03:54:50.049Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.049Z",
+          "price": 250
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete",
+        "shippingAvailable": false
+      },
+      "origin": "import"
+    },
+    {
+      "id": "kleinanzeigen:3505996906",
+      "externalId": "3505996906",
+      "marketplace": "kleinanzeigen",
+      "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/fahrrad-mtb-univega-alpina-s7-5-26-zoll/3505996906-217-3490",
+      "title": "Fahrrad Mtb Univega Alpina S7.5 26 Zoll",
+      "description": "rama stalowa, widelec amortyzowany, koła 26\". (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 120,
+      "currency": "EUR",
+      "images": [
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/1d/1dc4c39c-ede7-4bd3-8a6c-8c86e9bb9389?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/93/93dc8f89-8994-424b-9b04-8b1808e3bc69?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/a9/a908c946-eef0-4d2b-bfb2-dc87d0e8892e?rule=$_59.AUTO"
+      ],
+      "locationName": "10439 Prenzlauer Berg",
+      "latitude": 52.52,
+      "longitude": 13.405,
+      "geoPrecision": "region",
+      "postedAt": "2026-09-07T12:00:00Z",
+      "discoveredAt": "2026-11-13T03:54:50.049Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.049Z",
+          "price": 120
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete",
+        "shippingAvailable": true
+      },
+      "origin": "import"
+    },
+    {
+      "id": "kleinanzeigen:3449652575",
+      "externalId": "3449652575",
+      "marketplace": "kleinanzeigen",
+      "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/univega-alpina-530-mountainbike/3449652575-217-23500",
+      "title": "UNIVEGA alpina 530 Mountainbike",
+      "description": "rama stalowa, możliwa zamiana, cena do negocjacji. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 50,
+      "currency": "EUR",
+      "images": [
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/72/72b4189e-1315-4af5-960c-02cf3b22a8ee?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/6a/6a8f8088-3011-4498-af5c-213dba2df0e2?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/f7/f7113a18-7997-4e9e-977d-b9882b04789d?rule=$_59.AUTO"
+      ],
+      "locationName": "01219 Strehlen",
+      "latitude": 51.05,
+      "longitude": 13.738,
+      "geoPrecision": "region",
+      "postedAt": "2026-07-03T12:00:00Z",
+      "discoveredAt": "2026-11-13T03:54:50.049Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.049Z",
+          "price": 50
+        }
+      ],
+      "declared": {
+        "condition": "good",
+        "itemType": "complete",
+        "shippingAvailable": true
+      },
+      "origin": "import"
+    },
+    {
+      "id": "kleinanzeigen:3420850678",
+      "externalId": "3420850678",
+      "marketplace": "kleinanzeigen",
+      "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/univega-alpina-500-mountainbike/3420850678-217-9830",
+      "title": "Univega Alpina 500 Mountainbike",
+      "description": "rama stalowa, widelec amortyzowany, mocowania błotników, Shimano Deore. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 200,
+      "currency": "EUR",
+      "images": [
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/04/046d43d0-8898-4037-b020-7e7cba8199ad?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/77/77bac696-b524-4dc3-b66b-6d2ec7e8927b?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/41/41d1bbbb-9d68-4a8c-a387-4a0d6052134c?rule=$_59.AUTO"
+      ],
+      "locationName": "14532 Stahnsdorf",
+      "latitude": 52.391,
+      "longitude": 13.065,
+      "geoPrecision": "region",
+      "postedAt": "2026-05-29T12:00:00Z",
+      "discoveredAt": "2026-11-13T03:54:50.049Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.049Z",
+          "price": 200
+        }
+      ],
+      "declared": {
+        "itemType": "complete",
+        "shippingAvailable": true
+      },
+      "origin": "import"
+    },
+    {
+      "id": "kleinanzeigen:3549878716",
+      "externalId": "3549878716",
+      "marketplace": "kleinanzeigen",
+      "sourceUrl": "https://www.kleinanzeigen.de/s-anzeige/marin-team-issue-1993-rahmen-mit-anbauteilen/3549878716-217-4087",
+      "title": "Marin Team Issue 1993 Rahmen mit Anbauteilen",
+      "description": "rocznik 1993, rama Tange Cr-Mo, widelec amortyzowany, naklejki rur widoczne, Shimano XTR. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 110,
+      "currency": "EUR",
+      "images": [
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/17/1798b410-a506-41c2-ad7a-8d713cdead29?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/6d/6d2656ad-0691-47f8-897d-77da4cb97af2?rule=$_59.AUTO",
+        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/84/846065c1-1339-4ca7-b746-08919b85bf7a?rule=$_59.AUTO"
+      ],
+      "locationName": "02763 Zittau",
+      "latitude": 51.18,
+      "longitude": 14.6,
+      "geoPrecision": "region",
+      "postedAt": "2026-10-23T12:00:00Z",
+      "discoveredAt": "2026-11-13T03:54:50.049Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.049Z",
+          "price": 110
+        }
+      ],
+      "declared": {
+        "itemType": "frameset",
+        "shippingAvailable": true
+      },
+      "origin": "import"
+    },
+    {
+      "id": "olx:1cJxth",
+      "externalId": "1cJxth",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/rama-retro-do-roweru-mtb-rozmiar-l-stalowa-z-widelcem-CID767-ID1cJxth.html",
+      "title": "Rama retro do roweru MTB rozmiar L stalowa z widelcem",
+      "description": "koła 26\". (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 55,
+      "currency": "PLN",
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/v10wxake1d24-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/2vnkwldkahtk2-PL/image;s=1000x0"
+      ],
+      "locationName": "Legnica",
+      "latitude": 51.20701,
+      "longitude": 16.15532,
+      "geoPrecision": "city",
+      "postedAt": "2026-10-12T00:36:59+02:00",
+      "discoveredAt": "2026-11-13T03:54:50.051Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.051Z",
+          "price": 55
+        }
+      ],
+      "declared": {
+        "itemType": "frame",
+        "shippingAvailable": false
+      },
+      "origin": "import",
+      "photo": {
+        "images": 2,
+        "readings": [
+          {
+            "where": "rura dolna",
+            "text": "SPEEDER — SHIMANO GEAR SYSTEM",
+            "confidence": "legible",
+            "image": 1
+          },
+          {
+            "where": "rura podsiodłowa",
+            "text": "1020 MOUNTAIN BIKE MTB — HIGH TENSILE STEEL TUBES",
+            "confidence": "legible",
+            "image": 2
+          }
+        ],
+        "summary": "Żółta rama z widelcem sztywnym, bez osprzętu; naklejka mówi o zwykłej stali Hi-Ten 1020, nie Cr-Mo.",
+        "checkedAt": "2026-11-13T03:54:31.183Z"
+      }
+    },
+    {
+      "id": "olx:18Vqha",
+      "externalId": "18Vqha",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/rama-rowerowa-principia-msl-aluminium-pod-26-retro-mtb-commuter-cz6-CID767-ID18Vqha.html",
+      "title": "rama rowerowa PRINCIPIA msl aluminium pod 26\" retro mtb commuter cz6",
+      "description": "brak szczegółów technicznych w ogłoszeniu. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 270,
+      "currency": "PLN",
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/2lx8x2njlvtl3-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/55breyst5i31-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/eaab30xab1sl3-PL/image;s=1000x0"
+      ],
+      "locationName": "Ścinawa",
+      "latitude": 51.40983,
+      "longitude": 16.43897,
+      "geoPrecision": "city",
+      "postedAt": "2026-01-08T13:31:11+01:00",
+      "discoveredAt": "2026-11-13T03:54:50.051Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.051Z",
+          "price": 270
+        }
+      ],
+      "declared": {
+        "condition": "poor",
+        "itemType": "frame",
+        "shippingAvailable": false
+      },
+      "origin": "import",
+      "photo": {
+        "images": 3,
+        "readings": [
+          {
+            "where": "rura dolna",
+            "text": "PRINCIPIA",
+            "confidence": "legible",
+            "image": 1
+          },
+          {
+            "where": "rura górna",
+            "text": "msl",
+            "confidence": "legible",
+            "image": 2
+          },
+          {
+            "where": "kartka sprzedawcy",
+            "text": "Frame weight: 1500 g, seatpost ~31,6, rear spacing 135",
+            "confidence": "legible",
+            "image": 2
+          }
+        ],
+        "summary": "Sama czarna rama z grubymi spawami typowymi dla aluminium, bez widelca; kartka sprzedawcy podaje wagę 1500 g.",
+        "checkedAt": "2026-11-13T03:54:31.183Z"
+      }
+    },
+    {
+      "id": "olx:10CtKl",
+      "externalId": "10CtKl",
+      "marketplace": "olx",
+      "sourceUrl": "https://www.olx.pl/d/oferta/rower-amerykanskiej-marki-diamond-back-CID767-ID10CtKl.html",
+      "title": "Rower amerykańskiej marki Diamond Back",
+      "description": "rama Hi-Ten, hamulce v-brake, Shimano STX / STX-SE, koła 26\", cena do negocjacji. (Fakty wyciągnięte automatycznie z ogłoszenia — szczegóły w oryginale.)",
+      "price": 400,
+      "currency": "PLN",
+      "images": [
+        "https://ireland.apollo.olxcdn.com/v1/files/pkndqbal7jjv3-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/0012lrfpjvtw2-PL/image;s=1000x0",
+        "https://ireland.apollo.olxcdn.com/v1/files/9yij7z4wd747-PL/image;s=1000x0"
+      ],
+      "locationName": "Racula",
+      "latitude": 51.90799,
+      "longitude": 15.57243,
+      "geoPrecision": "city",
+      "postedAt": "2024-06-16T11:00:59+02:00",
+      "discoveredAt": "2026-11-13T03:54:50.052Z",
+      "lastSeenAt": "2026-11-13T03:54:50.055Z",
+      "status": "active",
+      "priceHistory": [
+        {
+          "date": "2026-11-13T03:54:50.052Z",
+          "price": 400
+        }
+      ],
+      "declared": {
+        "condition": "fair",
+        "itemType": "complete",
+        "shippingAvailable": false
+      },
+      "origin": "import",
+      "photo": {
+        "images": 3,
+        "readings": [
+          {
+            "where": "rura dolna",
+            "text": "DIAMONDBACK",
+            "confidence": "legible",
+            "image": 1
+          },
+          {
+            "where": "klamkomanetka",
+            "text": "Shimano STX",
+            "confidence": "legible",
+            "image": 3
+          },
+          {
+            "where": "mostek",
+            "text": "Tranz X",
+            "confidence": "probable",
+            "image": 2
+          }
+        ],
+        "summary": "Kompletny rower z czerwoną ramą i sztywnym widelcem, rogi na kierownicy, klamkomanetki Shimano STX.",
+        "checkedAt": "2026-11-13T03:54:31.183Z"
+      }
     }
   ]
 }
