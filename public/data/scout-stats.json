@@ -1,106 +1,105 @@
 {
-  "generatedAt": "2026-11-12T00:14:03.516Z",
+  "generatedAt": "2026-11-13T03:42:27.852Z",
   "keepDays": 14,
   "maxDetailFetches": 60,
   "modelQueries": [
-    "fat chance yo eddy",
-    "bontrager race",
-    "bridgestone mb-1",
-    "bridgestone mb-2",
-    "salsa ala carte",
-    "rocky mountain blizzard",
-    "bontrager race lite",
-    "bridgestone mb-zip",
-    "centurion country",
-    "corratec 2010 grand grizzly",
-    "fat chance 10th anniversary",
-    "fuji mt fuji ltd"
+    "fuji professional",
+    "gary fisher competition",
+    "gary fisher mt tam",
+    "gary fisher procaliber",
+    "jamis dakar",
+    "jamis dragon",
+    "koga-miyata ridgerunner",
+    "kona hot",
+    "marin team issue",
+    "miyata ridge runner team",
+    "panasonic mc-7500",
+    "panasonic mc team"
   ],
-  "modelCursor": 12,
+  "modelCursor": 24,
   "portals": [
     {
       "file": "auto-olx.json",
       "name": "OLX.pl",
       "queries": 28,
-      "raw": 2316,
-      "inArea": 1248,
+      "raw": 2313,
+      "inArea": 1213,
       "pre": {
         "checked": 0,
         "rejected": {}
       },
       "detailsFetched": 0,
       "full": {
-        "checked": 1248,
+        "checked": 1213,
         "rejected": {
-          "modern": 298,
-          "not-bike": 58,
-          "part": 126,
-          "not-mtb": 328,
-          "no-retro": 136,
-          "red-flag": 185,
+          "part": 127,
+          "modern": 294,
+          "not-bike": 52,
+          "not-mtb": 307,
+          "no-retro": 95,
+          "red-flag": 179,
           "not-offer": 20,
           "multi-bike": 5,
           "part-code": 5,
-          "cross-trekking": 25,
-          "full-suspension": 12
+          "cross-trekking": 24,
+          "full-suspension": 11,
+          "aluminium": 49
         },
-        "manualDuplicates": 13
+        "manualDuplicates": 14
       },
-      "added": 19,
-      "carried": 8,
-      "expired": 3,
-      "rechecked": {
-        "no-retro": 4,
-        "multi-bike": 1,
-        "aluminium": 9,
-        "modern": 1
-      },
-      "published": 33,
+      "added": 3,
+      "carried": 5,
+      "expired": 0,
+      "rechecked": {},
+      "published": 36,
       "errors": 0,
-      "goneChecked": 8,
+      "goneChecked": 5,
       "gone": 0
     },
     {
       "file": "auto-kleinanzeigen.json",
       "name": "Kleinanzeigen.de",
       "queries": 30,
-      "raw": 559,
-      "inArea": 294,
+      "raw": 510,
+      "inArea": 280,
       "pre": {
-        "checked": 294,
+        "checked": 280,
         "rejected": {
-          "part": 54,
-          "multi-bike": 1,
-          "modern": 24,
-          "red-flag": 32,
-          "part-code": 10,
-          "not-mtb": 31,
-          "cross-trekking": 4,
+          "modern": 23,
+          "part": 62,
+          "cross-trekking": 6,
+          "multi-bike": 3,
+          "not-mtb": 27,
+          "red-flag": 28,
+          "part-code": 9,
           "not-bike": 4,
-          "no-retro": 21,
+          "no-retro": 17,
           "not-offer": 3,
+          "aluminium": 5,
           "too-new": 1
         }
       },
-      "detailsFetched": 60,
+      "detailsFetched": 29,
       "full": {
-        "checked": 89,
+        "checked": 91,
         "rejected": {
-          "red-flag": 4,
-          "modern": 3,
-          "part": 14
+          "red-flag": 5,
+          "modern": 5,
+          "not-mtb": 1,
+          "part": 3,
+          "part-code": 1
         },
         "manualDuplicates": 0
       },
-      "added": 38,
-      "carried": 14,
-      "expired": 0,
+      "added": 14,
+      "carried": 18,
+      "expired": 1,
       "rechecked": {
         "not-mtb": 1
       },
-      "published": 81,
+      "published": 94,
       "errors": 0,
-      "goneChecked": 14,
+      "goneChecked": 15,
       "gone": 0,
       "excluded": 1
     },
@@ -109,23 +108,24 @@
       "name": "Sprzedajemy.pl",
       "queries": 8,
       "raw": 154,
-      "inArea": 137,
+      "inArea": 135,
       "pre": {
-        "checked": 137,
+        "checked": 135,
         "rejected": {
           "part": 2,
-          "not-mtb": 115,
+          "not-mtb": 113,
           "cross-trekking": 3,
           "modern": 3,
-          "red-flag": 1
+          "red-flag": 1,
+          "aluminium": 1
         }
       },
-      "detailsFetched": 8,
+      "detailsFetched": 7,
       "full": {
-        "checked": 13,
+        "checked": 12,
         "rejected": {
-          "no-retro": 3,
-          "modern": 4,
+          "aluminium": 3,
+          "modern": 3,
           "not-offer": 1
         },
         "manualDuplicates": 0
