@@ -1,6 +1,7 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Bookmark, BookmarkCheck, ExternalLink, Flag, Gem, Info, Search, ShieldAlert } from 'lucide-react';
 import { useAppData } from '../hooks/AppData';
+import { ObservedPrices } from '../features/listings/ObservedPrices';
 import { ConfidenceBadge, EmptyState, GemBadge, MarketplaceTag, OriginBadge, ScoreBar, ScoreRing, WarningNote } from '../components/ui';
 import { MetalBadge } from '../components/MetalBadge';
 import { ListingImage } from '../components/ListingImage';
@@ -165,6 +166,7 @@ export default function ListingPage() {
             <p className="mt-3 text-[11px] text-ink-500">
               Pewność wyceny: <b className="text-ink-300">{PRICE_CONF_LABEL[a.price.confidence]}</b>. Potencjał netto = wartość − cena − renowacja − transport.
             </p>
+            <ObservedPrices modelId={a.modelId} itemType={a.itemType} />
             <ul className="mt-2 space-y-1 text-[11px] text-ink-400">
               {a.price.basis.map((b, i) => (
                 <li key={i}>• {b}</li>

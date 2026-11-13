@@ -15,6 +15,8 @@ export type Region =
   | 'italy'
   | 'austria'
   | 'poland'
+  | 'czechia'
+  | 'slovakia'
   | 'switzerland'
   | 'other';
 

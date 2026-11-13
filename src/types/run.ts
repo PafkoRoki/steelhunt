@@ -27,6 +27,17 @@ export interface RunLog {
   runs: RunLogEntry[]; // newest first, capped
 }
 
+/** One asking price seen for a recognised model (public/data/price-archive.json) — kept after the listing expires. */
+export interface PriceObservation {
+  url: string;
+  modelId: string;
+  itemType: string;
+  pricePln: number;
+  marketplace: string;
+  firstSeen: string;
+  lastSeen: string;
+}
+
 export interface LiveDataFile {
   generatedAt: string | null;
   listings: import('./listing').SourceListing[];

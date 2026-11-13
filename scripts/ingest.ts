@@ -14,7 +14,8 @@ import type { PhotoNotes, SourceListing } from '../src/types/listing';
 import type { LiveDataFile, RunLog, RunLogEntry, SourceRunLog } from '../src/types/run';
 import type { MarketplaceConnector } from '../src/services/marketplaces/types';
 import { mergeListings } from '../src/services/deduplication/dedupe';
-import { analyzeListings } from '../src/services/analysis/pipeline';
+import { analyzeListings, toPln } from '../src/services/analysis/pipeline';
+import type { PriceObservation } from '../src/types/run';
 import { buildDatabase } from '../src/services/database/db';
 import { DEFAULT_SETTINGS } from '../src/features/scoring/config';
 import { createAllegroConnector } from './connectors/allegro';
@@ -24,6 +25,7 @@ const ROOT = resolve(import.meta.dirname, '..');
 const LISTINGS = resolve(ROOT, 'public/data/listings.json');
 const RUNLOG = resolve(ROOT, 'public/data/run-log.json');
 const PHOTO_NOTES = resolve(ROOT, 'data/photo-notes.json');
+const PRICE_ARCHIVE = resolve(ROOT, 'public/data/price-archive.json');
 
 interface SourcesConfig {
   queries: string[];
@@ -107,6 +109,25 @@ async function main() {
 
   const analyzed = analyzeListings(merged.merged, DEFAULT_SETTINGS, buildDatabase());
   const bargains = analyzed.filter((a) => a.analysis.isBargain).length;
+
+  // Price archive: one row per listing of a recognised model, updated while the listing is live, kept after it is gone.
+  const archive = new Map(readJson<PriceObservation[]>(PRICE_ARCHIVE, []).map((o) => [o.url, o]));
+  for (const a of analyzed) {
+    const pln = toPln(a.listing, DEFAULT_SETTINGS);
+    if (!a.analysis.modelId || !pln || a.listing.status !== 'active' || a.listing.duplicateOf) continue;
+    const url = a.listing.sourceUrl.split('?')[0];
+    const prev = archive.get(url);
+    archive.set(url, {
+      url,
+      modelId: a.analysis.modelId,
+      itemType: a.analysis.itemType,
+      pricePln: pln,
+      marketplace: a.listing.marketplace,
+      firstSeen: prev?.firstSeen ?? a.listing.discoveredAt ?? nowIso,
+      lastSeen: nowIso,
+    });
+  }
+  writeJson(PRICE_ARCHIVE, [...archive.values()]);
 
   const anyOk = sourceLogs.some((s) => s.ok);
   const entry: RunLogEntry = {

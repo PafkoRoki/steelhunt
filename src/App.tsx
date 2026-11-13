@@ -10,6 +10,7 @@ import BikeDatabasePage from './pages/BikeDatabasePage';
 import TubingDatabasePage from './pages/TubingDatabasePage';
 import GroupsetsPage from './pages/GroupsetsPage';
 import HistoryPage from './pages/HistoryPage';
+import MtbHistoryPage from './pages/MtbHistoryPage';
 import SelectionPage from './pages/SelectionPage';
 import SettingsPage from './pages/SettingsPage';
 import ListingPage from './pages/ListingPage';
@@ -38,6 +39,7 @@ export default function App() {
           <Route path="/frames/:id" element={<FrameModelPage />} />
           <Route path="/model/stumpjumper-comp-1990" element={<Navigate to="/frames/stumpjumper-comp-1990" replace />} />
           <Route path="/history" element={<HistoryPage />} />
+          <Route path="/mtb-history" element={<MtbHistoryPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/listing/:id" element={<ListingPage />} />
           <Route path="*" element={<DashboardPage />} />

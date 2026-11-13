@@ -1,0 +1,226 @@
+[
+  {
+    "year": "1938",
+    "scope": "poland",
+    "title": "Bydgoszcz stolicą polskiego roweru",
+    "text": "W Bydgoszczy powstaje 130 tys. rowerów rocznie — 60% całej polskiej produkcji. Działają tam m.in. Tornedo, Pomorska Fabryka Rowerów, WMB i Fema, z których po wojnie powstanie Romet.",
+    "confidence": "confirmed",
+    "sources": ["http://wrower.pl/historia/historia-firmy-romet,5730.html"]
+  },
+  {
+    "year": "1948",
+    "scope": "poland",
+    "title": "Zjednoczone Zakłady Rowerowe",
+    "text": "15 września 1948 r. przy ul. Fordońskiej 2 w Bydgoszczy rusza fabryka Zjednoczone Zakłady Rowerowe, złożona z czterech przedwojennych firm. Pod koniec lat 40. produkuje 90 tys. rowerów rocznie. Część źródeł podaje rok 1949.",
+    "confidence": "sources-differ",
+    "sources": ["http://wrower.pl/historia/historia-firmy-romet,5730.html", "http://www.encyklopediarowerowa.pl/romet.html"]
+  },
+  {
+    "year": "1971",
+    "scope": "poland",
+    "title": "ZZR zmienia nazwę na Romet",
+    "text": "Zaczyna się złoty okres: ponad 100 modeli rowerów, motorowerów i motorynek, w szczycie 1,0–1,2 mln sztuk rocznie. To epoka Wigier, Jubilata, Zenita, Wagant, Pasata, Huragana i Jaguara — rowerów miejskich, składanych i szosowych, jeszcze nie górskich.",
+    "confidence": "confirmed",
+    "sources": ["http://wrower.pl/historia/historia-firmy-romet,5730.html", "http://www.encyklopediarowerowa.pl/romet.html"]
+  },
+  {
+    "year": "1976",
+    "scope": "europe",
+    "title": "Niemcy: Wolfgang Renner zakłada Centurion",
+    "text": "Firma startuje w Magstadt jako dystrybutor (Nowack Radsport-Vertrieb) i import rowerów Centurion z Japonii. W 1979 r. Renner sprowadza do Niemiec BMX.",
+    "confidence": "confirmed",
+    "sources": ["https://www.radfahren.de/story/centurion-geschichte/", "https://mmbhof.org/mountain-bike-hall-of-fame/2017/wolfgang-renner/"]
+  },
+  {
+    "year": "1978–1983",
+    "scope": "world",
+    "title": "Kalifornia: rodzi się rower górski",
+    "text": "MTB powstaje w Kalifornii na przełomie lat 70. i 80. W 1981 r. Specialized pokazuje Stumpjumpera — pierwszy masowo produkowany rower górski, z ramą robioną w Japonii.",
+    "confidence": "confirmed",
+    "sources": ["https://antymateria.com/en/blogs/blog/historia-roweru", "http://mombatbicycles.com/MOMBAT/BikeHistoryPages/Specialized.html"]
+  },
+  {
+    "year": "1982",
+    "scope": "europe",
+    "title": "Niemcy: Centurion Country",
+    "text": "Pokazany w 1981 r., w sklepach od 1982 r. — pierwszy niemiecki rower górski. Geometrię narysował sam Renner. Źródła potwierdzają „pierwszy niemiecki”; tytułu „pierwszy w Europie” nie udało się potwierdzić. W 1984 r. Centurion dokłada Accordo GT, opisywany jako pierwszy rower trekkingowy.",
+    "confidence": "confirmed",
+    "sources": ["https://www.radfahren.de/story/centurion-geschichte/", "https://www.bike-magazin.de/en/about-us/magazine/backgrounds/wolfgang-renner-about-the-first-mountain-bike/"]
+  },
+  {
+    "year": "1983",
+    "scope": "europe",
+    "title": "Wielka Brytania: Ridgeback i Muddy Fox",
+    "text": "Rowery górskie w amerykańskim stylu docierają na Wyspy. Pierwszą dużą brytyjską marką jest Ridgeback, zaraz po niej pojawia się Muddy Fox, który rozgłos buduje sprytną reklamą.",
+    "confidence": "confirmed",
+    "sources": ["https://road.cc/offroad/content/feature/the-making-of-british-mountain-biking-18541"]
+  },
+  {
+    "year": "1983",
+    "scope": "europe",
+    "title": "Francja: Stéphane Hauvette i Mécacycle",
+    "text": "Według mtbtimeline.com Hauvette sprowadza MTB do Francji w 1983 r., a Mécacycle buduje w tym samym roku pierwszy francuski rower górski.",
+    "confidence": "single-source",
+    "sources": ["https://mtbtimeline.com/wiki/meca/start"]
+  },
+  {
+    "year": "1984",
+    "scope": "europe",
+    "title": "Francja: pierwszy Roc d'Azur",
+    "text": "Siedmiu zawodników, w tym założyciel Stéphane Hauvette, jedzie 60 km z Ramatuelle do Saint-Tropez. Wygrywa Larbi Midoune na Mécacycle. Z tej imprezy wyrósł jeden z największych festiwali MTB na świecie.",
+    "confidence": "confirmed",
+    "sources": ["https://en.wikipedia.org/wiki/Roc_d%27Azur", "https://mtbtimeline.com/wiki/meca/start"]
+  },
+  {
+    "year": "1984",
+    "scope": "europe",
+    "title": "Francja: Peugeot VTT1",
+    "text": "Peugeot podaje, że w 1984 r. jako pierwsza francuska marka zaczął sprzedawać rower górski — model VTT1. Opis w Google Arts & Culture datuje wejście VTT1 na rynek na 1987 r.",
+    "confidence": "sources-differ",
+    "sources": ["https://cycles.peugeot.com/history", "https://www.mtbtimeline.com/wiki/peugeot/start"]
+  },
+  {
+    "year": "lata 80.",
+    "scope": "poland",
+    "title": "Romet: rowery górskie z Kowalewa",
+    "text": "W strukturze Rometu z lat 80. zakład R-4 w Kowalewie Wielkopolskim (drugi co do wielkości) robi składaki Wigry oraz rowery górskie, terenowe i BMX-y. Źródła nie wymieniają nazw modeli górskich ani roku pierwszego z nich.",
+    "confidence": "confirmed",
+    "sources": ["http://wrower.pl/historia/historia-firmy-romet,5730.html", "http://www.encyklopediarowerowa.pl/romet.html"]
+  },
+  {
+    "year": "1988",
+    "scope": "world",
+    "title": "Pierwszy Puchar Świata",
+    "text": "Pierwsza seria Pucharu Świata MTB: dziewięć wyścigów cross-country w Europie i Ameryce Północnej, sponsor Grundig. Pierwszą rundę w Bassano we Włoszech wygrywa Brytyjczyk Tim Gould, przełajowiec na seryjnym Peugeocie.",
+    "confidence": "confirmed",
+    "sources": ["https://road.cc/offroad/content/feature/mountain-bike-icons-the-tim-gould-story-10721", "https://road.cc/offroad/content/feature/the-making-of-british-mountain-biking-18541"]
+  },
+  {
+    "year": "1989",
+    "scope": "europe",
+    "title": "Niemcy: magazyn BIKE",
+    "text": "Wiosną 1989 r. Uli Stanciu zakłada magazyn BIKE — przez kolejne dekady główne pismo MTB w niemieckojęzycznej Europie.",
+    "confidence": "confirmed",
+    "sources": ["https://www.bike-magazin.de/en/magazine/backgrounds/10-years-of-the-antritt-podcast-how-did-bike-magazine-actually-come-about-uli-stanciu/"]
+  },
+  {
+    "year": "1990",
+    "scope": "world",
+    "title": "Pierwsze mistrzostwa świata UCI",
+    "text": "14–15 września 1990 r. w Durango w Kolorado: cross-country i zjazd. UCI wybrała USA jako kolebkę MTB. Pierwszym mistrzem świata w XC zostaje Ned Overend.",
+    "confidence": "confirmed",
+    "sources": ["https://en.wikipedia.org/wiki/1990_UCI_Mountain_Bike_World_Championships", "https://www.uci.org/mountain-bike/news/2019/30-years-of-uci-mountain-bike-world-championships"]
+  },
+  {
+    "year": "1990",
+    "scope": "poland",
+    "title": "Kross: sklep rowerowy w Przasnyszu",
+    "text": "Zbigniew Sosnowski otwiera sklep rowerowy w Przasnyszu, który szybko staje się hurtownią i montownią rowerów. W 2000 r. powstaje tam nowoczesny zakład produkcyjny; w 2007 r. firma kończy współpracę z Decathlonem i stawia na własną markę Kross.",
+    "confidence": "confirmed",
+    "sources": ["https://kross.eu/en/about-us", "https://wikiwand.com/en/articles/Kross_SA", "https://portal.bikeworld.pl/marki/kross"]
+  },
+  {
+    "year": "ok. 1990",
+    "scope": "poland",
+    "title": "Unibike w Bydgoszczy",
+    "text": "W 2015 r. marka obchodziła 25 lat, co daje początek około 1990 r. (data wyliczona, nie podana wprost). Rowery montowane w bydgoskiej fabryce z gotowych podzespołów.",
+    "confidence": "single-source",
+    "sources": ["https://portal.bikeworld.pl/marki/unibike", "https://portal.bikeworld.pl/artykul/testy_i_nowosci/nowosci_sprzetowe/13718/unibike_2015"]
+  },
+  {
+    "year": "1990–1993",
+    "scope": "europe",
+    "title": "Czechy: Universe Agency i marka Author",
+    "text": "Martin Havlena zakłada Universe Agency zaraz po 1990 r. W 1992 r. firma importuje pierwszą, jeszcze bezimienną serię rowerów, a w 1993 r. sprowadza już około 40 tys. sztuk pod nazwą Author. Marka szybko trafia też do Polski.",
+    "confidence": "confirmed",
+    "sources": ["https://www.echo24.cz/a/iUpq7/obcas-mame-vyprodano-pribeh-horskych-kol-author", "https://en.author.eu/blog/author-1993-2023", "https://en.wikipedia.org/wiki/Author_(bicycles)"]
+  },
+  {
+    "year": "1991",
+    "scope": "europe",
+    "title": "Słowacja: Kellys",
+    "text": "Bracia Divinec zaczynają od małej wypożyczalni rowerów i szybko przechodzą do własnej marki. Dziś Kellys sprzedaje w ponad 35 krajach.",
+    "confidence": "confirmed",
+    "sources": ["https://kellysbike.com/info/about-us"]
+  },
+  {
+    "year": "1991",
+    "scope": "poland",
+    "title": "Romet spółką akcyjną",
+    "text": "Zakłady Rowerowe „Romet” S.A. wchodzą w wolny rynek. Na początku lat 90. firmie pomaga moda na proste rowery górskie, ale prywatyzacja się nie udaje.",
+    "confidence": "confirmed",
+    "sources": ["http://wrower.pl/historia/historia-firmy-romet,5730.html", "https://radio-dtr.live/milion-rowerow-rocznie-a-potem-zabraklo-na-pensje-jak-upadl-romet/"]
+  },
+  {
+    "year": "1992",
+    "scope": "poland",
+    "title": "Puchar Polski MTB",
+    "text": "Rusza Puchar Polski w kolarstwie górskim — pierwsza ogólnopolska seria wyścigów MTB. Dominuje w niej Sławomir Barul.",
+    "confidence": "confirmed",
+    "sources": ["https://namtb.pl/2019/07/jak-to-dawniej-bylo-historia-mistrzostw-polski-w-kolarstwie-gorskim/"]
+  },
+  {
+    "year": "1993",
+    "scope": "poland",
+    "title": "Pierwsze mistrzostwa Polski — Krynica",
+    "text": "Pierwszym mistrzem Polski MTB zostaje Wojciech Kadrzyński, przed Sylwestrem Szturnogą i Markiem Galińskim; faworyt Barul jest piąty. Wśród kobiet wygrywa Agnieszka Godras. Zwycięzca jedzie 2 godz. 4 min — wyścig przypomina dzisiejszy maraton. Jeden z serwisów podaje błędnie rok 1995 i Bielawę.",
+    "confidence": "confirmed",
+    "sources": ["https://namtb.pl/2019/07/jak-to-dawniej-bylo-historia-mistrzostw-polski-w-kolarstwie-gorskim/", "https://pl.wikipedia.org/wiki/Mistrzostwa_Polski_w_kolarstwie_g%C3%B3rskim"]
+  },
+  {
+    "year": "1994–1996",
+    "scope": "poland",
+    "title": "Era Sławomira Barula",
+    "text": "Barul wygrywa mistrzostwa trzy razy z rzędu (Warszawa 1994, Krynica 1995, Wisła 1996) i jedzie na igrzyska w Atlancie. W 1996 r. brąz mistrzostw Polski MTB zdobywa Cezary Zamana, późniejszy zwycięzca Tour de Pologne.",
+    "confidence": "confirmed",
+    "sources": ["https://namtb.pl/2019/07/jak-to-dawniej-bylo-historia-mistrzostw-polski-w-kolarstwie-gorskim/"]
+  },
+  {
+    "year": "ok. 1996",
+    "scope": "poland",
+    "title": "Grand Prix MTB Czesława Langa",
+    "text": "Najstarsza i najważniejsza seria cross-country w kraju. Sezon 2009 był jej 14. edycją, co daje start w połowie lat 90. (rok wyliczony). Przez siedem lat sponsorem tytularnym była Škoda, od 2008 r. Bank BPH.",
+    "confidence": "single-source",
+    "sources": ["https://portal.bikeworld.pl/artykul/sport/polska/4429/lang_team_grand_prix_mtb_2009", "https://portal.bikeworld.pl/artykul/drukuj/2817/bank_bph_grand_prix_mtb_w_2008_roku"]
+  },
+  {
+    "year": "1996",
+    "scope": "world",
+    "title": "MTB na igrzyskach",
+    "text": "Cross-country debiutuje na igrzyskach w Atlancie. Złoto kobiet zdobywa Włoszka Paola Pezzo — Europa przejmuje od Ameryki prym w ściganiu.",
+    "confidence": "confirmed",
+    "sources": ["https://www.cyclingnews.com/features/olympic-moments-1996-mountain-biking-comes-of-age-2", "https://mbaction.com/throwback-thursday-european-xc-racers-of-the-90s-who-changed-everything"]
+  },
+  {
+    "year": "ok. 1997",
+    "scope": "poland",
+    "title": "Bike Maraton",
+    "text": "Najstarszy nieprzerwanie rozgrywany cykl maratonów MTB w Polsce (Grabek Promotion). W 2015 r. ruszał dziewiętnasty sezon, co daje start około 1997 r. (rok wyliczony).",
+    "confidence": "single-source",
+    "sources": ["https://portal.bikeworld.pl/artykul/sport/polska/13850/bm_czarnota_najlepszy_w_miekini", "https://portal.bikeworld.pl/tag/154/bike_maraton"]
+  },
+  {
+    "year": "1998",
+    "scope": "poland",
+    "title": "Upadłość Rometu i pierwszy tytuł Galińskiego",
+    "text": "25 maja 1998 r. sąd w Bydgoszczy ogłasza upadłość Zakładów Rowerowych Romet S.A.; główny zakład R-1 zostaje zlikwidowany. W tym samym roku w Ustrzykach Dolnych pierwszy tytuł mistrza Polski zdobywa Marek Galiński — później najbardziej utytułowany polski kolarz górski.",
+    "confidence": "confirmed",
+    "sources": ["http://wrower.pl/historia/historia-firmy-romet,5730.html", "https://namtb.pl/2019/07/jak-to-dawniej-bylo-historia-mistrzostw-polski-w-kolarstwie-gorskim/"]
+  },
+  {
+    "year": "1999–2000",
+    "scope": "poland",
+    "title": "Arkus przejmuje zakłady Rometu",
+    "text": "Firma Arkus s.c. Wiesława Grzyba kupuje zakład R-3 w Jastrowiu, a rok później R-4 w Kowalewie — razem z załogą, prawem do marki Romet i do nazw Jubilat i Wigry. W 2006 r. markę przejmuje Arkus & Romet Group, a w 2009 r. Romet wraca do sklepów z odświeżonym logo.",
+    "confidence": "confirmed",
+    "sources": ["http://wrower.pl/historia/historia-firmy-romet,5730.html", "http://www.encyklopediarowerowa.pl/romet.html", "https://en.wikipedia.org/wiki/Romet"]
+  },
+  {
+    "year": "2004–2016",
+    "scope": "poland",
+    "title": "Maja Włoszczowska",
+    "text": "Srebro mistrzostw świata w 2004, 2005, 2011 i 2013 r., tytuł mistrzyni świata w 2010 r. oraz srebrne medale olimpijskie w Pekinie (2008) i Rio (2016). Srebro z Pekinu opisywano jako największy sukces polskiego kolarstwa od dwudziestu lat.",
+    "confidence": "confirmed",
+    "sources": ["https://www.rmf24.pl/sport/news-maja-wloszczowska-konczy-kariere,nId,5557197", "https://portal.bikeworld.pl/artykul/sport/wywiady/3456/maja_wloszczowska_kilka_pyta_n_po_pekinie"]
+  }
+]

@@ -12,7 +12,7 @@ import type { Region } from '../types/database';
 
 const COUNTRY: Record<Region, string> = {
   usa: 'USA', canada: 'Kanada', japan: 'Japonia', taiwan: 'Tajwan', germany: 'Niemcy', netherlands: 'Holandia', france: 'Francja',
-  uk: 'Wlk. Brytania', italy: 'Włochy', austria: 'Austria', poland: 'Polska', switzerland: 'Szwajcaria', other: 'inne / do weryfikacji',
+  uk: 'Wlk. Brytania', italy: 'Włochy', austria: 'Austria', poland: 'Polska', czechia: 'Czechy', slovakia: 'Słowacja', switzerland: 'Szwajcaria', other: 'inne / do weryfikacji',
 };
 
 const slugify = (s: string) => normalizeText(s).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');

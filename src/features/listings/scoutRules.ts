@@ -42,6 +42,13 @@ export function makersInTitle(title: string): number {
   const t = normalizeText(title);
   return MAKERS.filter((m) => m.res.some((re) => re.test(t))).length;
 }
+/** Makers of plain mass-market bikes (steelReputation below this) are treated like no-name bikes by the retro rules. */
+export const MASS_MARKET_REPUTATION = 30;
+function isQualityMaker(id: string | null | undefined): boolean {
+  if (!id) return false;
+  const m = buildDatabase().manufacturerById.get(id);
+  return !m || m.steelReputation >= MASS_MARKET_REPUTATION;
+}
 export const MAX_YEAR = 2005;
 export const MAX_GROUPSET_YEAR = 2002;
 
@@ -74,7 +81,7 @@ export const REJECT_RULES: { id: RejectReason; label: string; rule: string }[] =
   { id: 'modern', label: 'Nowoczesny rower', rule: 'Koła 27,5"/29", hamulce tarczowe / hydrauliczne, karbon, Boost, napęd 1x11/1x12, tubeless, e-bike, klamkomanetki Dual Control, korba Hollowtech II.' },
   { id: 'too-new', label: `Rocznik ≥ ${MAX_YEAR}`, rule: `Podany rok produkcji ${MAX_YEAR} lub nowszy.` },
   { id: 'aluminium', label: 'Aluminium bez cech retro', rule: 'Rama aluminiowa (z opisu, z marki albo z naklejki odczytanej na zdjęciu, np. „Custom Alloy”) zostaje tylko wtedy, gdy tytuł sam mówi o retro / vintage / latach 90. albo podany rocznik to 1999 lub starszy. Sam znany model albo stara grupa osprzętu nie wystarcza — szukamy stali.' },
-  { id: 'no-retro', label: 'Brak cech retro', rule: `Żadnej cechy retro (przy rowerze bez rozpoznanego producenta samo słowo „retro / kultowy” w opisie nie wystarcza — musi być w tytule albo musi być twarda cecha): słowa retro/vintage/klasyk/lata 90., rok 198x–199x, stal Cr-Mo / Tange / Reynolds / Columbus / True Temper, „stalowa rama” przy znanym producencie, mufy, cantilevery, Biopace, napęd SunTour (nie widelec SR Suntour), Deore DX / STX / Exage, kod grupy Shimano do ${MAX_GROUPSET_YEAR} r. — ani modelu z bazy rowerów.` },
+  { id: 'no-retro', label: 'Brak cech retro', rule: `Żadnej cechy retro (przy rowerze bez rozpoznanego producenta albo marki masowej, jak Romet, Kross czy Unibike, samo słowo „retro / kultowy” w opisie nie wystarcza — musi być w tytule albo musi być twarda cecha): słowa retro/vintage/klasyk/lata 90., rok 198x–199x, stal Cr-Mo / Tange / Reynolds / Columbus / True Temper, „stalowa rama” przy znanym producencie, mufy, cantilevery, Biopace, napęd SunTour (nie widelec SR Suntour), Deore DX / STX / Exage, kod grupy Shimano do ${MAX_GROUPSET_YEAR} r. — ani modelu z bazy rowerów.` },
 ];
 
 /**
@@ -112,8 +119,8 @@ export function scoutRejectReason(a: AnalyzedListing, rawText: string, titleOnly
   // OLX's structured "Materiał ramy: stal" line is ticked on any cheap bike — the seller's own words must carry the retro signal.
   const own = rawText.replace(/^\s*(?:Materia[lł] ramy|Rahmenmaterial)\s*:.*$/gim, ' ');
   // A no-name bike: "retro" somewhere in the description is sales talk — it needs the word in the title or a hard sign (year, tubing, parts).
-  if (!titleOnly && !an.manufacturerId && an.modelId == null && !RETRO.test(title) && !RETRO.test(own.replace(SOFT_RETRO, ' '))) return 'no-retro';
-  if (titleOnly || RETRO.test(own) || an.modelId != null || (an.manufacturerId != null && STEEL_WORD.test(own))) return null;
+  if (!titleOnly && !isQualityMaker(an.manufacturerId) && an.modelId == null && !RETRO.test(title) && !RETRO.test(own.replace(SOFT_RETRO, ' '))) return 'no-retro';
+  if (titleOnly || RETRO.test(own) || an.modelId != null || (isQualityMaker(an.manufacturerId) && STEEL_WORD.test(own))) return null;
   return 'no-retro';
 }
 
