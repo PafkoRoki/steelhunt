@@ -12,7 +12,8 @@ export const MODERN = /(27[,.]5|\b29\s*(?:["“”″]|''|zoll|er|cali)|\b29er\b
 export const BIKE_HINT = /(rower|bike|mtb|atb|g[oó]ral|g[oó]rsk|fahrrad|\brad\b|rahmen|rama|mountain|bicykl|velo)/i;
 export const NOT_MTB = /(tandem|\bcruiser\b|chopp?er|sk[lł]adak\w*|klapprad|faltrad|crossow\w*|\bcross\b|crossbike\w*|crossrad\w*|hybrid\w*|trekking\w*|prze[lł]aj\w*|\b28\s*(?:cali|"|''|”|zoll|er)|ko[lł]a\s*28)/i;
 export const BIKE_WORD = /(rower|bike|fahrrad|\brad\b|rama|ramy|rahmen|mountain)/i;
-export const PART_CODE = /\b(?:fc|rd|fd|st|br|bl|cs|hb|fh|sl|bb)-?[a-z]{0,2}\d{2,4}\b/i;
+export const PART_CODE = /\b(?:fc|rd|fd|st|br|bl|cs|hb|fh|sl|bb|pd|sp|wh)-?[a-z]{0,2}\d{2,4}\b/i;
+export const COMPONENT_LEAD = /^\s*(?:top\s+)?(?:\d+\s*x\s*)?(?:shimano|suntour|sachs|campagnolo|deore|sram|mavic)\b/i;
 export const FORK_BRAND = /\b(marzocchi|rock\s*shox|rockshox|manitou|answer|judy|bomber)\b/i;
 /** Things that are not bikes but come up in broad searches (fishing rods: blank, Fuji guides…). */
 export const NOT_BIKE_ITEM = /(w[eę]dk\w*|ko[lł]owrot\w*|spinning\w*|\bangel\w*|\brute\b|feeder\w*|karpiow\w*|przelotk\w*)/i;
@@ -108,6 +109,8 @@ export function scoutRejectReason(a: AnalyzedListing, rawText: string, titleOnly
   // "Fahrrad Sattel bike saddle…", "Shimano XT Kurbel … Mountainbike MTB": a part noun in a title that names no bike maker —
   // "Fahrrad / Mountainbike" only says what the part is for.
   if (!an.manufacturerId && STRONG_PART.test(normalizeText(title))) return 'part';
+  // "SHIMANO Deore DX 075, Deore XT, XTR 900, Mtb, retro": a title that opens with a component brand and names no bike.
+  if (!BIKE_WORD.test(title) && !an.manufacturerId && COMPONENT_LEAD.test(title)) return 'part-code';
   if (!BIKE_WORD.test(title) && (PART_CODE.test(title) || (!an.manufacturerId && FORK_BRAND.test(title)))) return 'part-code';
   if (MODERN.test(rawText)) return 'modern';
   const y = an.productionYear && /^\d{4}$/.test(an.productionYear) ? Number(an.productionYear) : null;
