@@ -1,7 +1,43 @@
 {
-  "lastRunAt": "2026-11-16T22:10:59.159Z",
-  "lastSuccessAt": "2026-11-16T22:10:59.159Z",
+  "lastRunAt": "2026-11-17T04:46:16.468Z",
+  "lastSuccessAt": "2026-11-17T04:46:16.468Z",
   "runs": [
+    {
+      "startedAt": "2026-11-17T04:46:16.197Z",
+      "finishedAt": "2026-11-17T04:46:16.468Z",
+      "ok": true,
+      "found": 159,
+      "added": 6,
+      "updated": 153,
+      "duplicates": 154,
+      "analyzed": 159,
+      "priceChanges": [
+        {
+          "id": "kleinanzeigen:3562366977",
+          "from": 80,
+          "to": 75
+        },
+        {
+          "id": "kleinanzeigen:3554062290",
+          "from": 69,
+          "to": 65
+        },
+        {
+          "id": "kleinanzeigen:3181131261",
+          "from": 200,
+          "to": 199
+        }
+      ],
+      "sources": [
+        {
+          "source": "manual",
+          "ok": true,
+          "skipped": false,
+          "found": 159,
+          "durationMs": 26
+        }
+      ]
+    },
     {
       "startedAt": "2026-11-16T22:10:58.961Z",
       "finishedAt": "2026-11-16T22:10:59.159Z",
@@ -1271,34 +1307,6 @@
           "skipped": false,
           "found": 25,
           "durationMs": 12
-        },
-        {
-          "source": "allegro",
-          "ok": false,
-          "skipped": true,
-          "found": 0,
-          "error": "Brak ALLEGRO_CLIENT_ID / ALLEGRO_CLIENT_SECRET w sekretach",
-          "durationMs": 0
-        }
-      ]
-    },
-    {
-      "startedAt": "2026-11-01T01:46:45.443Z",
-      "finishedAt": "2026-11-01T01:46:45.496Z",
-      "ok": true,
-      "found": 25,
-      "added": 22,
-      "updated": 3,
-      "duplicates": 3,
-      "analyzed": 25,
-      "priceChanges": [],
-      "sources": [
-        {
-          "source": "manual",
-          "ok": true,
-          "skipped": false,
-          "found": 25,
-          "durationMs": 9
         },
         {
           "source": "allegro",
