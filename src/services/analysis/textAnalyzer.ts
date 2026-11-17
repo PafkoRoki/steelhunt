@@ -257,6 +257,12 @@ function detectConstruction(text: string): FrameConstruction {
   return 'unknown';
 }
 
+/** Frame material and construction named in the listing text itself — no fallback to the model database. */
+export function ownFrameFacts(raw: string): { material: FrameMaterial; construction: FrameConstruction } {
+  const t = normalizeText(raw);
+  return { material: detectMaterial(t, null), construction: detectConstruction(t) };
+}
+
 function detectWheelSize(text: string, declared?: string): string | null {
   if (declared) return declared;
   if (/(\b26\s*(?:"|''|”|cal\w*|zoll|in\b|x\s?\d)|kol\w*\s*26\b|\b559\b)/.test(text)) return '26"';

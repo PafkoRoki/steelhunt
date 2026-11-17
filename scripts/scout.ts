@@ -26,6 +26,7 @@ import { tubingLabel } from '../src/services/analysis/textAnalyzer';
 import { haversineKm, resolveLocation } from '../src/services/geolocation/geo';
 import type { AnalyzedListing, PhotoNotes } from '../src/types/listing';
 import { normalizeText } from '../src/utils/text';
+import { ownFrameFacts } from '../src/services/analysis/textAnalyzer';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const IMPORTS = resolve(ROOT, 'data/imports');
@@ -739,7 +740,7 @@ const NEGO: Record<string, string> = {
   'Z piwnicy / strychu / garażu': 'z piwnicy / strychu',
 };
 
-function factSummary(a: AnalyzedListing, negotiable: boolean): string {
+function factSummary(a: AnalyzedListing, negotiable: boolean, rawText: string): string {
   const an = a.analysis;
   const parts: string[] = [];
   if (an.productionYear) parts.push(/^lata/.test(an.productionYear) ? an.productionYear : `rocznik ${an.productionYear}`);
@@ -747,12 +748,18 @@ function factSummary(a: AnalyzedListing, negotiable: boolean): string {
   const spec = an.tubing.tubingId ? db.tubingById.get(an.tubing.tubingId) : null;
   const fromListing = an.tubing.evidence[0] && an.tubing.evidence[0].source !== 'model-db';
   if (spec && fromListing) parts.push(`rama ${tubingLabel(spec)}${an.tubing.scope === 'main-tubes' ? ' (rury główne)' : ''}`);
-  else if (an.frameMaterial === 'aluminium') parts.push('rama aluminiowa');
-  else if (an.frameMaterial.startsWith('steel')) parts.push('rama stalowa');
+  // Only what the seller wrote: the analysis may have filled material / construction in from the model database.
+  const own = ownFrameFacts(rawText);
+  if (!(spec && fromListing)) {
+    if (own.material === 'aluminium') parts.push('rama aluminiowa');
+    else if (own.material === 'titanium') parts.push('rama tytanowa');
+    else if (own.material === 'carbon') parts.push('rama karbonowa');
+    else if (own.material.startsWith('steel')) parts.push('rama stalowa');
+  }
   const fork = an.tubing.evidence.find((e) => e.label.startsWith('Widelec:'));
   if (fork) parts.push(fork.label.replace('Widelec:', 'widelec').trim());
-  if (an.frameConstruction === 'lugged') parts.push('rama mufowana');
-  if (an.frameConstruction === 'fillet-brazed') parts.push('rama lutowana (fillet brazed)');
+  if (own.construction === 'lugged') parts.push('rama mufowana');
+  if (own.construction === 'fillet-brazed') parts.push('rama lutowana (fillet brazed)');
   for (const f of an.features) if (f !== 'Rama mufowana') parts.push(f.toLowerCase());
   for (const c of an.components) parts.push(c.name);
   if (an.wheelSize) parts.push(`koła ${an.wheelSize}`);
@@ -829,7 +836,7 @@ function toRecords(file: string, cands: Candidate[], previous: AutoRecord[], kno
     records.set(c.url, {
       url: c.url,
       title: c.title,
-      description: prev && c.description === prev.description ? prev.description : factSummary(a, !!c.negotiable),
+      description: prev && c.description === prev.description ? prev.description : factSummary(a, !!c.negotiable, `${c.title} ${c.description}`),
       price: c.price,
       currency: c.currency,
       location: c.location,

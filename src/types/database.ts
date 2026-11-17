@@ -52,6 +52,8 @@ export interface BikeModel {
   xbikingNotes?: string;
   /** Known frame material for the model, when documented (e.g. an aluminium 'Hitech' model). */
   frameMaterial?: 'steel' | 'aluminium';
+  /** Regex (diacritic-free, lowercase title) of a modern bike sold under the same model name — such listings are rejected. */
+  modernPattern?: string;
   /** Where the facts come from (URLs). */
   sources?: string[];
 }
