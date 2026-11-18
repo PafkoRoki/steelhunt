@@ -1,7 +1,27 @@
 {
-  "lastRunAt": "2026-11-18T07:35:39.435Z",
-  "lastSuccessAt": "2026-11-18T07:35:39.435Z",
+  "lastRunAt": "2026-11-18T20:36:51.752Z",
+  "lastSuccessAt": "2026-11-18T20:36:51.752Z",
   "runs": [
+    {
+      "startedAt": "2026-11-18T20:36:51.524Z",
+      "finishedAt": "2026-11-18T20:36:51.752Z",
+      "ok": true,
+      "found": 159,
+      "added": 0,
+      "updated": 159,
+      "duplicates": 159,
+      "analyzed": 159,
+      "priceChanges": [],
+      "sources": [
+        {
+          "source": "manual",
+          "ok": true,
+          "skipped": false,
+          "found": 159,
+          "durationMs": 27
+        }
+      ]
+    },
     {
       "startedAt": "2026-11-18T07:35:39.166Z",
       "finishedAt": "2026-11-18T07:35:39.435Z",
@@ -1255,34 +1275,6 @@
           "skipped": false,
           "found": 86,
           "durationMs": 10
-        },
-        {
-          "source": "allegro",
-          "ok": false,
-          "skipped": true,
-          "found": 0,
-          "error": "Brak ALLEGRO_CLIENT_ID / ALLEGRO_CLIENT_SECRET w sekretach",
-          "durationMs": 0
-        }
-      ]
-    },
-    {
-      "startedAt": "2026-11-01T04:20:29.457Z",
-      "finishedAt": "2026-11-01T04:20:29.554Z",
-      "ok": true,
-      "found": 78,
-      "added": 3,
-      "updated": 75,
-      "duplicates": 75,
-      "analyzed": 78,
-      "priceChanges": [],
-      "sources": [
-        {
-          "source": "manual",
-          "ok": true,
-          "skipped": false,
-          "found": 78,
-          "durationMs": 11
         },
         {
           "source": "allegro",
