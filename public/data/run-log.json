@@ -1,7 +1,58 @@
 {
-  "lastRunAt": "2026-11-22T06:56:27.902Z",
-  "lastSuccessAt": "2026-11-22T06:56:27.902Z",
+  "lastRunAt": "2026-11-22T17:08:07.315Z",
+  "lastSuccessAt": "2026-11-22T17:08:07.315Z",
   "runs": [
+    {
+      "startedAt": "2026-11-22T17:08:07.064Z",
+      "finishedAt": "2026-11-22T17:08:07.315Z",
+      "ok": true,
+      "found": 170,
+      "added": 20,
+      "updated": 150,
+      "duplicates": 150,
+      "analyzed": 170,
+      "priceChanges": [
+        {
+          "id": "kleinanzeigen:3526260802",
+          "from": 470,
+          "to": 440
+        },
+        {
+          "id": "kleinanzeigen:3554062290",
+          "from": 65,
+          "to": 59
+        },
+        {
+          "id": "kleinanzeigen:3567934801",
+          "from": 199,
+          "to": 180
+        },
+        {
+          "id": "kleinanzeigen:3550358983",
+          "from": 249,
+          "to": 199
+        },
+        {
+          "id": "kleinanzeigen:3565531504",
+          "from": 240,
+          "to": 220
+        },
+        {
+          "id": "kleinanzeigen:3563629111",
+          "from": 799,
+          "to": 750
+        }
+      ],
+      "sources": [
+        {
+          "source": "manual",
+          "ok": true,
+          "skipped": false,
+          "found": 170,
+          "durationMs": 20
+        }
+      ]
+    },
     {
       "startedAt": "2026-11-22T06:56:27.689Z",
       "finishedAt": "2026-11-22T06:56:27.902Z",
@@ -1255,26 +1306,6 @@
           "skipped": false,
           "found": 85,
           "durationMs": 17
-        }
-      ]
-    },
-    {
-      "startedAt": "2026-11-02T06:15:20.100Z",
-      "finishedAt": "2026-11-02T06:15:20.269Z",
-      "ok": true,
-      "found": 76,
-      "added": 0,
-      "updated": 76,
-      "duplicates": 76,
-      "analyzed": 76,
-      "priceChanges": [],
-      "sources": [
-        {
-          "source": "manual",
-          "ok": true,
-          "skipped": false,
-          "found": 76,
-          "durationMs": 18
         }
       ]
     }
