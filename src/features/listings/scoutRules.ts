@@ -8,9 +8,9 @@ import { buildDatabase } from '../../services/database/db';
  * "Selekcja ofert" page (to explain, with the counts of the last run). Change a rule here and both follow.
  */
 
-export const MODERN = /(27[,.]5|\b29\s*(?:["“”″]|''|zoll|er|cali)|\b29er\b|\b(?:xs|s|m|l|xl|xxl)\s*[-/]?\s*29\b|\b29\s*[x×]\s*[12](?:[.,]\d+)?\b|hydraul|tarczow|scheibenbremse|\bdisc\b|e[\s-]?bike|pedelec|carbon|karbon|boost|1x1[12]\b|tubeless|dual\s*control|steckachse|thru[\s-]?axle|\b(?:148|142)\s*x\s*12\b|hollowtech\s*(?:ii|2)\b)/i;
+export const MODERN = /(27[,.]5|\b29\s*(?:["“”″]|''|zoll|er|cali)|\b29er\b|\b(?:xs|s|m|l|xl|xxl)\s*[-/]?\s*29\b|\b29\s*[x×]\s*[12](?:[.,]\d+)?\b|hydraul|tarczow|scheibenbremse|\bdisc\b|e[\s-]?bike|pedelec|carbon|karbon|boost|1x1[12]\b|tubeless|dual\s*control|\be[\s-]?mtb\b|steckachse|thru[\s-]?axle|\b(?:148|142)\s*x\s*12\b|hollowtech\s*(?:ii|2)\b)/i;
 export const BIKE_HINT = /(rower|bike|mtb|atb|g[oó]ral|g[oó]rsk|fahrrad|\brad\b|rahmen|rama|mountain|bicykl|velo)/i;
-export const NOT_MTB = /(tandem|\bcruiser\b|chopp?er|sk[lł]adak\w*|klapprad|faltrad|crossow\w*|\bcross\b|crossbike\w*|crossrad\w*|hybrid\w*|trekking\w*|prze[lł]aj\w*|\b28\s*(?:cali|"|''|”|zoll|er)|ko[lł]a\s*28)/i;
+export const NOT_MTB = /(cyclo[\s-]?cross|tandem|\bcruiser\b|chopp?er|sk[lł]adak\w*|klapprad|faltrad|crossow\w*|\bcross\b|crossbike\w*|crossrad\w*|hybrid\w*|trekking\w*|prze[lł]aj\w*|\b28\s*(?:cali|"|''|”|zoll|er)|ko[lł]a\s*28)/i;
 export const BIKE_WORD = /(rower|bike|fahrrad|\brad\b|rama|ramy|rahmen|mountain)/i;
 export const PART_CODE = /\b(?:fc|rd|fd|st|br|bl|cs|hb|fh|sl|bb|pd|sp|wh)-?[a-z]{0,2}\d{2,4}\b/i;
 export const COMPONENT_LEAD = /^\s*(?:top\s+)?(?:\d+\s*x\s*)?(?:shimano|suntour|sachs|campagnolo|deore|sram|mavic)\b/i;
@@ -18,7 +18,7 @@ export const FORK_BRAND = /\b(marzocchi|rock\s*shox|rockshox|manitou|answer|judy
 /** Things that are not bikes but come up in broad searches (fishing rods: blank, Fuji guides…). */
 export const NOT_BIKE_ITEM = /(lotnicz\w*|altimeter|airspeed|avionik\w*|w[eę]dk\w*|ko[lł]owrot\w*|spinning\w*|\bangel\w*|\brute\b|feeder\w*|karpiow\w*|przelotk\w*)/i;
 /** Full suspension in the words sellers use (PL / DE / EN). "FS" alone is left out: Stumpjumper FS (1993) = front suspension. */
-export const FULL_SUSPENSION = /(\bfully\b|full[\s-]*sus\w*|vollgefedert|vollfederung|dual[\s-]*(?:sus\w*|feder\w*)|hinterbau\w*\s*(?:feder|d[äa]mpf)\w*|(?:d[äa]mpfer|federung)\s*hinten|hinten\s*gefedert|vorne\s*(?:und|u\.|&)\s*hinten\s*gefedert|tyln\w*\s*amortyzator|amortyzator\w*\s*tyln|amortyzator\w*\s*(?:z|na)\s*ty[lł]u|pe[lł]n\w*\s*zawiesz|podw[oó]jn\w*\s*amortyzac|\bsoftail\b|super\s*v\b|pe[lł]n\w*\s*amortyzac\w*|amortyzator\w*\s*:?\s*prz[oó]d\s*(?:i|oraz|\+|\/)\s*ty[lł]|amortyzac\w*\s*prz[oó]d\s*(?:i|oraz|\+|\/)\s*ty[lł])/i;
+export const FULL_SUSPENSION = /(\brower\s+full\b|fox\s*vanilla|\bfully\b|full[\s-]*sus\w*|vollgefedert|vollfederung|dual[\s-]*(?:sus\w*|feder\w*)|hinterbau\w*\s*(?:feder|d[äa]mpf)\w*|(?:d[äa]mpfer|federung)\s*hinten|hinten\s*gefedert|vorne\s*(?:und|u\.|&)\s*hinten\s*gefedert|tyln\w*\s*amortyzator|amortyzator\w*\s*tyln|amortyzator\w*\s*(?:z|na)\s*ty[lł]u|pe[lł]n\w*\s*zawiesz|podw[oó]jn\w*\s*amortyzac|\bsoftail\b|super\s*v\b|pe[lł]n\w*\s*amortyzac\w*|amortyzator\w*\s*:?\s*prz[oó]d\s*(?:i|oraz|\+|\/)\s*ty[lł]|amortyzac\w*\s*prz[oó]d\s*(?:i|oraz|\+|\/)\s*ty[lł])/i;
 /** Kids' / youth wheel sizes in the title (20" / 24"), unless the number is a frame size ("rama 24\""). */
 export const KIDS_WHEELS = /(?<!(?:rama|rahmen|frame|rh)\s*)\b(?:20|24)\s*(?:"|''|”|″|zoll\b)|\bko[lł]\w*\s*(?:20|24)\b|\b(?:20|24)er\s*(?:rad|fahrrad|mtb|mountain)/i;
 export const NOT_OFFER = /(gefunden|gestohlen|vermisst|\bsuche\b|szukam|kupi[eę]\b|zagin[aą][lł]|skradzion\w*)/i;
@@ -31,7 +31,9 @@ export const SOFT_RETRO = /(retro|vintage|oldschool|old\s*school|klasyk\w*|kult\
 /** Aluminium named on a frame decal read from the photos ("ZR 9000 Custom Alloy", "Alu 7005"). */
 export const ALU_DECAL = /(alloy|alumin\w*|\balu\b|\b(?:6061|7005|7020)\b)/i;
 /** Part nouns that sellers do not put in the title of a complete bike (unlike "amortyzator", "hamulce", "koła"). */
-export const STRONG_PART = /\b(steuersatz|headset|sattel|saddle|siodlo|siodelko|lenker|kierownica|vorbau|mostek|kurbel\w*|korba|kassette|kaseta|kettenbl\w*|bremshebel\w*|brake\s*levers?|u[\s-]?brake|\w*pedale?n?|vorderrad|hinterrad|laufrad\w*|schaltwerk|schalthebel|manetki|klamki|piasta|sztyca|sattelstutze)\b/;
+export const STRONG_PART = /\b(\w*pedal\w*|schalter|shifter|drehgriff\w*|odblask\w*|reflektor\w*|reifen|opon[ay]|\d{2}\s*x\s*\d[.,]\d{1,2}|steuersatz|headset|sattel|saddle|siodlo|siodelko|lenker|kierownica|vorbau|mostek|kurbel\w*|korba|kassette|kaseta|kettenbl\w*|bremshebel\w*|brake\s*levers?|u[\s-]?brake|\w*pedale?n?|vorderrad|hinterrad|laufrad\w*|schaltwerk|schalthebel|manetki|klamki|piasta|sztyca|sattelstutze)\b/;
+/** Mass-market brands (Polish and German department-store bikes) — out of scope. */
+export const MASS_BRAND = /\b(romet|unibike|kross|tajfun|arkus|goetze|kands|indiana|dema|le\s*grand|prophete|zundapp)\b/;
 /** Cycling clothing and shoes. */
 export const APPAREL = /\b(radhose\w*|radlerhose\w*|trikot\w*|jersey|spodenk\w*|koszulk\w*|rekawiczk\w*|handschuh\w*|buty|schuhe|kask\w*|helm)\b/;
 let MODERN_NAMES: Map<string, RegExp> | null = null;
@@ -45,7 +47,7 @@ export const MODERN_NAME = {
 /** Plural "bikes" at the start of the title: a batch ad or a dealer's stock list. */
 export const PLURAL_BIKES = /^\s*(?:rowery|fahrr[aä]der|bikes|r[aä]der)\b/i;
 /** "dwa rowery", "komplet dwóch rowerów", "zwei Fahrräder", "2x MTB" — more than one bike for one price. */
-export const SEVERAL_BIKES = /(dw[aó]ch?\s+rower\w*|dwa\s+rowery|\b2\s*x?\s*rowery|komplet\s+rower[oó]w|para\s+rower[oó]w|zwei\s+(?:fahrr[aä]der|r[aä]der|bikes|mtbs?|mountainbikes?)|\b2\s*x\s*(?:mtb|fahrrad|mountainbike|rower))/i;
+export const SEVERAL_BIKES = /(^\s*2\s+(?:mtb|\w*rahmen|ramy|rowery|fahrr[aä]der)\b|dw[aó]ch?\s+rower\w*|dwa\s+rowery|\b2\s*x?\s*rowery|komplet\s+rower[oó]w|para\s+rower[oó]w|zwei\s+(?:fahrr[aä]der|r[aä]der|bikes|mtbs?|mountainbikes?)|\b2\s*x\s*(?:mtb|fahrrad|mountainbike|rower))/i;
 let MAKERS: { id: string; res: RegExp[] }[] | null = null;
 /** How many different bike makers the title names ("Gary Fisher Univega Kellys Trek" → 3). */
 export function makersInTitle(title: string): number {
@@ -118,7 +120,15 @@ export function scoutRejectReason(a: AnalyzedListing, rawText: string, titleOnly
   if (an.itemType === 'components') return 'part';
   // "Fahrrad Sattel bike saddle…", "Shimano XT Kurbel … Mountainbike MTB": a part noun in a title that names no bike maker —
   // "Fahrrad / Mountainbike" only says what the part is for.
-  if (!an.manufacturerId && STRONG_PART.test(normalizeText(title))) return 'part';
+  const nt = normalizeText(title);
+  // A part noun in a title without a bike maker — or right after the maker when no model is named ("Merida Sattel Mtb Fahrrad").
+  if ((!an.manufacturerId || (an.modelId == null && STRONG_PART.test(nt.split(/\s+/).slice(0, 3).join(' ')))) && STRONG_PART.test(nt)) return 'part';
+  // "…Oldschool Vintage Parts 4 sale": a parts sale, unless a frame is offered.
+  if (/\b(parts|teile|czesci)\b/.test(nt) && !/\b(rahmen\w*|rama|ramy|frame\w*)\b/.test(nt)) return 'part';
+  // A Polish / German mass-market brand: wanted only as a rare collector's bike, which these are not.
+  if (MASS_BRAND.test(nt)) return 'no-retro';
+  // A 1970s bike without an MTB word in the title is a city or touring bike — mountain bikes reached Europe in the 80s.
+  if (/^(?:lata 70|197\d)/.test(an.productionYear ?? '') && !/(mtb|gorsk|goral|mountain|\batb\b)/.test(nt)) return 'not-mtb';
   // Clothing is never a bike, whichever maker's logo is on it ("Vintage MTB Radhose von Cannondale").
   if (APPAREL.test(normalizeText(title))) return 'part';
   // A classic model name reused on a modern bike ("Rocky Mountain Altitude C 90").
