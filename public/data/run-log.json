@@ -1,7 +1,27 @@
 {
-  "lastRunAt": "2026-11-24T09:59:00.182Z",
-  "lastSuccessAt": "2026-11-24T09:59:00.182Z",
+  "lastRunAt": "2026-11-24T22:30:12.685Z",
+  "lastSuccessAt": "2026-11-24T22:30:12.685Z",
   "runs": [
+    {
+      "startedAt": "2026-11-24T22:30:12.406Z",
+      "finishedAt": "2026-11-24T22:30:12.685Z",
+      "ok": true,
+      "found": 170,
+      "added": 0,
+      "updated": 170,
+      "duplicates": 170,
+      "analyzed": 170,
+      "priceChanges": [],
+      "sources": [
+        {
+          "source": "manual",
+          "ok": true,
+          "skipped": false,
+          "found": 170,
+          "durationMs": 30
+        }
+      ]
+    },
     {
       "startedAt": "2026-11-24T09:59:00.007Z",
       "finishedAt": "2026-11-24T09:59:00.182Z",
@@ -1286,26 +1306,6 @@
           "skipped": false,
           "found": 89,
           "durationMs": 26
-        }
-      ]
-    },
-    {
-      "startedAt": "2026-11-03T13:26:18.633Z",
-      "finishedAt": "2026-11-03T13:26:18.804Z",
-      "ok": true,
-      "found": 89,
-      "added": 4,
-      "updated": 85,
-      "duplicates": 85,
-      "analyzed": 88,
-      "priceChanges": [],
-      "sources": [
-        {
-          "source": "manual",
-          "ok": true,
-          "skipped": false,
-          "found": 89,
-          "durationMs": 15
         }
       ]
     }
