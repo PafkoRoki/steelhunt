@@ -43,7 +43,7 @@ BB = V(0, 0, 0)
 
 st_dir = V(-math.cos(rad(P['seat_angle'])), 0, math.sin(rad(P['seat_angle'])))
 ST_TOP = st_dir * P['seat_tube_ct']
-st_back = V(-st_dir.z, 0, -st_dir.x)                      # prostopadle, do tylu
+st_back = V(-st_dir.z, 0, st_dir.x)                       # prostopadle do rury podsiodlowej, do tylu
 st_front = -st_back
 
 u = V(-math.cos(rad(P['head_angle'])), 0, math.sin(rad(P['head_angle'])))  # os sterowa w gore
@@ -120,17 +120,12 @@ def paint_color(name, co):               # co w mm; uklad Team wg zdjec P-23 (pe
 # ---- naklejki: tekst renderowany do tekstury PNG z kanalem alfa
 FONT = bpy.data.fonts.load(r"C:\Windows\Fonts\BOOKOSBI.TTF")
 NAVY = (0.004, 0.012, 0.10)
-def text_texture(text, rgb, fname, px=2048, font=None, padx=1.06, pady=1.3, outline=None):
+def text_texture(text, rgb, fname, px=2048, font=None, padx=1.06, pady=1.3, outline=None, stroke=0.045):
     cu = bpy.data.curves.new("txt", 'FONT'); cu.body = text; cu.font = font or FONT; cu.space_character = 1.06; cu.align_x = 'CENTER'; cu.space_line = 0.9
     ob = bpy.data.objects.new("txt", cu); scene.collection.objects.link(ob)
     m = bpy.data.materials.new("txt_m"); m.use_nodes = True; nt = m.node_tree; nt.nodes.clear()
     e = nt.nodes.new("ShaderNodeEmission"); o = nt.nodes.new("ShaderNodeOutputMaterial")
     e.inputs[0].default_value = (*rgb, 1); nt.links.new(e.outputs[0], o.inputs[0]); cu.materials.append(m)
-    ob2 = None
-    if outline:                                   # ciemny obrys: pogrubiona kopia napisu pod spodem
-        cu2 = cu.copy(); cu2.offset = 0.03; cu2.materials.clear(); m2 = m.copy()
-        m2.node_tree.nodes["Emission"].inputs[0].default_value = (*outline, 1); cu2.materials.append(m2)
-        ob2 = bpy.data.objects.new("txt_o", cu2); scene.collection.objects.link(ob2); ob2.location = (0, 0, -0.5)
     bpy.context.view_layer.update()
     me = bpy.data.meshes.new_from_object(ob.evaluated_get(bpy.context.evaluated_depsgraph_get()))
     xs = [v.co.x for v in me.vertices]; ys = [v.co.y for v in me.vertices]
@@ -147,9 +142,24 @@ def text_texture(text, rgb, fname, px=2048, font=None, padx=1.06, pady=1.3, outl
     scene.render.image_settings.file_format = 'PNG'; scene.render.image_settings.color_mode = 'RGBA'
     path = os.path.join(OUT, fname); scene.render.filepath = path
     bpy.ops.render.render(write_still=True)
+    if outline:
+        # rowny obrys: maska liter poszerzona o stala grubosc (stroke = ulamek wysokosci napisu)
+        import numpy as np
+        im = bpy.data.images.load(path); W_, H_ = im.size
+        a = np.array(im.pixels[:], dtype=np.float32).reshape(H_, W_, 4)
+        A = a[..., 3].copy(); D = A.copy()
+        rpx = max(1, int(round(stroke * H_ / pady)))
+        for dy in range(-rpx, rpx + 1):
+            for dx in range(-rpx, rpx + 1):
+                if dx * dx + dy * dy <= rpx * rpx:
+                    D = np.maximum(D, np.roll(np.roll(A, dy, 0), dx, 1))
+        oc = np.array([c ** (1 / 2.2) for c in outline], dtype=np.float32)   # kolor liniowy -> sRGB w PNG
+        a[..., :3] = a[..., :3] * A[..., None] + oc * (1 - A[..., None])
+        a[..., 3] = D
+        im.pixels.foreach_set(a.ravel()); im.filepath_raw = path; im.file_format = 'PNG'; im.save()
+        bpy.data.images.remove(im)
     aspect = scene.render.resolution_y / scene.render.resolution_x
     bpy.data.objects.remove(ob); bpy.data.objects.remove(co); bpy.data.meshes.remove(me)
-    if ob2: bpy.data.objects.remove(ob2)
     scene.render.film_transparent = False
     img = bpy.data.images.load(path); img.pack()
     dm = bpy.data.materials.new("Naklejka_" + fname); dm.use_nodes = True; nt = dm.node_tree
@@ -158,7 +168,8 @@ def text_texture(text, rgb, fname, px=2048, font=None, padx=1.06, pady=1.3, outl
     b.inputs["Roughness"].default_value = 0.3; dm.blend_method = 'BLEND'; dm.shadow_method = 'NONE'
     return dm, aspect
 
-SVG_LOGO = os.path.join(OUT, "..", "steelhunt", "public", "logos", "ritchey.svg")
+SVG_LOGO = next(p for p in (os.path.join(OUT, "..", "steelhunt", "public", "logos", "ritchey.svg"),
+                            os.path.join(OUT, "..", "..", "public", "logos", "ritchey.svg")) if os.path.exists(p))
 REG_WORDMARK = (0.005, 0.128, 0.034, 0.060)      # bialy napis RITCHEY z podkresleniem (wspolrzedne po imporcie)
 REG_BADGE = (0.018, 0.049, -0.096, -0.053)       # znaczek TR (wersja ciemna, przebarwiana)
 def svg_texture(region, dark, rgb, fname, px=2048, padx=1.04, pady=1.15, outline=None, min_w=0.006, off=0.012):
@@ -253,7 +264,6 @@ def decal(name, C, t, N, R, L, mat_aspect, nu=48, nv=16):
     me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
     return finish(name, me, mat)
 M_STEEL = material("Stal_polerowana", (0.62, 0.63, 0.65), 1.0, 0.25)
-M_BLACK = material("Czern", (0.01, 0.01, 0.01), 0.0, 0.6)
 
 def finish(name, me, mat):
     for p in me.polygons: p.use_smooth = True
@@ -293,22 +303,254 @@ def sweep(name, pts, radii, mat=M_RED):
     bpy.data.objects.remove(ob); bpy.data.curves.remove(cu)
     return finish(name, me, mat)
 
-def plate(name, origin, a, b, outline, thick, mat=M_RED):
+def plate(name, origin, a, b, outline, thick, mat=M_RED, holes=()):
+    # plaski hak z zaokraglonymi krawedziami: krzywa 2D (obrys + okragle otwory) wyciagnieta na grubosc haka
+    bev = min(1.3, thick * 0.3)
+    cu = bpy.data.curves.new(name + "_c", 'CURVE'); cu.dimensions = '2D'; cu.fill_mode = 'BOTH'
+    cu.extrude = thick / 2 - bev; cu.bevel_depth = bev; cu.bevel_resolution = 3; cu.offset = -bev
+    loops = [list(outline)] + [[(hx + hr * math.cos(2 * math.pi * k / 32), hz + hr * math.sin(2 * math.pi * k / 32))
+                                 for k in range(32)] for hx, hz, hr in holes]
+    for loop in loops:
+        sp = cu.splines.new('POLY'); sp.points.add(len(loop) - 1)
+        for i, (x, z) in enumerate(loop): sp.points[i].co = (x, z, 0, 1)
+        sp.use_cyclic_u = True
+    ob = bpy.data.objects.new(name + "_c", cu); col.objects.link(ob)
+    bpy.context.view_layer.update()
+    me = bpy.data.meshes.new_from_object(ob.evaluated_get(bpy.context.evaluated_depsgraph_get())); me.name = name
     nrm = a.cross(b).normalized()
+    me.transform(Matrix.Translation(origin) @ Matrix((a, b, nrm)).transposed().to_4x4())
+    bpy.data.objects.remove(ob); bpy.data.curves.remove(cu)
+    return finish(name, me, mat)
+
+M_INNER = material("Stal_wewnatrz", (0.32, 0.32, 0.33), 1.0, 0.55)   # wnetrza rur i otworow: niemalowana stal
+
+def frame_at(t, up=V(0, 0, 1)):
+    t = t.normalized(); x = up - t * up.dot(t)
+    if x.length < 1e-6:
+        x = V(1, 0, 0) - t * t.x
+    x.normalize()
+    return x, t.cross(x)
+
+def dist_axis(p, a0, d):
+    v = p - a0; return (v - d * v.dot(d)).length
+
+def _cross(g, cope):
+    # parametr, w ktorym tworzaca g pierwszy raz wychodzi z walca cope = (punkt osi, kierunek osi, promien)
+    a0, d, r = cope; d = d.normalized()
+    f = lambda p: dist_axis(p, a0, d) - r
+    if f(g[0]) >= 0: return 0.0
+    for i in range(len(g) - 1):
+        if f(g[i + 1]) >= 0:
+            lo, hi = 0.0, 1.0
+            for _ in range(32):
+                m = (lo + hi) / 2
+                if f(g[i].lerp(g[i + 1], m)) >= 0: hi = m
+                else: lo = m
+            return i + hi
+    return float(len(g) - 1)
+
+def _at(g, uu):
+    i = min(int(uu), len(g) - 2); return g[i].lerp(g[i + 1], uu - i)
+
+def _se(v, q):                                     # superelipsa: q=2 elipsa, q~8 zaokraglony prostokat
+    return math.copysign(abs(v) ** (2.0 / q), v)
+
+def rings_of(pts, radii, seg, cope=(None, None), radii_b=None, shape=None):
+    # pierscienie wzdluz lamanej; koniec z cope jest przyciety tam, gdzie kazda tworzaca wchodzi w scianke innej rury
+    nn = len(pts); rings = []; rb = radii_b or radii; sh = shape or [2.0] * nn
+    for i, p in enumerate(pts):
+        x, y = frame_at(pts[min(i + 1, nn - 1)] - pts[max(i - 1, 0)])
+        rings.append([p + x * (_se(math.cos(a), sh[i]) * radii[i]) + y * (_se(math.sin(a), sh[i]) * rb[i])
+                      for a in (2 * math.pi * k / seg for k in range(seg))])
+    if not (cope[0] or cope[1]): return rings
+    cols = []
+    for k in range(seg):
+        g = [r[k] for r in rings]
+        u0 = _cross(g, cope[0]) if cope[0] else 0.0
+        u1 = (nn - 1) - _cross(g[::-1], cope[1]) if cope[1] else float(nn - 1)
+        cols.append([_at(g, u0 + (u1 - u0) * j / (nn - 1)) for j in range(nn)])
+    return [[cols[k][j] for k in range(seg)] for j in range(nn)]
+
+def quads(bm, rings, flip=False):
+    seg = len(rings[0])
+    for i in range(len(rings) - 1):
+        for k in range(seg):
+            q = (rings[i][k], rings[i][(k + 1) % seg], rings[i + 1][(k + 1) % seg], rings[i + 1][k])
+            bm.faces.new(q[::-1] if flip else q)
+
+def densify(p0, p1, r0, r1, step=12.0):
+    # odcinek co ~12 mm (plynne przejscia koloru lakieru)
+    k = max(1, int(math.ceil((p1 - p0).length / step)))
+    return [p0.lerp(p1, i / k) for i in range(k + 1)], [r0 + (r1 - r0) * i / k for i in range(k + 1)]
+
+def catmull(ctrl, radii, samples=16):
+    # gladka sciezka przez punkty kontrolne (Catmull-Rom) z promieniami
+    pts, rr = [], []
+    P_ = [ctrl[0]] + list(ctrl) + [ctrl[-1]]
+    for i in range(1, len(P_) - 2):
+        p0, p1, p2, p3 = P_[i - 1], P_[i], P_[i + 1], P_[i + 2]
+        for s_ in range(samples):
+            t = s_ / samples
+            pts.append(0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t * t + (-p0 + 3 * p1 - 3 * p2 + p3) * t ** 3))
+            rr.append(radii[i - 1] + (radii[i] - radii[i - 1]) * t)
+    pts.append(ctrl[-1]); rr.append(radii[-1])
+    return pts, rr
+
+def loft(name, pts, radii, mat=M_RED, seg=48, cope=(None, None), radii_b=None, shape=None):
     bm = bmesh.new()
-    lo = [bm.verts.new(origin + a * x + b * z - nrm * thick / 2) for x, z in outline]
-    hi = [bm.verts.new(origin + a * x + b * z + nrm * thick / 2) for x, z in outline]
-    bm.faces.new(lo); bm.faces.new(list(reversed(hi)))
-    k = len(outline)
-    for i in range(k):
-        j = (i + 1) % k
-        bm.faces.new([lo[j], lo[i], hi[i], hi[j]])
-    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
-    bmesh.ops.triangulate(bm, faces=[f for f in bm.faces if len(f.verts) > 4])
+    rv = [[bm.verts.new(p) for p in r] for r in rings_of(pts, radii, seg, cope, radii_b, shape)]
+    quads(bm, rv)
+    if not cope[0]: bm.faces.new(list(reversed(rv[0])))
+    if not cope[1]: bm.faces.new(rv[-1])
     me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
-    ob = finish(name, me, mat)
-    for p in me.polygons: p.use_smooth = False
+    return finish(name, me, mat)
+
+def straight(name, p0, p1, r, cope=(None, None), mat=M_RED, seg=48):
+    return loft(name, *densify(p0, p1, r, r), mat=mat, seg=seg, cope=cope)
+
+def pipe(name, p0, p1, r_out, r_in, mat=M_RED, inner=M_INNER, seg=48, caps=(True, True), cope=(None, None)):
+    # rura z prawdziwym otworem: scianka zewnetrzna, wewnetrzna (inner) i pierscieniowe czola
+    if callable(r_out):
+        pts, _ = densify(p0, p1, 0.0, 0.0, 0.5); rr = [r_out(i / (len(pts) - 1)) for i in range(len(pts))]
+    else:
+        ro = r_out if isinstance(r_out, tuple) else (r_out, r_out)
+        pts, rr = densify(p0, p1, *ro)
+    outer, inn = rings_of(pts, rr, seg, cope), rings_of(pts, [r_in] * len(pts), seg, cope)
+    bm = bmesh.new(); ov = [[bm.verts.new(p) for p in r] for r in outer]; quads(bm, ov)
+    for end, idx in ((0, 0), (1, -1)):
+        if caps[end] and not cope[end]:
+            o, i = ov[idx], [bm.verts.new(p) for p in inn[idx]]
+            for k in range(seg):
+                k1 = (k + 1) % seg
+                bm.faces.new((o[k1], o[k], i[k], i[k1]) if end == 0 else (o[k], o[k1], i[k1], i[k]))
+    me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free(); ob = finish(name, me, mat)
+    bm = bmesh.new(); quads(bm, [[bm.verts.new(p) for p in r] for r in inn], flip=True)
+    me = bpy.data.meshes.new(name + "_wnetrze"); bm.to_mesh(me); bm.free(); finish(name + "_wnetrze", me, inner)
     return ob
+
+def blind_pipe(name, p0, p1, r_out, r_in, depth, mat=M_RED, inner=M_INNER, seg=24):
+    # krotki trzpien p0->p1 z nieprzelotowym otworem (r_in, glebokosc depth) w koncu p1
+    d = (p1 - p0).normalized(); x, y = frame_at(d)
+    ring = lambda c, r: [c + (x * math.cos(a) + y * math.sin(a)) * r for a in (2 * math.pi * k / seg for k in range(seg))]
+    bm = bmesh.new()
+    o0 = [bm.verts.new(p) for p in ring(p0, r_out)]; o1 = [bm.verts.new(p) for p in ring(p1, r_out)]
+    i1 = [bm.verts.new(p) for p in ring(p1, r_in)]
+    quads(bm, [o0, o1]); bm.faces.new(list(reversed(o0)))
+    for k in range(seg): bm.faces.new((o1[k], o1[(k + 1) % seg], i1[(k + 1) % seg], i1[k]))
+    me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free(); ob = finish(name, me, mat)
+    bm = bmesh.new()
+    bot = [bm.verts.new(p) for p in ring(p1 - d * depth, r_in)]; top = [bm.verts.new(p) for p in ring(p1, r_in)]
+    quads(bm, [bot, top], flip=True); bm.faces.new(bot)
+    me = bpy.data.meshes.new(name + "_otwor"); bm.to_mesh(me); bm.free(); finish(name + "_otwor", me, inner)
+    return ob
+
+def flatten_end(pts, rr, at_start, length=30.0, half_t=2.5, half_w=6.0):
+    # koniec widelek / goleni przy haku: okragly przekroj przechodzi plynnie w przekroj samego haka
+    # (plaski prostokat o zaokraglonych rogach: grubosc haka x szerokosc jego ramienia) i konczy sie na krawedzi haka
+    ra, rb, sh = list(rr), list(rr), [2.0] * len(rr)
+    order = list(range(len(pts))) if at_start else list(range(len(pts) - 1, -1, -1))
+    dist, prev = 0.0, None
+    for i in order:
+        if prev is not None: dist += (pts[i] - pts[prev]).length
+        prev = i
+        if dist >= length: break
+        t = 1 - dist / length; t = t * t * (3 - 2 * t)
+        ra[i] = rr[i] + (half_w - rr[i]) * t
+        rb[i] = rr[i] + (half_t - rr[i]) * t
+        sh[i] = 2.0 + 2.0 * t
+    return ra, rb, sh
+
+def fillet(name, path, radii, other, F=1.4, L=6.0, seg=48, M=24):
+    # spoina zeszlifowana na gladko: przy styku z inna rura promien rosnie lagodnie (wkleslo) o F na dlugosci L.
+    # path = os rury od wnetrza drugiej rury na zewnatrz (spoina idzie po krzywiznie rury);
+    # other = (punkt osi, kierunek osi, promien zewnetrzny lub funkcja promienia wzdluz osi, promien przyciecia)
+    b0, b_dir, rfun, r_cope = other
+    b_dir = b_dir.normalized()
+    rf = rfun if callable(rfun) else (lambda t, v=rfun: v)
+    out = lambda q: dist_axis(q, b0, b_dir) - rf((q - b0).dot(b_dir))
+    radii = radii if isinstance(radii, (list, tuple)) else [radii] * len(path)
+    acc = [0.0]
+    for p0_, p1_ in zip(path, path[1:]): acc.append(acc[-1] + (p1_ - p0_).length)
+    def at(q):
+        i = 0
+        while i < len(path) - 2 and acc[i + 1] < q: i += 1
+        f = (q - acc[i]) / max(acc[i + 1] - acc[i], 1e-9)
+        return path[i].lerp(path[i + 1], f), path[i + 1] - path[i], radii[i] + (radii[i + 1] - radii[i]) * f
+    cols = []
+    for k in range(seg):
+        ang = 2 * math.pi * k / seg
+        def pt(q, off):
+            p_, t_, r_ = at(q); x, y = frame_at(t_)
+            return p_ + (x * math.cos(ang) + y * math.sin(ang)) * (r_ + off)
+        c = 0.0
+        while out(pt(c, 0)) < 0 and c < acc[-1] - L - 1: c += 0.5
+        Fk = F                                    # tam, gdzie rury stykaja sie prawie stycznie, spoina jest mniejsza
+        while Fk > 0 and min(out(pt(c * i / 20, Fk)) for i in range(21)) > -0.3: Fk -= 0.25
+        Fk = max(Fk, 0.0)
+        qs = [c * i / 8 for i in range(8)] + [c + L * j / 16 for j in range(17)]
+        g = [pt(q, 0.05 + Fk * (1.0 if q <= c else (1 - (q - c) / L) ** 2)) for q in qs]
+        u0 = _cross(g, (b0, b_dir, r_cope))
+        cols.append([_at(g, u0 + (len(g) - 1 - u0) * j / (M - 1)) for j in range(M)])
+    bm = bmesh.new(); quads(bm, [[bm.verts.new(cols[k][j]) for k in range(seg)] for j in range(M)])
+    me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
+    return finish(name, me, M_RED)
+
+def straight_path(a0, d, length=150.0):
+    return [a0, a0 + d.normalized() * length]
+
+def round_outline(pts, keep=(), it=3):
+    # zaokraglenie zarysu (scinanie naroznikow); punkty z keep zostaja ostre (krawedzie, w ktore wchodza widelki)
+    pts = [((x, z), (x, z) in keep) for x, z in pts]
+    for _ in range(it):
+        out = []
+        for i, (q, k_) in enumerate(pts):
+            if k_: out.append((q, True)); continue
+            a_, b_ = pts[i - 1][0], pts[(i + 1) % len(pts)][0]
+            out.append(((q[0] * 0.75 + a_[0] * 0.25, q[1] * 0.75 + a_[1] * 0.25), False))
+            out.append(((q[0] * 0.75 + b_[0] * 0.25, q[1] * 0.75 + b_[1] * 0.25), False))
+        pts = out
+    return [q for q, _ in pts]
+
+def bolt_head(name, c, axis, r=4.2, h=5.0, hex_r=2.3, mat=M_STEEL):
+    # leb sruby imbusowej: walec z zaokraglonymi krawedziami i gniazdem szesciokatnym
+    bev = 0.35
+    cu = bpy.data.curves.new(name + "_c", 'CURVE'); cu.dimensions = '2D'; cu.fill_mode = 'BOTH'
+    cu.extrude = h / 2 - bev; cu.bevel_depth = bev; cu.bevel_resolution = 2
+    for rr_, n_, rot in ((r - bev, 40, 0.0), (hex_r + bev, 6, math.pi / 6)):
+        sp = cu.splines.new('POLY'); sp.points.add(n_ - 1)
+        for i in range(n_):
+            a = 2 * math.pi * i / n_ + rot
+            sp.points[i].co = (rr_ * math.cos(a), rr_ * math.sin(a), 0, 1)
+        sp.use_cyclic_u = True
+    ob = bpy.data.objects.new(name + "_c", cu); col.objects.link(ob)
+    z = axis.normalized(); x, y = frame_at(z)
+    M_ = Matrix.Translation(c) @ Matrix((x, y, z)).transposed().to_4x4()
+    bpy.context.view_layer.update()
+    me = bpy.data.meshes.new_from_object(ob.evaluated_get(bpy.context.evaluated_depsgraph_get())); me.name = name
+    me.transform(M_)
+    bpy.data.objects.remove(ob); bpy.data.curves.remove(cu)
+    return finish(name, me, mat)
+
+def disc(name, c, normal, r, mat=M_INNER, seg=48):
+    x, y = frame_at(normal); bm = bmesh.new()
+    bm.faces.new([bm.verts.new(c + (x * math.cos(a) + y * math.sin(a)) * r) for a in (2 * math.pi * k / seg for k in range(seg))])
+    me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free(); return finish(name, me, mat)
+
+def drill(obs, p, normal, r, depth, out=6.0):
+    # nieprzelotowy otwor wywiercony (boolean) w podanych brylach; scianki otworu dostaja material M_INNER
+    d = normal.normalized(); x, y = frame_at(d); seg = 24
+    circ = lambda c: [c + (x * math.cos(a) + y * math.sin(a)) * r for a in (2 * math.pi * k / seg for k in range(seg))]
+    bm = bmesh.new()
+    lo = [bm.verts.new(q) for q in circ(p - d * depth)]; hi = [bm.verts.new(q) for q in circ(p + d * out)]
+    quads(bm, [lo, hi]); bm.faces.new(list(reversed(lo))); bm.faces.new(hi)
+    me = bpy.data.meshes.new("wiertlo"); bm.to_mesh(me); bm.free(); me.materials.append(M_INNER)
+    cutter = bpy.data.objects.new("wiertlo", me); col.objects.link(cutter)
+    for ob in obs:
+        mod = ob.modifiers.new("otwor", 'BOOLEAN'); mod.operation = 'DIFFERENCE'; mod.solver = 'EXACT'
+        mod.object = cutter; mod.material_mode = 'TRANSFER'
+        bpy.context.view_layer.objects.active = ob
+        bpy.ops.object.modifier_apply(modifier=mod.name)
+    bpy.data.objects.remove(cutter)
 
 Y = V(0, 1, 0)
 
@@ -324,53 +566,81 @@ logo_logic = text_texture("L\nO\nG\nI\nC", (0.003, 0.010, 0.075) if PAINT == "te
 def lerp(a, b, t): return a + (b - a) * t
 
 # ---------------------------------------------------------------- RURY GLOWNE
-tube("Suport", V(0, -P['bb_width'] / 2, 0), V(0, P['bb_width'] / 2, 0), P['d_bb'] / 2)
-tube("Suport_otwor", V(0, -P['bb_width'] / 2 - .3, 0), V(0, P['bb_width'] / 2 + .3, 0), 17.0, mat=M_BLACK)
-tube("Rura_podsiodlowa", BB, ST_TOP, P['d_seat'] / 2)
-tube("Rura_gorna", TT_S, TT_H, P['d_top'] / 2)
-tube("Rura_dolna", BB, DT_H, P['d_down'] / 2)
-tube("Glowka", fk(S_HB), fk(S_HT), P['d_head'] / 2)
+# otwory sa prawdziwe (wnetrze: niemalowana stal); rury dochodzace do innej rury sa przyciete do jej scianki
+BB_BORE, ST_BORE, HT_BORE, STEER_BORE = 17.4, 13.4, 15.0, 11.1   # [ZALOZENIE] mufa BSA, sztyca 26,8, stery 1"
+BB_COPE = (BB, Y, (P['d_bb'] / 2 + BB_BORE) / 2)
+ST_COPE = (BB, st_dir, (P['d_seat'] / 2 + ST_BORE) / 2)
+HT_COPE = (FOOT, u, HT_BORE + 0.2)
+pipe("Suport", V(0, -P['bb_width'] / 2, 0), V(0, P['bb_width'] / 2, 0), P['d_bb'] / 2, BB_BORE)
+for sgn in (-1, 1):                                       # gwint w koncach mufy
+    pipe("Suport_gwint_%d" % sgn, V(0, sgn * P['bb_width'] / 2, 0), V(0, sgn * (P['bb_width'] / 2 - 15), 0), BB_BORE, BB_BORE - 0.4,
+         mat=M_STEEL, inner=M_STEEL)
+pipe("Rura_podsiodlowa", BB, ST_TOP, P['d_seat'] / 2, ST_BORE, caps=(False, True), cope=(BB_COPE, None))
+straight("Rura_gorna", TT_S, TT_H, P['d_top'] / 2, cope=(ST_COPE, HT_COPE))
+straight("Rura_dolna", BB, DT_H, P['d_down'] / 2, cope=(BB_COPE, HT_COPE))
+pipe("Glowka", fk(S_HB), fk(S_HT), P['d_head'] / 2, HT_BORE, caps=(False, False))   # konce siedza w miskach sterow
+# spoiny zeszlifowane na gladko (wg zdjec P-23): lagodne, wklesle przejscia na stykach rur
+HT_OTHER = (FOOT, u, P['d_head'] / 2, HT_COPE[2])
+BB_OTHER = (BB, Y, P['d_bb'] / 2, BB_COPE[2])
+ST_OTHER = (BB, st_dir, lambda t: P['d_seat'] / 2 + 2.2 if t >= P['seat_tube_ct'] - 45 else P['d_seat'] / 2, ST_COPE[2])
+fillet("Rura_gorna_spoina_glowka", straight_path(TT_H, TT_S - TT_H), P['d_top'] / 2, HT_OTHER)
+fillet("Rura_gorna_spoina_kolnierz", straight_path(TT_S, TT_H - TT_S), P['d_top'] / 2, ST_OTHER)
+fillet("Rura_dolna_spoina_glowka", straight_path(DT_H, BB - DT_H), P['d_down'] / 2, HT_OTHER)
+fillet("Rura_dolna_spoina_suport", straight_path(BB, DT_H - BB), P['d_down'] / 2, BB_OTHER)
+fillet("Rura_podsiodlowa_spoina_suport", straight_path(BB, ST_TOP - BB), P['d_seat'] / 2, BB_OTHER)
 
 # kolnierz podsiodlowy ze sruba zaciskowa (1990: "bolt type")
-tube("Kolnierz_podsiodlowy", st_dir * (P['seat_tube_ct'] - 30), ST_TOP, P['d_seat'] / 2 + 2.2)
-tube("Otwor_sztycy", ST_TOP - st_dir * 2, ST_TOP + st_dir * .3, 13.4, mat=M_BLACK)
+pipe("Kolnierz_podsiodlowy", st_dir * (P['seat_tube_ct'] - 45), ST_TOP, P['d_seat'] / 2 + 2.2, P['d_seat'] / 2)
 bc = ST_TOP - st_dir * 12 + st_back * (P['d_seat'] / 2 + 5.5)
-tube("Zacisk_ucho", bc - Y * 11, bc + Y * 11, 5.5, seg=24)
-tube("Zacisk_sruba", bc - Y * 14, bc + Y * 14, 3.2, mat=M_STEEL, seg=6)
+def ear_r(t, L=22.0, R=5.5, e_r=1.6):           # promien ucha wzdluz osi: zaokraglone krawedzie na koncach
+    e = min(t, 1 - t) * L
+    return R if e >= e_r else R - e_r + math.sqrt(max(0.0, e_r ** 2 - (e_r - e) ** 2))
+pipe("Zacisk_ucho", bc - Y * 11, bc + Y * 11, ear_r, 3.0, seg=32)
+tube("Zacisk_sruba", bc - Y * 10.5, bc + Y * 11.2, 2.5, mat=M_STEEL, seg=24)   # trzpien sruby w otworze ucha
+bolt_head("Zacisk_leb_sruby", bc + Y * 13.5, Y)                                # leb imbusowy po prawej stronie
 
 # ---------------------------------------------------------------- TYL
 half_r = P['rear_oln'] / 2 + P['dropout_t'] / 2
-cs_end = AX_R + V(28, 0, -3)
+cs_end = AX_R + V(30, 0, -3)                       # 2 mm za krawedzia ramienia haka (szew schowany w haku)
 ss_dir = (st_dir * (ST_TT_S + 4) - AX_R).normalized()
-ss_bot = AX_R + ss_dir * 24
+ss_bot = AX_R + V(20, 0, 25) - ss_dir * 2          # 2 mm za krawedzia gornego ramienia haka
 ss_top = st_dir * (ST_TT_S + 4)
 ss_perp_back = V(-ss_dir.z, 0, ss_dir.x)
 
 rear_outline = [(5, -15), (13, -15), (19, -8), (32, -9), (32, 3), (20, 6),
                 (24.6, 21.2), (15.4, 28.8), (2, 14), (-8, 12), (-13, 4), (-13, -6), (-9, -15),
                 (-5, -15), (-5, 0), (-3.5, 3.5), (0, 5), (3.5, 3.5), (5, 0)]
-hanger_outline = [(-5, -6), (-9, -15), (-6, -30), (-11, -38), (-19, -37), (-23, -28), (-19, -10), (-13, -3)]
+REAR_KEEP = {(32, -9), (32, 3), (24.6, 21.2), (15.4, 28.8)}
+# prawy hak razem z hakiem przerzutki w jednym kawalku (jak kute haki z epoki); otwor na srube przerzutki
+rear_outline_r = round_outline(rear_outline[:10] + [(-13, 4), (-19, -10), (-23, -28), (-19, -37), (-11, -38), (-6, -30), (-5, -21)]
+                               + rear_outline[14:], keep=REAR_KEEP)
+HANGER_HOLE = (-15.0, -30.0, 5.0)                 # [ZALOZENIE] gwint M10 na srube przerzutki
+rear_outline = round_outline(rear_outline, keep=REAR_KEEP)
 
 for sgn, side in ((1, "L"), (-1, "P")):
     def cs(x, y):                       # punkt na osi widelek dolnych
         t = x / cs_end.x
         return V(x, sgn * y, cs_end.z * t)
-    sweep("Widelki_dolne_" + side,
-          [cs(-10, 22), cs(-70, 31), cs(-130, 41), cs(-250, 54), cs(-370, 65), V(cs_end.x, sgn * half_r, cs_end.z)],
-          [11.1, 11.1, 10.5, 9.0, 7.5, 6.5])
+    cp_, cr_ = catmull([cs(-4, 20), cs(-70, 31), cs(-130, 41), cs(-250, 54), cs(-370, 65), V(cs_end.x, sgn * half_r, cs_end.z)],
+                       [11.1, 11.1, 10.5, 9.0, 7.5, 6.5])
+    ca_, cb_, cq_ = flatten_end(cp_, cr_, False, 30.0, P['dropout_t'] / 2 - 0.08, 5.8)   # plynne przejscie w ramie haka
+    loft("Widelki_dolne_" + side, cp_, ca_, cope=(BB_COPE, None), radii_b=cb_, shape=cq_)
+    fillet("Widelki_dolne_%s_spoina" % side, cp_[:24], cr_[:24], BB_OTHER, F=1.1, L=5.5)
     def ss(t, y): return lerp(ss_bot, ss_top, t) + V(0, sgn * y, 0)
-    sweep("Widelki_gorne_" + side,
-          [ss(0, half_r), ss(0.55, 44), ss(0.85, 26), ss(1.0, 11)],
-          [6.0, 7.2, 7.8, 8.0])
+    sp_, sr_ = catmull([ss(0, half_r), ss(0.55, 44), ss(0.85, 26), ss(1.0, 3)], [6.0, 7.2, 7.8, 8.0])
+    sa_, sb_, sq_ = flatten_end(sp_, sr_, True, 30.0, P['dropout_t'] / 2 - 0.08, 5.8)
+    loft("Widelki_gorne_" + side, sp_, sa_, cope=(None, ST_COPE), radii_b=sb_, shape=sq_)
+    fillet("Widelki_gorne_%s_spoina" % side, sp_[::-1][:24], sr_[::-1][:24], ST_OTHER, F=1.1, L=5.5)
     o = AX_R + V(0, sgn * half_r, 0)
-    plate("Hak_tylny_" + side, o, V(1, 0, 0), V(0, 0, 1), rear_outline, P['dropout_t'])
     if sgn < 0:
-        plate("Hak_przerzutki", o, V(1, 0, 0), V(0, 0, 1), hanger_outline, P['dropout_t'] - 0.4)
+        plate("Hak_tylny_" + side, o, V(1, 0, 0), V(0, 0, 1), rear_outline_r, P['dropout_t'], holes=[HANGER_HOLE])
+    else:
+        plate("Hak_tylny_" + side, o, V(1, 0, 0), V(0, 0, 1), rear_outline, P['dropout_t'])
     # piwot hamulca cantilever
     t_c = (P['canti_r'] - 24) / (ss_top - ss_bot).length
     pc = ss(t_c, lerp(half_r, 44, t_c / 0.55) - 3)
     tube("Piwot_tyl_podstawa_" + side, pc, pc + ss_perp_back * 15, 6.5, seg=24)
-    tube("Piwot_tyl_" + side, pc, pc + ss_perp_back * 31, 4.0, mat=M_STEEL, seg=24)
+    blind_pipe("Piwot_tyl_" + side, pc, pc + ss_perp_back * 31, 4.0, 2.6, 10.0, mat=M_STEEL)
 
 # mostek widelek gornych (nad opona)
 t_b = (P['wheel_radius'] + 14 - 24) / (ss_top - ss_bot).length
@@ -380,21 +650,21 @@ tube("Mostek_gorny", pb - Y * yb, pb + Y * yb, 5.5, seg=24)
 
 # ---------------------------------------------------------------- WIDELEC
 half_f = P['front_oln'] / 2 + P['dropout_t'] / 2
-tube("Rura_sterowa", fk(S_CROWN - 30), fk(S_HT + 24), P['d_steerer'] / 2)
-tube("Rura_sterowa_otwor", fk(S_HT + 22), fk(S_HT + 24.3), 11.1, mat=M_BLACK)
-tube("Korona", fk(S_CROWN - 30), fk(S_CROWN), 15.6, 13.4)
-tube("Korona_otwor", fk(S_CROWN - 16, 10), fk(S_CROWN - 16, 15.8), 4.5, mat=M_STEEL, seg=24)   # otwor montazowy z przodu korony
+pipe("Rura_sterowa", fk(S_CROWN - 2), fk(S_HT + 24), P['d_steerer'] / 2, STEER_BORE, caps=(False, True))
+korona = tube("Korona", fk(S_CROWN - 30), fk(S_CROWN), 15.6, 13.4)
+blades = []
 # ksztalt wg zdjec P-23: ramiona korony po luku R~36, golen rownolegla do osi sterowej,
 # giecie do przodu zaczyna sie ok. 210 mm nad osia kola [ZALOZENIE ze zdjec]
 S0 = S_CROWN - 16                                 # os ramienia korony na szczycie luku
 ARC_W, ARC_H = 44.5, 56.0                         # polszerokosc i wysokosc luku korony
 s_b = 210.0                                       # poczatek giecia goleni
-s_e, n_e = 22.0, P['fork_rake'] - 2.5             # koniec goleni przy haku
+s_e, n_e = 25.0, P['fork_rake'] - 2.5             # koniec goleni 2 mm pod gorna krawedzia haka
 def blade_n(s): return 0.0 if s >= s_b else n_e * ((s_b - s) / (s_b - s_e)) ** 2
 def blade_r(s): return lerp(14.3, 7.5, max(0.0, min(1.0, (300 - s) / (300 - s_e))))
 def blade_y(s): return lerp(ARC_W, half_f, (S0 - ARC_H - s) / (S0 - ARC_H - s_e))
 front_outline = [(5, -13), (11, -10), (13, 0), (8, 12), (3, 27), (-8, 27), (-11, 12), (-13, 0),
                  (-11, -10), (-5, -13), (-5, 0), (-3.5, 3.5), (0, 5), (3.5, 3.5), (5, 0)]
+front_outline = round_outline(front_outline, keep={(3, 27), (-8, 27)})
 for sgn, side in ((1, "L"), (-1, "P")):
     pts, rr = [fk(S0, 0, 0)], [14.3]
     for ang in (20, 40, 60, 75, 90):              # eliptyczny luk korony
@@ -402,7 +672,9 @@ for sgn, side in ((1, "L"), (-1, "P")):
         rr.append(14.3)
     for sv in (300, 250, s_b, 165, 120, 75, s_e): # golen
         pts.append(fk(sv, blade_n(sv), sgn * blade_y(sv))); rr.append(blade_r(sv))
-    sweep("Golen_widelca_" + side, pts, rr)
+    bp_, br_ = catmull(pts, rr, 10)
+    ba_, bb_, bq_ = flatten_end(bp_, br_, False, 30.0, P['dropout_t'] / 2 - 0.08, 5.3)   # plynne przejscie w hak
+    blades.append(loft("Golen_widelca_" + side, bp_, ba_, radii_b=bb_, shape=bq_))
     plate("Hak_przedni_" + side, AX_F + V(0, sgn * half_f, 0), n, u, front_outline, P['dropout_t'])
     s_c = P['canti_r'] + 2
     pc = fk(s_c, blade_n(s_c), sgn * (blade_y(s_c) - 2))
@@ -411,27 +683,33 @@ for sgn, side in ((1, "L"), (-1, "P")):
     wrap_v("Naklejka_TR_widelec_" + side, bf, 216.0, 241.0, logo_tr_fork, n, Y, nv=12)
     wrap_v("Naklejka_LOGIC_" + side, bf, 138.0, 210.0, logo_logic, n, Y)
     tube("Piwot_przod_podstawa_" + side, pc, pc + n * 20, 6.5, seg=24)
-    tube("Piwot_przod_" + side, pc, pc + n * 36, 4.0, mat=M_STEEL, seg=24)
+    blind_pipe("Piwot_przod_" + side, pc, pc + n * 36, 4.0, 2.6, 10.0, mat=M_STEEL)
+
+# otwor rury sterowej przechodzi na wylot w dol przez korone i ramiona goleni (od spodu widac przez rure sterowa)
+drill([korona] + blades, fk(S_CROWN), u, STEER_BORE, 45.0, out=0.3)
+# otwor montazowy na wylot (przod-tyl) przez korone, wchodzi w otwor rury sterowej
+drill([korona] + blades, fk(S_CROWN - 24), n, 4.0, 40.0, out=40.0)
 
 # znaczek TR na przodzie glowki
 wrap_v("Naklejka_TR_glowka", lambda sv: (fk(sv), P['d_head'] / 2 + 0.15), S_HB + 29, S_HB + 71, logo_tr, n, Y, nv=16)
 
 # stery 1" (uproszczone)
-tube("Stery_biezna_korony", fk(S_CROWN), fk(S_CROWN + 3), 16.0, mat=M_STEEL)
-tube("Stery_miska_dolna", fk(S_CROWN + 3), fk(S_HB), 18.0, 17.0, mat=M_STEEL)
-tube("Stery_miska_gorna", fk(S_HT), fk(S_HT + 9), 17.0, 18.0, mat=M_STEEL)
-tube("Stery_konus", fk(S_HT + 9), fk(S_HT + 15), 17.0, 15.5, mat=M_STEEL)
-tube("Stery_nakretka", fk(S_HT + 15), fk(S_HT + 22), 17.5, mat=M_STEEL, seg=8)
+HS_BORE = P['d_steerer'] / 2 + 0.2                    # pierscienie wokol rury sterowej, bez tarcz w jej otworze
+pipe("Stery_biezna_korony", fk(S_CROWN), fk(S_CROWN + 3), 16.0, HS_BORE, mat=M_STEEL, inner=M_STEEL)
+pipe("Stery_miska_dolna", fk(S_CROWN + 3), fk(S_HB), (18.0, 17.0), HS_BORE, mat=M_STEEL, inner=M_STEEL)
+pipe("Stery_miska_gorna", fk(S_HT), fk(S_HT + 9), (17.0, 18.0), HS_BORE, mat=M_STEEL, inner=M_STEEL)
+pipe("Stery_konus", fk(S_HT + 9), fk(S_HT + 15), (17.0, 15.5), HS_BORE, mat=M_STEEL, inner=M_STEEL)
+pipe("Stery_nakretka", fk(S_HT + 15), fk(S_HT + 22), 17.5, HS_BORE / math.cos(math.pi / 8), mat=M_STEEL, inner=M_STEEL, seg=8)
 
 # ---------------------------------------------------------------- DROBNE DETALE
 # mocowania koszykow (2 bidony)
 dt_dir = (DT_H - BB).normalized(); dt_up = V(-dt_dir.z, 0, dt_dir.x)
 for i, s in enumerate((170, 234)):
     c = BB + dt_dir * s
-    tube("Koszyk_dolna_%d" % i, c + dt_up * (P['d_down'] / 2 - 1), c + dt_up * (P['d_down'] / 2 + 2.5), 4.5, seg=24)
+    blind_pipe("Koszyk_dolna_%d" % i, c + dt_up * (P['d_down'] / 2 - 1), c + dt_up * (P['d_down'] / 2 + 2.5), 4.5, 2.4, 2.45)
 for i, s in enumerate((150, 214)):
     c = st_dir * s
-    tube("Koszyk_podsiodlowa_%d" % i, c + st_front * (P['d_seat'] / 2 - 1), c + st_front * (P['d_seat'] / 2 + 2.5), 4.5, seg=24)
+    blind_pipe("Koszyk_podsiodlowa_%d" % i, c + st_front * (P['d_seat'] / 2 - 1), c + st_front * (P['d_seat'] / 2 + 2.5), 4.5, 2.4, 2.45)
 # prowadnice linek na rurze gornej (3 linki gora)
 tt_dir = (TT_H - TT_S).normalized(); tt_up = V(-tt_dir.z, 0, tt_dir.x)
 tt_len = (TT_H - TT_S).length
@@ -439,7 +717,7 @@ for i, s in enumerate((75, tt_len - 75)):
     for j, ang in enumerate((-38, 0, 38)):
         d = tt_up * math.cos(rad(ang)) + Y * math.sin(rad(ang))
         c = TT_S + tt_dir * s + d * (P['d_top'] / 2 + 2.2)
-        tube("Prowadnica_%d_%d" % (i, j), c - tt_dir * 5, c + tt_dir * 5, 3.2, seg=12)
+        pipe("Prowadnica_%d_%d" % (i, j), c - tt_dir * 5, c + tt_dir * 5, 3.2, 1.6, seg=12)
 
 # ---------------------------------------------------------------- NAKLEJKI
 dt_c = BB + dt_dir * ((DT_H - BB).length * 0.47)
@@ -467,6 +745,10 @@ for ob in PARTS: ob.select_set(True)
 bpy.context.view_layer.objects.active = PARTS[0]
 bpy.ops.export_scene.gltf(filepath=os.path.join(OUT, "ritchey_p23_18in" + SUF + ".glb"),
                           export_format='GLB', use_selection=True)
+WEB = os.environ.get("P23_WEB_GLB")
+if WEB:                                                   # lekka wersja na strone (Draco)
+    bpy.ops.export_scene.gltf(filepath=WEB, export_format='GLB', use_selection=True,
+                              export_draco_mesh_compression_enable=True, export_draco_mesh_compression_level=6)
 
 # ---------------------------------------------------------------- STUDIO + RENDER
 ground_z = -P['bb_height'] * 0.001
@@ -500,6 +782,11 @@ cams = {
     "render_3_4": camera("Kam_3_4", (1.75, -1.55, 0.85), (0.10, 0, 0.20), lens=52),
     "render_przod": camera("Kam_przod", (2.9, -0.25, 0.75), (0.55, 0, 0.22), lens=85),
     "render_tyl": camera("Kam_tyl", (-1.45, -1.25, 0.75), (0.02, 0, 0.20), lens=45),
+    # zblizenia otworow
+    "render_suport": camera("Kam_suport", (0.06, -0.30, 0.03), (0, 0, 0), lens=100),
+    "render_sztyca": camera("Kam_sztyca", tuple(ST_TOP * 0.001 + V(-0.2, -0.28, 0.22)), tuple(ST_TOP * 0.001), lens=100),
+    "render_stery": camera("Kam_stery", tuple(fk(S_HT + 20) * 0.001 + V(0.08, -0.1, 0.3)), tuple(fk(S_HT + 20) * 0.001), lens=100),
+    "render_korona": camera("Kam_korona", tuple(fk(S_CROWN - 16) * 0.001 + V(0.35, -0.12, 0.06)), tuple(fk(S_CROWN - 16) * 0.001), lens=100),
 }
 scene.render.engine = 'CYCLES'
 scene.cycles.samples = 96

@@ -12,7 +12,7 @@
     "glb": "models/stumpjumper-comp-1990.glb",
     "poster": "models/stumpjumper-comp-1990-poster.jpg",
     "fileSizeMb": 0.4,
-    "triangles": 60500,
+    "triangles": 62000,
     "source": "https://bikalog.org/c/specialized/1990-spec-bikes90",
     "summary": "Geometria z oryginalnego katalogu i zdjęcia z katalogu; spoiny TIG, owalne widełki DD, kute haki, odlewana obejma sztycy, wszystkie lutowane uchwyty, naklejki SPECIALIZED i Stumpjumper.",
     "pageTitle": "Stumpjumper Comp 1990 — rama 3D",
@@ -88,8 +88,8 @@
     "color": "czerwona lub Team",
     "glb": "models/ritchey-p23-red.glb",
     "poster": "models/ritchey-p23-red-poster.jpg",
-    "fileSizeMb": 0.9,
-    "triangles": 73000,
+    "fileSizeMb": 1.8,
+    "triangles": 90000,
     "source": "https://ritchey.vintagebicycledatabase.com/models.php",
     "summary": "Rama ze sztywnym widelcem w dwóch malowaniach: czerwonym z katalogu 1990 i Team (granat, biel, czerwień). Geometria z katalogów Ritchey 1990/1992; naklejki RITCHEY i P-23, znaczek TR na główce i goleniach, LOGIC na goleniach.",
     "pageTitle": "Ritchey P-23 1990 — rama 3D",
@@ -102,7 +102,7 @@
         "glb": "models/ritchey-p23-red.glb",
         "poster": "models/ritchey-p23-red-poster.jpg",
         "alt": "Model 3D ramy Ritchey P-23 z widelcem, czerwona",
-        "fileSizeMb": 0.9
+        "fileSizeMb": 1.8
       },
       {
         "id": "team",
@@ -110,7 +110,7 @@
         "glb": "models/ritchey-p23-team.glb",
         "poster": "models/ritchey-p23-team-poster.jpg",
         "alt": "Model 3D ramy Ritchey P-23 z widelcem, malowanie Team: granat, biel, czerwień",
-        "fileSizeMb": 1.3
+        "fileSizeMb": 2.3
       }
     ],
     "tables": [

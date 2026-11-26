@@ -2,7 +2,7 @@
 Specialized Stumpjumper Comp 1990 — frame, DirectDrive fork and headset, parametric Blender model.
 
 Run:  blender --background --factory-startup --python design/3d/stumpjumper_comp_1990.py -- [--render]
-Output: public/models/stumpjumper-comp-1990.glb  (+ design/3d/preview-*.png with --render)
+Output: public/models/stumpjumper-comp-1990.glb  (+ design/3d/preview-*.png with --render; web poster: make_poster.py)
 
 Sources of the numbers (mm, degrees):
   * Specialized catalogue 1990 (DE), https://bikalog.org/c/specialized/1990-spec-bikes90 :
@@ -75,7 +75,7 @@ def mat(name, color, rough=0.28, metal=0.0, coat=0.0, alpha_tex=None, color_from
 
 PAINT = mat('paint_white', (0.74, 0.745, 0.73), rough=0.2, coat=1.0)
 BARE = mat('steel_bare', (0.55, 0.56, 0.57), rough=0.35, metal=1.0)       # threads, bolt
-DARK = mat('hole_dark', (0.02, 0.02, 0.02), rough=0.6)
+INNER = mat('steel_inner', (0.32, 0.32, 0.33), rough=0.55, metal=1.0)   # inside walls of bores and holes: unpainted steel
 DECAL_M = mat('decal_specialized', (1, 1, 1), rough=0.3, coat=1.0, alpha_tex=DECAL, color_from_tex=True)
 DECAL_SJ = os.path.join(ROOT, 'design', '3d', 'decal-stumpjumper.png')   # from the owner-supplied script artwork
 DECAL_SJ_M = mat('decal_stumpjumper', (1, 1, 1), rough=0.3, coat=1.0, alpha_tex=DECAL_SJ, color_from_tex=True)
@@ -109,33 +109,150 @@ def frame_at(t, up):
     return x, t.cross(x)
 
 
-def loft(name, pts, ra, rb=None, up=Vector((0, 0, 1)), material=PAINT, cap=(True, True), seg=SEG):
-    """Tube along polyline pts with elliptical section (ra along `up`, rb sideways). ra/rb: list or float."""
+def _cross(g, cope):
+    """Polyline parameter where generatrix g first leaves the cylinder cope = (axis point, axis dir, radius)."""
+    a0, d, r = cope
+    d = d.normalized()
+    f = lambda p: dist_to_axis(p, a0, d) - r
+    if f(g[0]) >= 0:
+        return 0.0
+    for i in range(len(g) - 1):
+        if f(g[i + 1]) >= 0:
+            lo, hi = 0.0, 1.0
+            for _ in range(32):
+                m = (lo + hi) / 2
+                if f(g[i].lerp(g[i + 1], m)) >= 0:
+                    hi = m
+                else:
+                    lo = m
+            return i + hi
+    return float(len(g) - 1)
+
+
+def _at(g, u):
+    i = min(int(u), len(g) - 2)
+    return g[i].lerp(g[i + 1], u - i)
+
+
+def tube_rings(pts, ra, rb=None, up=Vector((0, 0, 1)), seg=SEG, cope=(None, None)):
+    """Rings of points along polyline pts (elliptical section: ra along `up`, rb sideways; float or list).
+    cope = (start, end): each may be (axis point, axis dir, radius); that end is trimmed (mitred) where every
+    generatrix leaves that cylinder, so the tube meets another tube's wall instead of running into its bore."""
     n = len(pts)
     ra = ra if isinstance(ra, (list, tuple)) else [ra] * n
     rb = (rb if isinstance(rb, (list, tuple)) else [rb] * n) if rb is not None else ra
-    bm = bmesh.new()
     rings = []
     for i, p in enumerate(pts):
         t = (pts[min(i + 1, n - 1)] - pts[max(i - 1, 0)])
         x, y = frame_at(t, up)
-        ring = [bm.verts.new(p + x * (ra[i] * math.cos(a)) + y * (rb[i] * math.sin(a))) for a in (2 * math.pi * k / seg for k in range(seg))]
-        rings.append(ring)
-    for i in range(n - 1):
+        rings.append([p + x * (ra[i] * math.cos(a)) + y * (rb[i] * math.sin(a)) for a in (2 * math.pi * k / seg for k in range(seg))])
+    if not (cope[0] or cope[1]):
+        return rings
+    cols = []
+    for k in range(seg):
+        g = [rings[i][k] for i in range(n)]
+        u0 = _cross(g, cope[0]) if cope[0] else 0.0
+        u1 = (n - 1) - _cross(g[::-1], cope[1]) if cope[1] else float(n - 1)
+        cols.append([_at(g, u0 + (u1 - u0) * j / (n - 1)) for j in range(n)])
+    return [[cols[k][j] for k in range(seg)] for j in range(n)]
+
+
+def _quads(bm, rings, flip=False):
+    seg = len(rings[0])
+    for i in range(len(rings) - 1):
         for k in range(seg):
-            a, b = rings[i][k], rings[i][(k + 1) % seg]
-            c, d = rings[i + 1][(k + 1) % seg], rings[i + 1][k]
-            bm.faces.new((a, b, c, d))
-    if cap[0]:
-        bm.faces.new(list(reversed(rings[0])))
-    if cap[1]:
-        bm.faces.new(rings[-1])
+            q = (rings[i][k], rings[i][(k + 1) % seg], rings[i + 1][(k + 1) % seg], rings[i + 1][k])
+            bm.faces.new(q[::-1] if flip else q)
+
+
+def loft(name, pts, ra, rb=None, up=Vector((0, 0, 1)), material=PAINT, cap=(True, True), seg=SEG, cope=(None, None)):
+    """Solid-looking tube along polyline pts (see tube_rings). Coped ends get no end cap (hidden in the other wall)."""
+    bm = bmesh.new()
+    rv = [[bm.verts.new(p) for p in r] for r in tube_rings(pts, ra, rb, up, seg, cope)]
+    _quads(bm, rv)
+    if cap[0] and not cope[0]:
+        bm.faces.new(list(reversed(rv[0])))
+    if cap[1] and not cope[1]:
+        bm.faces.new(rv[-1])
     bm.normal_update()
     return obj_from_bm(bm, name, material)
 
 
-def cyl(name, p0, p1, r, material=PAINT, seg=SEG):
-    return loft(name, [p0, p1], r, material=material, seg=seg)
+def cyl(name, p0, p1, r, material=PAINT, seg=SEG, cope=(None, None)):
+    return loft(name, [p0, p1], r, material=material, seg=seg, cope=cope)
+
+
+def pipe(name, pts, r_out, r_in, material=PAINT, inner_material=INNER, seg=SEG, caps=(True, True), cope=(None, None),
+         up=Vector((0, 0, 1))):
+    """Hollow tube: outer wall, bore wall (inner_material) and annular end faces. Open ends are real holes."""
+    outer = tube_rings(pts, r_out, None, up, seg, cope)
+    inner = tube_rings(pts, r_in, None, up, seg, cope)
+    bm = bmesh.new()
+    ov = [[bm.verts.new(p) for p in r] for r in outer]
+    _quads(bm, ov)
+    for end, idx in ((0, 0), (1, -1)):
+        if caps[end] and not cope[end]:
+            o, i = ov[idx], [bm.verts.new(p) for p in inner[idx]]
+            for k in range(seg):
+                k1 = (k + 1) % seg
+                bm.faces.new((o[k1], o[k], i[k], i[k1]) if end == 0 else (o[k], o[k1], i[k1], i[k]))
+    obj_from_bm(bm, name, material)
+    bm = bmesh.new()
+    _quads(bm, [[bm.verts.new(p) for p in r] for r in inner], flip=True)
+    return obj_from_bm(bm, name + '_bore', inner_material)
+
+
+def blind_pipe(name, p0, p1, r_out, r_in, depth, material=PAINT, inner_material=INNER, seg=SEG):
+    """Solid stub p0->p1 with a blind hole (radius r_in, `depth` deep) drilled into its p1 end."""
+    d = (p1 - p0).normalized()
+    x, y = frame_at(d, Vector((0, 0, 1)))
+    ring = lambda c, r: [c + x * (r * math.cos(a)) + y * (r * math.sin(a)) for a in (2 * math.pi * k / seg for k in range(seg))]
+    bm = bmesh.new()
+    o0 = [bm.verts.new(p) for p in ring(p0, r_out)]
+    o1 = [bm.verts.new(p) for p in ring(p1, r_out)]
+    i1 = [bm.verts.new(p) for p in ring(p1, r_in)]
+    _quads(bm, [o0, o1])
+    bm.faces.new(list(reversed(o0)))
+    for k in range(seg):
+        bm.faces.new((o1[k], o1[(k + 1) % seg], i1[(k + 1) % seg], i1[k]))
+    obj_from_bm(bm, name, material)
+    bm = bmesh.new()
+    bot = [bm.verts.new(p) for p in ring(p1 - d * depth, r_in)]
+    top = [bm.verts.new(p) for p in ring(p1, r_in)]
+    _quads(bm, [bot, top], flip=True)
+    bm.faces.new(bot)                                  # floor of the hole
+    return obj_from_bm(bm, name + '_hole', inner_material)
+
+
+def disc(name, c, normal, r, material=INNER, seg=SEG):
+    x, y = frame_at(normal, Vector((0, 0, 1)))
+    bm = bmesh.new()
+    bm.faces.new([bm.verts.new(c + x * (r * math.cos(a)) + y * (r * math.sin(a))) for a in (2 * math.pi * k / seg for k in range(seg))])
+    return obj_from_bm(bm, name, material)
+
+
+def flat_part(name, outlines, centre, xdir, ydir, half_t, material=PAINT):
+    """Flat part from 2D outlines (first = outside, the rest = through holes), extruded +-half_t along xdir x ydir."""
+    cu = bpy.data.curves.new(name, 'CURVE')
+    cu.dimensions = '2D'
+    cu.fill_mode = 'BOTH'
+    cu.extrude = half_t
+    for outline in outlines:
+        sp = cu.splines.new('POLY')
+        sp.points.add(len(outline) - 1)
+        for i, (u, v) in enumerate(outline):
+            sp.points[i].co = (u, v, 0, 1)
+        sp.use_cyclic_u = True
+    o = bpy.data.objects.new(name, cu)
+    coll.objects.link(o)
+    o.data.materials.append(material)
+    x, y = xdir.normalized(), ydir.normalized()
+    o.matrix_world = Matrix.Translation(centre) @ Matrix((x, y, x.cross(y))).transposed().to_4x4()
+    return o
+
+
+def circle2d(cx, cy, r, n=24):
+    return [(cx + r * math.cos(2 * math.pi * k / n), cy + r * math.sin(2 * math.pi * k / n)) for k in range(n)]
 
 
 def catmull(ctrl, samples=28):
@@ -254,29 +371,32 @@ rt, rd, rs, rh = P['tt_d'] / 2, P['dt_d'] / 2, P['st_d'] / 2, P['ht_d'] / 2
 clamp_h = 24.0
 Y = Vector((0, 1, 0))
 
-# main tubes
-cyl('head_tube', HT_B, HT_T, rh)
+# main tubes. Bores are real holes; tubes that meet another tube are mitred into its wall (cope), so nothing
+# runs into the bore of the BB shell, head tube or seat tube.
+HT_BORE = rh - 1.6                                       # ESTIMATED wall thicknesses / bores
+BB_BORE = 17.4                                           # BSA shell, 1.37" thread
+ST_BORE = 13.4                                           # 26.8 mm seatpost
+HT_COPE = (HT_B, ht_up, (rh + HT_BORE) / 2)              # mid-wall: tube ends stay hidden inside the wall
+BB_COPE = (BB, Y, (P['bb_d'] / 2 + BB_BORE) / 2)
+ST_COPE = (BB, st_dir, (rs + ST_BORE) / 2)
+pipe('head_tube', [HT_B, HT_T], rh, HT_BORE, caps=(False, False))   # both ends sit in the headset cups
 for z, nm in ((0.8, 'ht_ring_bottom'), (P['head_tube_len'] - 0.8, 'ht_ring_top')):   # small turned bands at the ends
     c = HT_B + ht_up * z
-    cyl(nm, c - ht_up * 0.8, c + ht_up * 0.8, rh + 0.35)
-# open ends: headset bore (dark) inset into both faces
-cyl('ht_bore_top', HT_T - ht_up * 5, HT_T + ht_up * 0.05, rh - 1.6, material=DARK)
-cyl('ht_bore_bottom', HT_B - ht_up * 0.05, HT_B + ht_up * 5, rh - 1.6, material=DARK)
-cyl('top_tube', TT_R, TT_F + (TT_F - TT_R).normalized() * 2, rt)
-cyl('down_tube', BB, DT_F, rd)
-cyl('seat_tube', BB, ST_T - st_dir * clamp_h, rs)
-# BB shell (axis Y)
-cyl('bb_shell', Vector((0, -P['bb_w'] / 2, 0)), Vector((0, P['bb_w'] / 2, 0)), P['bb_d'] / 2)
-for s in (-1, 1):   # exposed threads inside shell faces
-    cyl(f'bb_thread_{s}', Vector((0, s * (P['bb_w'] / 2 - 0.2), 0)), Vector((0, s * (P['bb_w'] / 2 + 0.05), 0)), P['bb_d'] / 2 - 2.6, material=BARE)
-    cyl(f'bb_bore_{s}', Vector((0, s * (P['bb_w'] / 2 - 4), 0)), Vector((0, s * (P['bb_w'] / 2 + 0.1), 0)), P['bb_d'] / 2 - 3.2, material=DARK)
+    pipe(nm, [c - ht_up * 0.8, c + ht_up * 0.8], rh + 0.35, rh - 0.3)
+cyl('top_tube', TT_R, TT_F + (TT_F - TT_R).normalized() * 2, rt, cope=(ST_COPE, HT_COPE))
+cyl('down_tube', BB, DT_F, rd, cope=(BB_COPE, HT_COPE))
+pipe('seat_tube', [BB, ST_T - st_dir * clamp_h], rs, ST_BORE, caps=(False, False), cope=(BB_COPE, None))
+# BB shell (axis Y): open bore with threaded ends
+pipe('bb_shell', [Vector((0, -P['bb_w'] / 2, 0)), Vector((0, P['bb_w'] / 2, 0))], P['bb_d'] / 2, BB_BORE)
+for s in (-1, 1):
+    pipe(f'bb_thread_{s}', [Vector((0, s * P['bb_w'] / 2, 0)), Vector((0, s * (P['bb_w'] / 2 - 15), 0))], BB_BORE, BB_BORE - 0.4,
+         material=BARE, inner_material=BARE)
 
-# STR reinforcement sleeve + investment-cast seat clamp
+# STR reinforcement sleeve + investment-cast seat clamp (open seatpost bore)
 sleeve_bot = ST_T - st_dir * (clamp_h + 62)
-cyl('st_str_sleeve', sleeve_bot, ST_T - st_dir * clamp_h, rs + 1.1)
-cyl('seat_clamp', ST_T - st_dir * clamp_h, ST_T, rs + 2.6)
-cyl('seat_clamp_lip', ST_T - st_dir * 1.6, ST_T, rs + 3.1)
-cyl('seatpost_bore', ST_T - st_dir * 6, ST_T + st_dir * 0.2, rs - 1.2, material=DARK)
+pipe('st_str_sleeve', [sleeve_bot, ST_T - st_dir * clamp_h], rs + 1.1, rs - 0.45, caps=(True, False))
+pipe('seat_clamp', [ST_T - st_dir * clamp_h, ST_T - st_dir * 1.6], rs + 2.6, ST_BORE, caps=(True, False))
+pipe('seat_clamp_lip', [ST_T - st_dir * 1.6, ST_T], rs + 3.1, ST_BORE)
 back = Vector((-math.sin(sa), 0, -math.cos(sa)))
 if back.x > 0:
     back = -back
@@ -300,17 +420,17 @@ ss_end = RA + Vector((20, 0, 29))
 CANTI_R = 255.0   # ESTIMATED: usual cantilever boss distance from the axle for a 26" (ISO 559) rim
 cs_paths = {}
 for s in (-1, 1):
-    ctrl = [Vector((-14, s * 24, 1)), Vector((-62, s * 33, 7)), Vector((-170, s * 52, 17)), Vector((cs_end.x, s * do_y, cs_end.z))]
+    ctrl = [Vector((-4, s * 22, 0)), Vector((-62, s * 33, 7)), Vector((-170, s * 52, 17)), Vector((cs_end.x, s * do_y, cs_end.z))]
     path = catmull(ctrl, 22)
     n = len(path)
     ra = [11.0 - 4.6 * (i / (n - 1)) for i in range(n)]       # vertical semi-axis
     rb = [8.0 - 2.8 * (i / (n - 1)) for i in range(n)]        # horizontal semi-axis
-    loft(f'chainstay_{s}', path, ra, rb, up=Vector((0, 0, 1)))
+    loft(f'chainstay_{s}', path, ra, rb, up=Vector((0, 0, 1)), cope=(BB_COPE, None))
     cs_paths[s] = path
 # seat stays — round, double tapered
 ss_top = BB + st_dir * P['ss_top_on_st']
 for s in (-1, 1):
-    a = ss_top + Vector((-3, s * (rs + 4.5), 0))
+    a = ss_top + Vector((-3, s * (rs + 5.8), 0))
     ctrl = [a, a.lerp(Vector((ss_end.x, s * do_y, ss_end.z)), 0.5) + Vector((0, s * 4, 0)), Vector((ss_end.x, s * do_y, ss_end.z))]
     path = catmull(ctrl, 22)
     n = len(path)
@@ -327,12 +447,11 @@ for s in (-1, 1):
 def stay_point(path, frac):
     return path[int(frac * (len(path) - 1))]
 
-ssl = [catmull([ss_top + Vector((-3, s * (rs + 4.5), 0)), (ss_top + Vector((-3, s * (rs + 4.5), 0))).lerp(Vector((ss_end.x, s * do_y, ss_end.z)), 0.5) + Vector((0, s * 4, 0)), Vector((ss_end.x, s * do_y, ss_end.z))], 22) for s in (-1, 1)]
+ssl = [catmull([ss_top + Vector((-3, s * (rs + 5.8), 0)), (ss_top + Vector((-3, s * (rs + 5.8), 0))).lerp(Vector((ss_end.x, s * do_y, ss_end.z)), 0.5) + Vector((0, s * 4, 0)), Vector((ss_end.x, s * do_y, ss_end.z))], 22) for s in (-1, 1)]
 pL, pR = stay_point(ssl[0], 0.30), stay_point(ssl[1], 0.30)
 cyl('seatstay_bridge', pL, pR, 6.0)
 mid = (pL + pR) / 2
-cyl('brake_hanger_stop', mid + Vector((0, 0, 5)), mid + Vector((3, 0, 13)), 3.0, seg=16)
-cyl('brake_hanger_stop_hole', mid + Vector((2.4, 0, 11.2)), mid + Vector((3.3, 0, 13.6)), 1.4, material=DARK, seg=12)
+blind_pipe('brake_hanger_stop', mid + Vector((0, 0, 5)), mid + Vector((3, 0, 13)), 3.0, 2.0, 5.0, seg=16)   # housing socket
 # chainstay bridge sits just ahead of the tyre, well behind the BB shell
 cL, cR = (min(cs_paths[s], key=lambda p: abs(p.x + 88)) for s in (-1, 1))
 cyl('chainstay_bridge', cL, cR, 6.0)
@@ -345,11 +464,9 @@ for s, path in zip((-1, 1), ssl):
     back = Vector((d.z, 0, -d.x)).normalized()
     if back.x > 0:
         back = -back
-    cyl(f'canti_base_{s}', best + back * 2, best + back * 10, 7.2, seg=24)
-    cyl(f'canti_boss_{s}', best + back * 10, best + back * 34, 4.9, material=PAINT, seg=24)
-    cyl(f'canti_thread_{s}', best + back * 34, best + back * 34.4, 2.6, material=DARK, seg=16)
-    sp = best + back * 9.9 - d * 6.0
-    cyl(f'canti_spring_hole_{s}', sp, sp + back * 0.5, 1.1, material=DARK, seg=12)
+    # base with a real spring hole, boss with a real threaded hole in its end
+    flat_part(f'canti_base_{s}', [circle2d(0, 0, 7.2, 32), circle2d(-6.1, 0, 0.9, 12)], best + back * 6, d, back.cross(d), 4.0)
+    blind_pipe(f'canti_boss_{s}', best + back * 10, best + back * 34, 4.9, 2.9, 12.0, seg=24)
 
 
 # dropouts (forged look): 2D outline, extruded, rounded edges; right one with derailleur hanger.
@@ -402,9 +519,9 @@ def along(a, b, d):
 
 
 def boss(name, p, normal, r=4.6, h=2.6):
+    """Brazed-on threaded boss; p sits 0.3 mm inside the tube, so the hole floor is level with the tube surface."""
     normal = normal.normalized()
-    cyl(name, p, p + normal * h, r, seg=24)
-    cyl(name + '_hole', p + normal * (h - 0.4), p + normal * (h + 0.05), 2.4, material=DARK, seg=16)
+    blind_pipe(name, p, p + normal * h, r, 2.4, h - 0.35, seg=24)
 
 
 dt_dir = (DT_F - BB).normalized()
@@ -429,23 +546,21 @@ for i, f in enumerate((0.13, 0.87)):            # two cable guides on top of the
         v.co = Vector((v.co.x * 14, v.co.y * 7, v.co.z * 4))
     bm.transform(Matrix.Translation(c - tt_up * 1.2) @ tt_dir.to_track_quat('X', 'Z').to_matrix().to_4x4())
     obj_from_bm(bm, f'tt_guide_base_{i}', PAINT, smooth=False)
-    cyl(f'tt_guide_tube_{i}', c - tt_dir * 7 + tt_up * 1.2, c + tt_dir * 7 + tt_up * 1.2, 3.1, seg=20)
-    cyl(f'tt_guide_bore_{i}', c - tt_dir * 7.05 + tt_up * 1.2, c - tt_dir * 6.6 + tt_up * 1.2, 1.5, material=DARK, seg=12)
+    gc = c + tt_up * 2.6                         # guide tube with a through bore, clear of the base plate
+    pipe(f'tt_guide_tube_{i}', [gc - tt_dir * 7, gc + tt_dir * 7], 3.1, 1.6, seg=20)
 
 for s in (-1, 1):                                # shifter cable stops on the down tube sides
     c = along(DT_F, BB, 70) + Vector((0, s * (rd + 3.2), 0))
     cyl(f'dt_cable_stop_{s}', c - Vector((0, s * 3.4, 0)), c, 4.0, seg=20)
-    cyl(f'dt_cable_stop_barrel_{s}', c, c - dt_dir * 9, 3.4, seg=20)
-    cyl(f'dt_cable_stop_hole_{s}', c - dt_dir * 9, c - dt_dir * 9.4, 1.6, material=DARK, seg=12)
+    # housing socket faces the head tube, where the housing comes from
+    blind_pipe(f'dt_cable_stop_barrel_{s}', c - dt_dir * 2, c + dt_dir * 9, 3.4, 2.6, 7.0, seg=20)
 
-bm = bmesh.new()                                 # cable guide under the BB shell
-bmesh.ops.create_cube(bm, size=1.0)
-for v in bm.verts:
-    v.co = Vector((v.co.x * 22, v.co.y * 26, v.co.z * 3.0))
-bm.transform(Matrix.Translation(Vector((0, 0, -P['bb_d'] / 2 - 1.0))))
-obj_from_bm(bm, 'bb_cable_guide', PAINT, smooth=False)
-for s in (-1, 1):
-    cyl(f'bb_guide_groove_{s}', Vector((-11.2, s * 6, -P['bb_d'] / 2 - 2.6)), Vector((11.2, s * 6, -P['bb_d'] / 2 - 2.6)), 1.3, material=DARK, seg=12)
+# cable guide under the BB shell: block with two real grooves (profile in the Y-Z plane, 22 mm long in X)
+GUIDE = [(-13, 1.5), (-13, -1.5)]
+for gy in (-6, 6):
+    GUIDE += [(gy - 1.3 * math.cos(math.radians(a)), -1.5 + 1.3 * math.sin(math.radians(a))) for a in range(0, 181, 20)]
+GUIDE += [(13, -1.5), (13, 1.5)]
+flat_part('bb_cable_guide', [GUIDE], Vector((0, 0, -P['bb_d'] / 2 - 1.0)), Y, Vector((0, 0, 1)), 11.0)
 
 # fork + headset ---------------------------------------------------------------
 # DirectDrive unicrown fork. Catalogue 1990 (p. 8): Cr-Mo steerer and blades, blades bent with a large
@@ -487,12 +602,12 @@ def blade_sec(s):   # (fore-aft, lateral) semi-axes of the oval blade
             F['blade_top'][1] + (F['blade_end'][1] - F['blade_top'][1]) * k)
 
 
-cyl('fork_steerer', fk(A2C - 32), HT_T + ht_up * 23, F['steerer_d'] / 2)
-cyl('fork_steerer_thread', HT_T + ht_up * 23, HT_T + ht_up * 27, F['steerer_d'] / 2, material=BARE)
-cyl('fork_steerer_bore', HT_T + ht_up * 26.5, HT_T + ht_up * 27.1, F['steerer_d'] / 2 - 2.6, material=DARK)
+STEERER_BORE = F['steerer_d'] / 2 - 1.8               # ESTIMATED wall
+pipe('fork_steerer', [fk(A2C + 0.5), HT_T + ht_up * 23], F['steerer_d'] / 2, STEERER_BORE, caps=(True, False))
+pipe('fork_steerer_thread', [HT_T + ht_up * 23, HT_T + ht_up * 27], F['steerer_d'] / 2, STEERER_BORE, material=BARE, caps=(False, True))
+disc('fork_steerer_floor', fk(A2C + 0.5), ht_up, STEERER_BORE)   # the bore ends where the steerer meets the crown
 cyl('fork_crown_sleeve', fk(A2C - 33), fk(A2C), 17.0)
-cyl('fork_crown_boss', fk(A2C - 24, 12), fk(A2C - 24, 18.5), 5.0, seg=20)          # threaded boss at the front of the crown
-cyl('fork_crown_boss_hole', fk(A2C - 24, 18.2), fk(A2C - 24, 18.6), 2.6, material=DARK, seg=16)
+blind_pipe('fork_crown_boss', fk(A2C - 24, 12), fk(A2C - 24, 20.0), 5.0, 2.6, 2.8, seg=20)   # threaded boss at the front of the crown
 FRONT_DO = [(5, -16), (5, -2), (4.3, 2.5), (2.5, 4.3), (0, 5), (-2.5, 4.3), (-4.3, 2.5), (-5, -2), (-5, -16), (-10, -17), (-14, -8),
             (-14, 4), (-12, 14), (-11, 24), (-2, 27), (6, 22), (11, 12), (14, 2), (13, -10), (10, -17)]
 for s in (-1, 1):
@@ -512,8 +627,7 @@ for s in (-1, 1):
     end = fk(s_end, n_end, s * fdo_y)
     cyl(f'fork_dropout_plug_{s}', end - ht_up * 7, end + ht_up * 3, 8.2, seg=24)   # plug-in dropout shoulder
     ey = Vector((FA.x - 15, s * fdo_y, FA.z + 13))                                 # eyelet behind the dropout
-    cyl(f'fork_eyelet_{s}', ey - Y * 3, ey + Y * 3, 5.2, seg=20)
-    cyl(f'fork_eyelet_hole_{s}', ey - Y * 3.1, ey + Y * 3.1, 2.6, material=DARK, seg=16)
+    pipe(f'fork_eyelet_{s}', [ey - Y * 3, ey + Y * 3], 5.2, 2.6, seg=20)
     cu = bpy.data.curves.new(f'fork_dropout_{s}', 'CURVE')
     cu.dimensions = '2D'
     cu.fill_mode = 'BOTH'
@@ -539,14 +653,15 @@ for s in (-1, 1):
     bm.transform(Matrix.Translation(base + ht_fwd * 1.0) @ Matrix((ht_up, -Y, ht_fwd)).transposed().to_4x4())
     obj_from_bm(bm, f'fork_canti_plate_{s}', PAINT, smooth=False)
     cyl(f'fork_canti_base_{s}', base + ht_fwd * 3, base + ht_fwd * 6, 7.2, seg=24)
-    cyl(f'fork_canti_boss_{s}', base + ht_fwd * 5, base + ht_fwd * 29, 4.9, seg=24)
-    cyl(f'fork_canti_thread_{s}', base + ht_fwd * 29, base + ht_fwd * 29.4, 2.6, material=DARK, seg=16)
+    blind_pipe(f'fork_canti_boss_{s}', base + ht_fwd * 5, base + ht_fwd * 29, 4.9, 2.9, 12.0, seg=24)
 
-cyl('hs_crown_race', fk(A2C), fk(A2C + 3.5), rh - 0.5, material=HS)
-cyl('hs_lower_cup', fk(A2C + 3.5), HT_B, rh + 2.0, material=HS)
-cyl('hs_upper_cup', HT_T, HT_T + ht_up * 9, rh + 2.0, material=HS)
-cyl('hs_cone', HT_T + ht_up * 9, HT_T + ht_up * 15, rh - 1.0, material=HS)
-cyl('hs_locknut', HT_T + ht_up * 15, HT_T + ht_up * 23, rh + 0.5, material=HS, seg=8)
+# headset: rings around the steerer (no solid discs across the steerer bore)
+HS_BORE = F['steerer_d'] / 2 + 0.2
+pipe('hs_crown_race', [fk(A2C), fk(A2C + 3.5)], rh - 0.5, HS_BORE, material=HS, inner_material=HS)
+pipe('hs_lower_cup', [fk(A2C + 3.5), HT_B], rh + 2.0, HS_BORE, material=HS, inner_material=HS)
+pipe('hs_upper_cup', [HT_T, HT_T + ht_up * 9], rh + 2.0, HS_BORE, material=HS, inner_material=HS)
+pipe('hs_cone', [HT_T + ht_up * 9, HT_T + ht_up * 15], rh - 1.0, HS_BORE, material=HS, inner_material=HS)
+pipe('hs_locknut', [HT_T + ht_up * 15, HT_T + ht_up * 23], rh + 0.5, HS_BORE / math.cos(math.pi / 8), material=HS, inner_material=HS, seg=8)
 
 # welds (TIG beads) -----------------------------------------------------------
 UPZ = Vector((0, 0, 1))
@@ -704,6 +819,8 @@ if RENDER:
         'head_tube': (tuple(head + Vector((0.5, 0.3, 0.08))), head, 100),
         'down_tube': (tuple(mpt(BB.lerp(DT_F, 0.62)) + Vector((0.0, 0.55, 0.02))), mpt(BB.lerp(DT_F, 0.62)), 100),
         'fork': (tuple(mpt(fk(210)) + Vector((1.25, 0.4, 0.22))), mpt(fk(210)), 60),
+        'bb_shell': (tuple(mpt(BB) + Vector((0.05, 0.32, -0.04))), mpt(BB), 100),
+        'steerer_top': (tuple(mpt(HT_T) + Vector((0.07, 0.1, 0.3))), mpt(HT_T + ht_up * 20), 100),
     }
     for name, (loc, target, lens) in views.items():
         cam.location = loc
@@ -712,13 +829,5 @@ if RENDER:
         scene.render.filepath = os.path.join(ROOT, 'design', '3d', f'preview-{name}.png')
         bpy.ops.render.render(write_still=True)
         print('rendered', name)
-    # lightweight poster shown by the web viewer while the model loads
-    cam.location = (1.5, 1.9, 0.8)
-    cam.rotation_euler = (Vector((0, 0, 0)) - Vector((1.5, 1.9, 0.8))).to_track_quat('-Z', 'Y').to_euler()
-    cam_d.lens = 55
-    scene.render.resolution_x, scene.render.resolution_y = 1200, 750
-    scene.render.image_settings.file_format = 'JPEG'
-    scene.render.image_settings.quality = 80
-    scene.render.filepath = os.path.join(ROOT, 'public', 'models', 'stumpjumper-comp-1990-poster.jpg')
-    bpy.ops.render.render(write_still=True)
-    print('rendered poster')
+    # The web poster (public/models/stumpjumper-comp-1990-poster.jpg) is rendered separately, in the light studio shared
+    # with the other frames:  blender -b --factory-startup -P design/3d/make_poster.py -- public/models/stumpjumper-comp-1990.glb public/models/stumpjumper-comp-1990-poster.jpg
